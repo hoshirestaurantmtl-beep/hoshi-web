@@ -556,6 +556,18 @@ h1, h2, h3, .logo {
 }
 .footer .logo { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
 
+.footer { position: relative; }
+.admin-link {
+  position: absolute;
+  right: 1.2rem;
+  bottom: 1rem;
+  color: #4a4a4a;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+.admin-link:hover { color: var(--dorado); }
+
 /* ===== Responsive ===== */
 @media (max-width: 760px) {
   .nav-toggle { display: block; }
