@@ -1,5 +1,8 @@
 // ===== Hoshi 星 — Interactivité / Interactivity =====
 
+// ⚙️ Take-out : mettre à true pour réactiver la commande en ligne
+const TAKEOUT_ENABLED = false;
+
 // ---- Traductions FR / EN ----
 const i18n = {
   fr: {
@@ -375,6 +378,7 @@ function buildSection(sec, lang) {
       });
       actions.appendChild(pbtn);
     }
+    if (TAKEOUT_ENABLED) {
     const btn = document.createElement("button");
     btn.className = "add-btn"; btn.type = "button"; btn.textContent = "+";
     btn.setAttribute("aria-label", "Ajouter / Add");
@@ -386,6 +390,7 @@ function buildSection(sec, lang) {
       setTimeout(() => document.getElementById("cart").classList.remove("pulse"), 400);
     });
     actions.appendChild(btn);
+    }
     li.appendChild(actions);
     ul.appendChild(li);
   });
@@ -505,6 +510,13 @@ document.getElementById("sendOrder").addEventListener("click", () => {
     `mailto:${ORDER_EMAIL}?subject=${encodeURIComponent(dict.mail_subject)}&body=${encodeURIComponent(body)}`;
   formMsg.textContent = dict.form_ok(name);
 });
+
+if (!TAKEOUT_ENABLED) {
+  const navCart = document.querySelector(".nav-cart");
+  if (navCart) navCart.parentElement.style.display = "none";
+  const cmd = document.getElementById("commande");
+  if (cmd) cmd.style.display = "none";
+}
 
 renderMenus(currentLang);
 renderCart();
