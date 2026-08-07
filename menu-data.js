@@ -26,7 +26,7 @@ const MENU_DATA = {
                 "fr": "Boulette de porc haché panée — 3 mcx : 13 $",
                 "en": "Breaded pork meatball cutlet — 3 pcs: $13"
               },
-              "price": 1000
+              "price": 10
             },
             {
               "id": "e2",
