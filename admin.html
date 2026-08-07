@@ -80,9 +80,9 @@
   <div class="wrap hidden" id="panel">
     <div class="hint">
       <strong>Comment ça marche :</strong> modifiez les prix, plats et menus ci-dessous, puis cliquez sur
-      <strong>« Télécharger menu-data.js »</strong>. Remplacez le fichier <code>menu-data.js</code> du site par
-      celui téléchargé — le site affichera le nouveau menu immédiatement. Le bouton « Aperçu » montre vos
-      changements dans cet ordinateur sans les publier.
+      <strong>« 🚀 Publier en ligne »</strong> — le site se met à jour tout seul en ~1 minute.
+      La première fois, le panneau vous demandera un <em>token GitHub</em> (voir instructions fournies).
+      « Aperçu local » montre vos changements sans les publier ; « Télécharger » reste disponible en secours.
     </div>
 
     <div class="toolbar">
@@ -95,9 +95,10 @@
   </div>
 
   <div id="saveBar" class="hidden">
-    <span class="note">Les changements ne sont publiés qu'après remplacement de menu-data.js sur le site.</span>
+    <span class="note">« Publier en ligne » met à jour le site automatiquement via GitHub + Vercel.</span>
     <span id="savedMsg"></span>
-    <button class="btn btn-gold" id="downloadBtn">⬇ Télécharger menu-data.js</button>
+    <button class="btn btn-ghost" id="downloadBtn" style="color:#fff; border-color:#666;">⬇ Télécharger</button>
+    <button class="btn btn-gold" id="publishBtn">🚀 Publier en ligne</button>
   </div>
 
   <script src="menu-data.js"></script>
