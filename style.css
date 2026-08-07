@@ -116,6 +116,12 @@ h1, h2, h3, .logo {
   width: 140px;
   height: auto;
   display: block;
+}
+
+.footer a:has(.footer-logo-img),
+.footer-logo-link {
+  display: block;
+  width: 140px;
   margin: 0 auto 0.6rem;
 }
 
