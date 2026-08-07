@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoshi — Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+JP:wght@600&display=swap" rel="stylesheet">
+  <style>
+    :root { --rojo:#b32428; --negro:#141414; --crema:#faf7f2; --dorado:#c9a227; --gris:#6b6b6b; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:var(--crema); color:var(--negro); }
+    header { background:var(--negro); color:#fff; padding:1rem 5%; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+    header h1 { font-family:'Noto Serif JP',serif; font-size:1.2rem; }
+    header h1 span { color:var(--dorado); }
+    .wrap { max-width:1000px; margin:0 auto; padding:2rem 1rem 5rem; }
+
+    /* Login */
+    #loginBox { max-width:360px; margin:12vh auto; background:#fff; padding:2rem; border-radius:8px; box-shadow:0 6px 24px rgba(0,0,0,0.1); text-align:center; }
+    #loginBox h2 { font-family:'Noto Serif JP',serif; margin-bottom:1rem; }
+    #loginBox input { width:100%; padding:0.7rem; border:1px solid #ccc; border-radius:5px; margin-bottom:0.8rem; font-size:1rem; }
+    #loginErr { color:var(--rojo); font-size:0.85rem; min-height:1.2em; margin-top:0.4rem; }
+
+    .btn { background:var(--rojo); color:#fff; border:none; border-radius:5px; padding:0.65rem 1.4rem; font-size:0.95rem; cursor:pointer; font-family:'Inter',sans-serif; }
+    .btn:hover { background:#8f1c20; }
+    .btn-gold { background:var(--dorado); }
+    .btn-gold:hover { background:#a8861d; }
+    .btn-ghost { background:transparent; color:var(--negro); border:1px solid #bbb; }
+    .btn-ghost:hover { background:#eee; }
+    .btn-sm { padding:0.3rem 0.7rem; font-size:0.8rem; }
+
+    .toolbar { display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:1.5rem; align-items:center; }
+    .hint { background:#fff8e6; border:1px solid #ecd9a0; border-radius:6px; padding:0.8rem 1rem; font-size:0.85rem; margin-bottom:1.5rem; line-height:1.5; }
+
+    .menu-block { background:#fff; border:1px solid #e5ddcc; border-radius:8px; margin-bottom:1.6rem; overflow:hidden; }
+    .menu-block > .mb-head { background:var(--negro); color:#fff; padding:0.7rem 1rem; display:flex; gap:0.6rem; align-items:center; flex-wrap:wrap; }
+    .mb-head input { background:#2a2a2a; color:#fff; border:1px solid #444; border-radius:4px; padding:0.35rem 0.6rem; font-size:0.9rem; }
+    .sec-block { border-top:1px solid #eee4d0; padding:0.9rem 1rem; }
+    .sec-head { display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; margin-bottom:0.6rem; }
+    .sec-head input { border:1px solid #d8cfba; border-radius:4px; padding:0.35rem 0.55rem; font-size:0.9rem; }
+    .kanji-in { width:90px; font-family:'Noto Serif JP',serif; }
+
+    table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+    th { text-align:left; color:var(--gris); font-weight:500; padding:0.3rem 0.4rem; border-bottom:1px solid #e8dfca; }
+    td { padding:0.25rem 0.4rem; border-bottom:1px solid #f3ecdb; vertical-align:top; }
+    td input { width:100%; border:1px solid #ddd2b8; border-radius:4px; padding:0.3rem 0.45rem; font-size:0.84rem; }
+    td.price-td { width:80px; }
+    td.photo-td { width:150px; }
+    td.del-td { width:36px; text-align:center; }
+    .del-x { background:none; border:none; color:var(--rojo); cursor:pointer; font-size:1rem; }
+    .row-actions { margin-top:0.5rem; display:flex; gap:0.5rem; flex-wrap:wrap; }
+
+    #saveBar { position:fixed; bottom:0; left:0; right:0; background:var(--negro); padding:0.8rem 5%; display:flex; gap:0.8rem; align-items:center; justify-content:flex-end; flex-wrap:wrap; }
+    #saveBar .note { color:#bbb; font-size:0.8rem; margin-right:auto; }
+    #savedMsg { color:#7dc47d; font-size:0.85rem; }
+    .hidden { display:none !important; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Hoshi <span>星</span> — Panneau d'administration</h1>
+    <div>
+      <a href="index.html" class="btn btn-ghost btn-sm" style="text-decoration:none; color:#fff; border-color:#666;">← Voir le site</a>
+      <button class="btn btn-sm hidden" id="logoutBtn">Déconnexion</button>
+    </div>
+  </header>
+
+  <!-- LOGIN -->
+  <div id="loginBox">
+    <h2>Connexion</h2>
+    <p style="font-size:0.85rem; color:var(--gris); margin-bottom:1rem;">Entrez le mot de passe administrateur.</p>
+    <input type="password" id="pwd" placeholder="Mot de passe" autocomplete="current-password">
+    <button class="btn" id="loginBtn" style="width:100%;">Entrer</button>
+    <p id="loginErr"></p>
+  </div>
+
+  <!-- PANEL -->
+  <div class="wrap hidden" id="panel">
+    <div class="hint">
+      <strong>Comment ça marche :</strong> modifiez les prix, plats et menus ci-dessous, puis cliquez sur
+      <strong>« Télécharger menu-data.js »</strong>. Remplacez le fichier <code>menu-data.js</code> du site par
+      celui téléchargé — le site affichera le nouveau menu immédiatement. Le bouton « Aperçu » montre vos
+      changements dans cet ordinateur sans les publier.
+    </div>
+
+    <div class="toolbar">
+      <button class="btn btn-gold" id="addMenuBtn">+ Nouveau menu</button>
+      <button class="btn btn-ghost" id="previewBtn">Aperçu local</button>
+      <button class="btn btn-ghost" id="resetBtn">Annuler les modifications</button>
+    </div>
+
+    <div id="menusRoot"></div>
+  </div>
+
+  <div id="saveBar" class="hidden">
+    <span class="note">Les changements ne sont publiés qu'après remplacement de menu-data.js sur le site.</span>
+    <span id="savedMsg"></span>
+    <button class="btn btn-gold" id="downloadBtn">⬇ Télécharger menu-data.js</button>
+  </div>
+
+  <script src="menu-data.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

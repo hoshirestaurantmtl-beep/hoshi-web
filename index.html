@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoshi 星 | Restaurant Japonais — Montréal</title>
+  <meta name="description" content="Hoshi — Restaurant japonais à Chinatown Montréal. Japanese restaurant in Chinatown Montreal.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Serif+JP:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header" id="accueil">
+    <nav class="nav">
+      <a href="#accueil" class="logo">Hoshi</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#menu" data-i18n="nav_menu">Menu</a></li>
+        <li><a href="#midi" data-i18n="nav_midi">Midi</a></li>
+        <li><a href="#apropos" data-i18n="nav_about">À propos</a></li>
+        <li><a href="#horaires" data-i18n="nav_hours">Horaires</a></li>
+        <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+        <li><a href="#cart" class="btn btn-small nav-cart">🥡 <span data-i18n="nav_takeout">Take-out</span> <span class="cart-count" id="cartCount" hidden>0</span></a></li>
+        <li>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <button id="btnFr" class="lang-btn active">FR</button>
+            <span class="lang-sep">/</span>
+            <button id="btnEn" class="lang-btn">EN</button>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="hero">
+      <img src="img/logo.png" alt="Hoshi Restaurant" class="hero-logo-img">
+      <h1 class="visually-hidden">Hoshi Restaurant</h1>
+      <p class="hero-sub" data-i18n="hero_sub">Restaurant japonais au cœur du Quartier chinois de Montréal.</p>
+      <div class="hero-actions">
+        <a href="#menu" class="btn" data-i18n="hero_btn_menu">Voir le menu</a>
+        <a href="https://www.instagram.com/hoshirestaurantmtl/" target="_blank" rel="noopener" class="btn btn-outline">Instagram</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- MENU -->
+    <section class="section" id="menu">
+      <h2><span class="jp">お品書き</span> <span data-i18n="menu_title">Notre Menu</span></h2>
+      <p class="section-intro" data-i18n="menu_intro">Préparé à la minute avec des ingrédients frais.</p>
+
+      <div class="menu-book" id="menuBook"></div>
+
+      <p class="menu-note" data-i18n="menu_note">* Menu et prix à titre indicatif — sujets à changement.</p>
+    </section>
+
+
+    <!-- MENU DU MIDI -->
+    <section class="section section-alt" id="midi">
+      <h2><span class="jp">昼のメニュー</span> <span data-i18n="cat_lunch">Menu du Midi — Lunch</span></h2>
+      <p class="section-intro" id="lunchNote"></p>
+      <div class="menu-book lunch-book" id="lunchBook"></div>
+      <p class="menu-note" id="lunchFootnote"></p>
+    </section>
+
+    <div id="extraMenus"></div>
+
+    <!-- GALERIE -->
+    <section class="section" id="galerie">
+      <h2><span class="jp">写真</span> <span data-i18n="gallery_title">Galerie</span></h2>
+      <div class="gallery">
+        <img src="img/tendon-katsu.jpg" alt="Tendon et katsu don">
+        <img src="img/tempura-don.jpg" alt="Tempura don">
+        <img src="img/salmon-don.jpg" alt="Donburi de saumon">
+      </div>
+    </section>
+
+    <!-- À PROPOS -->
+    <section class="section section-alt" id="apropos">
+      <h2><span class="jp">私たち</span> <span data-i18n="about_title">À propos</span></h2>
+      <div class="about">
+        <p class="about-kanji">心</p>
+        <div>
+          <p data-i18n="about_p1"><strong>Hoshi</strong> (星, « étoile » en japonais) est un restaurant japonais situé au cœur du Quartier chinois de Montréal.</p>
+          <p data-i18n="about_p2">Chaque plat est préparé à la minute, avec le soin et le respect propres à la cuisine japonaise : <em>omotenashi</em>, l'hospitalité qui vient du cœur.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HORAIRES -->
+    <section class="section" id="horaires">
+      <h2><span class="jp">営業時間</span> <span data-i18n="hours_title">Horaires</span></h2>
+      <div class="hours">
+        <div class="hours-row"><span data-i18n="h_mon">Lundi</span><span class="closed" data-i18n="h_closed">Fermé</span></div>
+        <div class="hours-row"><span data-i18n="h_tuefri">Mardi – Vendredi</span><span>11 h 30 – 21 h 00</span></div>
+        <div class="hours-row"><span data-i18n="h_sat">Samedi</span><span>12 h 00 – 22 h 00</span></div>
+        <div class="hours-row"><span data-i18n="h_sun">Dimanche</span><span>12 h 00 – 20 h 00</span></div>
+      </div>
+      <p class="menu-note" data-i18n="hours_note">* Horaires à confirmer — consultez notre Instagram.</p>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section section-alt" id="contact">
+      <h2><span class="jp">連絡</span> <span data-i18n="contact_title">Contact</span></h2>
+      <div class="contact-solo">
+        <div class="contact-info">
+          <p>📍 <strong data-i18n="c_addr_label">Adresse :</strong> 14 R. de la Gauchetière E, Montréal, QC</p>
+          <p>🏮 <span data-i18n="c_area">Quartier chinois / Chinatown — Montréal</span></p>
+          <p>📷 <strong>Instagram :</strong> <a href="https://www.instagram.com/hoshirestaurantmtl/" target="_blank" rel="noopener">@hoshirestaurantmtl</a></p>
+          <div class="map-wrap">
+            <iframe
+              title="Hoshi — Google Maps"
+              src="https://www.google.com/maps?q=14+Rue+de+la+Gaucheti%C3%A8re+E,+Montr%C3%A9al,+QC&output=embed"
+              loading="lazy" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMMANDE TAKE-OUT -->
+    <section class="section" id="commande">
+      <h2><span class="jp">お持ち帰り</span> <span data-i18n="order_sect">Commande Take-out</span></h2>
+      <p class="section-intro" data-i18n="order_sect_intro">Vérifiez votre commande, puis passez au paiement.</p>
+      <div class="order-wrap">
+        <div class="contact-form cart" id="cart">
+          <h3 data-i18n="order_title">Votre commande 🥡</h3>
+          <p class="cart-hint" data-i18n="order_hint">Ajoutez des plats depuis le menu avec le bouton « + ».</p>
+          <ul class="cart-list" id="cartList"></ul>
+          <div class="totals">
+            <p><span data-i18n="order_subtotal">Sous-total :</span> <span id="cartSubtotal">0 $</span></p>
+            <p><span>TPS (5 %) :</span> <span id="cartTps">0 $</span></p>
+            <p><span>TVQ (9,975 %) :</span> <span id="cartTvq">0 $</span></p>
+            <p class="cart-total"><span data-i18n="order_total">Total :</span> <strong id="cartTotal">0 $</strong></p>
+          </div>
+          <input type="text" id="orderName" data-i18n-ph="ph_name" placeholder="Votre nom" required>
+          <input type="tel" id="orderPhone" data-i18n-ph="ph_phone" placeholder="Téléphone" required>
+          <label class="cart-label" data-i18n="order_time_label">Heure de ramassage :</label>
+          <input type="time" id="orderTime" required>
+
+          <div class="pay-box">
+            <h4 data-i18n="pay_title">Paiement</h4>
+            <label class="pay-opt">
+              <input type="radio" name="pay" value="pickup" checked>
+              <span data-i18n="pay_pickup">Payer au ramassage (comptant ou carte)</span>
+            </label>
+            <label class="pay-opt pay-disabled">
+              <input type="radio" name="pay" value="online" disabled>
+              <span data-i18n="pay_online">Paiement en ligne — bientôt disponible</span>
+            </label>
+          </div>
+
+          <button type="button" class="btn" id="sendOrder" data-i18n="order_btn">Confirmer la commande</button>
+          <p class="form-msg" id="formMsg"></p>
+          <p class="menu-note" data-i18n="order_note">* Sans livraison — venez chercher votre commande au restaurant.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <img src="img/logo.png" alt="Hoshi Restaurant" class="footer-logo-img">
+    <p data-i18n="footer_txt">© 2026 Hoshi — Restaurant japonais, Montréal. Tous droits réservés.</p>
+  </footer>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox-close" id="lightboxClose" aria-label="Fermer">✕</button>
+    <figure>
+      <img id="lightboxImg" src="" alt="">
+      <figcaption id="lightboxCap"></figcaption>
+    </figure>
+  </div>
+
+  <script src="menu-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
