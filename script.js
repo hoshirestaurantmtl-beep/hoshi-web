@@ -292,14 +292,122 @@ const i18n = {
     mail_name: "Name",
     mail_phone: "Phone",
     footer_txt: "© 2026 Hoshi — Japanese restaurant, Montreal. All rights reserved."
+  },
+  ja: {
+    nav_menu: "メニュー",
+    nav_midi: "ランチ",
+    nav_about: "私たちについて",
+    nav_hours: "営業時間",
+    nav_contact: "お問い合わせ",
+    nav_takeout: "テイクアウト",
+    announce_txt: "🏮 店内が狭いため、ご予約は承っておりません — 先着順でのご案内となります。",
+    hero_sub: "モントリオール・チャイナタウンの中心にある日本食レストラン。",
+    hero_btn_menu: "メニューを見る",
+    menu_title: "お品書き",
+    menu_intro: "新鮮な食材で、一品ずつお作りします。",
+    cat_lunch: "ランチメニュー",
+    menu_note: "* メニューと価格は変更される場合があります。",
+    gallery_title: "ギャラリー",
+    about_title: "私たちについて",
+    about_p1: "<strong>Hoshi</strong>（星）は、モントリオールのチャイナタウンの中心にある日本食レストランです。",
+    about_p2: "一品一品、心を込めて丁寧にお作りしています。<em>おもてなし</em>の心を大切に。",
+    hours_title: "営業時間",
+    h_monwed: "月曜〜水曜",
+    h_thu: "木曜",
+    h_fri: "金曜",
+    h_sat: "土曜",
+    h_sun: "日曜",
+    contact_title: "お問い合わせ",
+    c_addr_label: "住所：",
+    c_area: "チャイナタウン — モントリオール",
+    c_maps: "Google マップで見る",
+    order_sect: "テイクアウト注文",
+    order_sect_intro: "ご注文内容を確認し、お支払いへお進みください。",
+    order_title: "ご注文 🥡",
+    order_subtotal: "小計：",
+    pay_title: "お支払い",
+    pay_pickup: "受け取り時にお支払い（現金・カード）",
+    pay_online: "オンライン決済 — 近日対応",
+    mail_pay: "お支払い",
+    order_hint: "メニューの「+」ボタンで料理を追加してください。",
+    order_total: "合計：",
+    order_time_label: "受け取り時間：",
+    order_btn: "注文を確定",
+    order_note: "* 配達は行っておりません — 店舗でお受け取りください。",
+    order_empty: "カートは空です。",
+    order_missing: "お名前・電話番号・受け取り時間をご記入ください。",
+    ph_name: "お名前",
+    ph_phone: "電話番号",
+    form_ok: (n) => `${n}様、ありがとうございます！メールアプリで「送信」を押してください。🌟`,
+    mail_subject: "テイクアウト注文 — Hoshi",
+    mail_pickup: "受け取り時間",
+    mail_name: "お名前",
+    mail_phone: "電話番号",
+    footer_txt: "© 2026 Hoshi — 日本食レストラン、モントリオール。"
+  },
+  ko: {
+    nav_menu: "메뉴",
+    nav_midi: "런치",
+    nav_about: "소개",
+    nav_hours: "영업시간",
+    nav_contact: "연락처",
+    nav_takeout: "테이크아웃",
+    announce_txt: "🏮 매장이 협소하여 예약을 받지 않습니다 — 선착순으로 안내해 드립니다.",
+    hero_sub: "몬트리올 차이나타운 중심에 있는 일식 레스토랑.",
+    hero_btn_menu: "메뉴 보기",
+    menu_title: "메뉴",
+    menu_intro: "신선한 재료로 주문 즉시 조리합니다.",
+    cat_lunch: "런치 메뉴",
+    menu_note: "* 메뉴와 가격은 변경될 수 있습니다.",
+    gallery_title: "갤러리",
+    about_title: "소개",
+    about_p1: "<strong>Hoshi</strong>(星, 일본어로 '별')는 몬트리올 차이나타운 중심에 있는 일식 레스토랑입니다.",
+    about_p2: "모든 요리는 주문 즉시 정성껏 준비합니다. 마음을 담은 환대, <em>오모테나시</em>.",
+    hours_title: "영업시간",
+    h_monwed: "월요일–수요일",
+    h_thu: "목요일",
+    h_fri: "금요일",
+    h_sat: "토요일",
+    h_sun: "일요일",
+    contact_title: "연락처",
+    c_addr_label: "주소:",
+    c_area: "차이나타운 — 몬트리올",
+    c_maps: "Google 지도에서 보기",
+    order_sect: "테이크아웃 주문",
+    order_sect_intro: "주문 내용을 확인한 후 결제로 진행하세요.",
+    order_title: "주문 내역 🥡",
+    order_subtotal: "소계:",
+    pay_title: "결제",
+    pay_pickup: "픽업 시 결제 (현금 또는 카드)",
+    pay_online: "온라인 결제 — 준비 중",
+    mail_pay: "결제",
+    order_hint: "메뉴에서 「+」 버튼으로 요리를 추가하세요.",
+    order_total: "합계:",
+    order_time_label: "픽업 시간:",
+    order_btn: "주문 확정",
+    order_note: "* 배달은 하지 않습니다 — 매장에서 픽업해 주세요.",
+    order_empty: "장바구니가 비어 있습니다.",
+    order_missing: "이름, 전화번호, 픽업 시간을 입력해 주세요.",
+    ph_name: "이름",
+    ph_phone: "전화번호",
+    form_ok: (n) => `${n}님, 감사합니다! 메일 앱에서 '보내기'를 눌러 주세요. 🌟`,
+    mail_subject: "테이크아웃 주문 — Hoshi",
+    mail_pickup: "픽업 시간",
+    mail_name: "이름",
+    mail_phone: "전화번호",
+    footer_txt: "© 2026 Hoshi — 일식 레스토랑, 몬트리올."
   }
 };
 
 let currentLang = "fr";
 
+function dictFor(lang) {
+  return Object.assign({}, i18n.en, i18n[lang] || {});
+}
+
 function setLang(lang) {
   currentLang = lang;
-  const dict = i18n[lang];
+  const dict = dictFor(lang);
   document.documentElement.lang = lang;
 
   document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -311,15 +419,15 @@ function setLang(lang) {
     if (dict[key] !== undefined) el.placeholder = dict[key];
   });
 
-  document.getElementById("btnFr").classList.toggle("active", lang === "fr");
-  document.getElementById("btnEn").classList.toggle("active", lang === "en");
+  document.querySelectorAll("[data-setlang]").forEach(b =>
+    b.classList.toggle("active", b.getAttribute("data-setlang") === lang));
 
   renderMenus(lang);
   if (typeof renderCart === "function" && cartList) renderCart();
 }
 
-document.getElementById("btnFr").addEventListener("click", () => setLang("fr"));
-document.getElementById("btnEn").addEventListener("click", () => setLang("en"));
+document.querySelectorAll("[data-setlang]").forEach(b =>
+  b.addEventListener("click", () => setLang(b.getAttribute("data-setlang"))));
 
 // ---- Menu mobile (hamburger) ----
 const navToggle = document.getElementById("navToggle");
@@ -358,15 +466,15 @@ function fmtPrice(p) {
 function buildSection(sec, lang) {
   const div = document.createElement("div");
   div.className = "menu-section";
-  let inner = `<h3 class="menu-cat"><span class="cat-kanji">${sec.kanji || ""}</span> <span>${sec.title[lang]}</span></h3>`;
-  if (sec.note) inner += `<p class="mi-desc">${sec.note[lang]}</p>`;
+  let inner = `<h3 class="menu-cat"><span class="cat-kanji">${sec.kanji || ""}</span> <span>${sec.title[lang] || sec.title.en}</span></h3>`;
+  if (sec.note) inner += `<p class="mi-desc">${sec.note[lang] || sec.note.en}</p>`;
   inner += '<ul class="menu-list"></ul>';
   div.innerHTML = inner;
   const ul = div.querySelector("ul");
   sec.items.forEach(it => {
     const li = document.createElement("li");
-    li.innerHTML = `<div class="mi-head"><span>${it.name[lang]}</span><span class="dots"></span><span class="price">${fmtPrice(it.price)}</span></div>` +
-      (it.desc ? `<p class="mi-desc">${it.desc[lang]}</p>` : "");
+    li.innerHTML = `<div class="mi-head"><span>${it.name[lang] || it.name.en || it.name.fr}</span><span class="dots"></span><span class="price">${fmtPrice(it.price)}</span></div>` +
+      (it.desc ? `<p class="mi-desc">${it.desc[lang] || it.desc.en || it.desc.fr || ""}</p>` : "");
     const actions = document.createElement("span");
     actions.className = "item-actions";
     if (it.photo) {
@@ -375,7 +483,7 @@ function buildSection(sec, lang) {
       pbtn.setAttribute("aria-label", "Photo");
       pbtn.addEventListener("click", () => {
         lightboxImg.src = it.photo;
-        lightboxCap.textContent = it.name[currentLang];
+        lightboxCap.textContent = it.name[currentLang] || it.name.en || it.name.fr;
         lightbox.hidden = false;
       });
       actions.appendChild(pbtn);
@@ -409,15 +517,15 @@ function renderMenus(lang) {
     if (m.id === "principal") {
       m.sections.forEach(sec => menuBook.appendChild(buildSection(sec, lang)));
     } else if (m.id === "midi") {
-      document.getElementById("lunchNote").textContent = m.note ? m.note[lang] : "";
-      document.getElementById("lunchFootnote").textContent = m.footnote ? m.footnote[lang] : "";
+      document.getElementById("lunchNote").textContent = m.note ? (m.note[lang] || m.note.en) : "";
+      document.getElementById("lunchFootnote").textContent = m.footnote ? (m.footnote[lang] || m.footnote.en) : "";
       m.sections.forEach(sec => lunchBook.appendChild(buildSection(sec, lang)));
     } else {
       // menus supplémentaires créés depuis le panneau admin
       const section = document.createElement("section");
       section.className = "section" + (i % 2 ? " section-alt" : "");
       section.id = "menu-" + m.id;
-      section.innerHTML = `<h2><span class="jp">お品書き</span> <span>${m.title[lang]}</span></h2>` +
+      section.innerHTML = `<h2><span class="jp">お品書き</span> <span>${m.title[lang] || m.title.en}</span></h2>` +
         (m.note ? `<p class="section-intro">${m.note[lang]}</p>` : "");
       const book = document.createElement("div");
       book.className = "menu-book lunch-book";
@@ -426,7 +534,7 @@ function renderMenus(lang) {
       if (m.footnote) {
         const fn = document.createElement("p");
         fn.className = "menu-note";
-        fn.textContent = m.footnote[lang];
+        fn.textContent = m.footnote[lang] || m.footnote.en;
         section.appendChild(fn);
       }
       extra.appendChild(section);
@@ -436,11 +544,11 @@ function renderMenus(lang) {
 
 function itemName(key) {
   const it = ITEM_INDEX[key];
-  return it ? it.name[currentLang] : key;
+  return it ? (it.name[currentLang] || it.name.en || it.name.fr) : key;
 }
 
 function renderCart() {
-  const dict = i18n[currentLang];
+  const dict = dictFor(currentLang);
   cartList.innerHTML = "";
   const items = Object.values(cart).filter(it => it.qty > 0);
   const count = items.reduce((s, it) => s + it.qty, 0);
@@ -481,7 +589,7 @@ function renderCart() {
 }
 
 document.getElementById("sendOrder").addEventListener("click", () => {
-  const dict = i18n[currentLang];
+  const dict = dictFor(currentLang);
   const name = document.getElementById("orderName").value.trim();
   const phone = document.getElementById("orderPhone").value.trim();
   const time = document.getElementById("orderTime").value;
