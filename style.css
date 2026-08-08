@@ -576,7 +576,12 @@ h1, h2, h3, .logo {
 
 /* ===== Responsive ===== */
 @media (max-width: 760px) {
+  .announce { position: static; }
+  .nav { top: 0; }
   .nav-toggle { display: block; }
+  .nav { gap: 0.6rem; }
+  .lang-switch { order: 2; }
+  .nav-toggle { order: 3; }
   .nav-links {
     display: none;
     position: absolute;
