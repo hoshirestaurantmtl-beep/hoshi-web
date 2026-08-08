@@ -3,6 +3,9 @@
 // ⚙️ Take-out : mettre à true pour réactiver la commande en ligne
 const TAKEOUT_ENABLED = false;
 
+// ⚙️ Photos : mettre à true quand les vraies photos des plats seront prêtes
+const PHOTOS_ENABLED = false;
+
 // ---- Traductions FR / EN ----
 const i18n = {
   fr: {
@@ -493,7 +496,7 @@ function buildSection(sec, lang) {
       (it.desc ? `<p class="mi-desc">${it.desc[lang] || it.desc.en || it.desc.fr || ""}</p>` : "");
     const actions = document.createElement("span");
     actions.className = "item-actions";
-    if (it.photo) {
+    if (PHOTOS_ENABLED && it.photo) {
       const pbtn = document.createElement("button");
       pbtn.className = "photo-btn"; pbtn.type = "button"; pbtn.textContent = "📷";
       pbtn.setAttribute("aria-label", "Photo");
@@ -636,6 +639,11 @@ document.getElementById("sendOrder").addEventListener("click", () => {
     `mailto:${ORDER_EMAIL}?subject=${encodeURIComponent(dict.mail_subject)}&body=${encodeURIComponent(body)}`;
   formMsg.textContent = dict.form_ok(name);
 });
+
+if (!PHOTOS_ENABLED) {
+  const gal = document.getElementById("galerie");
+  if (gal) gal.style.display = "none";
+}
 
 if (!TAKEOUT_ENABLED) {
   const navCart = document.querySelector(".nav-cart");
