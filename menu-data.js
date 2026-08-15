@@ -1,5 +1,5 @@
 // ===== Hoshi — Données du menu / Menu data =====
-// Fichier généré — FR/EN/JA/KO. Remplacez menu-data.js du site pour mettre à jour.
+// Fichier généré par admin.html — remplacez menu-data.js du site par ce fichier.
 const MENU_DATA = {
   "menus": [
     {
@@ -862,5 +862,8 @@ const MENU_DATA = {
         }
       ]
     }
-  ]
+  ],
+  "settings": {
+    "takeout": false
+  }
 };
