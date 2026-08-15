@@ -531,8 +531,7 @@ h1, h2, h3, .logo {
   padding: 0.9rem 1rem;
 }
 .pay-box h4 { margin-bottom: 0.5rem; }
-.pay-opt { display: flex; gap: 0.5rem; align-items: center; font-size: 0.92rem; margin-bottom: 0.4rem; cursor: pointer; }
-.pay-disabled { color: #b5ab99; cursor: not-allowed; }
+.pay-note { font-size: 0.9rem; color: var(--gris); }
 
 .cart-total { font-size: 1.05rem; text-align: right; }
 .cart-label { font-size: 0.85rem; color: var(--gris); margin-bottom: -0.5rem; }

@@ -1,7 +1,7 @@
 // ===== Hoshi 星 — Interactivité / Interactivity =====
 
 // ⚙️ Take-out : mettre à true pour réactiver la commande en ligne
-const TAKEOUT_ENABLED = true;
+const TAKEOUT_ENABLED = false;
 
 // ⚙️ Photos : mettre à true quand les vraies photos des plats seront prêtes
 const PHOTOS_ENABLED = false;
@@ -137,15 +137,14 @@ const i18n = {
     order_title: "Votre commande 🥡",
     order_subtotal: "Sous-total :",
     pay_title: "Paiement",
-    pay_pickup: "Payer au ramassage (comptant ou carte)",
-    pay_online: "Payer en ligne maintenant (carte)",
+    pay_online_only: "💳 Paiement sécurisé en ligne — votre commande est confirmée une fois payée.",
     pay_wait: "Redirection vers le paiement sécurisé…",
     pay_err: "Erreur de paiement — réessayez ou choisissez « payer au ramassage ».",
     mail_pay: "Paiement",
     order_hint: "Ajoutez des plats depuis le menu avec le bouton « + ».",
     order_total: "Total :",
     order_time_label: "Heure de ramassage :",
-    order_btn: "Confirmer la commande",
+    order_btn: "Payer et confirmer 💳",
     order_note: "* Sans livraison — venez chercher votre commande au restaurant.",
     order_empty: "Votre panier est vide.",
     order_missing: "Veuillez remplir votre nom, téléphone et l'heure de ramassage.",
@@ -287,15 +286,14 @@ const i18n = {
     order_title: "Your order 🥡",
     order_subtotal: "Subtotal:",
     pay_title: "Payment",
-    pay_pickup: "Pay at pickup (cash or card)",
-    pay_online: "Pay online now (card)",
+    pay_online_only: "💳 Secure online payment — your order is confirmed once paid.",
     pay_wait: "Redirecting to secure payment…",
     pay_err: "Payment error — try again or choose “pay at pickup”.",
     mail_pay: "Payment",
     order_hint: "Add dishes from the menu using the “+” button.",
     order_total: "Total:",
     order_time_label: "Pickup time:",
-    order_btn: "Confirm order",
+    order_btn: "Pay & confirm 💳",
     order_note: "* No delivery — pick up your order at the restaurant.",
     order_empty: "Your cart is empty.",
     order_missing: "Please fill in your name, phone and pickup time.",
@@ -345,15 +343,14 @@ const i18n = {
     order_title: "ご注文 🥡",
     order_subtotal: "小計：",
     pay_title: "お支払い",
-    pay_pickup: "受け取り時にお支払い（現金・カード）",
-    pay_online: "オンラインで支払う（カード）",
+    pay_online_only: "💳 安全なオンライン決済 — お支払い完了後に注文が確定します。",
     pay_wait: "安全な決済ページへ移動しています…",
     pay_err: "決済エラー — もう一度お試しいただくか、受け取り時支払いをお選びください。",
     mail_pay: "お支払い",
     order_hint: "メニューの「+」ボタンで料理を追加してください。",
     order_total: "合計：",
     order_time_label: "受け取り時間：",
-    order_btn: "注文を確定",
+    order_btn: "支払って注文を確定 💳",
     order_note: "* 配達は行っておりません — 店舗でお受け取りください。",
     order_empty: "カートは空です。",
     order_missing: "お名前・電話番号・受け取り時間をご記入ください。",
@@ -403,15 +400,14 @@ const i18n = {
     order_title: "주문 내역 🥡",
     order_subtotal: "소계:",
     pay_title: "결제",
-    pay_pickup: "픽업 시 결제 (현금 또는 카드)",
-    pay_online: "지금 온라인 결제 (카드)",
+    pay_online_only: "💳 안전한 온라인 결제 — 결제 완료 후 주문이 확정됩니다.",
     pay_wait: "안전한 결제 페이지로 이동 중…",
     pay_err: "결제 오류 — 다시 시도하거나 픽업 시 결제를 선택해 주세요.",
     mail_pay: "결제",
     order_hint: "메뉴에서 「+」 버튼으로 요리를 추가하세요.",
     order_total: "합계:",
     order_time_label: "픽업 시간:",
-    order_btn: "주문 확정",
+    order_btn: "결제 후 주문 확정 💳",
     order_note: "* 배달은 하지 않습니다 — 매장에서 픽업해 주세요.",
     order_empty: "장바구니가 비어 있습니다.",
     order_missing: "이름, 전화번호, 픽업 시간을 입력해 주세요.",
@@ -625,61 +621,27 @@ document.getElementById("sendOrder").addEventListener("click", async () => {
   if (items.length === 0) { formMsg.textContent = dict.order_empty; return; }
   if (!name || !phone || !time) { formMsg.textContent = dict.order_missing; return; }
 
-  const payMethod = document.querySelector('input[name="pay"]:checked')?.value || "pickup";
-  if (payMethod === "online") {
-    formMsg.textContent = dict.pay_wait;
-    try {
-      const resp = await fetch("/api/create-checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          items: items.map(it => ({ id: it.key, qty: it.qty })),
-          name, phone, time, lang: currentLang
-        })
-      });
-      const data = await resp.json();
-      if (resp.ok && data.url) { window.location.href = data.url; return; }
-      formMsg.textContent = dict.pay_err;
-    } catch (e) {
-      formMsg.textContent = dict.pay_err;
-    }
-    return;
+  formMsg.textContent = dict.pay_wait;
+  const btn = document.getElementById("sendOrder");
+  btn.disabled = true;
+  try {
+    const resp = await fetch("/api/create-checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        items: items.map(it => ({ id: it.key, qty: it.qty })),
+        name, phone, time, lang: currentLang
+      })
+    });
+    const data = await resp.json();
+    if (resp.ok && data.url) { window.location.href = data.url; return; }
+    formMsg.textContent = dict.pay_err;
+  } catch (e) {
+    formMsg.textContent = dict.pay_err;
+  } finally {
+    btn.disabled = false;
   }
-
-  let subtotal = 0;
-  const lines = items.map(it => {
-    subtotal += it.price * it.qty;
-    return `${it.qty} x ${itemName(it.key)} — ${(it.price * it.qty).toFixed(2)} $`;
-  });
-  const tps = subtotal * 0.05;
-  const tvq = subtotal * 0.09975;
-  const body =
-    `${dict.mail_name}: ${name}\n` +
-    `${dict.mail_phone}: ${phone}\n` +
-    `${dict.mail_pickup}: ${time}\n` +
-    `${dict.mail_pay}: ${dict.pay_pickup}\n\n` +
-    lines.join("\n") +
-    `\n\n${dict.order_subtotal} ${subtotal.toFixed(2)} $` +
-    `\nTPS (5 %): ${tps.toFixed(2)} $` +
-    `\nTVQ (9,975 %): ${tvq.toFixed(2)} $` +
-    `\nTotal: ${(subtotal + tps + tvq).toFixed(2)} $`;
-
-  window.location.href =
-    `mailto:${ORDER_EMAIL}?subject=${encodeURIComponent(dict.mail_subject)}&body=${encodeURIComponent(body)}`;
-  formMsg.textContent = dict.form_ok(name);
 });
-
-if (!PHOTOS_ENABLED) {
-  const gal = document.getElementById("galerie");
-  if (gal) gal.style.display = "none";
-}
-
-if (!TAKEOUT_ENABLED) {
-  const navCart = document.querySelector(".nav-cart");
-  if (navCart) navCart.parentElement.style.display = "none";
-  const cmd = document.getElementById("commande");
-  if (cmd) cmd.style.display = "none";
-}
 
 renderMenus(currentLang);
 renderCart();
