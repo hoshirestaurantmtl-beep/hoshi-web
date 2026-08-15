@@ -4,7 +4,7 @@
 // Note honnête : sur un site statique ce mot de passe n'est qu'une barrière légère —
 // il empêche les curieux, pas un attaquant déterminé. Les données du menu sont
 // publiques de toute façon (elles s'affichent sur le site).
-const ADMIN_PASSWORD = "426426Katsu!";
+const ADMIN_PASSWORD = "hoshi2026";
 
 let data = JSON.parse(JSON.stringify(MENU_DATA)); // copie de travail
 const $ = (id) => document.getElementById(id);
@@ -19,6 +19,7 @@ function tryLogin() {
     $("panel").classList.remove("hidden");
     $("saveBar").classList.remove("hidden");
     $("logoutBtn").classList.remove("hidden");
+    refreshTakeoutBtn();
     render();
   } else {
     $("loginErr").textContent = "Mot de passe incorrect.";
@@ -146,6 +147,21 @@ function newId() {
   return "n" + n;
 }
 
+// ---- Take-out on/off ----
+function refreshTakeoutBtn() {
+  const on = !(data.settings && data.settings.takeout === false);
+  const b = $("takeoutToggle");
+  b.textContent = on ? "🥡 Take-out : ACTIVÉ ✅" : "🥡 Take-out : DÉSACTIVÉ ⛔";
+  b.style.background = on ? "#2e7d32" : "#8a8a8a";
+}
+$("takeoutToggle").addEventListener("click", () => {
+  data.settings = data.settings || {};
+  const on = !(data.settings.takeout === false);
+  data.settings.takeout = !on;
+  refreshTakeoutBtn();
+  $("savedMsg").textContent = "N'oubliez pas de cliquer « 🚀 Publier en ligne » pour appliquer.";
+});
+
 // ---- Nouveau menu ----
 $("addMenuBtn").addEventListener("click", () => {
   const name = prompt("Nom du nouveau menu (ex. : Menu du soir, Spéciaux du mois) :");
@@ -205,4 +221,71 @@ $("previewBtn").addEventListener("click", () => {
       }
     } catch (e) { clearInterval(check); }
   }, 300);
+});
+
+
+// ---- Publication directe via l'API GitHub ----
+const GH_OWNER = "hoshirestaurantmtl-beep";
+const GH_REPO = "hoshi-web";
+const GH_FILE = "menu-data.js";
+const GH_BRANCH = "main";
+
+function getToken() {
+  let t = localStorage.getItem("hoshi_gh_token");
+  if (!t) {
+    t = prompt(
+      "Collez votre token GitHub (fine-grained, accès Contents en écriture sur " +
+      GH_OWNER + "/" + GH_REPO + ").\n" +
+      "Il sera gardé uniquement dans ce navigateur."
+    );
+    if (t) localStorage.setItem("hoshi_gh_token", t.trim());
+  }
+  return t ? t.trim() : null;
+}
+
+$("publishBtn").addEventListener("click", async () => {
+  const token = getToken();
+  if (!token) return;
+  const btn = $("publishBtn");
+  btn.disabled = true;
+  btn.textContent = "⏳ Publication…";
+  $("savedMsg").textContent = "";
+  try {
+    const apiUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`;
+    const headers = {
+      "Authorization": "Bearer " + token,
+      "Accept": "application/vnd.github+json"
+    };
+    // 1) SHA actuel du fichier
+    const getRes = await fetch(apiUrl + "?ref=" + GH_BRANCH, { headers });
+    if (getRes.status === 401 || getRes.status === 403) {
+      localStorage.removeItem("hoshi_gh_token");
+      throw new Error("Token invalide ou expiré — recliquez sur Publier et entrez un nouveau token.");
+    }
+    if (!getRes.ok) throw new Error("Impossible de lire le fichier sur GitHub (" + getRes.status + ")");
+    const current = await getRes.json();
+    // 2) Mise à jour
+    const content = btoa(unescape(encodeURIComponent(serialize())));
+    const putRes = await fetch(apiUrl, {
+      method: "PUT",
+      headers,
+      body: JSON.stringify({
+        message: "Mise à jour du menu via le panneau admin",
+        content,
+        sha: current.sha,
+        branch: GH_BRANCH
+      })
+    });
+    if (!putRes.ok) {
+      const err = await putRes.json().catch(() => ({}));
+      throw new Error("Échec de la publication (" + putRes.status + ") " + (err.message || ""));
+    }
+    $("savedMsg").textContent = "Publié ✓ — le site se met à jour d'ici ~1 minute (Vercel).";
+  } catch (e) {
+    $("savedMsg").textContent = "";
+    alert("Erreur : " + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "🚀 Publier en ligne";
+  }
 });
