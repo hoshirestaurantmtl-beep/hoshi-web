@@ -138,7 +138,9 @@ const i18n = {
     order_subtotal: "Sous-total :",
     pay_title: "Paiement",
     pay_pickup: "Payer au ramassage (comptant ou carte)",
-    pay_online: "Paiement en ligne — bientôt disponible",
+    pay_online: "Payer en ligne maintenant (carte)",
+    pay_wait: "Redirection vers le paiement sécurisé…",
+    pay_err: "Erreur de paiement — réessayez ou choisissez « payer au ramassage ».",
     mail_pay: "Paiement",
     order_hint: "Ajoutez des plats depuis le menu avec le bouton « + ».",
     order_total: "Total :",
@@ -286,7 +288,9 @@ const i18n = {
     order_subtotal: "Subtotal:",
     pay_title: "Payment",
     pay_pickup: "Pay at pickup (cash or card)",
-    pay_online: "Online payment — coming soon",
+    pay_online: "Pay online now (card)",
+    pay_wait: "Redirecting to secure payment…",
+    pay_err: "Payment error — try again or choose “pay at pickup”.",
     mail_pay: "Payment",
     order_hint: "Add dishes from the menu using the “+” button.",
     order_total: "Total:",
@@ -342,7 +346,9 @@ const i18n = {
     order_subtotal: "小計：",
     pay_title: "お支払い",
     pay_pickup: "受け取り時にお支払い（現金・カード）",
-    pay_online: "オンライン決済 — 近日対応",
+    pay_online: "オンラインで支払う（カード）",
+    pay_wait: "安全な決済ページへ移動しています…",
+    pay_err: "決済エラー — もう一度お試しいただくか、受け取り時支払いをお選びください。",
     mail_pay: "お支払い",
     order_hint: "メニューの「+」ボタンで料理を追加してください。",
     order_total: "合計：",
@@ -398,7 +404,9 @@ const i18n = {
     order_subtotal: "소계:",
     pay_title: "결제",
     pay_pickup: "픽업 시 결제 (현금 또는 카드)",
-    pay_online: "온라인 결제 — 준비 중",
+    pay_online: "지금 온라인 결제 (카드)",
+    pay_wait: "안전한 결제 페이지로 이동 중…",
+    pay_err: "결제 오류 — 다시 시도하거나 픽업 시 결제를 선택해 주세요.",
     mail_pay: "결제",
     order_hint: "메뉴에서 「+」 버튼으로 요리를 추가하세요.",
     order_total: "합계:",
@@ -607,7 +615,7 @@ function renderCart() {
   });
 }
 
-document.getElementById("sendOrder").addEventListener("click", () => {
+document.getElementById("sendOrder").addEventListener("click", async () => {
   const dict = dictFor(currentLang);
   const name = document.getElementById("orderName").value.trim();
   const phone = document.getElementById("orderPhone").value.trim();
@@ -616,6 +624,27 @@ document.getElementById("sendOrder").addEventListener("click", () => {
 
   if (items.length === 0) { formMsg.textContent = dict.order_empty; return; }
   if (!name || !phone || !time) { formMsg.textContent = dict.order_missing; return; }
+
+  const payMethod = document.querySelector('input[name="pay"]:checked')?.value || "pickup";
+  if (payMethod === "online") {
+    formMsg.textContent = dict.pay_wait;
+    try {
+      const resp = await fetch("/api/create-checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: items.map(it => ({ id: it.key, qty: it.qty })),
+          name, phone, time, lang: currentLang
+        })
+      });
+      const data = await resp.json();
+      if (resp.ok && data.url) { window.location.href = data.url; return; }
+      formMsg.textContent = dict.pay_err;
+    } catch (e) {
+      formMsg.textContent = dict.pay_err;
+    }
+    return;
+  }
 
   let subtotal = 0;
   const lines = items.map(it => {
