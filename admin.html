@@ -55,6 +55,15 @@
     #saveBar .note { color:#bbb; font-size:0.8rem; margin-right:auto; }
     #savedMsg { color:#7dc47d; font-size:0.85rem; }
     .hidden { display:none !important; }
+    .act-td { white-space:nowrap; width:150px; }
+    .act-btn { background:none; border:1px solid #ccc; border-radius:4px; cursor:pointer; font-size:0.78rem; padding:2px 6px; margin-left:3px; }
+    .act-btn:hover { background:#eee; }
+    .act-btn.sold-on { background:#b32428; color:#fff; border-color:#b32428; }
+    .cfg-block { background:#fff; border:1px solid #e5ddcc; border-radius:8px; padding:1rem 1.2rem; margin-bottom:1.2rem; }
+    .cfg-block label { font-size:0.8rem; color:var(--gris); display:block; margin-bottom:2px; }
+    .cfg-block input[type=text] { width:100%; border:1px solid #ddd2b8; border-radius:4px; padding:0.45rem 0.6rem; font-size:0.88rem; }
+    .hour-row { display:grid; grid-template-columns:1fr 1fr 1fr 32px; gap:0.5rem; margin-bottom:0.4rem; }
+    .hour-row input { border:1px solid #ddd2b8; border-radius:4px; padding:0.4rem 0.55rem; font-size:0.85rem; }
   </style>
 </head>
 <body>
@@ -103,8 +112,33 @@
       </div>
     </div>
 
+    <div class="cfg-block">
+      <strong>🟡 Bandeau jaune (haut du site)</strong>
+      <p style="font-size:0.78rem; color:var(--gris); margin-bottom:0.6rem;">Laisser vide = message par défaut (pas de réservations).</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem;">
+        <div><label>Texte (FR)</label><input type="text" id="bannerFr"></div>
+        <div><label>Text (EN)</label><input type="text" id="bannerEn"></div>
+      </div>
+    </div>
+
+    <div class="cfg-block">
+      <strong>🕐 Horaires</strong>
+      <p style="font-size:0.78rem; color:var(--gris); margin-bottom:0.6rem;">Jour (FR) · Day (EN) · Heures — ex. « 11:30 – 15:00 · 17:00 – 21:00 »</p>
+      <div id="hoursRows"></div>
+      <button class="btn btn-ghost btn-sm" id="addHourRow">+ Ajouter une ligne</button>
+    </div>
+
+    <div class="cfg-block">
+      <strong>📞 Coordonnées</strong>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-top:0.5rem;">
+        <div><label>Téléphone (ex. (438) 838-6866)</label><input type="text" id="contactPhone"></div>
+        <div><label>Instagram (ex. @hoshirestaurantmtl)</label><input type="text" id="contactInsta"></div>
+      </div>
+    </div>
+
     <div class="toolbar">
       <button class="btn" id="takeoutToggle">🥡 Take-out : …</button>
+      <button class="btn" id="photosToggle">📷 Photos : …</button>
       <button class="btn btn-gold" id="addMenuBtn">+ Nouveau menu</button>
       <button class="btn btn-ghost" id="previewBtn">Aperçu local</button>
       <button class="btn btn-ghost" id="resetBtn">Annuler les modifications</button>
@@ -116,6 +150,7 @@
   <div id="saveBar" class="hidden">
     <span class="note">« Publier en ligne » met à jour le site automatiquement via GitHub + Vercel.</span>
     <span id="savedMsg"></span>
+    <button class="btn btn-ghost" id="restoreBtn" style="color:#fff; border-color:#666;">↩ Restaurer version précédente</button>
     <button class="btn btn-ghost" id="downloadBtn" style="color:#fff; border-color:#666;">⬇ Télécharger</button>
     <button class="btn btn-gold" id="publishBtn">🚀 Publier en ligne</button>
   </div>

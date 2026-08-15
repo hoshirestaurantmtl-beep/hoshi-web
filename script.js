@@ -3,8 +3,8 @@
 // ⚙️ Take-out : contrôlé depuis le panneau admin (menu-data.js > settings.takeout)
 const TAKEOUT_ENABLED = !(typeof MENU_DATA !== "undefined" && MENU_DATA.settings && MENU_DATA.settings.takeout === false);
 
-// ⚙️ Photos : mettre à true quand les vraies photos des plats seront prêtes
-const PHOTOS_ENABLED = false;
+// ⚙️ Photos : contrôlé depuis le panneau admin (settings.photos)
+const PHOTOS_ENABLED = !!(typeof MENU_DATA !== "undefined" && MENU_DATA.settings && MENU_DATA.settings.photos === true);
 
 // ---- Traductions FR / EN ----
 const i18n = {
@@ -17,6 +17,7 @@ const i18n = {
     nav_takeout: "À emporter",
     announce_txt: "🏮 En raison de notre espace limité, nous n'acceptons pas de réservations — premier arrivé, premier servi !",
     hero_sub: "Restaurant japonais au cœur du Quartier chinois de Montréal.",
+    soldout_label: "Épuisé",
     hero_btn_menu: "Voir le menu",
     menu_title: "Notre Menu",
     menu_intro: "Préparé à la minute avec des ingrédients frais.",
@@ -166,6 +167,7 @@ const i18n = {
     nav_takeout: "Take-out",
     announce_txt: "🏮 Due to our limited space, we do not take reservations — first come, first served!",
     hero_sub: "Japanese restaurant in the heart of Montreal's Chinatown.",
+    soldout_label: "Sold out",
     hero_btn_menu: "View menu",
     menu_title: "Our Menu",
     menu_intro: "Made to order with fresh ingredients.",
@@ -315,6 +317,7 @@ const i18n = {
     nav_takeout: "テイクアウト",
     announce_txt: "🏮 店内が狭いため、ご予約は承っておりません — 先着順でのご案内となります。",
     hero_sub: "モントリオール・チャイナタウンの中心にある日本食レストラン。",
+    soldout_label: "売り切れ",
     hero_btn_menu: "メニューを見る",
     menu_title: "お品書き",
     menu_intro: "新鮮な食材で、一品ずつお作りします。",
@@ -372,6 +375,7 @@ const i18n = {
     nav_takeout: "테이크아웃",
     announce_txt: "🏮 매장이 협소하여 예약을 받지 않습니다 — 선착순으로 안내해 드립니다.",
     hero_sub: "몬트리올 차이나타운 중심에 있는 일식 레스토랑.",
+    soldout_label: "품절",
     hero_btn_menu: "메뉴 보기",
     menu_title: "메뉴",
     menu_intro: "신선한 재료로 주문 즉시 조리합니다.",
@@ -446,6 +450,8 @@ function setLang(lang) {
     b.classList.toggle("active", b.getAttribute("data-setlang") === lang));
 
   renderMenus(lang);
+  renderHours(lang);
+  applyBanner(lang);
   if (typeof window.__setNoticeText === "function") window.__setNoticeText();
   if (typeof renderCart === "function" && cartList) renderCart();
 }
@@ -497,8 +503,10 @@ function buildSection(sec, lang) {
   const ul = div.querySelector("ul");
   sec.items.forEach(it => {
     const li = document.createElement("li");
-    li.innerHTML = `<div class="mi-head"><span>${it.name[lang] || it.name.en || it.name.fr}</span><span class="dots"></span><span class="price">${fmtPrice(it.price)}</span></div>` +
+    const soldChip = it.soldout ? `<span class="soldout-chip">${dictFor(lang).soldout_label}</span>` : "";
+    li.innerHTML = `<div class="mi-head"><span>${it.name[lang] || it.name.en || it.name.fr}${soldChip}</span><span class="dots"></span><span class="price">${fmtPrice(it.price)}</span></div>` +
       (it.desc ? `<p class="mi-desc">${it.desc[lang] || it.desc.en || it.desc.fr || ""}</p>` : "");
+    if (it.soldout) li.classList.add("soldout");
     const actions = document.createElement("span");
     actions.className = "item-actions";
     if (PHOTOS_ENABLED && it.photo) {
@@ -512,7 +520,7 @@ function buildSection(sec, lang) {
       });
       actions.appendChild(pbtn);
     }
-    if (TAKEOUT_ENABLED) {
+    if (TAKEOUT_ENABLED && !it.soldout) {
     const btn = document.createElement("button");
     btn.className = "add-btn"; btn.type = "button"; btn.textContent = "+";
     btn.setAttribute("aria-label", "Ajouter / Add");
@@ -644,6 +652,42 @@ document.getElementById("sendOrder").addEventListener("click", async () => {
   }
 });
 
+// ---- Horaires depuis le panneau admin (settings.hours) ----
+function renderHours(lang) {
+  const hrs = (typeof MENU_DATA !== "undefined" && MENU_DATA.settings && MENU_DATA.settings.hours) || null;
+  if (!Array.isArray(hrs) || hrs.length === 0) return;
+  const box = document.querySelector(".hours");
+  if (!box) return;
+  box.innerHTML = hrs.map(r =>
+    `<div class="hours-row"><span>${r[lang] || r.en || r.fr || ""}</span><span>${r.time || ""}</span></div>`
+  ).join("");
+}
+
+// ---- Bandeau jaune depuis le panneau admin (settings.banner) ----
+function applyBanner(lang) {
+  const bn = (typeof MENU_DATA !== "undefined" && MENU_DATA.settings && MENU_DATA.settings.banner) || null;
+  const el = document.querySelector(".announce span");
+  if (el && bn && (bn.fr || bn.en)) el.textContent = bn[lang] || bn.en || bn.fr;
+}
+
+// ---- Coordonnées depuis le panneau admin (settings.contact) ----
+(function applyContact() {
+  const c = (typeof MENU_DATA !== "undefined" && MENU_DATA.settings && MENU_DATA.settings.contact) || null;
+  if (!c) return;
+  const info = document.querySelector(".contact-info");
+  if (!info) return;
+  if (c.phone) {
+    const digits = c.phone.replace(/[^0-9]/g, "");
+    const p = document.createElement("p");
+    p.innerHTML = `📞 <strong>Tél :</strong> <a href="tel:+1${digits}">${c.phone}</a>`;
+    info.insertBefore(p, info.children[1] || null);
+  }
+  if (c.instagram) {
+    const a = info.querySelector('a[href*="instagram"]');
+    if (a) { a.href = c.instagram.startsWith("http") ? c.instagram : "https://www.instagram.com/" + c.instagram.replace("@","") + "/"; }
+  }
+})();
+
 // ---- Masquer galerie si pas de photos ----
 if (!PHOTOS_ENABLED) {
   const gal = document.getElementById("galerie");
@@ -681,5 +725,4 @@ if (NOTICE && NOTICE.on) {
   ov.addEventListener("click", (e) => { if (e.target === ov) ov.remove(); });
 }
 
-renderMenus(currentLang);
-renderCart();
+setLang(currentLang);

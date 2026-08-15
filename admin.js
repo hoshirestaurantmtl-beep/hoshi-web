@@ -21,6 +21,7 @@ function tryLogin() {
     $("logoutBtn").classList.remove("hidden");
     refreshTakeoutBtn();
     refreshNoticeBtn();
+    refreshExtras();
     render();
   } else {
     $("loginErr").textContent = "Mot de passe incorrect.";
@@ -62,6 +63,14 @@ function render() {
       shead.appendChild(kanji);
       shead.appendChild(txt(sec.title, "fr", "Section FR"));
       shead.appendChild(txt(sec.title, "en", "Section EN"));
+      const upS = document.createElement("button");
+      upS.className = "btn btn-ghost btn-sm"; upS.textContent = "↑"; upS.title = "Monter la section";
+      upS.addEventListener("click", () => { if (si > 0) { [menu.sections[si-1], menu.sections[si]] = [menu.sections[si], menu.sections[si-1]]; render(); } });
+      shead.appendChild(upS);
+      const dnS = document.createElement("button");
+      dnS.className = "btn btn-ghost btn-sm"; dnS.textContent = "↓"; dnS.title = "Descendre la section";
+      dnS.addEventListener("click", () => { if (si < menu.sections.length-1) { [menu.sections[si+1], menu.sections[si]] = [menu.sections[si], menu.sections[si+1]]; render(); } });
+      shead.appendChild(dnS);
       const delS = document.createElement("button");
       delS.className = "btn btn-ghost btn-sm"; delS.textContent = "✕ section";
       delS.addEventListener("click", () => { if (confirm("Supprimer cette section et ses plats ?")) { menu.sections.splice(si, 1); render(); } });
@@ -72,7 +81,7 @@ function render() {
       table.innerHTML = `<thead><tr>
         <th>Nom (FR)</th><th>Nom (EN)</th>
         <th>Description (FR)</th><th>Description (EN)</th>
-        <th>Prix $</th><th>Photo (img/...)</th><th></th>
+        <th>Prix $</th><th>Photo (img/...)</th><th>Actions</th>
       </tr></thead>`;
       const tbody = document.createElement("tbody");
       sec.items.forEach((it, ii) => {
@@ -91,11 +100,22 @@ function render() {
         inF.value = it.photo || ""; inF.placeholder = "img/plat.jpg";
         inF.addEventListener("input", () => { it.photo = inF.value.trim() || undefined; });
         tdF.appendChild(inF); tr.appendChild(tdF);
-        const tdD = document.createElement("td"); tdD.className = "del-td";
-        const delI = document.createElement("button");
-        delI.className = "del-x"; delI.textContent = "✕"; delI.title = "Supprimer ce plat";
-        delI.addEventListener("click", () => { sec.items.splice(ii, 1); render(); });
-        tdD.appendChild(delI); tr.appendChild(tdD);
+        const tdD = document.createElement("td"); tdD.className = "act-td";
+        const mk = (label, title, fn, cls) => {
+          const b = document.createElement("button");
+          b.className = "act-btn" + (cls ? " " + cls : "");
+          b.textContent = label; b.title = title; b.type = "button";
+          b.addEventListener("click", fn);
+          return b;
+        };
+        tdD.appendChild(mk("↑", "Monter", () => { if (ii > 0) { [sec.items[ii-1], sec.items[ii]] = [sec.items[ii], sec.items[ii-1]]; render(); } }));
+        tdD.appendChild(mk("↓", "Descendre", () => { if (ii < sec.items.length-1) { [sec.items[ii+1], sec.items[ii]] = [sec.items[ii], sec.items[ii+1]]; render(); } }));
+        tdD.appendChild(mk(it.soldout ? "🚫" : "✅", it.soldout ? "Épuisé — cliquer pour remettre en vente" : "En vente — cliquer pour marquer épuisé",
+          () => { it.soldout = !it.soldout; if (!it.soldout) delete it.soldout; render(); }, it.soldout ? "sold-on" : ""));
+        tdD.appendChild(mk("📷", "Téléverser une photo pour ce plat", () => uploadPhoto(it)));
+        tdD.appendChild(mk("✕", "Supprimer ce plat", () => { if (confirm("Supprimer ce plat ?")) { sec.items.splice(ii, 1); render(); } }));
+        tr.appendChild(tdD);
+        if (it.soldout) tr.style.opacity = "0.55";
         tbody.appendChild(tr);
       });
       table.appendChild(tbody);
@@ -232,6 +252,7 @@ function serialize() {
   clean.menus.forEach(m => m.sections.forEach(s => s.items.forEach(it => {
     if (it.desc && !it.desc.fr && !it.desc.en) delete it.desc;
     if (!it.photo) delete it.photo;
+    if (!it.soldout) delete it.soldout;
   })));
   return "// ===== Hoshi — Données du menu / Menu data =====\n" +
          "// Fichier généré par admin.html — remplacez menu-data.js du site par ce fichier.\n" +
@@ -330,5 +351,144 @@ $("publishBtn").addEventListener("click", async () => {
   } finally {
     btn.disabled = false;
     btn.textContent = "🚀 Publier en ligne";
+  }
+});
+
+// ===== Configuration du site (bandeau, horaires, coordonnées, photos) =====
+const DEFAULT_HOURS = [
+  { fr: "Lundi – Mercredi", en: "Monday – Wednesday", time: "11:30 – 15:00 · 17:00 – 21:00" },
+  { fr: "Jeudi", en: "Thursday", time: "11:30 – 15:00 · 17:00 – 21:30" },
+  { fr: "Vendredi", en: "Friday", time: "11:30 – 23:00" },
+  { fr: "Samedi", en: "Saturday", time: "11:00 – 23:00" },
+  { fr: "Dimanche", en: "Sunday", time: "11:00 – 23:00" }
+];
+
+function refreshExtras() {
+  data.settings = data.settings || {};
+  const s = data.settings;
+  $("bannerFr").value = (s.banner && s.banner.fr) || "";
+  $("bannerEn").value = (s.banner && s.banner.en) || "";
+  $("contactPhone").value = (s.contact && s.contact.phone) || "";
+  $("contactInsta").value = (s.contact && s.contact.instagram) || "";
+  if (!Array.isArray(s.hours) || s.hours.length === 0) s.hours = JSON.parse(JSON.stringify(DEFAULT_HOURS));
+  renderHoursEditor();
+  refreshPhotosBtn();
+}
+
+["bannerFr", "bannerEn"].forEach(id => $(id).addEventListener("input", () => {
+  data.settings = data.settings || {};
+  const fr = $("bannerFr").value.trim(), en = $("bannerEn").value.trim();
+  if (fr || en) data.settings.banner = { fr, en };
+  else delete data.settings.banner;
+}));
+
+["contactPhone", "contactInsta"].forEach(id => $(id).addEventListener("input", () => {
+  data.settings = data.settings || {};
+  const phone = $("contactPhone").value.trim(), instagram = $("contactInsta").value.trim();
+  if (phone || instagram) data.settings.contact = { phone, instagram };
+  else delete data.settings.contact;
+}));
+
+function renderHoursEditor() {
+  const box = $("hoursRows");
+  box.innerHTML = "";
+  data.settings.hours.forEach((r, i) => {
+    const row = document.createElement("div");
+    row.className = "hour-row";
+    const mkIn = (val, ph, key) => {
+      const inp = document.createElement("input");
+      inp.value = val || ""; inp.placeholder = ph;
+      inp.addEventListener("input", () => r[key] = inp.value);
+      return inp;
+    };
+    row.appendChild(mkIn(r.fr, "Jour (FR)", "fr"));
+    row.appendChild(mkIn(r.en, "Day (EN)", "en"));
+    row.appendChild(mkIn(r.time, "Heures", "time"));
+    const del = document.createElement("button");
+    del.className = "del-x"; del.textContent = "✕"; del.type = "button";
+    del.addEventListener("click", () => { data.settings.hours.splice(i, 1); renderHoursEditor(); });
+    row.appendChild(del);
+    box.appendChild(row);
+  });
+}
+$("addHourRow").addEventListener("click", () => {
+  data.settings.hours.push({ fr: "", en: "", time: "" });
+  renderHoursEditor();
+});
+
+// ---- Photos on/off ----
+function refreshPhotosBtn() {
+  const on = data.settings.photos === true;
+  const b = $("photosToggle");
+  b.textContent = on ? "📷 Photos : ACTIVÉES ✅" : "📷 Photos : MASQUÉES";
+  b.style.background = on ? "#2e7d32" : "#8a8a8a";
+}
+$("photosToggle").addEventListener("click", () => {
+  data.settings = data.settings || {};
+  data.settings.photos = data.settings.photos !== true;
+  refreshPhotosBtn();
+  $("savedMsg").textContent = "N'oubliez pas de cliquer « 🚀 Publier en ligne » pour appliquer.";
+});
+
+// ---- Téléverser une photo de plat vers GitHub ----
+function uploadPhoto(item) {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "image/jpeg,image/png,image/webp";
+  input.addEventListener("change", async () => {
+    const file = input.files[0];
+    if (!file) return;
+    if (file.size > 3.5 * 1024 * 1024) { alert("Image trop lourde (max 3,5 Mo). Réduisez-la d'abord."); return; }
+    const token = getToken();
+    if (!token) return;
+    $("savedMsg").textContent = "⏳ Téléversement de la photo…";
+    try {
+      const b64 = await new Promise((res, rej) => {
+        const rd = new FileReader();
+        rd.onload = () => res(rd.result.split(",")[1]);
+        rd.onerror = rej;
+        rd.readAsDataURL(file);
+      });
+      const ext = (file.name.split(".").pop() || "jpg").toLowerCase().replace("jpeg", "jpg");
+      const path = "img/" + item.id + "-" + Date.now() + "." + ext;
+      const resp = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
+        method: "PUT",
+        headers: { "Authorization": "Bearer " + token, "Accept": "application/vnd.github+json" },
+        body: JSON.stringify({ message: "Photo de plat via le panneau admin", content: b64, branch: GH_BRANCH })
+      });
+      if (!resp.ok) { const e = await resp.json().catch(() => ({})); throw new Error(e.message || resp.status); }
+      item.photo = path;
+      render();
+      $("savedMsg").textContent = "Photo téléversée ✓ — cliquez « 🚀 Publier en ligne » pour l'associer au plat.";
+    } catch (e) {
+      $("savedMsg").textContent = "";
+      alert("Erreur photo : " + e.message);
+    }
+  });
+  input.click();
+}
+
+// ---- Restaurer la version précédente du menu ----
+$("restoreBtn").addEventListener("click", async () => {
+  if (!confirm("Restaurer la version PRÉCÉDENTE du menu ? Les changements publiés les plus récents seront annulés.")) return;
+  const token = getToken();
+  if (!token) return;
+  const headers = { "Authorization": "Bearer " + token, "Accept": "application/vnd.github+json" };
+  try {
+    const commits = await (await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/commits?path=${GH_FILE}&per_page=2&sha=${GH_BRANCH}`, { headers })).json();
+    if (!Array.isArray(commits) || commits.length < 2) throw new Error("Aucune version précédente trouvée.");
+    const prevSha = commits[1].sha;
+    const prevFile = await (await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}?ref=${prevSha}`, { headers })).json();
+    const current = await (await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}?ref=${GH_BRANCH}`, { headers })).json();
+    const put = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`, {
+      method: "PUT",
+      headers,
+      body: JSON.stringify({ message: "Restauration de la version précédente", content: prevFile.content.replace(/\n/g, ""), sha: current.sha, branch: GH_BRANCH })
+    });
+    if (!put.ok) { const e = await put.json().catch(() => ({})); throw new Error(e.message || put.status); }
+    alert("Version précédente restaurée ✓ — le site se met à jour d'ici ~1 minute. Le panneau va se recharger.");
+    location.reload();
+  } catch (e) {
+    alert("Erreur : " + e.message);
   }
 });
