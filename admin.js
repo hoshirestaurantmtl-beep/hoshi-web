@@ -4,7 +4,7 @@
 // Note honnête : sur un site statique ce mot de passe n'est qu'une barrière légère —
 // il empêche les curieux, pas un attaquant déterminé. Les données du menu sont
 // publiques de toute façon (elles s'affichent sur le site).
-const ADMIN_PASSWORD = "hoshi2026";
+const ADMIN_PASSWORD = "426426Katsu!";
 
 let data = JSON.parse(JSON.stringify(MENU_DATA)); // copie de travail
 const $ = (id) => document.getElementById(id);
