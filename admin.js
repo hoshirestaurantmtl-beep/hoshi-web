@@ -172,17 +172,34 @@ const NOTICE_DEFAULT = {
   ko: "🍳 임시 휴업 안내 — 8월 15일·16일\n\n더 바삭한 카츠를 위해 새 주방 설비를 설치 중입니다. 8월 17일부터 정상 영업합니다 🙏"
 };
 function refreshNoticeBtn() {
-  const on = !!(data.settings && data.settings.notice && data.settings.notice.on);
+  const n = (data.settings && data.settings.notice) || {};
+  const on = !!n.on;
   const b = $("noticeToggle");
-  b.textContent = on ? "📢 Avis : ACTIVÉ ✅" : "📢 Avis : DÉSACTIVÉ";
+  b.textContent = on ? "Avis : ACTIVÉ ✅" : "Avis : DÉSACTIVÉ";
   b.style.background = on ? "#2e7d32" : "#8a8a8a";
+  $("noticeFr").value = n.fr || "";
+  $("noticeEn").value = n.en || "";
 }
+function noticeInput() {
+  data.settings = data.settings || {};
+  data.settings.notice = data.settings.notice || { on: false };
+  data.settings.notice.fr = $("noticeFr").value;
+  data.settings.notice.en = $("noticeEn").value;
+  // texte personnalisé : les visiteurs JA/KO verront la version EN
+  delete data.settings.notice.ja;
+  delete data.settings.notice.ko;
+}
+$("noticeFr").addEventListener("input", noticeInput);
+$("noticeEn").addEventListener("input", noticeInput);
 $("noticeToggle").addEventListener("click", () => {
   data.settings = data.settings || {};
-  if (data.settings.notice && data.settings.notice.on) {
-    data.settings.notice.on = false;
+  const n = data.settings.notice;
+  if (n && n.on) {
+    n.on = false;
+  } else if (n && (n.fr || n.en)) {
+    n.on = true;
   } else {
-    data.settings.notice = Object.assign({}, NOTICE_DEFAULT, data.settings.notice || {}, { on: true });
+    data.settings.notice = Object.assign({}, NOTICE_DEFAULT, { on: true });
   }
   refreshNoticeBtn();
   $("savedMsg").textContent = "N'oubliez pas de cliquer « 🚀 Publier en ligne » pour appliquer.";

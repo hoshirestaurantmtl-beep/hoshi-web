@@ -85,9 +85,26 @@
       « Aperçu local » montre vos changements sans les publier ; « Télécharger » reste disponible en secours.
     </div>
 
+    <div class="menu-block" style="padding:1rem 1.2rem; margin-bottom:1.2rem;">
+      <div style="display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap; margin-bottom:0.7rem;">
+        <strong>📢 Annonce / Popup</strong>
+        <button class="btn btn-sm" id="noticeToggle">Avis : …</button>
+        <span style="font-size:0.8rem; color:var(--gris);">S'affiche en popup à l'ouverture du site — promotions, fermetures, nouveautés…</span>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem;">
+        <div>
+          <label style="font-size:0.8rem; color:var(--gris);">Texte (FR)</label>
+          <textarea id="noticeFr" rows="4" style="width:100%; border:1px solid #ddd2b8; border-radius:4px; padding:0.5rem; font-family:inherit; font-size:0.88rem;"></textarea>
+        </div>
+        <div>
+          <label style="font-size:0.8rem; color:var(--gris);">Text (EN)</label>
+          <textarea id="noticeEn" rows="4" style="width:100%; border:1px solid #ddd2b8; border-radius:4px; padding:0.5rem; font-family:inherit; font-size:0.88rem;"></textarea>
+        </div>
+      </div>
+    </div>
+
     <div class="toolbar">
       <button class="btn" id="takeoutToggle">🥡 Take-out : …</button>
-      <button class="btn" id="noticeToggle">📢 Avis : …</button>
       <button class="btn btn-gold" id="addMenuBtn">+ Nouveau menu</button>
       <button class="btn btn-ghost" id="previewBtn">Aperçu local</button>
       <button class="btn btn-ghost" id="resetBtn">Annuler les modifications</button>
