@@ -1,7 +1,7 @@
 // ===== Hoshi 星 — Interactivité / Interactivity =====
 
 // ⚙️ Take-out : mettre à true pour réactiver la commande en ligne
-const TAKEOUT_ENABLED = false;
+const TAKEOUT_ENABLED = true;
 
 // ⚙️ Photos : mettre à true quand les vraies photos des plats seront prêtes
 const PHOTOS_ENABLED = false;
