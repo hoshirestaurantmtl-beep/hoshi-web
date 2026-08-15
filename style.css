@@ -543,6 +543,38 @@ h1, h2, h3, .logo {
 }
 .cart.pulse { animation: cartPulse 0.4s ease-out; }
 
+/* ===== Avis popup ===== */
+.notice-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 600;
+  padding: 1rem;
+}
+.notice-card {
+  background: #1a1717;
+  border: 2px solid var(--dorado);
+  border-radius: 10px;
+  max-width: 460px;
+  width: 100%;
+  padding: 2.2rem 1.8rem;
+  text-align: center;
+  color: #eee6d8;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+.notice-logo { width: 150px; height: auto; margin-bottom: 0.4rem; }
+.notice-kanji {
+  font-family: 'Noto Serif JP', serif;
+  color: var(--dorado);
+  letter-spacing: 6px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.notice-text { line-height: 1.7; font-size: 0.98rem; margin-bottom: 1.5rem; white-space: pre-line; }
+
 /* ===== Lightbox photo ===== */
 .lightbox {
   position: fixed;

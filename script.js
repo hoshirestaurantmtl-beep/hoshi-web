@@ -446,6 +446,7 @@ function setLang(lang) {
     b.classList.toggle("active", b.getAttribute("data-setlang") === lang));
 
   renderMenus(lang);
+  if (typeof window.__setNoticeText === "function") window.__setNoticeText();
   if (typeof renderCart === "function" && cartList) renderCart();
 }
 
@@ -642,6 +643,43 @@ document.getElementById("sendOrder").addEventListener("click", async () => {
     btn.disabled = false;
   }
 });
+
+// ---- Masquer galerie si pas de photos ----
+if (!PHOTOS_ENABLED) {
+  const gal = document.getElementById("galerie");
+  if (gal) gal.style.display = "none";
+}
+
+// ---- Masquer le take-out si désactivé (panneau admin) ----
+if (!TAKEOUT_ENABLED) {
+  const navCart = document.querySelector(".nav-cart");
+  if (navCart) navCart.parentElement.style.display = "none";
+  const cmd = document.getElementById("commande");
+  if (cmd) cmd.style.display = "none";
+}
+
+// ---- Avis / popup (contrôlé depuis le panneau admin : settings.notice) ----
+const NOTICE = (typeof MENU_DATA !== "undefined" && MENU_DATA.settings && MENU_DATA.settings.notice) || null;
+if (NOTICE && NOTICE.on) {
+  const ov = document.createElement("div");
+  ov.className = "notice-overlay";
+  ov.innerHTML = `
+    <div class="notice-card">
+      <img src="img/logo.png" alt="Hoshi" class="notice-logo">
+      <p class="notice-kanji">お知らせ</p>
+      <p class="notice-text" id="noticeText"></p>
+      <button class="btn" id="noticeClose">OK</button>
+    </div>`;
+  document.body.appendChild(ov);
+  const setNoticeText = () => {
+    document.getElementById("noticeText").textContent =
+      NOTICE[currentLang] || NOTICE.en || NOTICE.fr || "";
+  };
+  setNoticeText();
+  window.__setNoticeText = setNoticeText;
+  document.getElementById("noticeClose").addEventListener("click", () => ov.remove());
+  ov.addEventListener("click", (e) => { if (e.target === ov) ov.remove(); });
+}
 
 renderMenus(currentLang);
 renderCart();
