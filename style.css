@@ -166,6 +166,7 @@ h1, h2, h3, .logo {
 .btn-small { padding: 0.45rem 1.2rem !important; border-radius: 3px; background: var(--rojo); }
 
 .nav-cart { display: inline-flex; align-items: center; gap: 0.4rem; color: #fff !important; }
+.cart-count[hidden] { display: none; }
 .cart-count {
   background: var(--dorado);
   color: #1a1a1a;
