@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /admin.html
+Disallow: /commandes.html
+Disallow: /commandes
 
 Sitemap: https://hoshimtl.ca/sitemap.xml

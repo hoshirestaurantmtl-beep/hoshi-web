@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commandes — Hoshi</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Serif+JP:wght@600&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#111; color:#eee; min-height:100vh; }
+    header { background:#000; padding:0.8rem 1.2rem; display:flex; align-items:center; gap:0.8rem; position:sticky; top:0; z-index:10; }
+    header img { width:44px; }
+    header h1 { font-family:'Noto Serif JP',serif; font-size:1.1rem; color:#c9a227; flex:1; }
+    #status { font-size:0.78rem; color:#8a8; }
+    #soundBtn { background:#333; color:#fff; border:none; border-radius:6px; padding:0.5rem 0.9rem; cursor:pointer; font-size:0.85rem; }
+    .wrap { padding:1rem; display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:1rem; }
+    .order {
+      background:#1d1a1a; border:1px solid #3a332a; border-left:6px solid #c9a227;
+      border-radius:8px; padding:1rem 1.1rem;
+    }
+    .order.new { border-left-color:#b32428; animation:flash 1s ease-in-out 3; }
+    @keyframes flash { 50% { background:#3a1517; } }
+    .order.done { opacity:0.35; border-left-color:#4a4a4a; }
+    .o-top { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.3rem; }
+    .o-time { font-size:1.4rem; font-weight:700; color:#c9a227; }
+    .o-amount { font-weight:700; }
+    .o-client { font-weight:500; margin-bottom:0.15rem; }
+    .o-phone a { color:#9ab; text-decoration:none; font-size:0.85rem; }
+    .o-items { margin:0.6rem 0; padding:0.6rem 0; border-top:1px dashed #3a332a; border-bottom:1px dashed #3a332a; font-size:0.95rem; line-height:1.6; }
+    .o-created { font-size:0.72rem; color:#777; }
+    .o-done-btn { margin-top:0.6rem; width:100%; background:#2e7d32; color:#fff; border:none; border-radius:6px; padding:0.55rem; cursor:pointer; font-size:0.9rem; }
+    .order.done .o-done-btn { background:#555; }
+    #empty { grid-column:1/-1; text-align:center; color:#666; padding:3rem 1rem; font-size:1.05rem; }
+    /* PIN */
+    #pinBox { max-width:320px; margin:20vh auto; text-align:center; }
+    #pinBox img { width:140px; margin-bottom:1rem; }
+    #pinBox input { width:100%; padding:0.8rem; font-size:1.2rem; text-align:center; border-radius:8px; border:1px solid #444; background:#222; color:#fff; margin-bottom:0.8rem; }
+    #pinBox button { width:100%; padding:0.8rem; font-size:1rem; background:#b32428; color:#fff; border:none; border-radius:8px; cursor:pointer; }
+    #pinErr { color:#e77; font-size:0.85rem; margin-top:0.5rem; min-height:1.2em; }
+    .hidden { display:none !important; }
+  </style>
+</head>
+<body>
+
+  <div id="pinBox">
+    <img src="img/logo.png" alt="Hoshi">
+    <h2 style="font-family:'Noto Serif JP',serif; color:#c9a227; margin-bottom:1rem;">Écran cuisine</h2>
+    <input type="password" id="pin" placeholder="PIN" inputmode="numeric">
+    <button id="pinGo">Entrer</button>
+    <p id="pinErr"></p>
+  </div>
+
+  <div id="app" class="hidden">
+    <header>
+      <img src="img/logo.png" alt="Hoshi">
+      <h1>Commandes take-out</h1>
+      <span id="status">—</span>
+      <button id="soundBtn">🔔 Activer le son</button>
+    </header>
+    <div class="wrap" id="orders"><p id="empty">Aucune commande pour l'instant 🍱</p></div>
+  </div>
+
+<script>
+const POLL_MS = 25000;
+let PIN = localStorage.getItem("hoshi_orders_pin") || "";
+let known = new Set(JSON.parse(localStorage.getItem("hoshi_known") || "[]"));
+let done = new Set(JSON.parse(localStorage.getItem("hoshi_done") || "[]"));
+let soundOn = false;
+let audioCtx = null;
+let firstLoad = true;
+
+function beep() {
+  if (!soundOn || !audioCtx) return;
+  const play = (t, f) => {
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    o.frequency.value = f; g.gain.value = 0.4;
+    o.start(audioCtx.currentTime + t); o.stop(audioCtx.currentTime + t + 0.35);
+  };
+  play(0, 880); play(0.45, 880); play(0.9, 1175);
+}
+
+document.getElementById("soundBtn").addEventListener("click", () => {
+  audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+  soundOn = !soundOn;
+  document.getElementById("soundBtn").textContent = soundOn ? "🔔 Son activé ✓" : "🔕 Son coupé";
+  if (soundOn) beep();
+});
+
+async function keepAwake() {
+  try { if ("wakeLock" in navigator) await navigator.wakeLock.request("screen"); } catch (e) {}
+}
+document.addEventListener("visibilitychange", () => { if (!document.hidden) { keepAwake(); load(); } });
+
+function fmtTime(ts) {
+  return new Date(ts * 1000).toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" });
+}
+
+async function load() {
+  if (!PIN) return;
+  try {
+    const resp = await fetch("/api/orders?k=" + encodeURIComponent(PIN));
+    if (resp.status === 401) { logout("PIN invalide."); return; }
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.error || resp.status);
+    document.getElementById("pinBox").classList.add("hidden");
+    document.getElementById("app").classList.remove("hidden");
+    render(data.orders || []);
+    document.getElementById("status").textContent = "Mis à jour " + new Date().toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    keepAwake();
+  } catch (e) {
+    document.getElementById("status").textContent = "⚠ Hors ligne — nouvelle tentative…";
+  }
+}
+
+function render(orders) {
+  const box = document.getElementById("orders");
+  const fresh = orders.filter(o => !known.has(o.id));
+  if (fresh.length && !firstLoad) beep();
+  orders.forEach(o => known.add(o.id));
+  localStorage.setItem("hoshi_known", JSON.stringify([...known].slice(-200)));
+  firstLoad = false;
+
+  if (!orders.length) { box.innerHTML = "<p id='empty'>Aucune commande pour l'instant 🍱</p>"; return; }
+  // plus récentes d'abord ; les non-prêtes en premier
+  orders.sort((a, b) => b.created - a.created);
+  box.innerHTML = "";
+  orders.forEach(o => {
+    const d = document.createElement("div");
+    const isDone = done.has(o.id);
+    d.className = "order" + (isDone ? " done" : (fresh.some(f => f.id === o.id) ? " new" : ""));
+    const tel = (o.telephone || "").replace(/[^0-9]/g, "");
+    d.innerHTML = `
+      <div class="o-top">
+        <span class="o-time">🕐 ${o.ramassage || "—"}</span>
+        <span class="o-amount">${(o.amount / 100).toFixed(2)} $</span>
+      </div>
+      <div class="o-client">${o.client || "Client"}</div>
+      <div class="o-phone">${o.telephone ? `<a href="tel:+1${tel}">📞 ${o.telephone}</a>` : ""}</div>
+      <div class="o-items">${(o.commande || "").split(" | ").join("<br>")}</div>
+      <div class="o-created">Payée à ${fmtTime(o.created)}</div>
+      <button class="o-done-btn">${isDone ? "↩ Remettre en attente" : "✔ Prête / remise"}</button>`;
+    d.querySelector(".o-done-btn").addEventListener("click", () => {
+      if (done.has(o.id)) done.delete(o.id); else done.add(o.id);
+      localStorage.setItem("hoshi_done", JSON.stringify([...done].slice(-200)));
+      render(orders);
+    });
+    box.appendChild(d);
+  });
+}
+
+function logout(msg) {
+  PIN = ""; localStorage.removeItem("hoshi_orders_pin");
+  document.getElementById("app").classList.add("hidden");
+  document.getElementById("pinBox").classList.remove("hidden");
+  document.getElementById("pinErr").textContent = msg || "";
+}
+
+document.getElementById("pinGo").addEventListener("click", () => {
+  PIN = document.getElementById("pin").value.trim();
+  localStorage.setItem("hoshi_orders_pin", PIN);
+  load();
+});
+document.getElementById("pin").addEventListener("keydown", e => { if (e.key === "Enter") document.getElementById("pinGo").click(); });
+
+if (PIN) load();
+setInterval(load, POLL_MS);
+</script>
+</body>
+</html>
