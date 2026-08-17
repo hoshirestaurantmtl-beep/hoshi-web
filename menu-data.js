@@ -866,11 +866,38 @@ const MENU_DATA = {
   "settings": {
     "takeout": false,
     "notice": {
-      "on": true,
+      "on": false,
       "fr": "🍳 Fermeture temporaire — les 15 et 16 août\n\nNous installons de nouveaux équipements de cuisine pour des katsu encore plus croustillants ! De retour le 17 août. Merci de votre patience 🙏",
       "en": "🍳 Temporarily closed — August 15 & 16\n\nWe're installing new kitchen equipment for even crispier katsu! Back on August 17. Thank you for your patience 🙏",
       "ja": "🍳 臨時休業のお知らせ — 8月15日・16日\n\nより美味しいカツをお届けするため、新しい厨房設備を設置しています。8月17日より営業を再開いたします 🙏",
       "ko": "🍳 임시 휴업 안내 — 8월 15일·16일\n\n더 바삭한 카츠를 위해 새 주방 설비를 설치 중입니다. 8월 17일부터 정상 영업합니다 🙏"
-    }
+    },
+    "hours": [
+      {
+        "fr": "Lundi – Mercredi",
+        "en": "Monday – Wednesday",
+        "time": "11:30 – 15:00 · 17:00 – 21:00"
+      },
+      {
+        "fr": "Jeudi",
+        "en": "Thursday",
+        "time": "11:30 – 15:00 · 17:00 – 21:30"
+      },
+      {
+        "fr": "Vendredi",
+        "en": "Friday",
+        "time": "11:30 – 23:00"
+      },
+      {
+        "fr": "Samedi",
+        "en": "Saturday",
+        "time": "11:00 – 23:00"
+      },
+      {
+        "fr": "Dimanche",
+        "en": "Sunday",
+        "time": "11:00 – 23:00"
+      }
+    ]
   }
 };
