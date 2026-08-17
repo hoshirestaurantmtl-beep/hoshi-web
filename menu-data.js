@@ -864,7 +864,7 @@ const MENU_DATA = {
     }
   ],
   "settings": {
-    "takeout": false,
+    "takeout": true,
     "notice": {
       "on": false,
       "fr": "🍳 Fermeture temporaire — les 15 et 16 août\n\nNous installons de nouveaux équipements de cuisine pour des katsu encore plus croustillants ! De retour le 17 août. Merci de votre patience 🙏",
