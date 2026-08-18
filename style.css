@@ -700,8 +700,8 @@ body.takeout-closed .nav-cart { display: none !important; }
 
 /* Boissons alcoolisées : sur place seulement */
 .dinein-chip {
-  display: inline-block;
-  margin-left: 0.4rem;
+  display: table;
+  margin: 0.25rem 0 0;
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 0.5px;
