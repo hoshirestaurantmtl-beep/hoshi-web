@@ -875,11 +875,9 @@ const MENU_DATA = {
   "settings": {
     "takeout": true,
     "notice": {
-      "on": false,
-      "fr": "🍳 Fermeture temporaire — les 15 et 16 août\n\nNous installons de nouveaux équipements de cuisine pour des katsu encore plus croustillants ! De retour le 17 août. Merci de votre patience 🙏",
-      "en": "🍳 Temporarily closed — August 15 & 16\n\nWe're installing new kitchen equipment for even crispier katsu! Back on August 17. Thank you for your patience 🙏",
-      "ja": "🍳 臨時休業のお知らせ — 8月15日・16日\n\nより美味しいカツをお届けするため、新しい厨房設備を設置しています。8月17日より営業を再開いたします 🙏",
-      "ko": "🍳 임시 휴업 안내 — 8월 15일·16일\n\n더 바삭한 카츠를 위해 새 주방 설비를 설치 중입니다. 8월 17일부터 정상 영업합니다 🙏"
+      "on": true,
+      "fr": "🥡 Nouveau — Commandez en ligne !\nLe take-out est maintenant disponible directement sur notre site : choisissez vos plats, payez en ligne et passez chercher votre commande — sans file d'attente. Commandez dès maintenant dans la section « À emporter » ! 🌟",
+      "en": "🥡 New — Order online!\nTake-out is now available right here on our website: pick your dishes, pay online and swing by to grab your order — no waiting in line. Order now in the \"Take-out\" section! 🌟"
     },
     "hours": [
       {
