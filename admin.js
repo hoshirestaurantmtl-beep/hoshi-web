@@ -4,7 +4,16 @@
 // Note honnête : sur un site statique ce mot de passe n'est qu'une barrière légère —
 // il empêche les curieux, pas un attaquant déterminé. Les données du menu sont
 // publiques de toute façon (elles s'affichent sur le site).
-const ADMIN_PASSWORD = "426426Katsu!";
+// Le mot de passe n'est plus stocké en clair : seul son empreinte SHA-256 apparaît ici.
+// Pour le changer : dans la console du navigateur (F12) exécutez
+//   crypto.subtle.digest("SHA-256", new TextEncoder().encode("NouveauMotDePasse")).then(b => console.log([...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("")))
+// puis remplacez la valeur ci-dessous.
+const ADMIN_PASSWORD_HASH = "bd97f611897789b0eaabbecaba69f7fee6242b7587afec76af13ce844e54e514";
+
+async function sha256Hex(text) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
 
 let data = JSON.parse(JSON.stringify(MENU_DATA)); // copie de travail
 const $ = (id) => document.getElementById(id);
@@ -13,8 +22,11 @@ const $ = (id) => document.getElementById(id);
 $("loginBtn").addEventListener("click", tryLogin);
 $("pwd").addEventListener("keydown", (e) => { if (e.key === "Enter") tryLogin(); });
 
-function tryLogin() {
-  if ($("pwd").value === ADMIN_PASSWORD) {
+async function tryLogin() {
+  let hash = "";
+  try { hash = await sha256Hex($("pwd").value); }
+  catch (e) { $("loginErr").textContent = "Ouvrez cette page en HTTPS (hoshimtl.ca/admin)."; return; }
+  if (hash === ADMIN_PASSWORD_HASH) {
     $("loginBox").classList.add("hidden");
     $("panel").classList.remove("hidden");
     $("saveBar").classList.remove("hidden");

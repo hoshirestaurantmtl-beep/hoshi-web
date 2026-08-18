@@ -6,8 +6,12 @@ module.exports = async (req, res) => {
   const pin = process.env.ORDERS_PIN;
   if (!key || !pin) return res.status(500).json({ error: "Configuration manquante" });
 
-  const given = (req.query && req.query.k) || "";
-  if (given !== pin) return res.status(401).json({ error: "PIN invalide" });
+  const given = String((req.query && req.query.k) || "");
+  // comparaison à temps constant (évite les attaques par chronométrage)
+  const crypto = require("crypto");
+  const a = crypto.createHash("sha256").update(given).digest();
+  const b = crypto.createHash("sha256").update(String(pin)).digest();
+  if (!crypto.timingSafeEqual(a, b)) return res.status(401).json({ error: "PIN invalide" });
 
   try {
     // paiements des dernières 24 h

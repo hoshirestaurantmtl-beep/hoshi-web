@@ -122,6 +122,12 @@ async function load() {
   }
 }
 
+// Échappe le HTML : les noms/téléphones viennent des clients — jamais les insérer bruts
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, c =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
 function render(orders) {
   const box = document.getElementById("orders");
   const fresh = orders.filter(o => !known.has(o.id));
@@ -141,12 +147,12 @@ function render(orders) {
     const tel = (o.telephone || "").replace(/[^0-9]/g, "");
     d.innerHTML = `
       <div class="o-top">
-        <span class="o-time">🕐 ${o.ramassage || "—"}</span>
-        <span class="o-amount">${(o.amount / 100).toFixed(2)} $</span>
+        <span class="o-time">🕐 ${esc(o.ramassage) || "—"}</span>
+        <span class="o-amount">${(Number(o.amount) / 100 || 0).toFixed(2)} $</span>
       </div>
-      <div class="o-client">${o.client || "Client"}</div>
-      <div class="o-phone">${o.telephone ? `<a href="tel:+1${tel}">📞 ${o.telephone}</a>` : ""}</div>
-      <div class="o-items">${(o.commande || "").split(" | ").join("<br>")}</div>
+      <div class="o-client">${esc(o.client) || "Client"}</div>
+      <div class="o-phone">${o.telephone ? `<a href="tel:+1${esc(tel)}">📞 ${esc(o.telephone)}</a>` : ""}</div>
+      <div class="o-items">${esc(o.commande || "").split(" | ").join("<br>")}</div>
       <div class="o-created">Payée à ${fmtTime(o.created)}</div>
       <button class="o-done-btn">${isDone ? "↩ Remettre en attente" : "✔ Prête / remise"}</button>`;
     d.querySelector(".o-done-btn").addEventListener("click", () => {

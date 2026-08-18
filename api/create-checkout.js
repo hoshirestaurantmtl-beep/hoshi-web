@@ -66,9 +66,17 @@ module.exports = async (req, res) => {
   if (!key) return res.status(500).json({ error: "STRIPE_SECRET_KEY manquante" });
 
   try {
-    const { items, name, phone, time, lang } = req.body || {};
-    if (!Array.isArray(items) || items.length === 0) return res.status(400).json({ error: "Panier vide" });
+    const body = req.body || {};
+    const items = body.items;
+    // nettoie et borne les champs saisis par le client
+    const clean = (v, max) => String(v == null ? "" : v).replace(/[\r\n\t<>]/g, " ").trim().slice(0, max);
+    const name = clean(body.name, 60);
+    const phone = clean(body.phone, 25);
+    const time = clean(body.time, 5);
+    const lang = body.lang;
+    if (!Array.isArray(items) || items.length === 0 || items.length > 40) return res.status(400).json({ error: "Panier invalide" });
     if (!name || !phone || !time) return res.status(400).json({ error: "Informations manquantes" });
+    if (!/^[0-9+\-() .]{7,25}$/.test(phone)) return res.status(400).json({ error: "Numéro de téléphone invalide" });
     if (!validPickup(time)) return res.status(400).json({ error: "Heure de ramassage hors des horaires d'ouverture" });
 
     const menu = loadMenu();
@@ -82,7 +90,9 @@ module.exports = async (req, res) => {
       const it = menu[id];
       const q = Math.max(1, Math.min(20, parseInt(qty, 10) || 0));
       if (!it || !q) continue;
-      const cents = Math.round(it.price * 100); // prix côté serveur — non falsifiable
+      if (it.soldout) return res.status(400).json({ error: "Un article du panier est épuisé" });
+      const cents = Math.round(Number(it.price) * 100); // prix côté serveur — non falsifiable
+      if (!Number.isFinite(cents) || cents <= 0) continue;
       subtotal += cents * q;
       const dishName = it.name[L] || it.name.en || it.name.fr;
       lineItems[i++] = {

@@ -684,10 +684,12 @@ h1, h2, h3, .logo {
   text-align: center;
   color: var(--crema);
 }
-.closed-box h3 {
+.closed-box .closed-icon { font-size: 2rem; margin-bottom: 0.4rem; }
+.closed-box .closed-title {
   font-family: 'Noto Serif JP', serif;
   color: var(--dorado);
   margin-bottom: 0.6rem;
   font-size: 1.15rem;
+  font-weight: 600;
 }
 .closed-box p { color: #cfc9bd; font-size: 0.95rem; }
