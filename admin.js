@@ -124,6 +124,8 @@ function render() {
         tdD.appendChild(mk("↓", "Descendre", () => { if (ii < sec.items.length-1) { [sec.items[ii+1], sec.items[ii]] = [sec.items[ii], sec.items[ii+1]]; render(); } }));
         tdD.appendChild(mk(it.soldout ? "🚫" : "✅", it.soldout ? "Épuisé — cliquer pour remettre en vente" : "En vente — cliquer pour marquer épuisé",
           () => { it.soldout = !it.soldout; if (!it.soldout) delete it.soldout; render(); }, it.soldout ? "sold-on" : ""));
+        tdD.appendChild(mk("🍺", it.alcohol ? "Alcool : sur place seulement — cliquer pour autoriser au take-out" : "Take-out autorisé — cliquer pour marquer « alcool, sur place seulement »",
+          () => { it.alcohol = !it.alcohol; if (!it.alcohol) delete it.alcohol; render(); }, it.alcohol ? "sold-on" : ""));
         tdD.appendChild(mk("📷", "Téléverser une photo pour ce plat", () => uploadPhoto(it)));
         tdD.appendChild(mk("✕", "Supprimer ce plat", () => { if (confirm("Supprimer ce plat ?")) { sec.items.splice(ii, 1); render(); } }));
         tr.appendChild(tdD);
@@ -265,6 +267,7 @@ function serialize() {
     if (it.desc && !it.desc.fr && !it.desc.en) delete it.desc;
     if (!it.photo) delete it.photo;
     if (!it.soldout) delete it.soldout;
+    if (!it.alcohol) delete it.alcohol;
   })));
   return "// ===== Hoshi — Données du menu / Menu data =====\n" +
          "// Fichier généré par admin.html — remplacez menu-data.js du site par ce fichier.\n" +

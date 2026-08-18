@@ -95,6 +95,7 @@ module.exports = async (req, res) => {
       const q = Math.max(1, Math.min(20, parseInt(qty, 10) || 0));
       if (!it || !q) continue;
       if (it.soldout) return res.status(400).json({ error: "Un article du panier est épuisé" });
+      if (it.alcohol) return res.status(400).json({ error: "Les boissons alcoolisées sont disponibles sur place seulement" });
       const cents = Math.round(Number(it.price) * 100); // prix côté serveur — non falsifiable
       if (!Number.isFinite(cents) || cents <= 0) continue;
       subtotal += cents * q;

@@ -697,3 +697,19 @@ h1, h2, h3, .logo {
 /* Hors horaires : masquer les boutons d'ajout au panier */
 body.takeout-closed .add-btn { display: none !important; }
 body.takeout-closed .nav-cart { display: none !important; }
+
+/* Boissons alcoolisées : sur place seulement */
+.dinein-chip {
+  display: inline-block;
+  margin-left: 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--dorado);
+  border: 1px solid var(--dorado);
+  border-radius: 3px;
+  padding: 0.05rem 0.35rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}

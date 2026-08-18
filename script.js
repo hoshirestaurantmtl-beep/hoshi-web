@@ -19,6 +19,7 @@ const i18n = {
     hero_sub: "Restaurant japonais au cœur du Quartier chinois de Montréal.",
     soldout_label: "Épuisé",
     closed_title: "Commandes en ligne fermées pour le moment",
+    dinein_label: "sur place seulement",
     today_word: "aujourd'hui",
     reopen_at: "Réouverture des commandes : {day} à {time}",
     hero_btn_menu: "Voir le menu",
@@ -172,6 +173,7 @@ const i18n = {
     hero_sub: "Japanese restaurant in the heart of Montreal's Chinatown.",
     soldout_label: "Sold out",
     closed_title: "Online ordering is currently closed",
+    dinein_label: "dine-in only",
     today_word: "today",
     reopen_at: "Ordering reopens {day} at {time}",
     hero_btn_menu: "View menu",
@@ -325,6 +327,7 @@ const i18n = {
     hero_sub: "モントリオール・チャイナタウンの中心にある日本食レストラン。",
     soldout_label: "売り切れ",
     closed_title: "オンライン注文は現在受付時間外です",
+    dinein_label: "店内のみ",
     today_word: "本日",
     reopen_at: "注文再開：{day} {time}",
     hero_btn_menu: "メニューを見る",
@@ -386,6 +389,7 @@ const i18n = {
     hero_sub: "몬트리올 차이나타운 중심에 있는 일식 레스토랑.",
     soldout_label: "품절",
     closed_title: "온라인 주문이 현재 마감되었습니다",
+    dinein_label: "매장 전용",
     today_word: "오늘",
     reopen_at: "주문 재개: {day} {time}",
     hero_btn_menu: "메뉴 보기",
@@ -517,7 +521,8 @@ function buildSection(sec, lang) {
   sec.items.forEach(it => {
     const li = document.createElement("li");
     const soldChip = it.soldout ? `<span class="soldout-chip">${dictFor(lang).soldout_label}</span>` : "";
-    li.innerHTML = `<div class="mi-head"><span>${it.name[lang] || it.name.en || it.name.fr}${soldChip}</span><span class="dots"></span><span class="price">${fmtPrice(it.price)}</span></div>` +
+    const alcoholChip = (it.alcohol && TAKEOUT_ENABLED) ? `<span class="dinein-chip">${dictFor(lang).dinein_label}</span>` : "";
+    li.innerHTML = `<div class="mi-head"><span>${it.name[lang] || it.name.en || it.name.fr}${soldChip}${alcoholChip}</span><span class="dots"></span><span class="price">${fmtPrice(it.price)}</span></div>` +
       (it.desc ? `<p class="mi-desc">${it.desc[lang] || it.desc.en || it.desc.fr || ""}</p>` : "");
     if (it.soldout) li.classList.add("soldout");
     const actions = document.createElement("span");
@@ -533,7 +538,7 @@ function buildSection(sec, lang) {
       });
       actions.appendChild(pbtn);
     }
-    if (TAKEOUT_ENABLED && !it.soldout) {
+    if (TAKEOUT_ENABLED && !it.soldout && !it.alcohol) {
     const btn = document.createElement("button");
     btn.className = "add-btn"; btn.type = "button"; btn.textContent = "+";
     btn.setAttribute("aria-label", "Ajouter / Add");
