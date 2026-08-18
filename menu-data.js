@@ -561,7 +561,8 @@ const MENU_DATA = {
                 "ja": "ジンジャービール 200ml",
                 "ko": "진저비어 200ml"
               },
-              "price": 5
+              "price": 5,
+              "alcohol": true
             },
             {
               "id": "v5",
@@ -587,7 +588,8 @@ const MENU_DATA = {
                 "ja": "ボトル750ml: 56$",
                 "ko": "병 750ml: 56$"
               },
-              "price": 12
+              "price": 12,
+              "alcohol": true
             },
             {
               "id": "v7",
@@ -603,7 +605,8 @@ const MENU_DATA = {
                 "ja": "ボトル750ml: 52$",
                 "ko": "병 750ml: 52$"
               },
-              "price": 11
+              "price": 11,
+              "alcohol": true
             },
             {
               "id": "v8",
@@ -613,7 +616,8 @@ const MENU_DATA = {
                 "ja": "ジェムソン・トリプル ハイボール",
                 "ko": "제임슨 트리플 하이볼"
               },
-              "price": 11
+              "price": 11,
+              "alcohol": true
             },
             {
               "id": "v9",
@@ -623,7 +627,8 @@ const MENU_DATA = {
                 "ja": "ジンジャービア・ハイボール",
                 "ko": "진저비어 하이볼"
               },
-              "price": 12
+              "price": 12,
+              "alcohol": true
             },
             {
               "id": "v10",
@@ -633,7 +638,8 @@ const MENU_DATA = {
                 "ja": "紅茶ハイボール",
                 "ko": "홍차 하이볼"
               },
-              "price": 12
+              "price": 12,
+              "alcohol": true
             },
             {
               "id": "v11",
@@ -644,7 +650,8 @@ const MENU_DATA = {
                 "ko": "시치켄 준마이긴조 사케 300ml"
               },
               "price": 34,
-              "photo": "img/sake.jpg"
+              "photo": "img/sake.jpg",
+              "alcohol": true
             },
             {
               "id": "v12",
@@ -654,7 +661,8 @@ const MENU_DATA = {
                 "ja": "サッポロビール 500ml",
                 "ko": "삿포로 맥주 500ml"
               },
-              "price": 9
+              "price": 9,
+              "alcohol": true
             },
             {
               "id": "v13",
@@ -664,7 +672,8 @@ const MENU_DATA = {
                 "ja": "ブランシュ・ド・シャンブリー 473ml",
                 "ko": "블랑슈 드 샹블리 맥주 473ml"
               },
-              "price": 9
+              "price": 9,
+              "alcohol": true
             }
           ]
         }
