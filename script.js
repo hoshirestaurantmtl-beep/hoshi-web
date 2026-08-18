@@ -442,7 +442,16 @@ const i18n = {
   }
 };
 
+// Langue : ?lang= dans l'URL > choix mémorisé > français
+const LANGS = ["fr", "en", "ja", "ko"];
 let currentLang = "fr";
+(function () {
+  const fromUrl = new URLSearchParams(location.search).get("lang");
+  let saved = null;
+  try { saved = localStorage.getItem("hoshi_lang"); } catch (e) {}
+  if (LANGS.includes(fromUrl)) currentLang = fromUrl;
+  else if (LANGS.includes(saved)) currentLang = saved;
+})();
 
 function dictFor(lang) {
   return Object.assign({}, i18n.en, i18n[lang] || {});
@@ -450,6 +459,7 @@ function dictFor(lang) {
 
 function setLang(lang) {
   currentLang = lang;
+  try { localStorage.setItem("hoshi_lang", lang); } catch (e) {}
   const dict = dictFor(lang);
   document.documentElement.lang = lang;
 

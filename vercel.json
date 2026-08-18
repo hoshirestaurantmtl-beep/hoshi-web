@@ -1,5 +1,11 @@
 {
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/en", "destination": "/?lang=en", "permanent": false },
+    { "source": "/fr", "destination": "/?lang=fr", "permanent": false },
+    { "source": "/ja", "destination": "/?lang=ja", "permanent": false },
+    { "source": "/ko", "destination": "/?lang=ko", "permanent": false }
+  ],
   "headers": [
     {
       "source": "/(menu-data|script|admin)\\.js",
