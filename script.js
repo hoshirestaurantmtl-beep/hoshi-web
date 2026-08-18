@@ -18,6 +18,9 @@ const i18n = {
     announce_txt: "🏮 En raison de notre espace limité, nous n'acceptons pas de réservations — premier arrivé, premier servi !",
     hero_sub: "Restaurant japonais au cœur du Quartier chinois de Montréal.",
     soldout_label: "Épuisé",
+    closed_title: "Commandes en ligne fermées pour le moment",
+    today_word: "aujourd'hui",
+    reopen_at: "Réouverture des commandes : {day} à {time}",
     hero_btn_menu: "Voir le menu",
     menu_title: "Notre Menu",
     menu_intro: "Préparé à la minute avec des ingrédients frais.",
@@ -168,6 +171,9 @@ const i18n = {
     announce_txt: "🏮 Due to our limited space, we do not take reservations — first come, first served!",
     hero_sub: "Japanese restaurant in the heart of Montreal's Chinatown.",
     soldout_label: "Sold out",
+    closed_title: "Online ordering is currently closed",
+    today_word: "today",
+    reopen_at: "Ordering reopens {day} at {time}",
     hero_btn_menu: "View menu",
     menu_title: "Our Menu",
     menu_intro: "Made to order with fresh ingredients.",
@@ -318,6 +324,9 @@ const i18n = {
     announce_txt: "🏮 店内が狭いため、ご予約は承っておりません — 先着順でのご案内となります。",
     hero_sub: "モントリオール・チャイナタウンの中心にある日本食レストラン。",
     soldout_label: "売り切れ",
+    closed_title: "オンライン注文は現在受付時間外です",
+    today_word: "本日",
+    reopen_at: "注文再開：{day} {time}",
     hero_btn_menu: "メニューを見る",
     menu_title: "お品書き",
     menu_intro: "新鮮な食材で、一品ずつお作りします。",
@@ -376,6 +385,9 @@ const i18n = {
     announce_txt: "🏮 매장이 협소하여 예약을 받지 않습니다 — 선착순으로 안내해 드립니다.",
     hero_sub: "몬트리올 차이나타운 중심에 있는 일식 레스토랑.",
     soldout_label: "품절",
+    closed_title: "온라인 주문이 현재 마감되었습니다",
+    today_word: "오늘",
+    reopen_at: "주문 재개: {day} {time}",
     hero_btn_menu: "메뉴 보기",
     menu_title: "메뉴",
     menu_intro: "신선한 재료로 주문 즉시 조리합니다.",
@@ -451,6 +463,7 @@ function setLang(lang) {
 
   renderMenus(lang);
   renderHours(lang);
+  if (typeof updateTakeoutAvailability === "function") updateTakeoutAvailability();
   applyBanner(lang);
   if (typeof window.__setNoticeText === "function") window.__setNoticeText();
   if (typeof renderCart === "function" && cartList) renderCart();
@@ -688,6 +701,101 @@ function applyBanner(lang) {
   }
 })();
 
+// ---- Heures de service (heure de Montréal) ----
+// minutes depuis minuit : [ouverture, fermeture] — dim=0 ... sam=6
+const SERVICE = {
+  0: [[660, 1380]],               // dimanche 11:00–23:00
+  1: [[690, 900], [1020, 1260]],  // lundi 11:30–15:00 · 17:00–21:00
+  2: [[690, 900], [1020, 1260]],  // mardi
+  3: [[690, 900], [1020, 1260]],  // mercredi
+  4: [[690, 900], [1020, 1290]],  // jeudi 11:30–15:00 · 17:00–21:30
+  5: [[690, 1380]],               // vendredi 11:30–23:00
+  6: [[660, 1380]]                // samedi 11:00–23:00
+};
+const PREP_MIN = 25;        // délai minimum de préparation
+const LAST_PICKUP_MIN = 10; // dernier ramassage X min avant la fermeture
+
+function montrealNow() {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Montreal", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false
+  }).formatToParts(new Date());
+  const get = t => (parts.find(p => p.type === t) || {}).value;
+  const days = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+  return { day: days[get("weekday")], min: parseInt(get("hour"), 10) % 24 * 60 + parseInt(get("minute"), 10) };
+}
+
+function pickupSlots() {
+  const { day, min } = montrealNow();
+  const earliest = min + PREP_MIN;
+  const slots = [];
+  (SERVICE[day] || []).forEach(([start, end]) => {
+    const lastP = end - LAST_PICKUP_MIN;
+    let t = Math.max(start, Math.ceil(earliest / 15) * 15);
+    for (; t <= lastP; t += 15) {
+      slots.push(String(Math.floor(t / 60)).padStart(2, "0") + ":" + String(t % 60).padStart(2, "0"));
+    }
+  });
+  return slots;
+}
+
+function nextOpening() {
+  const now = montrealNow();
+  for (let add = 0; add < 8; add++) {
+    const d = (now.day + add) % 7;
+    for (const [start, end] of (SERVICE[d] || [])) {
+      if (add === 0 && now.min + PREP_MIN >= end - LAST_PICKUP_MIN) continue;
+      if (add === 0 && now.min >= start) continue;
+      const date = new Date(Date.now() + add * 86400000);
+      const hh = String(Math.floor(start / 60)).padStart(2, "0") + ":" + String(start % 60).padStart(2, "0");
+      return { date, time: hh, sameDay: add === 0 };
+    }
+  }
+  return null;
+}
+
+function updateTakeoutAvailability() {
+  if (!TAKEOUT_ENABLED) return;
+  const slots = pickupSlots();
+  const open = slots.length > 0;
+  const navCart = document.querySelector(".nav-cart");
+  const wrap = document.querySelector(".order-wrap");
+  let closedBox = document.getElementById("closedBox");
+
+  if (open) {
+    if (navCart) navCart.parentElement.style.display = "";
+    if (wrap) wrap.style.display = "";
+    if (closedBox) closedBox.remove();
+    const sel = document.getElementById("orderTime");
+    if (sel) {
+      const prev = sel.value;
+      sel.innerHTML = slots.map(s => `<option value="${s}">${s}</option>`).join("");
+      if (slots.includes(prev)) sel.value = prev;
+    }
+  } else {
+    if (navCart) navCart.parentElement.style.display = "none";
+    if (wrap) wrap.style.display = "none";
+    const dict = dictFor(currentLang);
+    const nx = nextOpening();
+    let when = "";
+    if (nx) {
+      const locales = { fr: "fr-CA", en: "en-CA", ja: "ja-JP", ko: "ko-KR" };
+      const dayName = nx.sameDay ? dict.today_word :
+        new Intl.DateTimeFormat(locales[currentLang] || "fr-CA", { weekday: "long", timeZone: "America/Montreal" }).format(nx.date);
+      when = dict.reopen_at.replace("{day}", dayName).replace("{time}", nx.time);
+    }
+    const cmd = document.getElementById("commande");
+    if (cmd) {
+      if (!closedBox) {
+        closedBox = document.createElement("div");
+        closedBox.id = "closedBox";
+        closedBox.className = "closed-box";
+        cmd.appendChild(closedBox);
+      }
+      closedBox.innerHTML = `<p class="closed-icon">🕐</p><p class="closed-title">${dict.closed_title}</p><p>${when}</p>`;
+    }
+  }
+}
+
 // ---- Masquer galerie si pas de photos ----
 if (!PHOTOS_ENABLED) {
   const gal = document.getElementById("galerie");
@@ -726,3 +834,4 @@ if (NOTICE && NOTICE.on) {
 }
 
 setLang(currentLang);
+if (TAKEOUT_ENABLED) setInterval(updateTakeoutAvailability, 60000);

@@ -6,6 +6,39 @@ const path = require("path");
 const TPS = 0.05;
 const TVQ = 0.09975;
 
+// Horaires de service (minutes depuis minuit, heure de Montréal ; 0 = dimanche)
+const SERVICE = {
+  0: [[660, 1380]],
+  1: [[690, 900], [1020, 1260]],
+  2: [[690, 900], [1020, 1260]],
+  3: [[690, 900], [1020, 1260]],
+  4: [[690, 900], [1020, 1290]],
+  5: [[690, 1380]],
+  6: [[660, 1380]]
+};
+const PREP_MIN = 25;
+const LAST_PICKUP_MIN = 10;
+
+function montrealNow() {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Montreal", hour12: false,
+    weekday: "short", hour: "2-digit", minute: "2-digit"
+  }).formatToParts(new Date());
+  const get = t => parts.find(p => p.type === t).value;
+  const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(get("weekday"));
+  return { day, min: (parseInt(get("hour"), 10) % 24) * 60 + parseInt(get("minute"), 10) };
+}
+
+function validPickup(timeStr) {
+  const m = /^(\d{1,2}):(\d{2})$/.exec((timeStr || "").trim());
+  if (!m) return false;
+  const t = parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
+  const now = montrealNow();
+  return (SERVICE[now.day] || []).some(([a, b]) =>
+    t >= Math.max(a, now.min + PREP_MIN) && t <= b - LAST_PICKUP_MIN
+  );
+}
+
 function loadMenu() {
   const src = fs.readFileSync(path.join(process.cwd(), "menu-data.js"), "utf8");
   // eslint-disable-next-line no-eval
@@ -36,6 +69,7 @@ module.exports = async (req, res) => {
     const { items, name, phone, time, lang } = req.body || {};
     if (!Array.isArray(items) || items.length === 0) return res.status(400).json({ error: "Panier vide" });
     if (!name || !phone || !time) return res.status(400).json({ error: "Informations manquantes" });
+    if (!validPickup(time)) return res.status(400).json({ error: "Heure de ramassage hors des horaires d'ouverture" });
 
     const menu = loadMenu();
     const L = ["fr", "en", "ja", "ko"].includes(lang) ? lang : "fr";

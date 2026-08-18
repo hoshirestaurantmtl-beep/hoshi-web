@@ -672,3 +672,22 @@ h1, h2, h3, .logo {
   .menu-book { grid-template-columns: 1fr; padding: 2rem 1.4rem; gap: 2rem; }
   .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
 }
+
+/* ===== Take-out fermé (hors horaires) ===== */
+.closed-box {
+  max-width: 520px;
+  margin: 1.5rem auto;
+  padding: 1.6rem 1.4rem;
+  background: #1d1a1a;
+  border: 1px solid var(--dorado);
+  border-radius: 12px;
+  text-align: center;
+  color: var(--crema);
+}
+.closed-box h3 {
+  font-family: 'Noto Serif JP', serif;
+  color: var(--dorado);
+  margin-bottom: 0.6rem;
+  font-size: 1.15rem;
+}
+.closed-box p { color: #cfc9bd; font-size: 0.95rem; }

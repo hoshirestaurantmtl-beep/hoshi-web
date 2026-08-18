@@ -98,12 +98,18 @@ function fmtTime(ts) {
   return new Date(ts * 1000).toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" });
 }
 
+function pinFeedback(msg) {
+  const el = document.getElementById("pinErr");
+  if (el && !document.getElementById("pinBox").classList.contains("hidden")) el.textContent = msg;
+}
+
 async function load() {
   if (!PIN) return;
   try {
     const resp = await fetch("/api/orders?k=" + encodeURIComponent(PIN));
     if (resp.status === 401) { logout("PIN invalide."); return; }
-    const data = await resp.json();
+    let data;
+    try { data = await resp.json(); } catch (e) { throw new Error("Réponse invalide du serveur (" + resp.status + ")"); }
     if (!resp.ok) throw new Error(data.error || resp.status);
     document.getElementById("pinBox").classList.add("hidden");
     document.getElementById("app").classList.remove("hidden");
@@ -111,7 +117,8 @@ async function load() {
     document.getElementById("status").textContent = "Mis à jour " + new Date().toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
     keepAwake();
   } catch (e) {
-    document.getElementById("status").textContent = "⚠ Hors ligne — nouvelle tentative…";
+    document.getElementById("status").textContent = "⚠ " + e.message;
+    pinFeedback("Erreur : " + e.message);
   }
 }
 
