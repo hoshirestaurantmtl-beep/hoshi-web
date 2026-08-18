@@ -693,3 +693,7 @@ h1, h2, h3, .logo {
   font-weight: 600;
 }
 .closed-box p { color: #cfc9bd; font-size: 0.95rem; }
+
+/* Hors horaires : masquer les boutons d'ajout au panier */
+body.takeout-closed .add-btn { display: none !important; }
+body.takeout-closed .nav-cart { display: none !important; }

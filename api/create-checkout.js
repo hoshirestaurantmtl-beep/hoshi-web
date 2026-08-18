@@ -34,6 +34,10 @@ function validPickup(timeStr) {
   if (!m) return false;
   const t = parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
   const now = montrealNow();
+  // le restaurant doit être ouvert au moment de la commande…
+  const openNow = (SERVICE[now.day] || []).some(([a, b]) => now.min >= a && now.min + PREP_MIN <= b - LAST_PICKUP_MIN);
+  if (!openNow) return false;
+  // …et l'heure de ramassage doit tomber dans une plage valide
   return (SERVICE[now.day] || []).some(([a, b]) =>
     t >= Math.max(a, now.min + PREP_MIN) && t <= b - LAST_PICKUP_MIN
   );

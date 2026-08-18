@@ -753,13 +753,21 @@ function nextOpening() {
   return null;
 }
 
+function isOpenNow() {
+  const { day, min } = montrealNow();
+  return (SERVICE[day] || []).some(([a, b]) => min >= a && min + PREP_MIN <= b - LAST_PICKUP_MIN);
+}
+
 function updateTakeoutAvailability() {
   if (!TAKEOUT_ENABLED) return;
   const slots = pickupSlots();
-  const open = slots.length > 0;
+  const open = isOpenNow() && slots.length > 0;
   const navCart = document.querySelector(".nav-cart");
   const wrap = document.querySelector(".order-wrap");
   let closedBox = document.getElementById("closedBox");
+
+  // cache aussi les boutons "+" des plats
+  document.body.classList.toggle("takeout-closed", !open);
 
   if (open) {
     if (navCart) navCart.parentElement.style.display = "";
