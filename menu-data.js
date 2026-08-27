@@ -875,7 +875,7 @@ const MENU_DATA = {
   "settings": {
     "takeout": true,
     "notice": {
-      "on": true,
+      "on": false,
       "fr": "🥡 Nouveau — Commandez en ligne !\nLe take-out est maintenant disponible directement sur notre site : choisissez vos plats, payez en ligne et passez chercher votre commande — sans file d'attente. Commandez dès maintenant dans la section « À emporter » ! 🌟",
       "en": "🥡 New — Order online!\nTake-out is now available right here on our website: pick your dishes, pay online and swing by to grab your order — no waiting in line. Order now in the \"Take-out\" section! 🌟"
     },
