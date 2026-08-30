@@ -717,8 +717,11 @@ function applyBanner(lang) {
 })();
 
 // ---- Heures de service (heure de Montréal) ----
+// Dérivées de MENU_DATA.settings.hours (panneau admin) pour que les horaires
+// affichés et les horaires qui contrôlent vraiment les commandes ne divergent jamais.
+// Repli sur des horaires par défaut si le panneau admin n'a pas encore été utilisé.
 // minutes depuis minuit : [ouverture, fermeture] — dim=0 ... sam=6
-const SERVICE = {
+const DEFAULT_SERVICE = {
   0: [[660, 1380]],               // dimanche 11:00–23:00
   1: [[690, 900], [1020, 1260]],  // lundi 11:30–15:00 · 17:00–21:00
   2: [[690, 900], [1020, 1260]],  // mardi
@@ -727,6 +730,28 @@ const SERVICE = {
   5: [[690, 1380]],               // vendredi 11:30–23:00
   6: [[660, 1380]]                // samedi 11:00–23:00
 };
+
+// Extrait les paires HH:MM d'un texte libre (« 11:30 – 15:00 · 17:00 – 21:00 ») en plages [ouverture, fermeture]
+function parseTimeRanges(text) {
+  const nums = String(text || "").match(/\d{1,2}:\d{2}/g) || [];
+  const toMin = s => { const [h, m] = s.split(":").map(Number); return h * 60 + m; };
+  const ranges = [];
+  for (let i = 0; i + 1 < nums.length; i += 2) {
+    const a = toMin(nums[i]), b = toMin(nums[i + 1]);
+    if (b > a) ranges.push([a, b]);
+  }
+  return ranges;
+}
+function buildService(hoursRows) {
+  const svc = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
+  let any = false;
+  (hoursRows || []).forEach(row => {
+    const ranges = parseTimeRanges(row.time);
+    (row.days || []).forEach(d => { if (svc[d]) { svc[d] = svc[d].concat(ranges); any = true; } });
+  });
+  return any ? svc : null;
+}
+const SERVICE = buildService((typeof MENU_DATA !== "undefined" && MENU_DATA.settings && MENU_DATA.settings.hours)) || DEFAULT_SERVICE;
 const PREP_MIN = 25;        // délai minimum de préparation
 const LAST_PICKUP_MIN = 10; // dernier ramassage X min avant la fermeture
 

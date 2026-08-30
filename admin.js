@@ -370,12 +370,18 @@ $("publishBtn").addEventListener("click", async () => {
 });
 
 // ===== Configuration du site (bandeau, horaires, coordonnées, photos) =====
+// Les jours cochés (0=dimanche … 6=samedi) sont ce qui contrôle VRAIMENT la
+// disponibilité des commandes — le texte FR/EN n'est qu'un libellé d'affichage.
 const DEFAULT_HOURS = [
-  { fr: "Lundi – Mercredi", en: "Monday – Wednesday", time: "11:30 – 15:00 · 17:00 – 21:00" },
-  { fr: "Jeudi", en: "Thursday", time: "11:30 – 15:00 · 17:00 – 21:30" },
-  { fr: "Vendredi", en: "Friday", time: "11:30 – 23:00" },
-  { fr: "Samedi", en: "Saturday", time: "11:00 – 23:00" },
-  { fr: "Dimanche", en: "Sunday", time: "11:00 – 23:00" }
+  { fr: "Lundi – Mercredi", en: "Monday – Wednesday", time: "11:30 – 15:00 · 17:00 – 21:00", days: [1, 2, 3] },
+  { fr: "Jeudi", en: "Thursday", time: "11:30 – 15:00 · 17:00 – 21:30", days: [4] },
+  { fr: "Vendredi", en: "Friday", time: "11:30 – 23:00", days: [5] },
+  { fr: "Samedi", en: "Saturday", time: "11:00 – 23:00", days: [6] },
+  { fr: "Dimanche", en: "Sunday", time: "11:00 – 23:00", days: [0] }
+];
+const DAY_DEFS = [
+  { d: 1, label: "Lu" }, { d: 2, label: "Ma" }, { d: 3, label: "Me" }, { d: 4, label: "Je" },
+  { d: 5, label: "Ve" }, { d: 6, label: "Sa" }, { d: 0, label: "Di" }
 ];
 
 function refreshExtras() {
@@ -408,6 +414,28 @@ function renderHoursEditor() {
   const box = $("hoursRows");
   box.innerHTML = "";
   data.settings.hours.forEach((r, i) => {
+    if (!Array.isArray(r.days)) r.days = [];
+    const wrap = document.createElement("div");
+    wrap.style.marginBottom = "0.7rem";
+
+    // jours actifs de cette ligne — c'est ce qui contrôle vraiment les commandes
+    const days = document.createElement("div");
+    days.style.cssText = "display:flex; gap:0.3rem; margin-bottom:0.3rem;";
+    DAY_DEFS.forEach(dd => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = dd.label;
+      b.className = "act-btn" + (r.days.includes(dd.d) ? " sold-on" : "");
+      b.title = r.days.includes(dd.d) ? "Ouvert ce jour — cliquer pour désactiver" : "Fermé ce jour — cliquer pour activer";
+      b.addEventListener("click", () => {
+        const idx = r.days.indexOf(dd.d);
+        if (idx === -1) r.days.push(dd.d); else r.days.splice(idx, 1);
+        renderHoursEditor();
+      });
+      days.appendChild(b);
+    });
+    wrap.appendChild(days);
+
     const row = document.createElement("div");
     row.className = "hour-row";
     const mkIn = (val, ph, key) => {
@@ -423,11 +451,13 @@ function renderHoursEditor() {
     del.className = "del-x"; del.textContent = "✕"; del.type = "button";
     del.addEventListener("click", () => { data.settings.hours.splice(i, 1); renderHoursEditor(); });
     row.appendChild(del);
-    box.appendChild(row);
+    wrap.appendChild(row);
+
+    box.appendChild(wrap);
   });
 }
 $("addHourRow").addEventListener("click", () => {
-  data.settings.hours.push({ fr: "", en: "", time: "" });
+  data.settings.hours.push({ fr: "", en: "", time: "", days: [] });
   renderHoursEditor();
 });
 

@@ -883,27 +883,32 @@ const MENU_DATA = {
       {
         "fr": "Lundi – Mercredi",
         "en": "Monday – Wednesday",
-        "time": "11:30 – 15:00 · 17:00 – 21:00"
+        "time": "11:30 – 15:00 · 17:00 – 21:00",
+        "days": [1, 2, 3]
       },
       {
         "fr": "Jeudi",
         "en": "Thursday",
-        "time": "11:30 – 15:00 · 17:00 – 21:30"
+        "time": "11:30 – 15:00 · 17:00 – 21:30",
+        "days": [4]
       },
       {
         "fr": "Vendredi",
         "en": "Friday",
-        "time": "11:30 – 23:00"
+        "time": "11:30 – 23:00",
+        "days": [5]
       },
       {
         "fr": "Samedi",
         "en": "Saturday",
-        "time": "11:00 – 23:00"
+        "time": "11:00 – 23:00",
+        "days": [6]
       },
       {
         "fr": "Dimanche",
         "en": "Sunday",
-        "time": "11:00 – 23:00"
+        "time": "11:00 – 23:00",
+        "days": [0]
       }
     ]
   }
