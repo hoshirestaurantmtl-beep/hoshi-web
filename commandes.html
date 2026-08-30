@@ -30,8 +30,11 @@
     .o-phone a { color:#9ab; text-decoration:none; font-size:0.85rem; }
     .o-items { margin:0.6rem 0; padding:0.6rem 0; border-top:1px dashed #3a332a; border-bottom:1px dashed #3a332a; font-size:0.95rem; line-height:1.6; }
     .o-created { font-size:0.72rem; color:#777; }
-    .o-done-btn { margin-top:0.6rem; width:100%; background:#2e7d32; color:#fff; border:none; border-radius:6px; padding:0.55rem; cursor:pointer; font-size:0.9rem; }
+    .o-btn-row { display:flex; gap:0.5rem; margin-top:0.6rem; }
+    .o-done-btn { flex:1; background:#2e7d32; color:#fff; border:none; border-radius:6px; padding:0.55rem; cursor:pointer; font-size:0.9rem; }
     .order.done .o-done-btn { background:#555; }
+    .o-print-btn { background:#c9a227; color:#141414; border:none; border-radius:6px; padding:0.55rem 0.8rem; cursor:pointer; font-size:0.9rem; }
+    .o-print-btn:disabled { opacity:0.5; }
     #empty { grid-column:1/-1; text-align:center; color:#666; padding:3rem 1rem; font-size:1.05rem; }
     /* PIN */
     #pinBox { max-width:320px; margin:20vh auto; text-align:center; }
@@ -57,11 +60,14 @@
       <img src="img/logo.png" alt="Hoshi">
       <h1>Commandes take-out</h1>
       <span id="status">—</span>
+      <button id="autoPrintBtn">🖨️ Auto : …</button>
+      <button id="printerSetupBtn">⚙ Imprimante</button>
       <button id="soundBtn">🔔 Activer le son</button>
     </header>
     <div class="wrap" id="orders"><p id="empty">Aucune commande pour l'instant 🍱</p></div>
   </div>
 
+<script src="epos-2.27.0.js"></script>
 <script>
 const POLL_MS = 25000;
 let PIN = localStorage.getItem("hoshi_orders_pin") || "";
@@ -93,6 +99,103 @@ async function keepAwake() {
   try { if ("wakeLock" in navigator) await navigator.wakeLock.request("screen"); } catch (e) {}
 }
 document.addEventListener("visibilitychange", () => { if (!document.hidden) { keepAwake(); load(); } });
+
+// ---- Impression des tickets (imprimante Epson réseau, ePOS-Print) ----
+let PRINTER_IP = localStorage.getItem("hoshi_printer_ip") || "";
+let autoPrint = localStorage.getItem("hoshi_autoprint") === "1";
+let eposDev = null;
+let eposPrinter = null;
+let eposConnecting = null;
+
+function refreshAutoPrintBtn() {
+  const b = document.getElementById("autoPrintBtn");
+  b.textContent = autoPrint ? "🖨️ Auto : ACTIVÉE ✓" : "🖨️ Auto : désactivée";
+  b.style.background = autoPrint ? "#2e7d32" : "#333";
+}
+refreshAutoPrintBtn();
+document.getElementById("autoPrintBtn").addEventListener("click", () => {
+  autoPrint = !autoPrint;
+  localStorage.setItem("hoshi_autoprint", autoPrint ? "1" : "0");
+  refreshAutoPrintBtn();
+});
+
+document.getElementById("printerSetupBtn").addEventListener("click", () => {
+  const ip = prompt("Adresse IP locale de l'imprimante Epson (ex. 192.168.1.50) :", PRINTER_IP);
+  if (ip === null) return;
+  PRINTER_IP = ip.trim();
+  localStorage.setItem("hoshi_printer_ip", PRINTER_IP);
+  eposDev = null; eposPrinter = null; eposConnecting = null; // force une reconnexion avec la nouvelle IP
+  if (PRINTER_IP) testPrint();
+});
+
+function ensurePrinter() {
+  if (eposPrinter) return Promise.resolve(eposPrinter);
+  if (!PRINTER_IP) return Promise.reject(new Error("Configurez d'abord l'adresse IP de l'imprimante (⚙ Imprimante)."));
+  if (!window.epson || !window.epson.ePOSDevice) return Promise.reject(new Error("SDK Epson non chargé (epos-2.27.0.js)."));
+  if (eposConnecting) return eposConnecting;
+  eposConnecting = new Promise((resolve, reject) => {
+    eposDev = new window.epson.ePOSDevice();
+    eposDev.connect(PRINTER_IP, 8043, (data) => {
+      if (data !== "OK" && data !== "SSL_CONNECT_OK") {
+        eposConnecting = null;
+        reject(new Error("Connexion imprimante échouée (" + data + "). Vérifiez l'IP, et que le certificat HTTPS de l'imprimante a bien été accepté sur cette tablette."));
+        return;
+      }
+      eposDev.createDevice("local_printer", eposDev.DEVICE_TYPE_PRINTER, { crypto: true, buffer: false }, (devobj, retcode) => {
+        if (retcode !== "OK") { eposConnecting = null; reject(new Error("Imprimante introuvable (" + retcode + ").")); return; }
+        eposPrinter = devobj;
+        resolve(eposPrinter);
+      });
+    });
+  });
+  return eposConnecting;
+}
+
+function buildTicket(printer, o) {
+  printer.addTextAlign(printer.ALIGN_CENTER);
+  printer.addTextSize(2, 2);
+  printer.addText("HOSHI\n");
+  printer.addTextSize(1, 1);
+  printer.addText("Commande à emporter / Take-out\n");
+  printer.addFeedLine(1);
+  printer.addTextSize(3, 3);
+  printer.addText((o.ramassage || "--:--") + "\n");
+  printer.addTextSize(1, 1);
+  printer.addFeedLine(1);
+  printer.addTextAlign(printer.ALIGN_LEFT);
+  printer.addText("Client : " + (o.client || "-") + "\n");
+  if (o.telephone) printer.addText("Tél : " + o.telephone + "\n");
+  printer.addFeedLine(1);
+  printer.addTextSize(2, 2);
+  (o.commande || "").split(" | ").forEach(line => { if (line.trim()) printer.addText(line.trim() + "\n"); });
+  printer.addTextSize(1, 1);
+  printer.addFeedLine(1);
+  printer.addText("Payé à " + fmtTime(o.created) + " — " + (Number(o.amount) / 100 || 0).toFixed(2) + " $\n");
+  printer.addFeedLine(3);
+  printer.addCut(printer.CUT_FEED);
+}
+
+function printOrder(o) {
+  ensurePrinter().then(printer => {
+    printer.onreceive = (res) => { if (!res.success) alert("Erreur imprimante : " + JSON.stringify(res.code)); };
+    buildTicket(printer, o);
+    printer.send();
+  }).catch(e => alert("Erreur impression : " + e.message));
+}
+
+function testPrint() {
+  ensurePrinter().then(printer => {
+    printer.onreceive = (res) => {
+      if (res.success) alert("Test envoyé ✓ — vérifiez que le ticket est sorti.");
+      else alert("Erreur imprimante : " + JSON.stringify(res.code));
+    };
+    printer.addTextAlign(printer.ALIGN_CENTER);
+    printer.addText("Test imprimante Hoshi ✓\n");
+    printer.addFeedLine(3);
+    printer.addCut(printer.CUT_FEED);
+    printer.send();
+  }).catch(e => alert("Erreur impression : " + e.message));
+}
 
 function fmtTime(ts) {
   return new Date(ts * 1000).toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" });
@@ -131,7 +234,10 @@ function esc(s) {
 function render(orders) {
   const box = document.getElementById("orders");
   const fresh = orders.filter(o => !known.has(o.id));
-  if (fresh.length && !firstLoad) beep();
+  if (fresh.length && !firstLoad) {
+    beep();
+    if (autoPrint) fresh.forEach(printOrder);
+  }
   orders.forEach(o => known.add(o.id));
   localStorage.setItem("hoshi_known", JSON.stringify([...known].slice(-200)));
   firstLoad = false;
@@ -154,12 +260,16 @@ function render(orders) {
       <div class="o-phone">${o.telephone ? `<a href="tel:+1${esc(tel)}">📞 ${esc(o.telephone)}</a>` : ""}</div>
       <div class="o-items">${esc(o.commande || "").split(" | ").join("<br>")}</div>
       <div class="o-created">Payée à ${fmtTime(o.created)}</div>
-      <button class="o-done-btn">${isDone ? "↩ Remettre en attente" : "✔ Prête / remise"}</button>`;
+      <div class="o-btn-row">
+        <button class="o-done-btn">${isDone ? "↩ Remettre en attente" : "✔ Prête / remise"}</button>
+        <button class="o-print-btn" type="button">🖨️</button>
+      </div>`;
     d.querySelector(".o-done-btn").addEventListener("click", () => {
       if (done.has(o.id)) done.delete(o.id); else done.add(o.id);
       localStorage.setItem("hoshi_done", JSON.stringify([...done].slice(-200)));
       render(orders);
     });
+    d.querySelector(".o-print-btn").addEventListener("click", () => printOrder(o));
     box.appendChild(d);
   });
 }
