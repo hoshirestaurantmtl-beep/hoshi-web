@@ -134,11 +134,19 @@ h1, h2, h3, .logo {
 }
 
 .hero-sub {
-  margin: 1rem auto 2rem;
+  margin: 1rem auto 0.5rem;
   max-width: 480px;
   color: #d9d4cc;
   font-weight: 300;
   font-size: 1.1rem;
+}
+
+.hero-takeout-msg {
+  margin: 0 auto 2rem;
+  max-width: 480px;
+  color: var(--dorado);
+  font-weight: 500;
+  font-size: 0.92rem;
 }
 
 .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
