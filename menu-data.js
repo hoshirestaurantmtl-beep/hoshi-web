@@ -690,8 +690,8 @@ const MENU_DATA = {
             {
               "id": "n2",
               "name": {
-                "fr": "Suntori Highball",
-                "en": "Suntori Highball"
+                "fr": "Suntory Highball",
+                "en": "Suntory Highball"
               },
               "price": 13.5,
               "alcohol": true
@@ -699,8 +699,8 @@ const MENU_DATA = {
             {
               "id": "n3",
               "name": {
-                "fr": "Suntori Ginger Highball",
-                "en": "Suntori Ginger Highball"
+                "fr": "Suntory Ginger Highball",
+                "en": "Suntory Ginger Highball"
               },
               "price": 14.5,
               "alcohol": true
@@ -708,8 +708,8 @@ const MENU_DATA = {
             {
               "id": "n4",
               "name": {
-                "fr": "Suntori Thé Noir Highball",
-                "en": "Suntori Black Tea Highball"
+                "fr": "Suntory Thé Noir Highball",
+                "en": "Suntory Black Tea Highball"
               },
               "price": 14.5,
               "alcohol": true
