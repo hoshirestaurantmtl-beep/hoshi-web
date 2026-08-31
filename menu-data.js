@@ -756,7 +756,8 @@ const MENU_DATA = {
                 "ja": "本日のスープ",
                 "ko": "오늘의 수프"
               },
-              "price": 1.5
+              "price": 1.5,
+              "soldout": true
             },
             {
               "id": "l1",
