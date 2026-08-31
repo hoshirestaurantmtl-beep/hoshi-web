@@ -943,7 +943,7 @@ const MENU_DATA = {
       {
         "fr": "Vendredi",
         "en": "Friday",
-        "time": "11:30 – 23:00",
+        "time": "11:30 – 22:00",
         "days": [
           5
         ]
@@ -951,7 +951,7 @@ const MENU_DATA = {
       {
         "fr": "Samedi",
         "en": "Saturday",
-        "time": "11:00 – 23:00",
+        "time": "11:00 – 22:00",
         "days": [
           6
         ]
@@ -959,7 +959,7 @@ const MENU_DATA = {
       {
         "fr": "Dimanche",
         "en": "Sunday",
-        "time": "11:00 – 23:00",
+        "time": "11:00 – 21:00",
         "days": [
           0
         ]
