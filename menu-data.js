@@ -674,6 +674,45 @@ const MENU_DATA = {
               },
               "price": 9,
               "alcohol": true
+            },
+            {
+              "id": "n1",
+              "name": {
+                "fr": "Ramune",
+                "en": "Ramune"
+              },
+              "desc": {
+                "fr": "Bouteille 200ml",
+                "en": "200ml bottle"
+              },
+              "price": 5.5
+            },
+            {
+              "id": "n2",
+              "name": {
+                "fr": "Suntori Highball",
+                "en": "Suntori Highball"
+              },
+              "price": 13.5,
+              "alcohol": true
+            },
+            {
+              "id": "n3",
+              "name": {
+                "fr": "Suntori Ginger Highball",
+                "en": "Suntori Ginger Highball"
+              },
+              "price": 14.5,
+              "alcohol": true
+            },
+            {
+              "id": "n4",
+              "name": {
+                "fr": "Suntori Thé Noir Highball",
+                "en": "Suntori Black Tea Highball"
+              },
+              "price": 14.5,
+              "alcohol": true
             }
           ]
         }
