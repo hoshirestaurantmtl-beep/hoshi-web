@@ -962,6 +962,7 @@ const MENU_DATA = {
           0
         ]
       }
-    ]
+    ],
+    "photos": true
   }
 };
