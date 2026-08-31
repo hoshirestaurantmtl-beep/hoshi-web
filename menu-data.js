@@ -875,40 +875,52 @@ const MENU_DATA = {
   "settings": {
     "takeout": true,
     "notice": {
-      "on": false,
-      "fr": "🥡 Nouveau — Commandez en ligne !\nLe take-out est maintenant disponible directement sur notre site : choisissez vos plats, payez en ligne et passez chercher votre commande — sans file d'attente. Commandez dès maintenant dans la section « À emporter » ! 🌟",
-      "en": "🥡 New — Order online!\nTake-out is now available right here on our website: pick your dishes, pay online and swing by to grab your order — no waiting in line. Order now in the \"Take-out\" section! 🌟"
+      "on": true,
+      "fr": "📢Avis à notre clientèle📢\n\nEn raison du remplacement de notre vitrine avant, Hoshi sera exceptionnellement fermé pendant environ 3 à 4 heures.\n\nNous rouvrirons dès que les travaux seront terminés. Merci de votre compréhension! \n\nL’équipe Hoshi",
+      "en": "📢Notice to our customers📢\n\nDue to the replacement of our front window, Hoshi will be temporarily closed for approximately 3 to 4 hours.\n\nWe will reopen as soon as the work is completed. Thank you for your understanding! \n\nThe Hoshi Team"
     },
     "hours": [
       {
         "fr": "Lundi – Mercredi",
         "en": "Monday – Wednesday",
         "time": "11:30 – 15:00 · 17:00 – 21:00",
-        "days": [1, 2, 3]
+        "days": [
+          1,
+          2,
+          3
+        ]
       },
       {
         "fr": "Jeudi",
         "en": "Thursday",
         "time": "11:30 – 15:00 · 17:00 – 21:30",
-        "days": [4]
+        "days": [
+          4
+        ]
       },
       {
         "fr": "Vendredi",
         "en": "Friday",
         "time": "11:30 – 23:00",
-        "days": [5]
+        "days": [
+          5
+        ]
       },
       {
         "fr": "Samedi",
         "en": "Saturday",
         "time": "11:00 – 23:00",
-        "days": [6]
+        "days": [
+          6
+        ]
       },
       {
         "fr": "Dimanche",
         "en": "Sunday",
         "time": "11:00 – 23:00",
-        "days": [0]
+        "days": [
+          0
+        ]
       }
     ]
   }
