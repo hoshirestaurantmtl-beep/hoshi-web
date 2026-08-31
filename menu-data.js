@@ -963,6 +963,6 @@ const MENU_DATA = {
         ]
       }
     ],
-    "photos": true
+    "photos": false
   }
 };
