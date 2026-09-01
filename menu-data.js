@@ -537,7 +537,8 @@ const MENU_DATA = {
                 "fr": "Coke, Coke Zéro, Sprite, Brisk",
                 "en": "Coke, Coke Zero, Sprite, Brisk"
               },
-              "price": 2.5
+              "price": 2.5,
+              "photo": "img/v1-1788304230140.jpg"
             },
             {
               "id": "v2",
