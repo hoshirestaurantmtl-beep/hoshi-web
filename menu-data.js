@@ -579,7 +579,8 @@ const MENU_DATA = {
                 "fr": "Bouteille 200ml",
                 "en": "200ml bottle"
               },
-              "price": 5.5
+              "price": 5.5,
+              "photo": "img/n1-1788303624378.jpg"
             },
             {
               "id": "v5",
