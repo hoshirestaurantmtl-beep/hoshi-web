@@ -45,7 +45,8 @@ const MENU_DATA = {
                 "ko": "연어 타르타르"
               },
               "price": 11,
-              "photo": "img/salmon-don.jpg"
+              "photo": "img/salmon-don.jpg",
+              "soldout": true
             },
             {
               "id": "e3",
@@ -55,7 +56,8 @@ const MENU_DATA = {
                 "ja": "炙りサーモン タレがけ",
                 "ko": "타레 연어 아부리"
               },
-              "price": 15
+              "price": 15,
+              "soldout": true
             },
             {
               "id": "e4",
@@ -842,7 +844,8 @@ const MENU_DATA = {
                 "ko": "연어 130g (G 180g: 27$)"
               },
               "price": 22,
-              "photo": "img/salmon-bowl.jpg"
+              "photo": "img/salmon-bowl.jpg",
+              "soldout": true
             },
             {
               "id": "l6",
