@@ -956,6 +956,6 @@ const MENU_DATA = {
         ]
       }
     ],
-    "photos": false
+    "photos": true
   }
 };
