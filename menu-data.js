@@ -45,7 +45,7 @@ const MENU_DATA = {
                 "ko": "연어 타르타르"
               },
               "price": 11,
-              "photo": "img/salmon-don.jpg"
+              "photo": "img/e2-1788302067939.jpg"
             },
             {
               "id": "e3",
@@ -173,7 +173,8 @@ const MENU_DATA = {
                 "ja": "カツサンド（3切れ）",
                 "ko": "카츠산도 (3조각)"
               },
-              "price": 15
+              "price": 15,
+              "photo": "img/ks1-1788302047787.jpg"
             },
             {
               "id": "ks2",
@@ -290,7 +291,7 @@ const MENU_DATA = {
                 "ko": "신선한 연어 덮밥 — 미소국 포함"
               },
               "price": 29,
-              "photo": "img/salmon-bowl.jpg"
+              "photo": "img/f1-1788302078398.jpg"
             },
             {
               "id": "f2",
@@ -783,7 +784,7 @@ const MENU_DATA = {
                 "ko": "계란 — 미소국 (G: 19$)"
               },
               "price": 16,
-              "photo": "img/katsu-don.jpg"
+              "photo": "img/l2-1788302100263.jpg"
             },
             {
               "id": "l3",
@@ -832,7 +833,7 @@ const MENU_DATA = {
                 "ko": "연어 130g (G 180g: 27$)"
               },
               "price": 22,
-              "photo": "img/salmon-bowl.jpg"
+              "photo": "img/l5-1788302090284.jpg"
             },
             {
               "id": "l6",
