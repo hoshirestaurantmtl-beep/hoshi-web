@@ -858,7 +858,7 @@ const MENU_DATA = {
                 "ko": "새우2, 관자1, 야채2, 과카몰리, 이쿠라 (G: 24$)"
               },
               "price": 19,
-              "photo": "img/tempura-don.jpg"
+              "photo": "img/l6-1788296189044.jpg"
             },
             {
               "id": "l7",
@@ -875,7 +875,7 @@ const MENU_DATA = {
                 "ko": "새우3, 관자1, 야채2, 계란1 (G: 23$)"
               },
               "price": 18,
-              "photo": "img/tempura-don.jpg"
+              "photo": "img/l7-1788296179268.jpg"
             },
             {
               "id": "l8",
