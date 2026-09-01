@@ -754,17 +754,6 @@ const MENU_DATA = {
           },
           "items": [
             {
-              "id": "l0",
-              "name": {
-                "fr": "Soupe du jour",
-                "en": "Soup of the day",
-                "ja": "本日のスープ",
-                "ko": "오늘의 수프"
-              },
-              "price": 1.5,
-              "soldout": true
-            },
-            {
               "id": "l1",
               "name": {
                 "fr": "Lunch rosu katsu plate",
