@@ -566,8 +566,7 @@ const MENU_DATA = {
                 "ja": "ジンジャービール 200ml",
                 "ko": "진저비어 200ml"
               },
-              "price": 5,
-              "alcohol": true
+              "price": 5
             },
             {
               "id": "v5",
