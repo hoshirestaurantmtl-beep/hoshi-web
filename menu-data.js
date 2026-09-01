@@ -103,7 +103,7 @@ const MENU_DATA = {
                 "ko": "양배추와 돼지 등심 — 미소국+밥 (우동국: 22$)"
               },
               "price": 21,
-              "photo": "img/tendon-katsu.jpg"
+              "photo": "img/k1-1788296217572.jpg"
             },
             {
               "id": "k2",
@@ -152,7 +152,7 @@ const MENU_DATA = {
                 "ko": "돼지 등심+계란 — 미소국 포함"
               },
               "price": 21,
-              "photo": "img/katsu-don.jpg"
+              "photo": "img/k4-1788296226268.jpg"
             }
           ]
         },
@@ -240,7 +240,8 @@ const MENU_DATA = {
                 "ja": "カレーうどん（ロースカツ）",
                 "ko": "카레우동 + 로스카츠"
               },
-              "price": 22
+              "price": 22,
+              "photo": "img/c4-1788296238814.jpg"
             },
             {
               "id": "c5",
@@ -250,7 +251,8 @@ const MENU_DATA = {
                 "ja": "カレーうどん（ヒレカツ3個）",
                 "ko": "카레우동 + 히레카츠 (3개)"
               },
-              "price": 24
+              "price": 24,
+              "photo": "img/c5-1788296256941.jpg"
             },
             {
               "id": "c6",
