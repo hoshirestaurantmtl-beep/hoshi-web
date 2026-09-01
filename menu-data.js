@@ -637,7 +637,8 @@ const MENU_DATA = {
                 "ko": "제임슨 트리플 하이볼"
               },
               "price": 11,
-              "alcohol": true
+              "alcohol": true,
+              "photo": "img/v8-1788307174056.jpg"
             },
             {
               "id": "v9",
@@ -648,7 +649,8 @@ const MENU_DATA = {
                 "ko": "진저비어 하이볼"
               },
               "price": 12,
-              "alcohol": true
+              "alcohol": true,
+              "photo": "img/v9-1788307180054.jpg"
             },
             {
               "id": "v10",
@@ -659,7 +661,8 @@ const MENU_DATA = {
                 "ko": "홍차 하이볼"
               },
               "price": 12,
-              "alcohol": true
+              "alcohol": true,
+              "photo": "img/v10-1788307186530.jpg"
             },
             {
               "id": "v11",
@@ -702,7 +705,8 @@ const MENU_DATA = {
                 "en": "Suntory Highball"
               },
               "price": 13.5,
-              "alcohol": true
+              "alcohol": true,
+              "photo": "img/n2-1788307152023.jpg"
             },
             {
               "id": "n3",
@@ -711,7 +715,8 @@ const MENU_DATA = {
                 "en": "Suntory Ginger Highball"
               },
               "price": 14.5,
-              "alcohol": true
+              "alcohol": true,
+              "photo": "img/n3-1788307159449.jpg"
             },
             {
               "id": "n4",
@@ -720,7 +725,8 @@ const MENU_DATA = {
                 "en": "Suntory Black Tea Highball"
               },
               "price": 14.5,
-              "alcohol": true
+              "alcohol": true,
+              "photo": "img/n4-1788307165982.jpg"
             }
           ]
         }
