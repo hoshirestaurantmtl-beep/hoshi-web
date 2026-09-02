@@ -537,7 +537,9 @@ const MENU_DATA = {
               },
               "desc": {
                 "fr": "Coke, Coke Zéro, Sprite, Brisk",
-                "en": "Coke, Coke Zero, Sprite, Brisk"
+                "en": "Coke, Coke Zero, Sprite, Brisk",
+                "ja": "コーラ、コーラゼロ、スプライト、ブリスク",
+                "ko": "콜라, 콜라 제로, 스프라이트, 브리스크"
               },
               "price": 2.5,
               "photo": "img/v1-1788304230140.jpg"
@@ -576,11 +578,15 @@ const MENU_DATA = {
               "id": "n1",
               "name": {
                 "fr": "Ramune",
-                "en": "Ramune"
+                "en": "Ramune",
+                "ja": "ラムネ",
+                "ko": "라무네"
               },
               "desc": {
                 "fr": "Bouteille 200ml",
-                "en": "200ml bottle"
+                "en": "200ml bottle",
+                "ja": "200ml瓶",
+                "ko": "200ml 병"
               },
               "price": 5.5,
               "photo": "img/n1-1788303624378.jpg"
@@ -705,7 +711,9 @@ const MENU_DATA = {
               "id": "n2",
               "name": {
                 "fr": "Suntory Highball",
-                "en": "Suntory Highball"
+                "en": "Suntory Highball",
+                "ja": "サントリー ハイボール",
+                "ko": "산토리 하이볼"
               },
               "price": 13.5,
               "alcohol": true,
@@ -715,7 +723,9 @@ const MENU_DATA = {
               "id": "n3",
               "name": {
                 "fr": "Suntory Ginger Highball",
-                "en": "Suntory Ginger Highball"
+                "en": "Suntory Ginger Highball",
+                "ja": "サントリー ジンジャーハイボール",
+                "ko": "산토리 진저 하이볼"
               },
               "price": 14.5,
               "alcohol": true,
@@ -725,7 +735,9 @@ const MENU_DATA = {
               "id": "n4",
               "name": {
                 "fr": "Suntory Thé Noir Highball",
-                "en": "Suntory Black Tea Highball"
+                "en": "Suntory Black Tea Highball",
+                "ja": "サントリー 紅茶ハイボール",
+                "ko": "산토리 홍차 하이볼"
               },
               "price": 14.5,
               "alcohol": true,
