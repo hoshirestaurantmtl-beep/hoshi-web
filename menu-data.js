@@ -685,7 +685,8 @@ const MENU_DATA = {
                 "ko": "삿포로 맥주 500ml"
               },
               "price": 9,
-              "alcohol": true
+              "alcohol": true,
+              "photo": "img/v12-1788307470467.jpg"
             },
             {
               "id": "v13",
@@ -696,7 +697,8 @@ const MENU_DATA = {
                 "ko": "블랑슈 드 샹블리 맥주 473ml"
               },
               "price": 9,
-              "alcohol": true
+              "alcohol": true,
+              "photo": "img/v13-1788307476531.jpg"
             },
             {
               "id": "n2",
