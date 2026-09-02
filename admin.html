@@ -155,6 +155,29 @@
     <button class="btn btn-gold" id="publishBtn">🚀 Publier en ligne</button>
   </div>
 
+  <!-- Traduction JA/KO -->
+  <div id="translateOverlay" class="hidden" style="position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:200; display:flex; align-items:center; justify-content:center;">
+    <div style="background:#fff; border-radius:8px; padding:1.4rem; width:min(92vw,520px); max-height:88vh; overflow:auto;">
+      <h3 style="font-family:'Noto Serif JP',serif; margin-bottom:0.3rem;">🌐 Traduction JA / KO</h3>
+      <p id="translateItemLabel" style="font-size:0.82rem; color:var(--gris); margin-bottom:0.9rem;"></p>
+      <p id="translateStatus" style="font-size:0.85rem; margin-bottom:0.8rem;"></p>
+      <div id="translateFields" style="display:none;">
+        <label style="font-size:0.8rem; color:var(--gris);">Nom (JA)</label>
+        <input type="text" id="trNameJa" class="kanji-in" style="width:100%; margin-bottom:0.6rem;">
+        <label style="font-size:0.8rem; color:var(--gris);">Nom (KO)</label>
+        <input type="text" id="trNameKo" style="width:100%; border:1px solid #d8cfba; border-radius:4px; padding:0.4rem 0.55rem; margin-bottom:0.6rem;">
+        <label style="font-size:0.8rem; color:var(--gris);">Description (JA)</label>
+        <input type="text" id="trDescJa" style="width:100%; border:1px solid #d8cfba; border-radius:4px; padding:0.4rem 0.55rem; margin-bottom:0.6rem;">
+        <label style="font-size:0.8rem; color:var(--gris);">Description (KO)</label>
+        <input type="text" id="trDescKo" style="width:100%; border:1px solid #d8cfba; border-radius:4px; padding:0.4rem 0.55rem; margin-bottom:0.6rem;">
+      </div>
+      <div style="display:flex; gap:0.6rem; justify-content:flex-end; margin-top:0.6rem;">
+        <button class="btn btn-ghost" id="translateCancelBtn">Annuler</button>
+        <button class="btn btn-gold" id="translateSaveBtn" disabled>Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
   <script src="menu-data.js"></script>
   <script src="admin.js"></script>
 </body>

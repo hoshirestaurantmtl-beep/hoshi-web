@@ -7,8 +7,9 @@
 // Le mot de passe n'est plus stocké en clair : seul son empreinte SHA-256 apparaît ici.
 // Pour le changer : dans la console du navigateur (F12) exécutez
 //   crypto.subtle.digest("SHA-256", new TextEncoder().encode("NouveauMotDePasse")).then(b => console.log([...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("")))
-// puis remplacez la valeur ci-dessous.
+// puis remplacez la valeur ci-dessous ET dans api/translate.js (même empreinte aux deux endroits).
 const ADMIN_PASSWORD_HASH = "bd97f611897789b0eaabbecaba69f7fee6242b7587afec76af13ce844e54e514";
+let ADMIN_PASSWORD = ""; // gardé en mémoire (pas persisté) pour authentifier les appels à /api/translate
 
 async function sha256Hex(text) {
   const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
@@ -27,6 +28,7 @@ async function tryLogin() {
   try { hash = await sha256Hex($("pwd").value); }
   catch (e) { $("loginErr").textContent = "Ouvrez cette page en HTTPS (hoshimtl.ca/admin)."; return; }
   if (hash === ADMIN_PASSWORD_HASH) {
+    ADMIN_PASSWORD = $("pwd").value;
     $("loginBox").classList.add("hidden");
     $("panel").classList.remove("hidden");
     $("saveBar").classList.remove("hidden");
@@ -127,6 +129,9 @@ function render() {
         tdD.appendChild(mk("🍺", it.alcohol ? "Alcool : sur place seulement — cliquer pour autoriser au take-out" : "Take-out autorisé — cliquer pour marquer « alcool, sur place seulement »",
           () => { it.alcohol = !it.alcohol; if (!it.alcohol) delete it.alcohol; render(); }, it.alcohol ? "sold-on" : ""));
         tdD.appendChild(mk("📷", "Téléverser une photo pour ce plat", () => uploadPhoto(it)));
+        const hasJaKo = !!(it.name.ja && it.name.ko);
+        tdD.appendChild(mk("🌐", hasJaKo ? "Japonais/coréen déjà traduits — cliquer pour revoir" : "Traduire en japonais/coréen (à partir du FR/EN)",
+          () => openTranslateModal(it), hasJaKo ? "sold-on" : ""));
         tdD.appendChild(mk("✕", "Supprimer ce plat", () => { if (confirm("Supprimer ce plat ?")) { sec.items.splice(ii, 1); render(); } }));
         tr.appendChild(tdD);
         if (it.soldout) tr.style.opacity = "0.55";
@@ -536,4 +541,66 @@ $("restoreBtn").addEventListener("click", async () => {
   } catch (e) {
     alert("Erreur : " + e.message);
   }
+});
+
+// ---- Traduction JA/KO (DeepL, via /api/translate) ----
+let currentTranslateItem = null;
+
+async function callTranslate(texts, targetLang) {
+  const resp = await fetch("/api/translate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ password: ADMIN_PASSWORD, texts, source_lang: "FR", target_lang: targetLang })
+  });
+  const data = await resp.json().catch(() => ({}));
+  if (!resp.ok) throw new Error(data.error || "Erreur de traduction (" + resp.status + ")");
+  return data.translations || [];
+}
+
+async function openTranslateModal(it) {
+  currentTranslateItem = it;
+  $("translateItemLabel").textContent = it.name.fr || it.name.en || it.id;
+  $("translateFields").style.display = "none";
+  $("translateSaveBtn").disabled = true;
+  $("translateStatus").textContent = "⏳ Traduction en cours…";
+  $("translateOverlay").classList.remove("hidden");
+
+  const nameSrc = it.name.fr || it.name.en || "";
+  const descSrc = (it.desc && (it.desc.fr || it.desc.en)) || "";
+  if (!nameSrc) {
+    $("translateStatus").textContent = "Écrivez d'abord un nom en FR ou EN pour ce plat.";
+    return;
+  }
+  try {
+    const texts = descSrc ? [nameSrc, descSrc] : [nameSrc];
+    const [ja, ko] = await Promise.all([callTranslate(texts, "JA"), callTranslate(texts, "KO")]);
+    $("trNameJa").value = it.name.ja || ja[0] || "";
+    $("trNameKo").value = it.name.ko || ko[0] || "";
+    $("trDescJa").value = (it.desc && it.desc.ja) || ja[1] || "";
+    $("trDescKo").value = (it.desc && it.desc.ko) || ko[1] || "";
+    $("translateStatus").textContent = "Vérifiez et corrigez si besoin avant d'enregistrer :";
+    $("translateFields").style.display = "";
+    $("translateSaveBtn").disabled = false;
+  } catch (e) {
+    $("translateStatus").textContent = "Erreur : " + e.message;
+  }
+}
+
+function closeTranslateModal() {
+  $("translateOverlay").classList.add("hidden");
+  currentTranslateItem = null;
+}
+
+$("translateCancelBtn").addEventListener("click", closeTranslateModal);
+$("translateOverlay").addEventListener("click", (e) => { if (e.target.id === "translateOverlay") closeTranslateModal(); });
+$("translateSaveBtn").addEventListener("click", () => {
+  const it = currentTranslateItem;
+  if (!it) return;
+  it.name.ja = $("trNameJa").value.trim();
+  it.name.ko = $("trNameKo").value.trim();
+  const descJa = $("trDescJa").value.trim(), descKo = $("trDescKo").value.trim();
+  if (descJa || descKo) { it.desc = it.desc || {}; it.desc.ja = descJa; it.desc.ko = descKo; }
+  closeTranslateModal();
+  render();
+  $("savedMsg").textContent = "N'oubliez pas de cliquer « 🚀 Publier en ligne » pour appliquer.";
 });
