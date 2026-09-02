@@ -862,6 +862,20 @@ if (!TAKEOUT_ENABLED) {
   if (cmd) cmd.style.display = "none";
 }
 
+// ---- Menu du Midi : visible du lundi au vendredi, avant 15 h seulement (heure de Montréal) ----
+const MIDI_CUTOFF_MIN = 15 * 60; // 15:00
+function updateMidiVisibility() {
+  const now = montrealNow();
+  const isWeekend = now.day === 0 || now.day === 6;
+  const hide = isWeekend || now.min >= MIDI_CUTOFF_MIN;
+  const sec = document.getElementById("midi");
+  if (sec) sec.style.display = hide ? "none" : "";
+  const navLink = document.querySelector('a[href="#midi"]');
+  if (navLink) navLink.parentElement.style.display = hide ? "none" : "";
+}
+updateMidiVisibility();
+setInterval(updateMidiVisibility, 60000);
+
 // ---- Avis / popup (contrôlé depuis le panneau admin : settings.notice) ----
 const NOTICE = (typeof MENU_DATA !== "undefined" && MENU_DATA.settings && MENU_DATA.settings.notice) || null;
 if (NOTICE && NOTICE.on) {
