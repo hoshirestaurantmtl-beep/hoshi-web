@@ -56,7 +56,8 @@ const MENU_DATA = {
                 "ja": "炙りサーモン タレがけ",
                 "ko": "타레 연어 아부리"
               },
-              "price": 15
+              "price": 15,
+              "photo": "img/e3-1788458549114.jpg"
             },
             {
               "id": "e4",
@@ -66,7 +67,8 @@ const MENU_DATA = {
                 "ja": "キャベツサラダ",
                 "ko": "양배추 샐러드"
               },
-              "price": 4
+              "price": 4,
+              "photo": "img/e4-1788458553972.jpg"
             },
             {
               "id": "e5",
@@ -827,7 +829,8 @@ const MENU_DATA = {
                 "ja": "低温卵付き — 味噌汁（G: 19$）",
                 "ko": "수비드 계란 — 미소국 (G: 19$)"
               },
-              "price": 16
+              "price": 16,
+              "photo": "img/l3-1788458576830.jpg"
             },
             {
               "id": "l4",
@@ -843,7 +846,8 @@ const MENU_DATA = {
                 "ja": "低温卵付き — 味噌汁（G: 20$）",
                 "ko": "수비드 계란 — 미소국 (G: 20$)"
               },
-              "price": 17
+              "price": 17,
+              "photo": "img/l4-1788458582504.jpg"
             },
             {
               "id": "l5",
