@@ -847,7 +847,7 @@ const MENU_DATA = {
                 "ko": "수비드 계란 — 미소국 (G: 20$)"
               },
               "price": 17,
-              "photo": "img/l4-1788458582504.jpg"
+              "photo": "img/l4-1788459013376.jpg"
             },
             {
               "id": "l5",
