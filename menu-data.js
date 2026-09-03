@@ -559,7 +559,8 @@ const MENU_DATA = {
                 "ja": "緑茶",
                 "ko": "녹차"
               },
-              "price": 4
+              "price": 4,
+              "photo": "img/v2-1788471292759.jpg"
             },
             {
               "id": "v3",
@@ -569,7 +570,8 @@ const MENU_DATA = {
                 "ja": "炭酸水 Montellier 355ml",
                 "ko": "탄산수 Montellier 355ml"
               },
-              "price": 2.5
+              "price": 2.5,
+              "photo": "img/v3-1788471303082.jpg"
             },
             {
               "id": "v4",
@@ -579,7 +581,8 @@ const MENU_DATA = {
                 "ja": "ジンジャービール 200ml",
                 "ko": "진저비어 200ml"
               },
-              "price": 5
+              "price": 5,
+              "photo": "img/v4-1788471308585.jpg"
             },
             {
               "id": "n1",
@@ -606,7 +609,8 @@ const MENU_DATA = {
                 "ja": "ESKA 水 500ml",
                 "ko": "ESKA 생수 500ml"
               },
-              "price": 2
+              "price": 2,
+              "photo": "img/v5-1788471314926.jpg"
             },
             {
               "id": "v6",
