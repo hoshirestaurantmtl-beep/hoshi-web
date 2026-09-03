@@ -627,7 +627,8 @@ const MENU_DATA = {
                 "ko": "병 750ml: 56$"
               },
               "price": 12,
-              "alcohol": true
+              "alcohol": true,
+              "photo": "img/v6-1788471684904.jpg"
             },
             {
               "id": "v7",
@@ -644,7 +645,8 @@ const MENU_DATA = {
                 "ko": "병 750ml: 52$"
               },
               "price": 11,
-              "alcohol": true
+              "alcohol": true,
+              "photo": "img/v7-1788471691188.jpg"
             },
             {
               "id": "v8",
