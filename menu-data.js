@@ -441,7 +441,8 @@ const MENU_DATA = {
                 "ja": "ご飯",
                 "ko": "밥"
               },
-              "price": 3
+              "price": 3,
+              "photo": "img/x3-1788484523357.jpg"
             },
             {
               "id": "x4",
@@ -451,7 +452,8 @@ const MENU_DATA = {
                 "ja": "うどん麺",
                 "ko": "우동면"
               },
-              "price": 4
+              "price": 4,
+              "photo": "img/x4-1788484531724.jpg"
             },
             {
               "id": "x5",
@@ -461,7 +463,8 @@ const MENU_DATA = {
                 "ja": "かけうどん",
                 "ko": "우동국"
               },
-              "price": 7
+              "price": 7,
+              "photo": "img/x5-1788484540505.jpg"
             },
             {
               "id": "x6",
