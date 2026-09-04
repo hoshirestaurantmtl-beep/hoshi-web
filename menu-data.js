@@ -474,7 +474,8 @@ const MENU_DATA = {
                 "ja": "ヒレカツ（1個）",
                 "ko": "히레카츠 (1개)"
               },
-              "price": 5
+              "price": 5,
+              "photo": "img/x6-1788484635964.jpg"
             },
             {
               "id": "x7",
