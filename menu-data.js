@@ -38,6 +38,17 @@ const MENU_DATA = {
               "photo": "img/e1-1788304341079.jpg"
             },
             {
+              "id": "n5",
+              "name": {
+                "fr": "Edamame",
+                "en": "Edamame",
+                "ja": "枝豆",
+                "ko": "에다마메"
+              },
+              "price": 5.5,
+              "soldout": true
+            },
+            {
               "id": "e2",
               "name": {
                 "fr": "Tartare de saumon",
@@ -565,6 +576,23 @@ const MENU_DATA = {
               "photo": "img/v1-1788304230140.jpg"
             },
             {
+              "id": "n1",
+              "name": {
+                "fr": "Ramune",
+                "en": "Ramune",
+                "ja": "ラムネ",
+                "ko": "라무네"
+              },
+              "desc": {
+                "fr": "Bouteille 200ml",
+                "en": "200ml bottle",
+                "ja": "200ml瓶",
+                "ko": "200ml 병"
+              },
+              "price": 5.5,
+              "photo": "img/n1-1788303624378.jpg"
+            },
+            {
               "id": "v2",
               "name": {
                 "fr": "Thé vert",
@@ -596,23 +624,6 @@ const MENU_DATA = {
               },
               "price": 5,
               "photo": "img/v4-1788471308585.jpg"
-            },
-            {
-              "id": "n1",
-              "name": {
-                "fr": "Ramune",
-                "en": "Ramune",
-                "ja": "ラムネ",
-                "ko": "라무네"
-              },
-              "desc": {
-                "fr": "Bouteille 200ml",
-                "en": "200ml bottle",
-                "ja": "200ml瓶",
-                "ko": "200ml 병"
-              },
-              "price": 5.5,
-              "photo": "img/n1-1788303624378.jpg"
             },
             {
               "id": "v5",
@@ -768,6 +779,59 @@ const MENU_DATA = {
               "price": 14.5,
               "alcohol": true,
               "photo": "img/n4-1788307165982.jpg"
+            }
+          ]
+        },
+        {
+          "kanji": "",
+          "title": {
+            "fr": "Desserts",
+            "en": "Desserts"
+          },
+          "items": [
+            {
+              "id": "n6",
+              "name": {
+                "fr": "Gela Mochi",
+                "en": "Gela Mochi",
+                "ja": "ジェラ餅",
+                "ko": "젤라 모치"
+              },
+              "price": 10,
+              "soldout": true
+            },
+            {
+              "id": "n7",
+              "name": {
+                "fr": "Gelato à la vanille",
+                "en": "Vanilla Gelato",
+                "ja": "バニラジェラート",
+                "ko": "바닐라 젤라토"
+              },
+              "price": 6,
+              "soldout": true
+            },
+            {
+              "id": "n8",
+              "name": {
+                "fr": "Gelato au yuzu",
+                "en": "Yuzu Gelato",
+                "ja": "ゆずのジェラート",
+                "ko": "유자 젤라토"
+              },
+              "price": 6,
+              "soldout": true
+            },
+            {
+              "id": "n9",
+              "name": {
+                "fr": "Poudre de matcha",
+                "en": "Matcha Powder",
+                "ja": "抹茶パウダー",
+                "ko": "말차 가루"
+              },
+              "price": 0.5,
+              "soldout": true
             }
           ]
         }
