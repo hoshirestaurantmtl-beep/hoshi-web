@@ -833,7 +833,13 @@ const MENU_DATA = {
                 "ko": "유자 젤라토"
               },
               "price": 6,
-              "soldout": true
+              "soldout": true,
+              "desc": {
+                "fr": "Gelato au yuzu, recette maison — une collaboration avec Gelatopia. Sorbet à base d'eau, sans lactose, sans gélatine (aucun produit animal).",
+                "en": "Yuzu gelato, house recipe — a collaboration with Gelatopia. Water-based sorbet, dairy-free, no gelatine (no animal products).",
+                "ja": "手作りの柚子ジェラート — Gelatopiaとのコラボレーション。水ベースのソルベで、乳糖不使用、ゼラチン不使用（動物性原料不使用）。",
+                "ko": "유자 젤라토, 홈메이드 레시피 — Gelatopia와의 협업. 물 베이스의 셔벗으로, 유당 무첨가, 젤라틴 무첨가(동물성 성분 없음)."
+              }
             },
             {
               "id": "n9",
