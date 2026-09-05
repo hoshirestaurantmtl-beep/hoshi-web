@@ -799,6 +799,10 @@ const MENU_DATA = {
               },
               "price": 12.5,
               "soldout": true,
+              "desc": {
+                "fr": "Mochi au thé matcha, gelato au choix (vanille ou yuzu), physalis frais — poudre de matcha en extra.",
+                "en": "Matcha mochi with your choice of gelato, fresh physalis — matcha powder available as an extra."
+              },
               "promoPrice": 9.5
             },
             {
