@@ -801,7 +801,9 @@ const MENU_DATA = {
               "soldout": true,
               "desc": {
                 "fr": "Mochi au thé matcha, gelato au choix (vanille ou yuzu), physalis frais — poudre de matcha en extra.",
-                "en": "Matcha mochi with your choice of gelato, fresh physalis — matcha powder available as an extra."
+                "en": "Matcha mochi with your choice of gelato, fresh physalis — matcha powder available as an extra.",
+                "ja": "抹茶もち、お好みのジェラート（バニラまたはゆず）、新鮮なフィサリス — 抹茶パウダーが別添え。",
+                "ko": "말차 모찌, 원하는 맛의 젤라토(바닐라 또는 유자), 신선한 피살리스 — 말차 가루 추가."
               },
               "promoPrice": 9.5
             },
@@ -814,7 +816,13 @@ const MENU_DATA = {
                 "ko": "바닐라 젤라토"
               },
               "price": 6,
-              "soldout": true
+              "soldout": true,
+              "desc": {
+                "fr": "Gelato à la vanille, recette maison — une collaboration avec Gelatopia.",
+                "en": "Vanilla gelato, house recipe — a collaboration with Gelatopia.",
+                "ja": "バニラジェラート、手作りレシピ — Gelatopiaとのコラボレーション。",
+                "ko": "바닐라 젤라토, 집에서 만드는 레시피 — Gelatopia와의 협업."
+              }
             },
             {
               "id": "n8",
