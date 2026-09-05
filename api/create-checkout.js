@@ -122,7 +122,9 @@ module.exports = async (req, res) => {
       if (!it || !q) continue;
       if (it.soldout) return res.status(400).json({ error: "Un article du panier est épuisé" });
       if (it.alcohol) return res.status(400).json({ error: "Les boissons alcoolisées sont disponibles sur place seulement" });
-      const cents = Math.round(Number(it.price) * 100); // prix côté serveur — non falsifiable
+      // prix côté serveur — non falsifiable ; applique le prix promo s'il est valide (positif et < prix normal)
+      const promoValid = typeof it.promoPrice === "number" && it.promoPrice > 0 && it.promoPrice < it.price;
+      const cents = Math.round(Number(promoValid ? it.promoPrice : it.price) * 100);
       if (!Number.isFinite(cents) || cents <= 0) continue;
       subtotal += cents * q;
       const dishName = it.name[L] || it.name.en || it.name.fr;

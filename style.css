@@ -325,6 +325,8 @@ h1, h2, h3, .logo {
   padding-right: 1rem;
 }
 .price { color: var(--negro); font-weight: 600; white-space: nowrap; }
+.price-old { color: #999; font-weight: 400; text-decoration: line-through; margin-right: 0.4em; }
+.price-promo { color: var(--rojo); font-weight: 700; }
 
 /* ===== Avis ===== */
 .rev-badge {

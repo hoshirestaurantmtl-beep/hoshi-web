@@ -524,6 +524,14 @@ function fmtPrice(p) {
   return (Number.isInteger(p) ? p : p.toFixed(2).replace(".", ",")) + " $";
 }
 
+// une promo n'est valide que si elle est positive et inférieure au prix normal
+function hasPromo(it) {
+  return typeof it.promoPrice === "number" && it.promoPrice > 0 && it.promoPrice < it.price;
+}
+function effectivePrice(it) {
+  return hasPromo(it) ? it.promoPrice : it.price;
+}
+
 function buildSection(sec, lang) {
   const div = document.createElement("div");
   div.className = "menu-section";
@@ -536,7 +544,10 @@ function buildSection(sec, lang) {
     const li = document.createElement("li");
     const soldChip = it.soldout ? `<span class="soldout-chip">${dictFor(lang).soldout_label}</span>` : "";
     const alcoholChip = (it.alcohol && TAKEOUT_ENABLED) ? `<span class="dinein-chip">${dictFor(lang).dinein_label}</span>` : "";
-    li.innerHTML = `<div class="mi-head"><span>${it.name[lang] || it.name.en || it.name.fr}${soldChip}${alcoholChip}</span><span class="dots"></span><span class="price">${fmtPrice(it.price)}</span></div>` +
+    const priceHtml = hasPromo(it)
+      ? `<span class="price-old">${fmtPrice(it.price)}</span><span class="price-promo">${fmtPrice(it.promoPrice)}</span>`
+      : fmtPrice(it.price);
+    li.innerHTML = `<div class="mi-head"><span>${it.name[lang] || it.name.en || it.name.fr}${soldChip}${alcoholChip}</span><span class="dots"></span><span class="price">${priceHtml}</span></div>` +
       (it.desc ? `<p class="mi-desc">${it.desc[lang] || it.desc.en || it.desc.fr || ""}</p>` : "");
     if (it.soldout) li.classList.add("soldout");
     const actions = document.createElement("span");
@@ -557,7 +568,7 @@ function buildSection(sec, lang) {
     btn.className = "add-btn"; btn.type = "button"; btn.textContent = "+";
     btn.setAttribute("aria-label", "Ajouter / Add");
     btn.addEventListener("click", () => {
-      if (!cart[it.id]) cart[it.id] = { key: it.id, price: it.price, qty: 0 };
+      if (!cart[it.id]) cart[it.id] = { key: it.id, price: effectivePrice(it), qty: 0 };
       cart[it.id].qty++;
       renderCart();
       document.getElementById("cart").classList.add("pulse");

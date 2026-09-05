@@ -95,7 +95,7 @@ function render() {
       table.innerHTML = `<thead><tr>
         <th>Nom (FR)</th><th>Nom (EN)</th>
         <th>Description (FR)</th><th>Description (EN)</th>
-        <th>Prix $</th><th>Photo (img/...)</th><th>Actions</th>
+        <th>Prix $</th><th>Prix promo $</th><th>Photo (img/...)</th><th>Actions</th>
       </tr></thead>`;
       const tbody = document.createElement("tbody");
       sec.items.forEach((it, ii) => {
@@ -109,6 +109,17 @@ function render() {
         inP.type = "number"; inP.step = "0.25"; inP.min = "0"; inP.value = it.price;
         inP.addEventListener("input", () => it.price = parseFloat(inP.value) || 0);
         tdP.appendChild(inP); tr.appendChild(tdP);
+        const tdPromo = document.createElement("td"); tdPromo.className = "price-td";
+        const inPromo = document.createElement("input");
+        inPromo.type = "number"; inPromo.step = "0.25"; inPromo.min = "0"; inPromo.placeholder = "—";
+        inPromo.value = it.promoPrice != null ? it.promoPrice : "";
+        inPromo.title = "Laisser vide = pas de promotion";
+        inPromo.addEventListener("input", () => {
+          const v = parseFloat(inPromo.value);
+          if (inPromo.value.trim() === "" || isNaN(v)) delete it.promoPrice;
+          else it.promoPrice = v;
+        });
+        tdPromo.appendChild(inPromo); tr.appendChild(tdPromo);
         const tdF = document.createElement("td"); tdF.className = "photo-td";
         const inF = document.createElement("input");
         inF.value = it.photo || ""; inF.placeholder = "img/plat.jpg";
@@ -273,6 +284,7 @@ function serialize() {
     if (!it.photo) delete it.photo;
     if (!it.soldout) delete it.soldout;
     if (!it.alcohol) delete it.alcohol;
+    if (it.promoPrice == null || !(it.promoPrice > 0) || !(it.promoPrice < it.price)) delete it.promoPrice;
   })));
   return "// ===== Hoshi — Données du menu / Menu data =====\n" +
          "// Fichier généré par admin.html — remplacez menu-data.js du site par ce fichier.\n" +
