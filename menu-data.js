@@ -366,7 +366,8 @@ const MENU_DATA = {
                 "ko": "수제 소스, 수비드 계란, 코울슬로 — 미소국+밥 (우동: 25$)"
               },
               "price": 24,
-              "photo": "img/h1-1788469747086.jpg"
+              "photo": "img/h1-1788469747086.jpg",
+              "soldout": true
             },
             {
               "id": "h2",
@@ -383,7 +384,8 @@ const MENU_DATA = {
                 "ko": "치즈 토핑 — 미소국+밥 (우동: 27$)"
               },
               "price": 26,
-              "photo": "img/h2-1788469751576.jpg"
+              "photo": "img/h2-1788469751576.jpg",
+              "soldout": true
             },
             {
               "id": "h3",
@@ -400,7 +402,8 @@ const MENU_DATA = {
                 "ko": "카레 소스 추가 — 미소국+밥 (우동: 26$)"
               },
               "price": 25,
-              "photo": "img/h3-1788469815116.jpg"
+              "photo": "img/h3-1788469815116.jpg",
+              "soldout": true
             }
           ]
         },
