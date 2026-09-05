@@ -797,7 +797,7 @@ const MENU_DATA = {
                 "ja": "ジェラ餅",
                 "ko": "젤라 모치"
               },
-              "price": 10,
+              "price": 9.5,
               "soldout": true
             },
             {
