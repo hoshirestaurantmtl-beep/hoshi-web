@@ -383,8 +383,7 @@ const MENU_DATA = {
                 "ko": "수제 소스, 수비드 계란, 코울슬로 — 미소국+밥 (우동: 25$)"
               },
               "price": 24,
-              "photo": "img/h1-1788469747086.jpg",
-              "soldout": true
+              "photo": "img/h1-1788469747086.jpg"
             },
             {
               "id": "h2",
@@ -401,8 +400,7 @@ const MENU_DATA = {
                 "ko": "치즈 토핑 — 미소국+밥 (우동: 27$)"
               },
               "price": 26,
-              "photo": "img/h2-1788469751576.jpg",
-              "soldout": true
+              "photo": "img/h2-1788469751576.jpg"
             },
             {
               "id": "h3",
@@ -419,8 +417,7 @@ const MENU_DATA = {
                 "ko": "카레 소스 추가 — 미소국+밥 (우동: 26$)"
               },
               "price": 25,
-              "photo": "img/h3-1788469815116.jpg",
-              "soldout": true
+              "photo": "img/h3-1788469815116.jpg"
             }
           ]
         },
@@ -525,7 +522,8 @@ const MENU_DATA = {
                 "ja": "タラカツ（1個）",
                 "ko": "대구카츠 (1개)"
               },
-              "price": 15
+              "price": 15,
+              "soldout": true
             },
             {
               "id": "x10",
