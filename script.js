@@ -154,6 +154,8 @@ const i18n = {
     order_note: "* Sans livraison — venez chercher votre commande au restaurant.",
     order_empty: "Votre panier est vide.",
     order_missing: "Veuillez remplir votre nom, téléphone et l'heure de ramassage.",
+    confirm_takeout: "Je confirme que cette commande est pour emporter et ne sera pas consommée sur place.",
+    confirm_takeout_missing: "Veuillez confirmer que la commande est pour emporter.",
     ph_name: "Votre nom",
     ph_phone: "Téléphone",
     form_ok: (n) => `Merci, ${n} ! Votre courriel de commande est prêt — appuyez sur « Envoyer » dans votre messagerie. 🌟`,
@@ -309,6 +311,8 @@ const i18n = {
     order_note: "* No delivery — pick up your order at the restaurant.",
     order_empty: "Your cart is empty.",
     order_missing: "Please fill in your name, phone and pickup time.",
+    confirm_takeout: "I confirm this order is for take-out and will not be eaten on the premises.",
+    confirm_takeout_missing: "Please confirm this order is for take-out.",
     ph_name: "Your name",
     ph_phone: "Phone",
     form_ok: (n) => `Thank you, ${n}! Your order email is ready — press “Send” in your mail app. 🌟`,
@@ -372,6 +376,8 @@ const i18n = {
     order_note: "* 配達は行っておりません — 店舗でお受け取りください。",
     order_empty: "カートは空です。",
     order_missing: "お名前・電話番号・受け取り時間をご記入ください。",
+    confirm_takeout: "本注文はテイクアウト専用であり、店内でのお召し上がりには利用できないことを確認します。",
+    confirm_takeout_missing: "テイクアウト専用であることをご確認ください。",
     ph_name: "お名前",
     ph_phone: "電話番号",
     form_ok: (n) => `${n}様、ありがとうございます！メールアプリで「送信」を押してください。🌟`,
@@ -435,6 +441,8 @@ const i18n = {
     order_note: "* 배달은 하지 않습니다 — 매장에서 픽업해 주세요.",
     order_empty: "장바구니가 비어 있습니다.",
     order_missing: "이름, 전화번호, 픽업 시간을 입력해 주세요.",
+    confirm_takeout: "본 주문은 테이크아웃 전용이며 매장 내에서 취식하지 않음을 확인합니다.",
+    confirm_takeout_missing: "테이크아웃 전용임을 확인해 주세요.",
     ph_name: "이름",
     ph_phone: "전화번호",
     form_ok: (n) => `${n}님, 감사합니다! 메일 앱에서 '보내기'를 눌러 주세요. 🌟`,
@@ -663,6 +671,11 @@ function renderCart() {
   });
 }
 
+const confirmTakeoutBox = document.getElementById("confirmTakeout");
+confirmTakeoutBox.addEventListener("change", () => {
+  document.getElementById("sendOrder").disabled = !confirmTakeoutBox.checked;
+});
+
 document.getElementById("sendOrder").addEventListener("click", async () => {
   const dict = dictFor(currentLang);
   const name = document.getElementById("orderName").value.trim();
@@ -672,6 +685,7 @@ document.getElementById("sendOrder").addEventListener("click", async () => {
 
   if (items.length === 0) { formMsg.textContent = dict.order_empty; return; }
   if (!name || !phone || !time) { formMsg.textContent = dict.order_missing; return; }
+  if (!confirmTakeoutBox.checked) { formMsg.textContent = dict.confirm_takeout_missing; return; }
 
   formMsg.textContent = dict.pay_wait;
   const btn = document.getElementById("sendOrder");
@@ -682,7 +696,7 @@ document.getElementById("sendOrder").addEventListener("click", async () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         items: items.map(it => ({ id: it.key, qty: it.qty })),
-        name, phone, time, lang: currentLang
+        name, phone, time, lang: currentLang, confirmTakeout: true
       })
     });
     const data = await resp.json();
@@ -691,7 +705,7 @@ document.getElementById("sendOrder").addEventListener("click", async () => {
   } catch (e) {
     formMsg.textContent = dict.pay_err;
   } finally {
-    btn.disabled = false;
+    btn.disabled = !confirmTakeoutBox.checked;
   }
 });
 

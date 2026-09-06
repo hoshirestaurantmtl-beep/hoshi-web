@@ -105,6 +105,7 @@ module.exports = async (req, res) => {
     const lang = body.lang;
     if (!Array.isArray(items) || items.length === 0 || items.length > 40) return res.status(400).json({ error: "Panier invalide" });
     if (!name || !phone || !time) return res.status(400).json({ error: "Informations manquantes" });
+    if (body.confirmTakeout !== true) return res.status(400).json({ error: "Confirmation « pour emporter » manquante" });
     if (!/^[0-9+\-() .]{7,25}$/.test(phone)) return res.status(400).json({ error: "Numéro de téléphone invalide" });
 
     const { index: menu, SERVICE } = loadMenu();

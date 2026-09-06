@@ -225,7 +225,12 @@
             <p class="pay-note" data-i18n="pay_online_only">💳 Paiement sécurisé en ligne — votre commande est confirmée une fois payée.</p>
           </div>
 
-          <button type="button" class="btn" id="sendOrder" data-i18n="order_btn">Confirmer la commande</button>
+          <label class="takeout-confirm">
+            <input type="checkbox" id="confirmTakeout">
+            <span data-i18n="confirm_takeout">Je confirme que cette commande est pour emporter et ne sera pas consommée sur place.</span>
+          </label>
+
+          <button type="button" class="btn" id="sendOrder" data-i18n="order_btn" disabled>Confirmer la commande</button>
           <p class="form-msg" id="formMsg"></p>
           <p class="menu-note" data-i18n="order_note">* Sans livraison — venez chercher votre commande au restaurant.</p>
         </div>
