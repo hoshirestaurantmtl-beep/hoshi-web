@@ -338,11 +338,13 @@ h1, h2, h3, .logo {
 }
 .reviews {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1.5rem;
   margin-top: 2.5rem;
 }
 .review {
+  display: flex;
+  flex-direction: column;
   background: #fff;
   border-radius: 6px;
   padding: 1.6rem 1.5rem;
@@ -350,7 +352,12 @@ h1, h2, h3, .logo {
   border-top: 3px solid var(--dorado);
   font-style: italic;
 }
-.review p { margin-bottom: 0.8rem; }
+.review p {
+  margin-bottom: 0.8rem;
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 0.4rem;
+}
 .review footer { font-style: normal; font-size: 0.88rem; color: var(--gris); }
 .stars { color: var(--dorado); letter-spacing: 2px; margin-left: 0.3rem; }
 
