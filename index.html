@@ -209,20 +209,30 @@
           <h3 data-i18n="order_title">Votre commande 🥡</h3>
           <p class="cart-hint" data-i18n="order_hint">Ajoutez des plats depuis le menu avec le bouton « + ».</p>
           <ul class="cart-list" id="cartList"></ul>
+
+          <label class="cart-label" data-i18n="dining_mode_label">Comment allez-vous déguster votre commande ?</label>
+          <div class="dining-mode-options" id="diningModeOptions">
+            <button type="button" class="mode-btn" data-mode="takeout" data-i18n="mode_takeout">🥡 Pour emporter</button>
+            <button type="button" class="mode-btn" data-mode="dinein" data-i18n="mode_dinein">🍽️ Je mange sur place (+15 % service)</button>
+          </div>
+
           <div class="totals">
             <p><span data-i18n="order_subtotal">Sous-total :</span> <span id="cartSubtotal">0 $</span></p>
             <p><span>TPS (5 %) :</span> <span id="cartTps">0 $</span></p>
             <p><span>TVQ (9,975 %) :</span> <span id="cartTvq">0 $</span></p>
-            <p><span data-i18n="tip_row_label">Pourboire :</span> <span id="cartTip">0 $</span></p>
+            <p id="tipRow"><span data-i18n="tip_row_label">Pourboire :</span> <span id="cartTip">0 $</span></p>
+            <p id="serviceFeeRow" hidden><span data-i18n="service_fee_row_label">Frais de service (15 %) :</span> <span id="cartServiceFee">0 $</span></p>
             <p class="cart-total"><span data-i18n="order_total">Total :</span> <strong id="cartTotal">0 $</strong></p>
           </div>
 
-          <label class="cart-label" data-i18n="tip_label">Pourboire</label>
-          <div class="tip-options" id="tipOptions">
-            <button type="button" class="tip-btn" data-tip="0" data-i18n="tip_none">Aucun</button>
-            <button type="button" class="tip-btn" data-tip="0.10">10 %</button>
-            <button type="button" class="tip-btn" data-tip="0.15">15 %</button>
-            <button type="button" class="tip-btn" data-tip="0.20">20 %</button>
+          <div id="tipSection" hidden>
+            <label class="cart-label" data-i18n="tip_label">Pourboire</label>
+            <div class="tip-options" id="tipOptions">
+              <button type="button" class="tip-btn" data-tip="0" data-i18n="tip_none">Aucun</button>
+              <button type="button" class="tip-btn" data-tip="0.10">10 %</button>
+              <button type="button" class="tip-btn" data-tip="0.15">15 %</button>
+              <button type="button" class="tip-btn" data-tip="0.20">20 %</button>
+            </div>
           </div>
 
           <input type="text" id="orderName" data-i18n-ph="ph_name" placeholder="Votre nom" required>
@@ -234,11 +244,6 @@
             <h4 data-i18n="pay_title">Paiement</h4>
             <p class="pay-note" data-i18n="pay_online_only">💳 Paiement sécurisé en ligne — votre commande est confirmée une fois payée.</p>
           </div>
-
-          <label class="takeout-confirm">
-            <input type="checkbox" id="confirmTakeout">
-            <span data-i18n="confirm_takeout">Je confirme que cette commande est pour emporter et ne sera pas consommée sur place.</span>
-          </label>
 
           <button type="button" class="btn" id="sendOrder" data-i18n="order_btn" disabled>Confirmer la commande</button>
           <p class="form-msg" id="formMsg"></p>

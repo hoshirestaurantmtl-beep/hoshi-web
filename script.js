@@ -155,8 +155,12 @@ const i18n = {
     order_note: "* Sans livraison — venez chercher votre commande au restaurant.",
     order_empty: "Votre panier est vide.",
     order_missing: "Veuillez remplir votre nom, téléphone et l'heure de ramassage.",
-    confirm_takeout: "Je confirme que cette commande est pour emporter et ne sera pas consommée sur place.",
-    confirm_takeout_missing: "Veuillez confirmer que la commande est pour emporter.",
+    dining_mode_label: "Comment allez-vous déguster votre commande ?",
+    mode_takeout: "🥡 Pour emporter",
+    mode_dinein: "🍽️ Je mange sur place (+15 % service)",
+    service_fee_row_label: "Frais de service (15 %) :",
+    dining_mode_missing: "Veuillez indiquer si c'est pour emporter ou sur place.",
+    dinein_conflict_error: "Un article du panier n'est disponible que si vous mangez sur place — choisissez « Je mange sur place » ou retirez-le.",
     tip_label: "Pourboire",
     tip_row_label: "Pourboire :",
     tip_none: "Aucun",
@@ -317,8 +321,12 @@ const i18n = {
     order_note: "* No delivery — pick up your order at the restaurant.",
     order_empty: "Your cart is empty.",
     order_missing: "Please fill in your name, phone and pickup time.",
-    confirm_takeout: "I confirm this order is for take-out and will not be eaten on the premises.",
-    confirm_takeout_missing: "Please confirm this order is for take-out.",
+    dining_mode_label: "How will you enjoy your order?",
+    mode_takeout: "🥡 Take-out",
+    mode_dinein: "🍽️ Eating here (+15% service)",
+    service_fee_row_label: "Service fee (15%):",
+    dining_mode_missing: "Please indicate whether this is take-out or dine-in.",
+    dinein_conflict_error: "An item in your cart is only available if you're eating here — choose \"Eating here\" or remove it.",
     tip_label: "Tip",
     tip_row_label: "Tip:",
     tip_none: "None",
@@ -387,8 +395,12 @@ const i18n = {
     order_note: "* 配達は行っておりません — 店舗でお受け取りください。",
     order_empty: "カートは空です。",
     order_missing: "お名前・電話番号・受け取り時間をご記入ください。",
-    confirm_takeout: "本注文はテイクアウト専用であり、店内でのお召し上がりには利用できないことを確認します。",
-    confirm_takeout_missing: "テイクアウト専用であることをご確認ください。",
+    dining_mode_label: "お召し上がり方法をお選びください",
+    mode_takeout: "🥡 テイクアウト",
+    mode_dinein: "🍽️ 店内で食べます（+15％ サービス料）",
+    service_fee_row_label: "サービス料（15％）：",
+    dining_mode_missing: "テイクアウトか店内かをお選びください。",
+    dinein_conflict_error: "カート内の商品の一部は店内飲食の場合のみご注文いただけます。「店内で食べます」を選ぶか、商品を削除してください。",
     tip_label: "チップ",
     tip_row_label: "チップ：",
     tip_none: "なし",
@@ -457,8 +469,12 @@ const i18n = {
     order_note: "* 배달은 하지 않습니다 — 매장에서 픽업해 주세요.",
     order_empty: "장바구니가 비어 있습니다.",
     order_missing: "이름, 전화번호, 픽업 시간을 입력해 주세요.",
-    confirm_takeout: "본 주문은 테이크아웃 전용이며 매장 내에서 취식하지 않음을 확인합니다.",
-    confirm_takeout_missing: "테이크아웃 전용임을 확인해 주세요.",
+    dining_mode_label: "주문하신 음식을 어떻게 드실 건가요?",
+    mode_takeout: "🥡 테이크아웃",
+    mode_dinein: "🍽️ 매장에서 식사 (+15% 서비스 요금)",
+    service_fee_row_label: "서비스 요금 (15%):",
+    dining_mode_missing: "테이크아웃인지 매장 식사인지 선택해 주세요.",
+    dinein_conflict_error: "장바구니에 매장 식사 시에만 주문 가능한 상품이 있습니다. \"매장에서 식사\"를 선택하거나 해당 상품을 삭제해 주세요.",
     tip_label: "팁",
     tip_row_label: "팁:",
     tip_none: "없음",
@@ -594,7 +610,7 @@ function buildSection(sec, lang, lunchRestrictable) {
       });
       actions.appendChild(pbtn);
     }
-    if (TAKEOUT_ENABLED && !it.soldout && !dineInOnly) {
+    if (TAKEOUT_ENABLED && !it.soldout && !it.alcohol) {
     const btn = document.createElement("button");
     btn.className = "add-btn" + (lunchRestrictable ? " lunch-restrict-btn" : "");
     btn.type = "button"; btn.textContent = "+";
@@ -656,6 +672,8 @@ function itemName(key) {
 }
 
 let tipPercent = null;
+let diningMode = null; // "takeout" | "dinein"
+const SERVICE_FEE_PERCENT = 0.15;
 
 function renderCart() {
   const dict = dictFor(currentLang);
@@ -667,7 +685,7 @@ function renderCart() {
   badge.textContent = count;
   if (items.length === 0) {
     cartList.innerHTML = `<li class="cart-empty">${dict.order_empty}</li>`;
-    ["cartSubtotal","cartTps","cartTvq","cartTip"].forEach(id => document.getElementById(id).textContent = "0 $");
+    ["cartSubtotal","cartTps","cartTvq","cartTip","cartServiceFee"].forEach(id => document.getElementById(id).textContent = "0 $");
     cartTotal.textContent = "0 $";
     return;
   }
@@ -684,12 +702,14 @@ function renderCart() {
   });
   const tps = subtotal * 0.05;
   const tvq = subtotal * 0.09975;
-  const tip = tipPercent != null ? subtotal * tipPercent : 0;
+  const tip = diningMode === "takeout" && tipPercent != null ? subtotal * tipPercent : 0;
+  const serviceFee = diningMode === "dinein" ? subtotal * SERVICE_FEE_PERCENT : 0;
   document.getElementById("cartSubtotal").textContent = subtotal.toFixed(2) + " $";
   document.getElementById("cartTps").textContent = tps.toFixed(2) + " $";
   document.getElementById("cartTvq").textContent = tvq.toFixed(2) + " $";
   document.getElementById("cartTip").textContent = tip.toFixed(2) + " $";
-  cartTotal.textContent = (subtotal + tps + tvq + tip).toFixed(2) + " $";
+  document.getElementById("cartServiceFee").textContent = serviceFee.toFixed(2) + " $";
+  cartTotal.textContent = (subtotal + tps + tvq + tip + serviceFee).toFixed(2) + " $";
   cartList.querySelectorAll(".qty-btn").forEach(b => {
     b.addEventListener("click", () => {
       const k = b.getAttribute("data-k");
@@ -700,15 +720,30 @@ function renderCart() {
   });
 }
 
+function cartHasDineInOnlyItem() {
+  return Object.values(cart).some(it => it.qty > 0 && ITEM_INDEX[it.key] && ITEM_INDEX[it.key].dineInOnly);
+}
 function canSendOrder() {
-  return confirmTakeoutBox.checked && tipPercent !== null;
+  if (diningMode === "dinein") return true;
+  if (diningMode === "takeout") return tipPercent !== null && !cartHasDineInOnlyItem();
+  return false;
 }
 function refreshSendOrderState() {
   document.getElementById("sendOrder").disabled = !canSendOrder();
 }
 
-const confirmTakeoutBox = document.getElementById("confirmTakeout");
-confirmTakeoutBox.addEventListener("change", refreshSendOrderState);
+document.querySelectorAll(".mode-btn").forEach(b => {
+  b.addEventListener("click", () => {
+    diningMode = b.getAttribute("data-mode");
+    document.querySelectorAll(".mode-btn").forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+    document.getElementById("tipSection").hidden = diningMode !== "takeout";
+    document.getElementById("tipRow").hidden = diningMode !== "takeout";
+    document.getElementById("serviceFeeRow").hidden = diningMode !== "dinein";
+    renderCart();
+    refreshSendOrderState();
+  });
+});
 
 document.querySelectorAll(".tip-btn").forEach(b => {
   b.addEventListener("click", () => {
@@ -729,8 +764,9 @@ document.getElementById("sendOrder").addEventListener("click", async () => {
 
   if (items.length === 0) { formMsg.textContent = dict.order_empty; return; }
   if (!name || !phone || !time) { formMsg.textContent = dict.order_missing; return; }
-  if (!confirmTakeoutBox.checked) { formMsg.textContent = dict.confirm_takeout_missing; return; }
-  if (tipPercent === null) { formMsg.textContent = dict.tip_missing; return; }
+  if (diningMode === null) { formMsg.textContent = dict.dining_mode_missing; return; }
+  if (diningMode === "takeout" && cartHasDineInOnlyItem()) { formMsg.textContent = dict.dinein_conflict_error; return; }
+  if (diningMode === "takeout" && tipPercent === null) { formMsg.textContent = dict.tip_missing; return; }
 
   formMsg.textContent = dict.pay_wait;
   const btn = document.getElementById("sendOrder");
@@ -741,7 +777,8 @@ document.getElementById("sendOrder").addEventListener("click", async () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         items: items.map(it => ({ id: it.key, qty: it.qty })),
-        name, phone, time, lang: currentLang, confirmTakeout: true, tipPercent
+        name, phone, time, lang: currentLang, diningMode,
+        tipPercent: diningMode === "takeout" ? tipPercent : null
       })
     });
     const data = await resp.json();

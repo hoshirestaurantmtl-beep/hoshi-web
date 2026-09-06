@@ -5,6 +5,7 @@ const path = require("path");
 
 const TPS = 0.05;
 const TVQ = 0.09975;
+const SERVICE_FEE_PERCENT = 0.15; // frais de service pour les commandes « je mange sur place »
 
 // Horaires de service (minutes depuis minuit, heure de Montréal ; 0 = dimanche).
 // Dérivés de menu-data.js > settings.hours (panneau admin) pour que la validation
@@ -110,11 +111,15 @@ module.exports = async (req, res) => {
     const lang = body.lang;
     if (!Array.isArray(items) || items.length === 0 || items.length > 40) return res.status(400).json({ error: "Panier invalide" });
     if (!name || !phone || !time) return res.status(400).json({ error: "Informations manquantes" });
-    if (body.confirmTakeout !== true) return res.status(400).json({ error: "Confirmation « pour emporter » manquante" });
     if (!/^[0-9+\-() .]{7,25}$/.test(phone)) return res.status(400).json({ error: "Numéro de téléphone invalide" });
+    const diningMode = body.diningMode;
+    if (diningMode !== "takeout" && diningMode !== "dinein") return res.status(400).json({ error: "Mode de commande invalide (à emporter / sur place)" });
     const TIP_OPTIONS = [0, 0.10, 0.15, 0.20];
-    if (!TIP_OPTIONS.includes(body.tipPercent)) return res.status(400).json({ error: "Montant de pourboire invalide" });
-    const tipPercent = body.tipPercent;
+    let tipPercent = 0;
+    if (diningMode === "takeout") {
+      if (!TIP_OPTIONS.includes(body.tipPercent)) return res.status(400).json({ error: "Montant de pourboire invalide" });
+      tipPercent = body.tipPercent;
+    }
 
     const { index: menu, SERVICE } = loadMenu();
     if (!validPickup(time, SERVICE)) return res.status(400).json({ error: "Heure de ramassage hors des horaires d'ouverture" });
@@ -134,7 +139,7 @@ module.exports = async (req, res) => {
       if (it.soldout) return res.status(400).json({ error: "Un article du panier est épuisé" });
       if (it.__lunchRestricted && lunchWindow) return res.status(400).json({ error: "Un article du panier n'est disponible qu'après 15 h" });
       if (it.alcohol) return res.status(400).json({ error: "Les boissons alcoolisées sont disponibles sur place seulement" });
-      if (it.dineInOnly) return res.status(400).json({ error: "Un article du panier est disponible sur place seulement" });
+      if (it.dineInOnly && diningMode === "takeout") return res.status(400).json({ error: "Un article du panier n'est disponible que si vous mangez sur place" });
       // prix côté serveur — non falsifiable ; applique le prix promo s'il est valide (positif et < prix normal)
       const promoValid = typeof it.promoPrice === "number" && it.promoPrice > 0 && it.promoPrice < it.price;
       const cents = Math.round(Number(promoValid ? it.promoPrice : it.price) * 100);
@@ -153,9 +158,14 @@ module.exports = async (req, res) => {
     const tvq = Math.round(subtotal * TVQ);
     lineItems[i++] = { quantity: 1, price_data: { currency: "cad", unit_amount: tps, product_data: { name: "TPS (5 %)" } } };
     lineItems[i++] = { quantity: 1, price_data: { currency: "cad", unit_amount: tvq, product_data: { name: "TVQ (9,975 %)" } } };
-    const tip = Math.round(subtotal * tipPercent);
-    if (tip > 0) {
-      lineItems[i++] = { quantity: 1, price_data: { currency: "cad", unit_amount: tip, product_data: { name: `Pourboire (${Math.round(tipPercent * 100)} %)` } } };
+    if (diningMode === "takeout") {
+      const tip = Math.round(subtotal * tipPercent);
+      if (tip > 0) {
+        lineItems[i++] = { quantity: 1, price_data: { currency: "cad", unit_amount: tip, product_data: { name: `Pourboire (${Math.round(tipPercent * 100)} %)` } } };
+      }
+    } else {
+      const serviceFee = Math.round(subtotal * SERVICE_FEE_PERCENT);
+      lineItems[i++] = { quantity: 1, price_data: { currency: "cad", unit_amount: serviceFee, product_data: { name: `Frais de service (${Math.round(SERVICE_FEE_PERCENT * 100)} %)` } } };
     }
 
     const description = `🥡 ${time} — ${name} (${phone}) — ${summaryLines.join(", ")}`.slice(0, 950);
