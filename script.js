@@ -127,6 +127,7 @@ const i18n = {
     gallery_title: "Galerie",
     rev_title: "Avis de nos clients",
     rev_sub: "sur Google — plus de 600 avis",
+    rev_sub_dynamic: "sur Google — {count} avis",
     rev_link: "Lire tous les avis sur Google →",
     about_title: "À propos",
     about_p1: "<strong>Hoshi</strong> (星, « étoile » en japonais) est un restaurant japonais situé au cœur du Quartier chinois de Montréal.",
@@ -296,6 +297,7 @@ const i18n = {
     gallery_title: "Gallery",
     rev_title: "What our guests say",
     rev_sub: "on Google — 600+ reviews",
+    rev_sub_dynamic: "on Google — {count} reviews",
     rev_link: "Read all reviews on Google →",
     about_title: "About",
     about_p1: "<strong>Hoshi</strong> (星, “star” in Japanese) is a Japanese restaurant in the heart of Montreal's Chinatown.",
@@ -373,6 +375,7 @@ const i18n = {
     gallery_title: "ギャラリー",
     rev_title: "お客様の声",
     rev_sub: "Google — 600件以上のレビュー",
+    rev_sub_dynamic: "Google — {count}件のレビュー",
     rev_link: "Googleですべてのレビューを見る →",
     about_title: "私たちについて",
     about_p1: "<strong>Hoshi</strong>（星）は、モントリオールのチャイナタウンの中心にある日本食レストランです。",
@@ -450,6 +453,7 @@ const i18n = {
     gallery_title: "갤러리",
     rev_title: "고객 후기",
     rev_sub: "Google — 600개 이상의 리뷰",
+    rev_sub_dynamic: "Google — 리뷰 {count}개",
     rev_link: "Google에서 모든 리뷰 보기 →",
     about_title: "소개",
     about_p1: "<strong>Hoshi</strong>(星, 일본어로 '별')는 몬트리올 차이나타운 중심에 있는 일식 레스토랑입니다.",
@@ -541,6 +545,7 @@ function setLang(lang) {
   applyBanner(lang);
   if (typeof window.__setNoticeText === "function") window.__setNoticeText();
   if (typeof renderCart === "function" && cartList) renderCart();
+  if (typeof window.__renderGoogleReviews === "function") window.__renderGoogleReviews();
 }
 
 document.querySelectorAll("[data-setlang]").forEach(b =>
@@ -1032,6 +1037,41 @@ if (NOTICE && NOTICE.on) {
   document.getElementById("noticeClose").addEventListener("click", () => ov.remove());
   ov.addEventListener("click", (e) => { if (e.target === ov) ov.remove(); });
 }
+
+// ---- Avis Google (chargés en direct via /api/reviews, avec repli statique en cas d'échec) ----
+function escHtml(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, c =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+let googleReviewsData = null;
+function renderGoogleReviews() {
+  if (!googleReviewsData) return;
+  const dict = dictFor(currentLang);
+  if (googleReviewsData.rating) {
+    const decimalSep = currentLang === "en" ? "." : ",";
+    document.getElementById("revBadge").textContent = "★ " + googleReviewsData.rating.toFixed(1).replace(".", decimalSep);
+  }
+  if (googleReviewsData.userRatingCount) {
+    document.getElementById("revSub").textContent = dict.rev_sub_dynamic.replace("{count}", googleReviewsData.userRatingCount);
+  }
+  if (googleReviewsData.mapsUri) document.getElementById("revLink").href = googleReviewsData.mapsUri;
+  if (Array.isArray(googleReviewsData.reviews) && googleReviewsData.reviews.length) {
+    document.getElementById("reviewsList").innerHTML = googleReviewsData.reviews.map(r => `
+      <blockquote class="review">
+        <p>« ${escHtml(r.text)} »</p>
+        <footer>— ${escHtml(r.author)} <span class="stars">${"★".repeat(Math.round(r.rating))}</span></footer>
+      </blockquote>`).join("");
+  }
+}
+window.__renderGoogleReviews = renderGoogleReviews;
+(async function loadGoogleReviews() {
+  try {
+    const resp = await fetch("/api/reviews");
+    if (!resp.ok) return; // garde les avis statiques par défaut
+    googleReviewsData = await resp.json();
+    renderGoogleReviews();
+  } catch (e) { /* garde les avis statiques par défaut */ }
+})();
 
 setLang(currentLang);
 if (TAKEOUT_ENABLED) setInterval(updateTakeoutAvailability, 60000);
