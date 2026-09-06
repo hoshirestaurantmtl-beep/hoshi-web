@@ -377,7 +377,8 @@ const MENU_DATA = {
                 "ko": "수제 소스, 수비드 계란, 코울슬로 — 미소국+밥 (우동: 25$)"
               },
               "price": 24,
-              "photo": "img/h1-1788469747086.jpg"
+              "photo": "img/h1-1788469747086.jpg",
+              "alcohol": true
             },
             {
               "id": "h2",
@@ -394,7 +395,8 @@ const MENU_DATA = {
                 "ko": "치즈 토핑 — 미소국+밥 (우동: 27$)"
               },
               "price": 26,
-              "photo": "img/h2-1788469751576.jpg"
+              "photo": "img/h2-1788469751576.jpg",
+              "alcohol": true
             },
             {
               "id": "h3",
@@ -411,7 +413,8 @@ const MENU_DATA = {
                 "ko": "카레 소스 추가 — 미소국+밥 (우동: 26$)"
               },
               "price": 25,
-              "photo": "img/h3-1788469815116.jpg"
+              "photo": "img/h3-1788469815116.jpg",
+              "alcohol": true
             }
           ]
         },
@@ -797,7 +800,8 @@ const MENU_DATA = {
                 "ja": "抹茶もち、お好みのジェラート（バニラまたはゆず）、新鮮なフィサリス — 抹茶パウダーが別添え。",
                 "ko": "말차 모찌, 원하는 맛의 젤라토(바닐라 또는 유자), 신선한 피살리스 — 말차 가루 추가."
               },
-              "promoPrice": 9.5
+              "promoPrice": 9.5,
+              "alcohol": true
             },
             {
               "id": "n7",
@@ -814,7 +818,8 @@ const MENU_DATA = {
                 "en": "Vanilla gelato, house recipe — a collaboration with Gelatopia.",
                 "ja": "バニラジェラート、手作りレシピ — Gelatopiaとのコラボレーション。",
                 "ko": "바닐라 젤라토, 집에서 만드는 레시피 — Gelatopia와의 협업."
-              }
+              },
+              "alcohol": true
             },
             {
               "id": "n8",
@@ -831,7 +836,8 @@ const MENU_DATA = {
                 "en": "Yuzu gelato, house recipe — a collaboration with Gelatopia. Water-based sorbet, dairy-free, no gelatine (no animal products).",
                 "ja": "手作りの柚子ジェラート — Gelatopiaとのコラボレーション。水ベースのソルベで、乳糖不使用、ゼラチン不使用（動物性原料不使用）。",
                 "ko": "유자 젤라토, 홈메이드 레시피 — Gelatopia와의 협업. 물 베이스의 셔벗으로, 유당 무첨가, 젤라틴 무첨가(동물성 성분 없음)."
-              }
+              },
+              "alcohol": true
             },
             {
               "id": "n9",
@@ -842,7 +848,8 @@ const MENU_DATA = {
                 "ko": "말차 가루"
               },
               "price": 0.5,
-              "soldout": true
+              "soldout": true,
+              "alcohol": true
             }
           ]
         }
