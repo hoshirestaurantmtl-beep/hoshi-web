@@ -35,7 +35,8 @@ const MENU_DATA = {
                 "ko": "다진 돼지고기 커틀릿 — 3개: 13$"
               },
               "price": 10,
-              "photo": "img/e1-1788304341079.jpg"
+              "photo": "img/e1-1788304341079.jpg",
+              "soldout": true
             },
             {
               "id": "n5",
@@ -226,7 +227,8 @@ const MENU_DATA = {
                 "ko": "로스카츠 카레동"
               },
               "price": 21,
-              "photo": "img/c1-1788448670670.jpg"
+              "photo": "img/c1-1788448670670.jpg",
+              "soldout": true
             },
             {
               "id": "c2",
@@ -237,7 +239,8 @@ const MENU_DATA = {
                 "ko": "히레카츠 카레동 (3개)"
               },
               "price": 23,
-              "photo": "img/c2-1788448675377.jpg"
+              "photo": "img/c2-1788448675377.jpg",
+              "soldout": true
             },
             {
               "id": "c3",
@@ -248,7 +251,8 @@ const MENU_DATA = {
                 "ko": "로스&히레카츠 카레동"
               },
               "price": 24,
-              "photo": "img/c3-1788448680922.jpg"
+              "photo": "img/c3-1788448680922.jpg",
+              "soldout": true
             },
             {
               "id": "c4",
@@ -259,7 +263,8 @@ const MENU_DATA = {
                 "ko": "카레우동 + 로스카츠"
               },
               "price": 22,
-              "photo": "img/c4-1788296238814.jpg"
+              "photo": "img/c4-1788296238814.jpg",
+              "soldout": true
             },
             {
               "id": "c5",
@@ -270,7 +275,8 @@ const MENU_DATA = {
                 "ko": "카레우동 + 히레카츠 (3개)"
               },
               "price": 24,
-              "photo": "img/c5-1788296256941.jpg"
+              "photo": "img/c5-1788296256941.jpg",
+              "soldout": true
             },
             {
               "id": "c6",
@@ -281,7 +287,8 @@ const MENU_DATA = {
                 "ko": "카레우동 + 로스&히레"
               },
               "price": 25,
-              "photo": "img/c6-1788308188564.jpg"
+              "photo": "img/c6-1788308188564.jpg",
+              "soldout": true
             }
           ]
         },
@@ -414,7 +421,8 @@ const MENU_DATA = {
               },
               "price": 25,
               "photo": "img/h3-1788469815116.jpg",
-              "dineInOnly": true
+              "dineInOnly": true,
+              "soldout": true
             }
           ]
         },
