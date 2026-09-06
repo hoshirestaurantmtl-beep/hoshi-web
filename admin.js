@@ -150,6 +150,12 @@ function render() {
           () => { it.alcohol = !it.alcohol; if (!it.alcohol) delete it.alcohol; render(); }, it.alcohol ? "sold-on" : ""));
         tdD.appendChild(mk("🍽️", it.dineInOnly ? "Sur place seulement (fond, doit sortir chaud, etc.) — cliquer pour autoriser au take-out" : "Take-out autorisé — cliquer pour marquer « sur place seulement »",
           () => { it.dineInOnly = !it.dineInOnly; if (!it.dineInOnly) delete it.dineInOnly; render(); }, it.dineInOnly ? "sold-on" : ""));
+        tdD.appendChild(mk("🌱", it.vegan ? "Végane — cliquer pour désactiver" : "Cliquer pour marquer végane",
+          () => { it.vegan = !it.vegan; if (!it.vegan) delete it.vegan; render(); }, it.vegan ? "diet-on" : ""));
+        tdD.appendChild(mk("🥛", it.lactoseFree ? "Sans lactose — cliquer pour désactiver" : "Cliquer pour marquer sans lactose",
+          () => { it.lactoseFree = !it.lactoseFree; if (!it.lactoseFree) delete it.lactoseFree; render(); }, it.lactoseFree ? "diet-on" : ""));
+        tdD.appendChild(mk("☪️", it.halal ? "Halal — cliquer pour désactiver" : "Cliquer pour marquer halal",
+          () => { it.halal = !it.halal; if (!it.halal) delete it.halal; render(); }, it.halal ? "diet-on" : ""));
         tdD.appendChild(mk("📷", "Téléverser une photo pour ce plat", () => uploadPhoto(it)));
         const hasJaKo = !!(it.name.ja && it.name.ko);
         tdD.appendChild(mk("🌐", hasJaKo ? "Japonais/coréen déjà traduits — cliquer pour revoir" : "Traduire en japonais/coréen (à partir du FR/EN)",
@@ -299,6 +305,9 @@ function serialize() {
     if (!it.soldout) delete it.soldout;
     if (!it.alcohol) delete it.alcohol;
     if (!it.dineInOnly) delete it.dineInOnly;
+    if (!it.vegan) delete it.vegan;
+    if (!it.lactoseFree) delete it.lactoseFree;
+    if (!it.halal) delete it.halal;
     if (it.promoPrice == null || !(it.promoPrice > 0) || !(it.promoPrice < it.price)) delete it.promoPrice;
   })));
   return "// ===== Hoshi — Données du menu / Menu data =====\n" +

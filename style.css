@@ -772,3 +772,18 @@ body.lunch-menu-restricted li.lunch-restrict .lunch-chip {
   white-space: nowrap;
 }
 body.lunch-menu-restricted li.lunch-restrict .add-btn { display: none; }
+
+.diet-chip {
+  display: inline-block;
+  margin: 0.25rem 0.3rem 0 0;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #2e7d32;
+  border: 1px solid #2e7d32;
+  border-radius: 3px;
+  padding: 0.05rem 0.35rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}

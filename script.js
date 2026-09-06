@@ -22,6 +22,9 @@ const i18n = {
     closed_title: "Commandes en ligne fermées pour le moment",
     dinein_label: "sur place seulement",
     lunch_unavailable_label: "disponible après 15 h",
+    vegan_label: "végane",
+    lactose_free_label: "sans lactose",
+    halal_label: "halal",
     today_word: "aujourd'hui",
     reopen_at: "Réouverture des commandes : {day} à {time}",
     hero_btn_menu: "Voir le menu",
@@ -188,6 +191,9 @@ const i18n = {
     closed_title: "Online ordering is currently closed",
     dinein_label: "dine-in only",
     lunch_unavailable_label: "available after 3pm",
+    vegan_label: "vegan",
+    lactose_free_label: "dairy-free",
+    halal_label: "halal",
     today_word: "today",
     reopen_at: "Ordering reopens {day} at {time}",
     hero_btn_menu: "View menu",
@@ -354,6 +360,9 @@ const i18n = {
     closed_title: "オンライン注文は現在受付時間外です",
     dinein_label: "店内のみ",
     lunch_unavailable_label: "15時以降にご利用可能",
+    vegan_label: "ヴィーガン",
+    lactose_free_label: "乳製品不使用",
+    halal_label: "ハラール",
     today_word: "本日",
     reopen_at: "注文再開：{day} {time}",
     hero_btn_menu: "メニューを見る",
@@ -428,6 +437,9 @@ const i18n = {
     closed_title: "온라인 주문이 현재 마감되었습니다",
     dinein_label: "매장 전용",
     lunch_unavailable_label: "15시 이후 이용 가능",
+    vegan_label: "비건",
+    lactose_free_label: "유제품 무첨가",
+    halal_label: "할랄",
     today_word: "오늘",
     reopen_at: "주문 재개: {day} {time}",
     hero_btn_menu: "메뉴 보기",
@@ -591,10 +603,15 @@ function buildSection(sec, lang, lunchRestrictable) {
     const dineInOnly = it.alcohol || it.dineInOnly;
     const dineInChip = (dineInOnly && TAKEOUT_ENABLED) ? `<span class="dinein-chip">${dictFor(lang).dinein_label}</span>` : "";
     const lunchChip = lunchRestrictable ? `<span class="lunch-chip">${dictFor(lang).lunch_unavailable_label}</span>` : "";
+    const dietChips = [
+      it.vegan ? `<span class="diet-chip">${dictFor(lang).vegan_label}</span>` : "",
+      it.lactoseFree ? `<span class="diet-chip">${dictFor(lang).lactose_free_label}</span>` : "",
+      it.halal ? `<span class="diet-chip">${dictFor(lang).halal_label}</span>` : ""
+    ].join("");
     const priceHtml = hasPromo(it)
       ? `<span class="price-old">${fmtPrice(it.price)}</span><span class="price-promo">${fmtPrice(it.promoPrice)}</span>`
       : fmtPrice(it.price);
-    li.innerHTML = `<div class="mi-head"><span>${it.name[lang] || it.name.en || it.name.fr}${soldChip}${dineInChip}${lunchChip}</span><span class="dots"></span><span class="price">${priceHtml}</span></div>` +
+    li.innerHTML = `<div class="mi-head"><span>${it.name[lang] || it.name.en || it.name.fr}${soldChip}${dineInChip}${lunchChip}${dietChips}</span><span class="dots"></span><span class="price">${priceHtml}</span></div>` +
       (it.desc ? `<p class="mi-desc">${it.desc[lang] || it.desc.en || it.desc.fr || ""}</p>` : "");
     if (it.soldout) li.classList.add("soldout");
     const actions = document.createElement("span");
