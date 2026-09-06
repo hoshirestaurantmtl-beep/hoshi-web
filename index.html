@@ -213,8 +213,18 @@
             <p><span data-i18n="order_subtotal">Sous-total :</span> <span id="cartSubtotal">0 $</span></p>
             <p><span>TPS (5 %) :</span> <span id="cartTps">0 $</span></p>
             <p><span>TVQ (9,975 %) :</span> <span id="cartTvq">0 $</span></p>
+            <p><span data-i18n="tip_row_label">Pourboire :</span> <span id="cartTip">0 $</span></p>
             <p class="cart-total"><span data-i18n="order_total">Total :</span> <strong id="cartTotal">0 $</strong></p>
           </div>
+
+          <label class="cart-label" data-i18n="tip_label">Pourboire</label>
+          <div class="tip-options" id="tipOptions">
+            <button type="button" class="tip-btn" data-tip="0" data-i18n="tip_none">Aucun</button>
+            <button type="button" class="tip-btn" data-tip="0.10">10 %</button>
+            <button type="button" class="tip-btn" data-tip="0.15">15 %</button>
+            <button type="button" class="tip-btn" data-tip="0.20">20 %</button>
+          </div>
+
           <input type="text" id="orderName" data-i18n-ph="ph_name" placeholder="Votre nom" required>
           <input type="tel" id="orderPhone" data-i18n-ph="ph_phone" placeholder="Téléphone" required>
           <label class="cart-label" data-i18n="order_time_label">Heure de ramassage :</label>

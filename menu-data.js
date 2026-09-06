@@ -378,7 +378,7 @@ const MENU_DATA = {
               },
               "price": 24,
               "photo": "img/h1-1788469747086.jpg",
-              "alcohol": true
+              "dineInOnly": true
             },
             {
               "id": "h2",
@@ -396,7 +396,7 @@ const MENU_DATA = {
               },
               "price": 26,
               "photo": "img/h2-1788469751576.jpg",
-              "alcohol": true
+              "dineInOnly": true
             },
             {
               "id": "h3",
@@ -414,7 +414,7 @@ const MENU_DATA = {
               },
               "price": 25,
               "photo": "img/h3-1788469815116.jpg",
-              "alcohol": true
+              "dineInOnly": true
             }
           ]
         },
@@ -426,6 +426,7 @@ const MENU_DATA = {
             "ja": "追加",
             "ko": "추가 메뉴"
           },
+          "alwaysAvailable": true,
           "items": [
             {
               "id": "x1",
@@ -552,6 +553,7 @@ const MENU_DATA = {
             "ja": "お飲み物",
             "ko": "음료"
           },
+          "alwaysAvailable": true,
           "items": [
             {
               "id": "v1",
@@ -783,6 +785,7 @@ const MENU_DATA = {
             "fr": "Desserts",
             "en": "Desserts"
           },
+          "alwaysAvailable": true,
           "items": [
             {
               "id": "n6",
@@ -801,7 +804,7 @@ const MENU_DATA = {
                 "ko": "말차 모찌, 원하는 맛의 젤라토(바닐라 또는 유자), 신선한 피살리스 — 말차 가루 추가."
               },
               "promoPrice": 9.5,
-              "alcohol": true
+              "dineInOnly": true
             },
             {
               "id": "n7",
@@ -819,7 +822,7 @@ const MENU_DATA = {
                 "ja": "バニラジェラート、手作りレシピ — Gelatopiaとのコラボレーション。",
                 "ko": "바닐라 젤라토, 집에서 만드는 레시피 — Gelatopia와의 협업."
               },
-              "alcohol": true
+              "dineInOnly": true
             },
             {
               "id": "n8",
@@ -837,7 +840,7 @@ const MENU_DATA = {
                 "ja": "手作りの柚子ジェラート — Gelatopiaとのコラボレーション。水ベースのソルベで、乳糖不使用、ゼラチン不使用（動物性原料不使用）。",
                 "ko": "유자 젤라토, 홈메이드 레시피 — Gelatopia와의 협업. 물 베이스의 셔벗으로, 유당 무첨가, 젤라틴 무첨가(동물성 성분 없음)."
               },
-              "alcohol": true
+              "dineInOnly": true
             },
             {
               "id": "n9",
@@ -849,7 +852,7 @@ const MENU_DATA = {
               },
               "price": 0.5,
               "soldout": true,
-              "alcohol": true
+              "dineInOnly": true
             }
           ]
         }

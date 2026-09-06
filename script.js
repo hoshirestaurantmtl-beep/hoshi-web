@@ -21,6 +21,7 @@ const i18n = {
     soldout_label: "Épuisé",
     closed_title: "Commandes en ligne fermées pour le moment",
     dinein_label: "sur place seulement",
+    lunch_unavailable_label: "disponible après 15 h",
     today_word: "aujourd'hui",
     reopen_at: "Réouverture des commandes : {day} à {time}",
     hero_btn_menu: "Voir le menu",
@@ -156,6 +157,10 @@ const i18n = {
     order_missing: "Veuillez remplir votre nom, téléphone et l'heure de ramassage.",
     confirm_takeout: "Je confirme que cette commande est pour emporter et ne sera pas consommée sur place.",
     confirm_takeout_missing: "Veuillez confirmer que la commande est pour emporter.",
+    tip_label: "Pourboire",
+    tip_row_label: "Pourboire :",
+    tip_none: "Aucun",
+    tip_missing: "Veuillez choisir un montant de pourboire (même « Aucun »).",
     ph_name: "Votre nom",
     ph_phone: "Téléphone",
     form_ok: (n) => `Merci, ${n} ! Votre courriel de commande est prêt — appuyez sur « Envoyer » dans votre messagerie. 🌟`,
@@ -178,6 +183,7 @@ const i18n = {
     soldout_label: "Sold out",
     closed_title: "Online ordering is currently closed",
     dinein_label: "dine-in only",
+    lunch_unavailable_label: "available after 3pm",
     today_word: "today",
     reopen_at: "Ordering reopens {day} at {time}",
     hero_btn_menu: "View menu",
@@ -313,6 +319,10 @@ const i18n = {
     order_missing: "Please fill in your name, phone and pickup time.",
     confirm_takeout: "I confirm this order is for take-out and will not be eaten on the premises.",
     confirm_takeout_missing: "Please confirm this order is for take-out.",
+    tip_label: "Tip",
+    tip_row_label: "Tip:",
+    tip_none: "None",
+    tip_missing: "Please choose a tip amount (even \"None\").",
     ph_name: "Your name",
     ph_phone: "Phone",
     form_ok: (n) => `Thank you, ${n}! Your order email is ready — press “Send” in your mail app. 🌟`,
@@ -335,6 +345,7 @@ const i18n = {
     soldout_label: "売り切れ",
     closed_title: "オンライン注文は現在受付時間外です",
     dinein_label: "店内のみ",
+    lunch_unavailable_label: "15時以降にご利用可能",
     today_word: "本日",
     reopen_at: "注文再開：{day} {time}",
     hero_btn_menu: "メニューを見る",
@@ -378,6 +389,10 @@ const i18n = {
     order_missing: "お名前・電話番号・受け取り時間をご記入ください。",
     confirm_takeout: "本注文はテイクアウト専用であり、店内でのお召し上がりには利用できないことを確認します。",
     confirm_takeout_missing: "テイクアウト専用であることをご確認ください。",
+    tip_label: "チップ",
+    tip_row_label: "チップ：",
+    tip_none: "なし",
+    tip_missing: "チップの金額を選択してください（「なし」でも可）。",
     ph_name: "お名前",
     ph_phone: "電話番号",
     form_ok: (n) => `${n}様、ありがとうございます！メールアプリで「送信」を押してください。🌟`,
@@ -400,6 +415,7 @@ const i18n = {
     soldout_label: "품절",
     closed_title: "온라인 주문이 현재 마감되었습니다",
     dinein_label: "매장 전용",
+    lunch_unavailable_label: "15시 이후 이용 가능",
     today_word: "오늘",
     reopen_at: "주문 재개: {day} {time}",
     hero_btn_menu: "메뉴 보기",
@@ -443,6 +459,10 @@ const i18n = {
     order_missing: "이름, 전화번호, 픽업 시간을 입력해 주세요.",
     confirm_takeout: "본 주문은 테이크아웃 전용이며 매장 내에서 취식하지 않음을 확인합니다.",
     confirm_takeout_missing: "테이크아웃 전용임을 확인해 주세요.",
+    tip_label: "팁",
+    tip_row_label: "팁:",
+    tip_none: "없음",
+    tip_missing: "팁 금액을 선택해 주세요 (\"없음\"도 선택 가능합니다).",
     ph_name: "이름",
     ph_phone: "전화번호",
     form_ok: (n) => `${n}님, 감사합니다! 메일 앱에서 '보내기'를 눌러 주세요. 🌟`,
@@ -540,7 +560,7 @@ function effectivePrice(it) {
   return hasPromo(it) ? it.promoPrice : it.price;
 }
 
-function buildSection(sec, lang) {
+function buildSection(sec, lang, lunchRestrictable) {
   const div = document.createElement("div");
   div.className = "menu-section";
   let inner = `<h3 class="menu-cat"><span class="cat-kanji">${sec.kanji || ""}</span> <span>${sec.title[lang] || sec.title.en}</span></h3>`;
@@ -550,12 +570,15 @@ function buildSection(sec, lang) {
   const ul = div.querySelector("ul");
   sec.items.forEach(it => {
     const li = document.createElement("li");
+    if (lunchRestrictable) li.classList.add("lunch-restrict");
     const soldChip = it.soldout ? `<span class="soldout-chip">${dictFor(lang).soldout_label}</span>` : "";
-    const alcoholChip = (it.alcohol && TAKEOUT_ENABLED) ? `<span class="dinein-chip">${dictFor(lang).dinein_label}</span>` : "";
+    const dineInOnly = it.alcohol || it.dineInOnly;
+    const dineInChip = (dineInOnly && TAKEOUT_ENABLED) ? `<span class="dinein-chip">${dictFor(lang).dinein_label}</span>` : "";
+    const lunchChip = lunchRestrictable ? `<span class="lunch-chip">${dictFor(lang).lunch_unavailable_label}</span>` : "";
     const priceHtml = hasPromo(it)
       ? `<span class="price-old">${fmtPrice(it.price)}</span><span class="price-promo">${fmtPrice(it.promoPrice)}</span>`
       : fmtPrice(it.price);
-    li.innerHTML = `<div class="mi-head"><span>${it.name[lang] || it.name.en || it.name.fr}${soldChip}${alcoholChip}</span><span class="dots"></span><span class="price">${priceHtml}</span></div>` +
+    li.innerHTML = `<div class="mi-head"><span>${it.name[lang] || it.name.en || it.name.fr}${soldChip}${dineInChip}${lunchChip}</span><span class="dots"></span><span class="price">${priceHtml}</span></div>` +
       (it.desc ? `<p class="mi-desc">${it.desc[lang] || it.desc.en || it.desc.fr || ""}</p>` : "");
     if (it.soldout) li.classList.add("soldout");
     const actions = document.createElement("span");
@@ -571,11 +594,13 @@ function buildSection(sec, lang) {
       });
       actions.appendChild(pbtn);
     }
-    if (TAKEOUT_ENABLED && !it.soldout && !it.alcohol) {
+    if (TAKEOUT_ENABLED && !it.soldout && !dineInOnly) {
     const btn = document.createElement("button");
-    btn.className = "add-btn"; btn.type = "button"; btn.textContent = "+";
+    btn.className = "add-btn" + (lunchRestrictable ? " lunch-restrict-btn" : "");
+    btn.type = "button"; btn.textContent = "+";
     btn.setAttribute("aria-label", "Ajouter / Add");
     btn.addEventListener("click", () => {
+      if (lunchRestrictable && document.body.classList.contains("lunch-menu-restricted")) return;
       if (!cart[it.id]) cart[it.id] = { key: it.id, price: effectivePrice(it), qty: 0 };
       cart[it.id].qty++;
       renderCart();
@@ -598,7 +623,7 @@ function renderMenus(lang) {
 
   MENU_DATA.menus.forEach((m, i) => {
     if (m.id === "principal") {
-      m.sections.forEach(sec => menuBook.appendChild(buildSection(sec, lang)));
+      m.sections.forEach(sec => menuBook.appendChild(buildSection(sec, lang, !sec.alwaysAvailable)));
     } else if (m.id === "midi") {
       document.getElementById("lunchNote").textContent = m.note ? (m.note[lang] || m.note.en) : "";
       document.getElementById("lunchFootnote").textContent = m.footnote ? (m.footnote[lang] || m.footnote.en) : "";
@@ -630,6 +655,8 @@ function itemName(key) {
   return it ? (it.name[currentLang] || it.name.en || it.name.fr) : key;
 }
 
+let tipPercent = null;
+
 function renderCart() {
   const dict = dictFor(currentLang);
   cartList.innerHTML = "";
@@ -640,7 +667,7 @@ function renderCart() {
   badge.textContent = count;
   if (items.length === 0) {
     cartList.innerHTML = `<li class="cart-empty">${dict.order_empty}</li>`;
-    ["cartSubtotal","cartTps","cartTvq"].forEach(id => document.getElementById(id).textContent = "0 $");
+    ["cartSubtotal","cartTps","cartTvq","cartTip"].forEach(id => document.getElementById(id).textContent = "0 $");
     cartTotal.textContent = "0 $";
     return;
   }
@@ -657,10 +684,12 @@ function renderCart() {
   });
   const tps = subtotal * 0.05;
   const tvq = subtotal * 0.09975;
+  const tip = tipPercent != null ? subtotal * tipPercent : 0;
   document.getElementById("cartSubtotal").textContent = subtotal.toFixed(2) + " $";
   document.getElementById("cartTps").textContent = tps.toFixed(2) + " $";
   document.getElementById("cartTvq").textContent = tvq.toFixed(2) + " $";
-  cartTotal.textContent = (subtotal + tps + tvq).toFixed(2) + " $";
+  document.getElementById("cartTip").textContent = tip.toFixed(2) + " $";
+  cartTotal.textContent = (subtotal + tps + tvq + tip).toFixed(2) + " $";
   cartList.querySelectorAll(".qty-btn").forEach(b => {
     b.addEventListener("click", () => {
       const k = b.getAttribute("data-k");
@@ -671,9 +700,24 @@ function renderCart() {
   });
 }
 
+function canSendOrder() {
+  return confirmTakeoutBox.checked && tipPercent !== null;
+}
+function refreshSendOrderState() {
+  document.getElementById("sendOrder").disabled = !canSendOrder();
+}
+
 const confirmTakeoutBox = document.getElementById("confirmTakeout");
-confirmTakeoutBox.addEventListener("change", () => {
-  document.getElementById("sendOrder").disabled = !confirmTakeoutBox.checked;
+confirmTakeoutBox.addEventListener("change", refreshSendOrderState);
+
+document.querySelectorAll(".tip-btn").forEach(b => {
+  b.addEventListener("click", () => {
+    tipPercent = parseFloat(b.getAttribute("data-tip"));
+    document.querySelectorAll(".tip-btn").forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+    renderCart();
+    refreshSendOrderState();
+  });
 });
 
 document.getElementById("sendOrder").addEventListener("click", async () => {
@@ -686,6 +730,7 @@ document.getElementById("sendOrder").addEventListener("click", async () => {
   if (items.length === 0) { formMsg.textContent = dict.order_empty; return; }
   if (!name || !phone || !time) { formMsg.textContent = dict.order_missing; return; }
   if (!confirmTakeoutBox.checked) { formMsg.textContent = dict.confirm_takeout_missing; return; }
+  if (tipPercent === null) { formMsg.textContent = dict.tip_missing; return; }
 
   formMsg.textContent = dict.pay_wait;
   const btn = document.getElementById("sendOrder");
@@ -696,7 +741,7 @@ document.getElementById("sendOrder").addEventListener("click", async () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         items: items.map(it => ({ id: it.key, qty: it.qty })),
-        name, phone, time, lang: currentLang, confirmTakeout: true
+        name, phone, time, lang: currentLang, confirmTakeout: true, tipPercent
       })
     });
     const data = await resp.json();
@@ -705,7 +750,7 @@ document.getElementById("sendOrder").addEventListener("click", async () => {
   } catch (e) {
     formMsg.textContent = dict.pay_err;
   } finally {
-    btn.disabled = !confirmTakeoutBox.checked;
+    refreshSendOrderState();
   }
 });
 
@@ -900,6 +945,16 @@ function updateMidiVisibility() {
 }
 updateMidiVisibility();
 setInterval(updateMidiVisibility, 60000);
+
+// ---- Menu principal (dîner) : indisponible en take-out du lundi au vendredi avant 15 h ----
+// (les sections marquées settings.alwaysAvailable — Extras, Boissons, Desserts — ne sont pas concernées)
+function updatePrincipalOrderability() {
+  const now = montrealNow();
+  const restricted = now.day >= 1 && now.day <= 5 && now.min < MIDI_CUTOFF_MIN;
+  document.body.classList.toggle("lunch-menu-restricted", restricted);
+}
+updatePrincipalOrderability();
+setInterval(updatePrincipalOrderability, 60000);
 
 // ---- Avis / popup (contrôlé depuis le panneau admin : settings.notice) ----
 const NOTICE = (typeof MENU_DATA !== "undefined" && MENU_DATA.settings && MENU_DATA.settings.notice) || null;

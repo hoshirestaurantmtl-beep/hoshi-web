@@ -21,6 +21,7 @@ const DEFAULT_SERVICE = {
 };
 const PREP_MIN = 25;
 const LAST_PICKUP_MIN = 10;
+const MIDI_CUTOFF_MIN = 15 * 60; // 15:00 — même coupure que le Menu du Midi côté site
 
 // Extrait les paires HH:MM d'un texte libre (« 11:30 – 15:00 · 17:00 – 21:00 ») en plages [ouverture, fermeture]
 function parseTimeRanges(text) {
@@ -72,7 +73,11 @@ function loadMenu() {
   // eslint-disable-next-line no-eval
   const MENU_DATA = eval(src + "; MENU_DATA");
   const index = {};
-  MENU_DATA.menus.forEach(m => m.sections.forEach(s => s.items.forEach(it => index[it.id] = it)));
+  MENU_DATA.menus.forEach(m => m.sections.forEach(s => s.items.forEach(it => {
+    index[it.id] = it;
+    // plats du menu principal (hors sections « toujours disponibles » : Extras, Boissons, Desserts)
+    it.__lunchRestricted = m.id === "principal" && !s.alwaysAvailable;
+  })));
   const SERVICE = buildService(MENU_DATA.settings && MENU_DATA.settings.hours) || DEFAULT_SERVICE;
   return { index, SERVICE };
 }
@@ -107,11 +112,16 @@ module.exports = async (req, res) => {
     if (!name || !phone || !time) return res.status(400).json({ error: "Informations manquantes" });
     if (body.confirmTakeout !== true) return res.status(400).json({ error: "Confirmation « pour emporter » manquante" });
     if (!/^[0-9+\-() .]{7,25}$/.test(phone)) return res.status(400).json({ error: "Numéro de téléphone invalide" });
+    const TIP_OPTIONS = [0, 0.10, 0.15, 0.20];
+    if (!TIP_OPTIONS.includes(body.tipPercent)) return res.status(400).json({ error: "Montant de pourboire invalide" });
+    const tipPercent = body.tipPercent;
 
     const { index: menu, SERVICE } = loadMenu();
     if (!validPickup(time, SERVICE)) return res.status(400).json({ error: "Heure de ramassage hors des horaires d'ouverture" });
 
     const L = ["fr", "en", "ja", "ko"].includes(lang) ? lang : "fr";
+    const nowForLunch = montrealNow();
+    const lunchWindow = nowForLunch.day >= 1 && nowForLunch.day <= 5 && nowForLunch.min < MIDI_CUTOFF_MIN;
 
     let subtotal = 0;
     const lineItems = {};
@@ -122,7 +132,9 @@ module.exports = async (req, res) => {
       const q = Math.max(1, Math.min(20, parseInt(qty, 10) || 0));
       if (!it || !q) continue;
       if (it.soldout) return res.status(400).json({ error: "Un article du panier est épuisé" });
+      if (it.__lunchRestricted && lunchWindow) return res.status(400).json({ error: "Un article du panier n'est disponible qu'après 15 h" });
       if (it.alcohol) return res.status(400).json({ error: "Les boissons alcoolisées sont disponibles sur place seulement" });
+      if (it.dineInOnly) return res.status(400).json({ error: "Un article du panier est disponible sur place seulement" });
       // prix côté serveur — non falsifiable ; applique le prix promo s'il est valide (positif et < prix normal)
       const promoValid = typeof it.promoPrice === "number" && it.promoPrice > 0 && it.promoPrice < it.price;
       const cents = Math.round(Number(promoValid ? it.promoPrice : it.price) * 100);
@@ -141,6 +153,10 @@ module.exports = async (req, res) => {
     const tvq = Math.round(subtotal * TVQ);
     lineItems[i++] = { quantity: 1, price_data: { currency: "cad", unit_amount: tps, product_data: { name: "TPS (5 %)" } } };
     lineItems[i++] = { quantity: 1, price_data: { currency: "cad", unit_amount: tvq, product_data: { name: "TVQ (9,975 %)" } } };
+    const tip = Math.round(subtotal * tipPercent);
+    if (tip > 0) {
+      lineItems[i++] = { quantity: 1, price_data: { currency: "cad", unit_amount: tip, product_data: { name: `Pourboire (${Math.round(tipPercent * 100)} %)` } } };
+    }
 
     const description = `🥡 ${time} — ${name} (${phone}) — ${summaryLines.join(", ")}`.slice(0, 950);
 

@@ -89,6 +89,15 @@ function render() {
       delS.className = "btn btn-ghost btn-sm"; delS.textContent = "✕ section";
       delS.addEventListener("click", () => { if (confirm("Supprimer cette section et ses plats ?")) { menu.sections.splice(si, 1); render(); } });
       shead.appendChild(delS);
+      if (menu.id === "principal") {
+        const alwaysBtn = document.createElement("button");
+        alwaysBtn.className = "btn btn-ghost btn-sm";
+        alwaysBtn.title = "Si « bloquée midi », cette section n'est pas commandable en take-out du lundi au vendredi avant 15 h (comme les plats principaux)";
+        const refreshAlwaysBtn = () => { alwaysBtn.textContent = sec.alwaysAvailable ? "🍱 Toujours dispo" : "🍱 Bloquée midi"; };
+        refreshAlwaysBtn();
+        alwaysBtn.addEventListener("click", () => { sec.alwaysAvailable = !sec.alwaysAvailable; refreshAlwaysBtn(); });
+        shead.appendChild(alwaysBtn);
+      }
       sdiv.appendChild(shead);
 
       const table = document.createElement("table");
@@ -139,6 +148,8 @@ function render() {
           () => { it.soldout = !it.soldout; if (!it.soldout) delete it.soldout; render(); }, it.soldout ? "sold-on" : ""));
         tdD.appendChild(mk("🍺", it.alcohol ? "Alcool : sur place seulement — cliquer pour autoriser au take-out" : "Take-out autorisé — cliquer pour marquer « alcool, sur place seulement »",
           () => { it.alcohol = !it.alcohol; if (!it.alcohol) delete it.alcohol; render(); }, it.alcohol ? "sold-on" : ""));
+        tdD.appendChild(mk("🍽️", it.dineInOnly ? "Sur place seulement (fond, doit sortir chaud, etc.) — cliquer pour autoriser au take-out" : "Take-out autorisé — cliquer pour marquer « sur place seulement »",
+          () => { it.dineInOnly = !it.dineInOnly; if (!it.dineInOnly) delete it.dineInOnly; render(); }, it.dineInOnly ? "sold-on" : ""));
         tdD.appendChild(mk("📷", "Téléverser une photo pour ce plat", () => uploadPhoto(it)));
         const hasJaKo = !!(it.name.ja && it.name.ko);
         tdD.appendChild(mk("🌐", hasJaKo ? "Japonais/coréen déjà traduits — cliquer pour revoir" : "Traduire en japonais/coréen (à partir du FR/EN)",
@@ -279,11 +290,15 @@ $("resetBtn").addEventListener("click", () => {
 function serialize() {
   // nettoie les descriptions vides
   const clean = JSON.parse(JSON.stringify(data));
+  clean.menus.forEach(m => m.sections.forEach(s => {
+    if (!s.alwaysAvailable) delete s.alwaysAvailable;
+  }));
   clean.menus.forEach(m => m.sections.forEach(s => s.items.forEach(it => {
     if (it.desc && !it.desc.fr && !it.desc.en) delete it.desc;
     if (!it.photo) delete it.photo;
     if (!it.soldout) delete it.soldout;
     if (!it.alcohol) delete it.alcohol;
+    if (!it.dineInOnly) delete it.dineInOnly;
     if (it.promoPrice == null || !(it.promoPrice > 0) || !(it.promoPrice < it.price)) delete it.promoPrice;
   })));
   return "// ===== Hoshi — Données du menu / Menu data =====\n" +
