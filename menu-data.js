@@ -822,7 +822,7 @@ const MENU_DATA = {
               "price": 6,
               "desc": {
                 "fr": "Gelato à la vanille, recette maison — une collaboration avec Gelatopia.",
-                "en": "Vanilla gelato, house recipe — a collaboration with Gelatopia.",
+                "en": "Matcha Vanilla gelato, house recipe — a collaboration with Gelatopia.",
                 "ja": "バニラジェラート、手作りレシピ — Gelatopiaとのコラボレーション。",
                 "ko": "바닐라 젤라토, 집에서 만드는 레시피 — Gelatopia와의 협업."
               },
