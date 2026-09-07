@@ -46,8 +46,7 @@ const MENU_DATA = {
                 "ja": "枝豆",
                 "ko": "에다마메"
               },
-              "price": 5.5,
-              "soldout": true
+              "price": 5.5
             },
             {
               "id": "e2",
@@ -58,7 +57,8 @@ const MENU_DATA = {
                 "ko": "연어 타르타르"
               },
               "price": 11,
-              "photo": "img/e2-1788302067939.jpg"
+              "photo": "img/e2-1788302067939.jpg",
+              "soldout": true
             },
             {
               "id": "e3",
@@ -69,7 +69,8 @@ const MENU_DATA = {
                 "ko": "타레 연어 아부리"
               },
               "price": 15,
-              "photo": "img/e3-1788458549114.jpg"
+              "photo": "img/e3-1788458549114.jpg",
+              "soldout": true
             },
             {
               "id": "e4",
@@ -316,7 +317,8 @@ const MENU_DATA = {
                 "ko": "신선한 연어 덮밥 — 미소국 포함"
               },
               "price": 29,
-              "photo": "img/f1-1788302078398.jpg"
+              "photo": "img/f1-1788302078398.jpg",
+              "soldout": true
             },
             {
               "id": "f2",
@@ -385,7 +387,8 @@ const MENU_DATA = {
               },
               "price": 24,
               "photo": "img/h1-1788469747086.jpg",
-              "dineInOnly": true
+              "dineInOnly": true,
+              "soldout": true
             },
             {
               "id": "h2",
@@ -403,7 +406,8 @@ const MENU_DATA = {
               },
               "price": 26,
               "photo": "img/h2-1788469751576.jpg",
-              "dineInOnly": true
+              "dineInOnly": true,
+              "soldout": true
             },
             {
               "id": "h3",
@@ -454,8 +458,7 @@ const MENU_DATA = {
                 "ja": "カレーソース",
                 "ko": "카레 소스"
               },
-              "price": 4,
-              "soldout": true
+              "price": 4
             },
             {
               "id": "x3",
@@ -519,7 +522,8 @@ const MENU_DATA = {
                 "ja": "メンチカツ（1個）",
                 "ko": "멘치카츠 (1개)"
               },
-              "price": 4
+              "price": 4,
+              "soldout": true
             },
             {
               "id": "x9",
@@ -980,7 +984,8 @@ const MENU_DATA = {
                 "ko": "연어 130g (G 180g: 27$)"
               },
               "price": 22,
-              "photo": "img/l5-1788302090284.jpg"
+              "photo": "img/l5-1788302090284.jpg",
+              "soldout": true
             },
             {
               "id": "l6",
