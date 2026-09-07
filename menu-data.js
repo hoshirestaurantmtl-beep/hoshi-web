@@ -93,7 +93,8 @@ const MENU_DATA = {
               },
               "price": 4
             }
-          ]
+          ],
+          "alwaysAvailable": true
         },
         {
           "kanji": "豚カツ",
