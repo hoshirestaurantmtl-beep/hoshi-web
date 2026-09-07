@@ -46,7 +46,8 @@ const MENU_DATA = {
                 "ja": "枝豆",
                 "ko": "에다마메"
               },
-              "price": 5.5
+              "price": 5.5,
+              "photo": "img/n5-1788796576682.jpg"
             },
             {
               "id": "e2",
