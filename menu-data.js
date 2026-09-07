@@ -809,7 +809,6 @@ const MENU_DATA = {
                 "ko": "젤라 모치"
               },
               "price": 12.5,
-              "soldout": true,
               "desc": {
                 "fr": "Mochi au thé matcha, gelato au choix (vanille ou yuzu), physalis frais — poudre de matcha en extra.",
                 "en": "Matcha mochi with your choice of gelato, fresh physalis — matcha powder available as an extra.",
@@ -828,7 +827,6 @@ const MENU_DATA = {
                 "ko": "바닐라 젤라토"
               },
               "price": 6,
-              "soldout": true,
               "desc": {
                 "fr": "Gelato à la vanille, recette maison — une collaboration avec Gelatopia.",
                 "en": "Vanilla gelato, house recipe — a collaboration with Gelatopia.",
@@ -846,7 +844,6 @@ const MENU_DATA = {
                 "ko": "유자 젤라토"
               },
               "price": 6,
-              "soldout": true,
               "desc": {
                 "fr": "Gelato au yuzu, recette maison — une collaboration avec Gelatopia. Sorbet à base d'eau, sans lactose, sans gélatine (aucun produit animal).",
                 "en": "Yuzu gelato, house recipe — a collaboration with Gelatopia. Water-based sorbet, dairy-free, no gelatine (no animal products).",
@@ -865,7 +862,6 @@ const MENU_DATA = {
                 "ko": "말차 가루"
               },
               "price": 0.5,
-              "soldout": true,
               "dineInOnly": true
             }
           ]
