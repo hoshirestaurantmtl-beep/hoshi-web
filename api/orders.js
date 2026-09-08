@@ -33,6 +33,7 @@ module.exports = async (req, res) => {
         client: p.metadata?.client || "",
         telephone: p.metadata?.telephone || "",
         ramassage: p.metadata?.ramassage || "",
+        mode: p.metadata?.mode === "dinein" ? "dinein" : "takeout", // repli pour les commandes passées avant l'ajout de ce champ
         commande: p.metadata?.commande || p.description || ""
       }));
 

@@ -168,7 +168,8 @@ module.exports = async (req, res) => {
       lineItems[i++] = { quantity: 1, price_data: { currency: "cad", unit_amount: serviceFee, product_data: { name: `Frais de service (${Math.round(SERVICE_FEE_PERCENT * 100)} %)` } } };
     }
 
-    const description = `🥡 ${time} — ${name} (${phone}) — ${summaryLines.join(", ")}`.slice(0, 950);
+    const modeEmoji = diningMode === "dinein" ? "🍽️" : "🥡";
+    const description = `${modeEmoji} ${time} — ${name} (${phone}) — ${summaryLines.join(", ")}`.slice(0, 950);
 
     const params = {
       mode: "payment",
@@ -178,9 +179,9 @@ module.exports = async (req, res) => {
       line_items: lineItems,
       payment_intent_data: {
         description,
-        metadata: { client: name, telephone: phone, ramassage: time, commande: summaryLines.join(" | ").slice(0, 480) }
+        metadata: { client: name, telephone: phone, ramassage: time, mode: diningMode, commande: summaryLines.join(" | ").slice(0, 480) }
       },
-      metadata: { client: name, telephone: phone, ramassage: time }
+      metadata: { client: name, telephone: phone, ramassage: time, mode: diningMode }
     };
 
     const resp = await fetch("https://api.stripe.com/v1/checkout/sessions", {

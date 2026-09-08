@@ -23,6 +23,12 @@
     .order.new { border-left-color:#b32428; animation:flash 1s ease-in-out 3; }
     @keyframes flash { 50% { background:#3a1517; } }
     .order.done { opacity:0.35; border-left-color:#4a4a4a; }
+    .o-mode {
+      display:inline-block; font-size:1.15rem; font-weight:800; letter-spacing:0.5px;
+      padding:0.3rem 0.7rem; border-radius:6px; margin-bottom:0.6rem;
+    }
+    .o-mode.takeout { background:#c9a227; color:#141414; }
+    .o-mode.dinein { background:#2d6cdf; color:#fff; }
     .o-top { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.3rem; }
     .o-time { font-size:1.4rem; font-weight:700; color:#c9a227; }
     .o-amount { font-weight:700; }
@@ -156,7 +162,7 @@ function buildTicket(printer, o) {
   printer.addTextSize(2, 2);
   printer.addText("HOSHI\n");
   printer.addTextSize(1, 1);
-  printer.addText("Commande à emporter / Take-out\n");
+  printer.addText(o.mode === "dinein" ? "*** SUR PLACE ***\n" : "Commande à emporter / Take-out\n");
   printer.addFeedLine(1);
   printer.addTextSize(3, 3);
   printer.addText((o.ramassage || "--:--") + "\n");
@@ -251,7 +257,9 @@ function render(orders) {
     const isDone = done.has(o.id);
     d.className = "order" + (isDone ? " done" : (fresh.some(f => f.id === o.id) ? " new" : ""));
     const tel = (o.telephone || "").replace(/[^0-9]/g, "");
+    const isDinein = o.mode === "dinein";
     d.innerHTML = `
+      <div class="o-mode ${isDinein ? "dinein" : "takeout"}">${isDinein ? "🍽️ SUR PLACE" : "🥡 À EMPORTER"}</div>
       <div class="o-top">
         <span class="o-time">🕐 ${esc(o.ramassage) || "—"}</span>
         <span class="o-amount">${(Number(o.amount) / 100 || 0).toFixed(2)} $</span>
