@@ -519,8 +519,7 @@ const MENU_DATA = {
                 "ja": "メンチカツ（1個）",
                 "ko": "멘치카츠 (1개)"
               },
-              "price": 4,
-              "soldout": true
+              "price": 4
             },
             {
               "id": "x9",
