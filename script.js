@@ -517,6 +517,9 @@ let currentLang = "fr";
   else if (LANGS.includes(saved)) currentLang = saved;
 })();
 
+// QR de table (?mode=dinein) : masque l'option « à emporter », commande verrouillée sur « sur place »
+const IS_TABLE_QR = new URLSearchParams(location.search).get("mode") === "dinein";
+
 function dictFor(lang) {
   return Object.assign({}, i18n.en, i18n[lang] || {});
 }
@@ -754,18 +757,26 @@ function refreshSendOrderState() {
   document.getElementById("sendOrder").disabled = !canSendOrder();
 }
 
+function selectDiningMode(mode) {
+  diningMode = mode;
+  document.querySelectorAll(".mode-btn").forEach(b => b.classList.toggle("active", b.getAttribute("data-mode") === mode));
+  document.getElementById("tipSection").hidden = diningMode !== "takeout";
+  document.getElementById("tipRow").hidden = diningMode !== "takeout";
+  document.getElementById("serviceFeeRow").hidden = diningMode !== "dinein";
+  renderCart();
+  refreshSendOrderState();
+}
+
 document.querySelectorAll(".mode-btn").forEach(b => {
-  b.addEventListener("click", () => {
-    diningMode = b.getAttribute("data-mode");
-    document.querySelectorAll(".mode-btn").forEach(x => x.classList.remove("active"));
-    b.classList.add("active");
-    document.getElementById("tipSection").hidden = diningMode !== "takeout";
-    document.getElementById("tipRow").hidden = diningMode !== "takeout";
-    document.getElementById("serviceFeeRow").hidden = diningMode !== "dinein";
-    renderCart();
-    refreshSendOrderState();
-  });
+  b.addEventListener("click", () => selectDiningMode(b.getAttribute("data-mode")));
 });
+
+// QR de table : cache l'option « à emporter » et verrouille sur « sur place »
+if (IS_TABLE_QR) {
+  const takeoutBtn = document.querySelector('.mode-btn[data-mode="takeout"]');
+  if (takeoutBtn) takeoutBtn.style.display = "none";
+  selectDiningMode("dinein");
+}
 
 document.querySelectorAll(".tip-btn").forEach(b => {
   b.addEventListener("click", () => {

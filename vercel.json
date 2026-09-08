@@ -4,7 +4,8 @@
     { "source": "/en", "destination": "/?lang=en", "permanent": false },
     { "source": "/fr", "destination": "/?lang=fr", "permanent": false },
     { "source": "/ja", "destination": "/?lang=ja", "permanent": false },
-    { "source": "/ko", "destination": "/?lang=ko", "permanent": false }
+    { "source": "/ko", "destination": "/?lang=ko", "permanent": false },
+    { "source": "/table", "destination": "/?mode=dinein", "permanent": false }
   ],
   "headers": [
     {
