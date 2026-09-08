@@ -831,7 +831,8 @@ const MENU_DATA = {
                 "ja": "バニラジェラート、手作りレシピ — Gelatopiaとのコラボレーション。",
                 "ko": "바닐라 젤라토, 집에서 만드는 레시피 — Gelatopia와의 협업."
               },
-              "dineInOnly": true
+              "dineInOnly": true,
+              "photo": "img/n7-1788885627990.jpg"
             },
             {
               "id": "n8",
@@ -861,7 +862,8 @@ const MENU_DATA = {
                 "ko": "말차 가루"
               },
               "price": 0.5,
-              "dineInOnly": true
+              "dineInOnly": true,
+              "photo": "img/n9-1788885473098.webp"
             }
           ]
         }
