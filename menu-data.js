@@ -91,7 +91,8 @@ const MENU_DATA = {
                 "ja": "コールスロー",
                 "ko": "코울슬로"
               },
-              "price": 4
+              "price": 4,
+              "photo": "img/e5-1788882356617.jpg"
             }
           ],
           "alwaysAvailable": true
@@ -504,7 +505,8 @@ const MENU_DATA = {
                 "ja": "ロースカツ（1枚）",
                 "ko": "로스카츠 (1개)"
               },
-              "price": 13
+              "price": 13,
+              "photo": "img/x7-1788882386318.jpg"
             },
             {
               "id": "x8",
@@ -808,7 +810,8 @@ const MENU_DATA = {
                 "ko": "말차 모찌, 원하는 맛의 젤라토(바닐라 또는 유자), 신선한 피살리스 — 말차 가루 추가."
               },
               "promoPrice": 9.5,
-              "dineInOnly": true
+              "dineInOnly": true,
+              "photo": "img/n6-1788882409148.jpg"
             },
             {
               "id": "n7",
@@ -843,7 +846,8 @@ const MENU_DATA = {
                 "ko": "유자 젤라토, 홈메이드 레시피 — Gelatopia와의 협업. 물 베이스의 셔벗으로, 유당 무첨가, 젤라틴 무첨가(동물성 성분 없음)."
               },
               "dineInOnly": true,
-              "lactoseFree": true
+              "lactoseFree": true,
+              "photo": "img/n8-1788882417081.jpg"
             },
             {
               "id": "n9",
