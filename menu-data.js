@@ -153,7 +153,7 @@ const MENU_DATA = {
                 "ko": "양배추 포함 — 미소국+밥 (우동국: 25$)"
               },
               "price": 24,
-              "photo": "img/k3-1788884610754.jpg"
+              "photo": "img/k3-1788902845746.jpg"
             },
             {
               "id": "k4",
