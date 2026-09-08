@@ -57,8 +57,7 @@ const MENU_DATA = {
                 "ko": "연어 타르타르"
               },
               "price": 11,
-              "photo": "img/e2-1788302067939.jpg",
-              "soldout": true
+              "photo": "img/e2-1788302067939.jpg"
             },
             {
               "id": "e3",
@@ -69,8 +68,7 @@ const MENU_DATA = {
                 "ko": "타레 연어 아부리"
               },
               "price": 15,
-              "photo": "img/e3-1788458549114.jpg",
-              "soldout": true
+              "photo": "img/e3-1788458549114.jpg"
             },
             {
               "id": "e4",
@@ -316,8 +314,7 @@ const MENU_DATA = {
                 "ko": "신선한 연어 덮밥 — 미소국 포함"
               },
               "price": 29,
-              "photo": "img/f1-1788302078398.jpg",
-              "soldout": true
+              "photo": "img/f1-1788302078398.jpg"
             },
             {
               "id": "f2",
@@ -981,8 +978,7 @@ const MENU_DATA = {
                 "ko": "연어 130g (G 180g: 27$)"
               },
               "price": 22,
-              "photo": "img/l5-1788302090284.jpg",
-              "soldout": true
+              "photo": "img/l5-1788302090284.jpg"
             },
             {
               "id": "l6",
