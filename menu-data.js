@@ -816,7 +816,7 @@ const MENU_DATA = {
               "id": "n7",
               "name": {
                 "fr": "Gelato à la vanille",
-                "en": "Matcha Vanilla Gelato",
+                "en": "Vanilla Gelato",
                 "ja": "バニラジェラート",
                 "ko": "바닐라 젤라토"
               },
