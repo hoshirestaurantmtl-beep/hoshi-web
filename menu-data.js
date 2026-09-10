@@ -451,7 +451,8 @@ const MENU_DATA = {
                 "ja": "カレーソース",
                 "ko": "카레 소스"
               },
-              "price": 4
+              "price": 4,
+              "photo": "img/x2-1789062960988.jpg"
             },
             {
               "id": "x3",
