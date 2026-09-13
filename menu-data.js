@@ -136,8 +136,7 @@ const MENU_DATA = {
                 "ko": "양배추와 돼지 안심 — 미소국+밥 (우동국: 24$)"
               },
               "price": 23,
-              "photo": "img/k2-1788884605130.jpg",
-              "soldout": true
+              "photo": "img/k2-1788884605130.jpg"
             },
             {
               "id": "k3",
@@ -154,8 +153,7 @@ const MENU_DATA = {
                 "ko": "양배추 포함 — 미소국+밥 (우동국: 25$)"
               },
               "price": 24,
-              "photo": "img/k3-1788902845746.jpg",
-              "soldout": true
+              "photo": "img/k3-1788902845746.jpg"
             },
             {
               "id": "k4",
@@ -244,8 +242,7 @@ const MENU_DATA = {
                 "ko": "히레카츠 카레동 (3개)"
               },
               "price": 23,
-              "photo": "img/c2-1788448675377.jpg",
-              "soldout": true
+              "photo": "img/c2-1788448675377.jpg"
             },
             {
               "id": "c3",
@@ -256,8 +253,7 @@ const MENU_DATA = {
                 "ko": "로스&히레카츠 카레동"
               },
               "price": 24,
-              "photo": "img/c3-1788448680922.jpg",
-              "soldout": true
+              "photo": "img/c3-1788448680922.jpg"
             },
             {
               "id": "c4",
@@ -279,8 +275,7 @@ const MENU_DATA = {
                 "ko": "카레우동 + 히레카츠 (3개)"
               },
               "price": 24,
-              "photo": "img/c5-1788296256941.jpg",
-              "soldout": true
+              "photo": "img/c5-1788296256941.jpg"
             },
             {
               "id": "c6",
@@ -291,8 +286,7 @@ const MENU_DATA = {
                 "ko": "카레우동 + 로스&히레"
               },
               "price": 25,
-              "photo": "img/c6-1788308188564.jpg",
-              "soldout": true
+              "photo": "img/c6-1788308188564.jpg"
             }
           ]
         },
@@ -389,8 +383,7 @@ const MENU_DATA = {
               },
               "price": 24,
               "photo": "img/h1-1788469747086.jpg",
-              "dineInOnly": true,
-              "soldout": true
+              "dineInOnly": true
             },
             {
               "id": "h2",
@@ -408,8 +401,7 @@ const MENU_DATA = {
               },
               "price": 26,
               "photo": "img/h2-1788469751576.jpg",
-              "dineInOnly": true,
-              "soldout": true
+              "dineInOnly": true
             },
             {
               "id": "h3",
@@ -427,8 +419,7 @@ const MENU_DATA = {
               },
               "price": 25,
               "photo": "img/h3-1788469815116.jpg",
-              "dineInOnly": true,
-              "soldout": true
+              "dineInOnly": true
             }
           ]
         },
@@ -505,8 +496,7 @@ const MENU_DATA = {
                 "ko": "히레카츠 (1개)"
               },
               "price": 5,
-              "photo": "img/x6-1788484635964.jpg",
-              "soldout": true
+              "photo": "img/x6-1788484635964.jpg"
             },
             {
               "id": "x7",
