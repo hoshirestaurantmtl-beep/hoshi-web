@@ -1083,7 +1083,7 @@ const MENU_DATA = {
       {
         "fr": "Vendredi",
         "en": "Friday",
-        "time": "11:30 – 22:00",
+        "time": "11:30 – 15:00 · 17:00 – 21:30",
         "days": [
           5
         ]
