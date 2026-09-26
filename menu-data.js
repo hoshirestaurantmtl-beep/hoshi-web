@@ -57,7 +57,8 @@ const MENU_DATA = {
                 "ko": "연어 타르타르"
               },
               "price": 11,
-              "photo": "img/e2-1788302067939.jpg"
+              "photo": "img/e2-1788302067939.jpg",
+              "soldout": true
             },
             {
               "id": "e3",
@@ -314,7 +315,8 @@ const MENU_DATA = {
                 "ko": "신선한 연어 덮밥 — 미소국 포함"
               },
               "price": 29,
-              "photo": "img/f1-1788302078398.jpg"
+              "photo": "img/f1-1788302078398.jpg",
+              "soldout": true
             },
             {
               "id": "f2",
