@@ -69,7 +69,8 @@ const MENU_DATA = {
                 "ko": "타레 연어 아부리"
               },
               "price": 15,
-              "photo": "img/e3-1788458549114.jpg"
+              "photo": "img/e3-1788458549114.jpg",
+              "soldout": true
             },
             {
               "id": "e4",
