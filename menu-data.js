@@ -983,7 +983,8 @@ const MENU_DATA = {
                 "ko": "연어 130g (G 180g: 27$)"
               },
               "price": 22,
-              "photo": "img/l5-1788302090284.jpg"
+              "photo": "img/l5-1788302090284.jpg",
+              "soldout": true
             },
             {
               "id": "l6",
