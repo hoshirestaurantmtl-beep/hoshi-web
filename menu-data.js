@@ -57,8 +57,7 @@ const MENU_DATA = {
                 "ko": "연어 타르타르"
               },
               "price": 11,
-              "photo": "img/e2-1788302067939.jpg",
-              "soldout": true
+              "photo": "img/e2-1788302067939.jpg"
             },
             {
               "id": "e3",
@@ -69,8 +68,7 @@ const MENU_DATA = {
                 "ko": "타레 연어 아부리"
               },
               "price": 15,
-              "photo": "img/e3-1788458549114.jpg",
-              "soldout": true
+              "photo": "img/e3-1788458549114.jpg"
             },
             {
               "id": "e4",
