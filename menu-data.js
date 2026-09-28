@@ -316,8 +316,7 @@ const MENU_DATA = {
                 "ko": "신선한 연어 덮밥 — 미소국 포함"
               },
               "price": 29,
-              "photo": "img/f1-1788302078398.jpg",
-              "soldout": true
+              "photo": "img/f1-1788302078398.jpg"
             },
             {
               "id": "f2",
