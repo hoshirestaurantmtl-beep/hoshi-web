@@ -35,7 +35,8 @@ const MENU_DATA = {
                 "ko": "다진 돼지고기 커틀릿 — 3개: 13$"
               },
               "price": 10,
-              "photo": "img/e1-1788304341079.jpg"
+              "photo": "img/e1-1788304341079.jpg",
+              "soldout": true
             },
             {
               "id": "n5",
