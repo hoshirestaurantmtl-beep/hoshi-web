@@ -383,7 +383,8 @@ const MENU_DATA = {
               },
               "price": 24,
               "photo": "img/h1-1788469747086.jpg",
-              "dineInOnly": true
+              "dineInOnly": true,
+              "soldout": true
             },
             {
               "id": "h2",
@@ -401,7 +402,8 @@ const MENU_DATA = {
               },
               "price": 26,
               "photo": "img/h2-1788469751576.jpg",
-              "dineInOnly": true
+              "dineInOnly": true,
+              "soldout": true
             },
             {
               "id": "h3",
@@ -419,7 +421,8 @@ const MENU_DATA = {
               },
               "price": 25,
               "photo": "img/h3-1788469815116.jpg",
-              "dineInOnly": true
+              "dineInOnly": true,
+              "soldout": true
             }
           ]
         },
