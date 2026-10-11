@@ -690,6 +690,82 @@ function renderAllergenLegend(lang) {
     `<p class="legend-note">${d.allergens_note}</p>`;
 }
 
+// Rangée d'icônes allergènes / régimes d'un plat
+function itemIconsHtml(it, lang) {
+  const alg = ALLERGEN_ORDER.filter(c => Array.isArray(it.allergens) && it.allergens.includes(c));
+  const diets = itemDiets(it);
+  if (!alg.length && !diets.length) return "";
+  const srText = [
+    alg.length ? `${dictFor(lang).allergens_prefix} ${alg.map(c => iconLabel(c, lang)).join(", ")}.` : "",
+    diets.map(c => iconLabel(c, lang)).join(", ")
+  ].filter(Boolean).join(" ");
+  return `<p class="mi-icons"><span class="visually-hidden">${srText}</span>${alg.map(c => iconHtml(c, lang)).join("")}${alg.length && diets.length ? '<span class="ico-sep"></span>' : ""}${diets.map(c => iconHtml(c, lang)).join("")}</p>`;
+}
+
+function photoButton(it, caption) {
+  const pbtn = document.createElement("button");
+  pbtn.className = "photo-btn"; pbtn.type = "button"; pbtn.textContent = "📷";
+  pbtn.setAttribute("aria-label", "Photo");
+  pbtn.addEventListener("click", () => {
+    lightboxImg.src = it.photo;
+    lightboxCap.textContent = caption[currentLang] || caption.en || caption.fr;
+    lightbox.hidden = false;
+  });
+  return pbtn;
+}
+
+function addToCart(it) {
+  if (!cart[it.id]) cart[it.id] = { key: it.id, price: effectivePrice(it), qty: 0 };
+  cart[it.id].qty++;
+  renderCart();
+  document.getElementById("cart").classList.add("pulse");
+  setTimeout(() => document.getElementById("cart").classList.remove("pulse"), 400);
+}
+
+// Un plat en plusieurs tailles (M / R / G) : une seule ligne, un bouton par taille.
+// Chaque taille garde son propre id → panier, Stripe et admin inchangés.
+function buildSizeGroup(sizes, lang, lunchRestrictable) {
+  const d = dictFor(lang);
+  const first = sizes[0];
+  const tr = o => (o && (o[lang] || o.en || o.fr)) || "";
+  const name = first.groupName || first.name;
+  const li = document.createElement("li");
+  li.className = "size-group";
+  if (lunchRestrictable) li.classList.add("lunch-restrict");
+  const allSold = sizes.every(s => s.soldout);
+  if (allSold) li.classList.add("soldout");
+  const prices = sizes.map(effectivePrice);
+  const lo = Math.min(...prices), hi = Math.max(...prices);
+  const range = lo === hi ? fmtPrice(lo) : `${fmtPrice(lo).replace(/\s*\$$/, "")} – ${fmtPrice(hi)}`;
+  const soldChip = allSold ? `<span class="soldout-chip">${d.soldout_label}</span>` : "";
+  const lunchChip = lunchRestrictable ? `<span class="lunch-chip">${d.lunch_unavailable_label}</span>` : "";
+  const canOrder = TAKEOUT_ENABLED;
+  const btns = sizes.map(s => {
+    const label = `<b>${tr(s.size)}</b> ${fmtPrice(effectivePrice(s))}`;
+    const dine = s.dineInOnly && TAKEOUT_ENABLED ? " dinein" : "";
+    if (!canOrder || s.soldout) return `<span class="size-btn static${dine}${s.soldout ? " sold" : ""}">${label}</span>`;
+    return `<button type="button" class="size-btn${dine}" data-id="${s.id}" aria-label="+ ${tr(s.name)}">${label}<span class="size-plus" aria-hidden="true">+</span></button>`;
+  }).join("");
+  const dineSizes = sizes.filter(s => s.dineInOnly).map(s => tr(s.size));
+  const dineNote = dineSizes.length && TAKEOUT_ENABLED
+    ? `<p class="size-note">${dineSizes.join(", ")} : ${d.dinein_label}</p>` : "";
+  li.innerHTML = `<div class="mi-head"><span>${tr(name)}${soldChip}${lunchChip}</span><span class="dots"></span><span class="price">${range}</span></div>` +
+    (first.desc ? `<p class="mi-desc">${tr(first.desc)}</p>` : "") +
+    `<div class="size-row">${btns}</div>` + dineNote + itemIconsHtml(first, lang);
+  li.querySelectorAll("button.size-btn").forEach(b => b.addEventListener("click", () => {
+    if (lunchRestrictable && document.body.classList.contains("lunch-menu-restricted")) return;
+    addToCart(sizes.find(s => s.id === b.dataset.id));
+  }));
+  const photoIt = sizes.find(s => s.photo);
+  if (PHOTOS_ENABLED && photoIt) {
+    const actions = document.createElement("span");
+    actions.className = "item-actions";
+    actions.appendChild(photoButton(photoIt, name));
+    li.appendChild(actions);
+  }
+  return li;
+}
+
 function buildSection(sec, lang, lunchRestrictable) {
   const div = document.createElement("div");
   div.className = "menu-section";
@@ -698,7 +774,16 @@ function buildSection(sec, lang, lunchRestrictable) {
   inner += '<ul class="menu-list"></ul>';
   div.innerHTML = inner;
   const ul = div.querySelector("ul");
+  // Tailles (sizeOf) : les plats consécutifs d'un même groupe s'affichent sur une seule ligne
+  const units = [];
   sec.items.forEach(it => {
+    const last = units[units.length - 1];
+    if (it.sizeOf && Array.isArray(last) && last[0].sizeOf === it.sizeOf) last.push(it);
+    else units.push(it.sizeOf ? [it] : it);
+  });
+  units.forEach(unit => {
+    if (Array.isArray(unit)) { ul.appendChild(buildSizeGroup(unit, lang, lunchRestrictable)); return; }
+    const it = unit;
     const li = document.createElement("li");
     if (lunchRestrictable) li.classList.add("lunch-restrict");
     const soldChip = it.soldout ? `<span class="soldout-chip">${dictFor(lang).soldout_label}</span>` : "";
@@ -707,15 +792,7 @@ function buildSection(sec, lang, lunchRestrictable) {
     const lunchChip = lunchRestrictable ? `<span class="lunch-chip">${dictFor(lang).lunch_unavailable_label}</span>` : "";
     // Allergènes (codes : gluten, soy, fish, shellfish, eggs, dairy, sesame, mustard, nuts, sulphites, alcohol)
     // + régimes → rangée d'icônes, expliquée par la légende en tête du menu
-    const alg = ALLERGEN_ORDER.filter(c => Array.isArray(it.allergens) && it.allergens.includes(c));
-    const diets = itemDiets(it);
-    const srText = [
-      alg.length ? `${dictFor(lang).allergens_prefix} ${alg.map(c => iconLabel(c, lang)).join(", ")}.` : "",
-      diets.map(c => iconLabel(c, lang)).join(", ")
-    ].filter(Boolean).join(" ");
-    const allergenHtml = (alg.length || diets.length)
-      ? `<p class="mi-icons"><span class="visually-hidden">${srText}</span>${alg.map(c => iconHtml(c, lang)).join("")}${alg.length && diets.length ? '<span class="ico-sep"></span>' : ""}${diets.map(c => iconHtml(c, lang)).join("")}</p>`
-      : "";
+    const allergenHtml = itemIconsHtml(it, lang);
     const priceHtml = hasPromo(it)
       ? `<span class="price-old">${fmtPrice(it.price)}</span><span class="price-promo">${fmtPrice(it.promoPrice)}</span>`
       : fmtPrice(it.price);
@@ -724,17 +801,7 @@ function buildSection(sec, lang, lunchRestrictable) {
     if (it.soldout) li.classList.add("soldout");
     const actions = document.createElement("span");
     actions.className = "item-actions";
-    if (PHOTOS_ENABLED && it.photo) {
-      const pbtn = document.createElement("button");
-      pbtn.className = "photo-btn"; pbtn.type = "button"; pbtn.textContent = "📷";
-      pbtn.setAttribute("aria-label", "Photo");
-      pbtn.addEventListener("click", () => {
-        lightboxImg.src = it.photo;
-        lightboxCap.textContent = it.name[currentLang] || it.name.en || it.name.fr;
-        lightbox.hidden = false;
-      });
-      actions.appendChild(pbtn);
-    }
+    if (PHOTOS_ENABLED && it.photo) actions.appendChild(photoButton(it, it.name));
     if (TAKEOUT_ENABLED && !it.soldout && !it.alcohol) {
     const btn = document.createElement("button");
     btn.className = "add-btn" + (lunchRestrictable ? " lunch-restrict-btn" : "");
@@ -742,11 +809,7 @@ function buildSection(sec, lang, lunchRestrictable) {
     btn.setAttribute("aria-label", "Ajouter / Add");
     btn.addEventListener("click", () => {
       if (lunchRestrictable && document.body.classList.contains("lunch-menu-restricted")) return;
-      if (!cart[it.id]) cart[it.id] = { key: it.id, price: effectivePrice(it), qty: 0 };
-      cart[it.id].qty++;
-      renderCart();
-      document.getElementById("cart").classList.add("pulse");
-      setTimeout(() => document.getElementById("cart").classList.remove("pulse"), 400);
+      addToCart(it);
     });
     actions.appendChild(btn);
     }
@@ -1227,7 +1290,12 @@ if (IS_TEST_MODE) (function () {
       if (!resp.ok) throw new Error("HTTP " + resp.status);
       const { menu, items } = await resp.json();
       // Menu complet de test (sections, plats, prix) : remplace les menus, garde les réglages (horaires…) du site
-      if (menu && Array.isArray(menu.menus)) MENU_DATA.menus = menu.menus;
+      if (menu && Array.isArray(menu.menus)) {
+        MENU_DATA.menus = menu.menus;
+        // le panier retrouve les plats (noms, sur place seulement) par id
+        Object.keys(ITEM_INDEX).forEach(k => delete ITEM_INDEX[k]);
+        MENU_DATA.menus.forEach(m => m.sections.forEach(s => s.items.forEach(it => ITEM_INDEX[it.id] = it)));
+      }
       try { localStorage.setItem("hoshi_orders_pin", pin); } catch (e) {}
       let n = 0;
       MENU_DATA.menus.forEach(m => m.sections.forEach(s => s.items.forEach(it => {

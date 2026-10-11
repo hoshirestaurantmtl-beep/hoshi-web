@@ -119,7 +119,20 @@ module.exports = {
                   "eggs",
                   "soy",
                   "fish"
-                ]
+                ],
+                "sizeOf": "k1",
+                "size": {
+                  "fr": "M",
+                  "en": "M",
+                  "ja": "M",
+                  "ko": "M"
+                },
+                "groupName": {
+                  "fr": "Rosu katsu plate",
+                  "en": "Rosu katsu plate",
+                  "ja": "ロースカツ定食",
+                  "ko": "로스카츠 정식"
+                }
               },
               {
                 "id": "k1r",
@@ -143,7 +156,20 @@ module.exports = {
                   "soy",
                   "fish"
                 ],
-                "dineInOnly": true
+                "dineInOnly": true,
+                "sizeOf": "k1",
+                "size": {
+                  "fr": "R",
+                  "en": "R",
+                  "ja": "R",
+                  "ko": "R"
+                },
+                "groupName": {
+                  "fr": "Rosu katsu plate",
+                  "en": "Rosu katsu plate",
+                  "ja": "ロースカツ定食",
+                  "ko": "로스카츠 정식"
+                }
               },
               {
                 "id": "k1l",
@@ -166,7 +192,20 @@ module.exports = {
                   "eggs",
                   "soy",
                   "fish"
-                ]
+                ],
+                "sizeOf": "k1",
+                "size": {
+                  "fr": "G",
+                  "en": "L",
+                  "ja": "L",
+                  "ko": "L"
+                },
+                "groupName": {
+                  "fr": "Rosu katsu plate",
+                  "en": "Rosu katsu plate",
+                  "ja": "ロースカツ定食",
+                  "ko": "로스카츠 정식"
+                }
               },
               {
                 "id": "k2",
@@ -213,7 +252,20 @@ module.exports = {
                   "eggs",
                   "soy",
                   "fish"
-                ]
+                ],
+                "sizeOf": "k4",
+                "size": {
+                  "fr": "M",
+                  "en": "M",
+                  "ja": "M",
+                  "ko": "M"
+                },
+                "groupName": {
+                  "fr": "Katsu Don",
+                  "en": "Katsu Don",
+                  "ja": "カツ丼",
+                  "ko": "카츠동"
+                }
               },
               {
                 "id": "k4r",
@@ -237,7 +289,20 @@ module.exports = {
                   "soy",
                   "fish"
                 ],
-                "dineInOnly": true
+                "dineInOnly": true,
+                "sizeOf": "k4",
+                "size": {
+                  "fr": "R",
+                  "en": "R",
+                  "ja": "R",
+                  "ko": "R"
+                },
+                "groupName": {
+                  "fr": "Katsu Don",
+                  "en": "Katsu Don",
+                  "ja": "カツ丼",
+                  "ko": "카츠동"
+                }
               },
               {
                 "id": "k4l",
@@ -260,7 +325,20 @@ module.exports = {
                   "eggs",
                   "soy",
                   "fish"
-                ]
+                ],
+                "sizeOf": "k4",
+                "size": {
+                  "fr": "G",
+                  "en": "L",
+                  "ja": "L",
+                  "ko": "L"
+                },
+                "groupName": {
+                  "fr": "Katsu Don",
+                  "en": "Katsu Don",
+                  "ja": "カツ丼",
+                  "ko": "카츠동"
+                }
               },
               {
                 "id": "x7",
@@ -379,7 +457,20 @@ module.exports = {
                   "soy",
                   "fish",
                   "dairy"
-                ]
+                ],
+                "sizeOf": "c1",
+                "size": {
+                  "fr": "M",
+                  "en": "M",
+                  "ja": "M",
+                  "ko": "M"
+                },
+                "groupName": {
+                  "fr": "Rosu Katsu Curry Don",
+                  "en": "Rosu Katsu Curry Don",
+                  "ja": "ロースカツカレー丼",
+                  "ko": "로스카츠 카레동"
+                }
               },
               {
                 "id": "c1r",
@@ -398,7 +489,20 @@ module.exports = {
                   "fish",
                   "dairy"
                 ],
-                "dineInOnly": true
+                "dineInOnly": true,
+                "sizeOf": "c1",
+                "size": {
+                  "fr": "R",
+                  "en": "R",
+                  "ja": "R",
+                  "ko": "R"
+                },
+                "groupName": {
+                  "fr": "Rosu Katsu Curry Don",
+                  "en": "Rosu Katsu Curry Don",
+                  "ja": "ロースカツカレー丼",
+                  "ko": "로스카츠 카레동"
+                }
               },
               {
                 "id": "c1l",
@@ -416,7 +520,20 @@ module.exports = {
                   "soy",
                   "fish",
                   "dairy"
-                ]
+                ],
+                "sizeOf": "c1",
+                "size": {
+                  "fr": "G",
+                  "en": "L",
+                  "ja": "L",
+                  "ko": "L"
+                },
+                "groupName": {
+                  "fr": "Rosu Katsu Curry Don",
+                  "en": "Rosu Katsu Curry Don",
+                  "ja": "ロースカツカレー丼",
+                  "ko": "로스카츠 카레동"
+                }
               },
               {
                 "id": "c2",
@@ -453,7 +570,20 @@ module.exports = {
                   "soy",
                   "fish",
                   "dairy"
-                ]
+                ],
+                "sizeOf": "c4",
+                "size": {
+                  "fr": "M",
+                  "en": "M",
+                  "ja": "M",
+                  "ko": "M"
+                },
+                "groupName": {
+                  "fr": "Udon au curry avec Rosu Katsu",
+                  "en": "Curry udon with Rosu Katsu",
+                  "ja": "カレーうどん（ロースカツ）",
+                  "ko": "카레우동 + 로스카츠"
+                }
               },
               {
                 "id": "c4r",
@@ -472,7 +602,20 @@ module.exports = {
                   "fish",
                   "dairy"
                 ],
-                "dineInOnly": true
+                "dineInOnly": true,
+                "sizeOf": "c4",
+                "size": {
+                  "fr": "R",
+                  "en": "R",
+                  "ja": "R",
+                  "ko": "R"
+                },
+                "groupName": {
+                  "fr": "Udon au curry avec Rosu Katsu",
+                  "en": "Curry udon with Rosu Katsu",
+                  "ja": "カレーうどん（ロースカツ）",
+                  "ko": "카레우동 + 로스카츠"
+                }
               },
               {
                 "id": "c4l",
@@ -490,7 +633,20 @@ module.exports = {
                   "soy",
                   "fish",
                   "dairy"
-                ]
+                ],
+                "sizeOf": "c4",
+                "size": {
+                  "fr": "G",
+                  "en": "L",
+                  "ja": "L",
+                  "ko": "L"
+                },
+                "groupName": {
+                  "fr": "Udon au curry avec Rosu Katsu",
+                  "en": "Curry udon with Rosu Katsu",
+                  "ja": "カレーうどん（ロースカツ）",
+                  "ko": "카레우동 + 로스카츠"
+                }
               },
               {
                 "id": "c5",
