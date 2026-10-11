@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nouveau menu — Hoshi</title>
+  <meta name="description" content="Aperçu du nouveau menu de Hoshi, dès le lundi 19 octobre : tempura, un seul menu midi et soir.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Serif+JP:wght@400;600;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Même identité que le site : crème, rouge, doré ; aperçu sans prix ni photos */
+    :root { --rojo:#b32428; --negro:#141414; --crema:#faf7f2; --gris:#6b6b6b; --dorado:#c9a227; --filet:#e8e0d2; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter', 'Segoe UI', Roboto, Arial, sans-serif; background:var(--crema); color:var(--negro); line-height:1.5; }
+    a { color:inherit; }
+
+    .top { background:var(--negro); color:#fff; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.8rem 1.2rem; position:sticky; top:0; z-index:10; flex-wrap:wrap; }
+    .top .logo { font-family:'Great Vibes', cursive; font-size:1.7rem; color:var(--dorado); text-decoration:none; }
+    .langs { display:flex; gap:0.3rem; align-items:center; font-size:0.85rem; }
+    .langs button { background:none; border:none; color:#bbb; cursor:pointer; font:inherit; padding:0.2rem 0.3rem; }
+    .langs button.active { color:var(--dorado); font-weight:600; }
+    .langs span { color:#555; }
+
+    .hero { max-width:950px; margin:0 auto; padding:2.6rem 1.2rem 0; display:grid; grid-template-columns:1fr auto; gap:1.5rem; align-items:start; }
+    .hero-txt { min-width:0; }
+    .back { display:inline-block; font-size:0.85rem; color:var(--gris); text-decoration:none; margin-bottom:1.2rem; }
+    .back:hover { color:var(--rojo); }
+    h1 { font-family:'Noto Serif JP', serif; font-weight:900; font-size:clamp(2.4rem, 7vw, 3.8rem); line-height:1; text-wrap:balance; }
+    .date { display:inline-block; margin-top:1rem; background:var(--rojo); color:#fff; font-family:'Noto Serif JP', serif; font-weight:600; font-size:clamp(1.05rem, 3vw, 1.35rem); padding:0.3rem 0.9rem; border-radius:4px; }
+    .intro { margin-top:1rem; max-width:60ch; color:var(--gris); font-size:0.95rem; }
+    .tate { writing-mode:vertical-rl; font-family:'Noto Serif JP', serif; font-weight:900; font-size:clamp(2rem, 6vw, 3.2rem); line-height:1.05; color:var(--rojo); letter-spacing:0.1em; }
+
+    .book { max-width:950px; margin:2.2rem auto 3rem; background:#fff; border:1px solid var(--filet); box-shadow:0 6px 24px rgba(0,0,0,.06); padding:2.6rem 3rem; display:grid; grid-template-columns:1fr 1fr; gap:2.4rem 3.5rem; }
+    .sec { min-width:0; }
+    .cat { display:flex; align-items:baseline; gap:0.6rem; font-family:'Noto Serif JP', serif; font-size:1.05rem; letter-spacing:3px; text-transform:uppercase; border-bottom:2px solid var(--dorado); padding-bottom:0.4rem; margin-bottom:0.9rem; }
+    .cat .kanji { color:var(--rojo); font-size:1.2rem; letter-spacing:1px; white-space:nowrap; flex:none; }
+    .sec-note { font-size:0.82rem; color:var(--gris); font-weight:300; margin:-0.3rem 0 0.6rem; }
+    .items { list-style:none; display:grid; gap:0.75rem; }
+    .it-name { font-weight:500; font-size:0.95rem; }
+    .tag { display:inline-block; margin-left:0.4rem; font-size:0.62rem; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; border-radius:3px; padding:0.05rem 0.35rem; vertical-align:middle; }
+    .tag.new { background:var(--rojo); color:#fff; }
+    .tag.soon { border:1px solid var(--dorado); color:#8a6d12; }
+    .it-desc { color:var(--gris); font-size:0.83rem; font-weight:300; margin-top:0.1rem; }
+    .it-sizes { margin-top:0.3rem; display:flex; flex-wrap:wrap; gap:0.35rem; }
+    .it-sizes span { font-size:0.75rem; border:1px solid var(--dorado); border-radius:999px; padding:0.05rem 0.55rem; color:#6d5610; }
+
+    .foot { max-width:950px; margin:0 auto 3rem; padding:0 1.2rem; text-align:center; color:var(--gris); font-size:0.85rem; }
+    .foot a { color:var(--rojo); font-weight:600; }
+    .state { max-width:950px; margin:2rem auto; padding:0 1.2rem; color:var(--gris); }
+
+    @media (max-width: 760px) {
+      .book { grid-template-columns:1fr; padding:1.8rem 1.3rem; gap:2rem; margin-inline:1rem; }
+      .hero { padding-top:1.8rem; grid-template-columns:1fr; }
+      .tate { display:none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <a class="logo" href="/">Hoshi</a>
+    <div class="langs">
+      <button data-setlang="fr">FR</button><span>/</span>
+      <button data-setlang="en">EN</button><span>/</span>
+      <button data-setlang="ja">日本語</button><span>/</span>
+      <button data-setlang="ko">한국어</button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-txt">
+      <a class="back" href="/#menu" data-t="back">← Menu actuel</a>
+      <h1 data-t="title">Nouveau menu</h1>
+      <div class="date" data-t="date">Dès le lundi 19 octobre</div>
+      <p class="intro" data-t="intro">Aperçu de notre nouvelle carte. Les prix seront affichés à partir du 19 octobre. Menu sujet à changement.</p>
+    </div>
+    <div class="tate" aria-hidden="true">新しい<br>お品書き</div>
+  </header>
+
+  <p class="state" id="state" data-t="loading">Chargement…</p>
+  <main class="book" id="book" hidden></main>
+
+  <p class="foot"><span data-t="foot">En attendant, notre menu actuel reste disponible :</span> <a href="/#menu">hoshimtl.ca</a></p>
+
+<script>
+// L'aperçu s'arrête au lancement : ensuite, retour au menu principal
+const LAUNCH = Date.parse("2026-10-19T00:00:00-04:00");
+if (Date.now() >= LAUNCH) location.replace("/#menu");
+
+const T = {
+  fr: { back: "← Menu actuel", title: "Nouveau menu", date: "Dès le lundi 19 octobre",
+        intro: "Aperçu de notre nouvelle carte. Les prix seront affichés à partir du 19 octobre. Menu sujet à changement.",
+        loading: "Chargement…", error: "Le menu n’a pas pu être chargé. Réessayez dans un instant.",
+        foot: "En attendant, notre menu actuel reste disponible :", isNew: "Nouveau", soon: "Bientôt", doc: "Nouveau menu — Hoshi" },
+  en: { back: "← Current menu", title: "New menu", date: "Starting Monday, October 19",
+        intro: "A preview of our new menu. Prices will be shown from October 19. Menu subject to change.",
+        loading: "Loading…", error: "The menu could not be loaded. Please try again in a moment.",
+        foot: "In the meantime, our current menu is still available:", isNew: "New", soon: "Coming soon", doc: "New menu — Hoshi" },
+  ja: { back: "← 現在のメニュー", title: "新しいお品書き", date: "10月19日（月）から",
+        intro: "新メニューのプレビューです。価格は10月19日から表示します。内容は変更になる場合があります。",
+        loading: "読み込み中…", error: "メニューを読み込めませんでした。しばらくしてからもう一度お試しください。",
+        foot: "それまでは現在のメニューをご利用いただけます：", isNew: "新", soon: "近日登場", doc: "新しいお品書き — Hoshi" },
+  ko: { back: "← 현재 메뉴", title: "새 메뉴", date: "10월 19일(월)부터",
+        intro: "새 메뉴 미리보기입니다. 가격은 10월 19일부터 표시됩니다. 메뉴는 변경될 수 있습니다.",
+        loading: "불러오는 중…", error: "메뉴를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.",
+        foot: "그동안 현재 메뉴를 이용하실 수 있습니다:", isNew: "NEW", soon: "출시 예정", doc: "새 메뉴 — Hoshi" }
+};
+const LANGS = ["fr", "en", "ja", "ko"];
+let lang = "fr";
+try {
+  const q = new URLSearchParams(location.search).get("lang");
+  const saved = localStorage.getItem("hoshi_lang");
+  lang = LANGS.includes(q) ? q : LANGS.includes(saved) ? saved : "fr";
+} catch (e) {}
+
+let DATA = null;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const tr = o => (o && (o[lang] || o.en || o.fr)) || "";
+
+function render() {
+  const d = T[lang];
+  document.documentElement.lang = lang;
+  document.title = d.doc;
+  document.querySelectorAll("[data-t]").forEach(el => { if (d[el.dataset.t]) el.textContent = d[el.dataset.t]; });
+  document.querySelectorAll("[data-setlang]").forEach(b => b.classList.toggle("active", b.dataset.setlang === lang));
+  if (!DATA) return;
+  document.getElementById("state").hidden = true;
+  const book = document.getElementById("book");
+  book.hidden = false;
+  book.innerHTML = DATA.sections.map(sec => `
+    <section class="sec">
+      <h2 class="cat">${sec.kanji ? `<span class="kanji">${esc(sec.kanji)}</span>` : ""}<span>${esc(tr(sec.title))}</span></h2>
+      ${sec.note ? `<p class="sec-note">${esc(tr(sec.note))}</p>` : ""}
+      <ul class="items">${sec.items.map(it => `
+        <li>
+          <div class="it-name">${esc(tr(it.name))}${it.isNew ? `<span class="tag new">${d.isNew}</span>` : ""}${it.soon ? `<span class="tag soon">${d.soon}</span>` : ""}</div>
+          ${it.desc ? `<p class="it-desc">${esc(tr(it.desc))}</p>` : ""}
+          ${it.sizes ? `<div class="it-sizes">${it.sizes.map(s => `<span>${esc(tr(s))}</span>`).join("")}</div>` : ""}
+        </li>`).join("")}
+      </ul>
+    </section>`).join("");
+}
+
+document.querySelectorAll("[data-setlang]").forEach(b => b.addEventListener("click", () => {
+  lang = b.dataset.setlang;
+  try { localStorage.setItem("hoshi_lang", lang); } catch (e) {}
+  render();
+}));
+
+render();
+fetch("/api/menu-preview")
+  .then(r => { if (r.status === 410) { location.replace("/#menu"); throw new Error("launched"); } if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(data => { DATA = data; render(); })
+  .catch(() => { const s = document.getElementById("state"); s.textContent = T[lang].error; });
+</script>
+</body>
+</html>

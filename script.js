@@ -28,6 +28,7 @@ const i18n = {
     vegetarian_label: "végétarien",
     gluten_free_label: "sans gluten",
     allergens_prefix: "Allergènes :",
+    next_menu_banner: "<strong>Nouveau menu dès le lundi 19 octobre</strong> — tempura, un seul menu midi et soir. <u>Voir l’aperçu →</u>",
     legend_title: "Allergènes et régimes",
     legend_allergens: "Contient",
     legend_diets: "Convient aux régimes",
@@ -206,6 +207,7 @@ const i18n = {
     vegetarian_label: "vegetarian",
     gluten_free_label: "gluten-free",
     allergens_prefix: "Allergens:",
+    next_menu_banner: "<strong>New menu starting Monday, October 19</strong> — tempura, one menu for lunch and dinner. <u>See the preview →</u>",
     legend_title: "Allergens & dietary",
     legend_allergens: "Contains",
     legend_diets: "Suitable for",
@@ -384,6 +386,7 @@ const i18n = {
     vegetarian_label: "ベジタリアン",
     gluten_free_label: "グルテンフリー",
     allergens_prefix: "アレルゲン：",
+    next_menu_banner: "<strong>10月19日（月）から新メニュー</strong> — 天ぷら登場、ランチとディナーが同じメニューに。<u>プレビューを見る →</u>",
     legend_title: "アレルゲン・食事制限",
     legend_allergens: "含まれるもの",
     legend_diets: "対応",
@@ -470,6 +473,7 @@ const i18n = {
     vegetarian_label: "채식",
     gluten_free_label: "글루텐 프리",
     allergens_prefix: "알레르기 유발 성분:",
+    next_menu_banner: "<strong>10월 19일(월)부터 새 메뉴</strong> — 덴푸라 추가, 점심·저녁 동일 메뉴. <u>미리보기 →</u>",
     legend_title: "알레르기 유발 성분 및 식단",
     legend_allergens: "함유",
     legend_diets: "식단",
@@ -1255,6 +1259,13 @@ window.__renderGoogleReviews = renderGoogleReviews;
 
 setLang(currentLang);
 if (TAKEOUT_ENABLED) setInterval(updateTakeoutAvailability, 60000);
+
+// ===== Bandeau « nouveau menu » (lien vers /nouveau-menu), masqué automatiquement au lancement =====
+const NEXT_MENU_LAUNCH = Date.parse("2026-10-19T00:00:00-04:00");
+(function () {
+  const b = document.getElementById("nextMenuBanner");
+  if (b) b.hidden = Date.now() >= NEXT_MENU_LAUNCH;
+})();
 
 // ===== Mode TEST (hoshimtl.ca/test → /?test=1) =====
 // Après le PIN commandes, applique api/_menu-test-data.js par-dessus MENU_DATA.

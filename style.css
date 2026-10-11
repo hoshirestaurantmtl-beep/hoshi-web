@@ -598,6 +598,27 @@ h1, h2, h3, .logo {
 .menu-list li.soldout .mi-head > span:first-child,
 .menu-list li.soldout .mi-desc,
 .menu-list li.soldout .price { opacity: 0.45; }
+/* ===== Bandeau « nouveau menu » ===== */
+.next-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 950px;
+  margin: 2rem auto 0;
+  padding: 0.9rem 1.3rem;
+  background: var(--negro);
+  color: #fff;
+  text-decoration: none;
+  border-left: 4px solid var(--rojo);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  transition: background 0.2s;
+}
+.next-menu:hover { background: #2a2222; }
+.next-menu strong { color: var(--dorado); font-weight: 600; }
+.next-menu u { text-underline-offset: 3px; white-space: nowrap; }
+.nm-kanji { font-family: 'Noto Serif JP', serif; font-size: 1.8rem; color: var(--rojo); line-height: 1; flex: none; }
+
 /* ===== Plats en plusieurs tailles (M / R / G) ===== */
 .size-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.45rem; }
 .size-btn {
