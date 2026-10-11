@@ -47,6 +47,20 @@
     .it-sizes { margin-top:0.3rem; display:flex; flex-wrap:wrap; gap:0.35rem; }
     .it-sizes span { font-size:0.75rem; border:1px solid var(--dorado); border-radius:999px; padding:0.05rem 0.55rem; color:#6d5610; }
 
+    .ico { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%; border:1px solid currentColor; flex:none; }
+    .ico svg { width:15px; height:15px; }
+    .ico-alg { color:#d47a22; background:#fdf1e4; }
+    .ico-diet { color:#2e7d32; background:#eef6ee; }
+    .it-icons { display:flex; flex-wrap:wrap; align-items:center; gap:4px; margin-top:0.35rem; }
+    .ico-sep { width:1px; height:16px; background:#d8cfbf; margin:0 3px; }
+    .vh { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+    .legend { max-width:950px; margin:2rem auto 0; background:#fff; border:1px solid var(--filet); border-top:3px solid var(--dorado); padding:1.1rem 1.5rem 1rem; }
+    .legend h2 { font-family:'Noto Serif JP', serif; font-size:0.9rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:0.7rem; }
+    .lg-group { display:flex; gap:0.8rem; align-items:flex-start; margin-bottom:0.55rem; }
+    .lg-label { flex:0 0 9rem; font-size:0.72rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--gris); padding-top:0.25rem; }
+    .lg-list { list-style:none; display:flex; flex-wrap:wrap; gap:0.45rem 1.1rem; }
+    .lg-list li { display:flex; align-items:center; gap:0.4rem; font-size:0.85rem; }
+    .lg-note { font-size:0.78rem; color:var(--gris); margin-top:0.4rem; }
     .foot { max-width:950px; margin:0 auto 3rem; padding:0 1.2rem; text-align:center; color:var(--gris); font-size:0.85rem; }
     .foot a { color:var(--rojo); font-weight:600; }
     .state { max-width:950px; margin:2rem auto; padding:0 1.2rem; color:var(--gris); }
@@ -55,6 +69,10 @@
       .book { grid-template-columns:1fr; padding:1.8rem 1.3rem; gap:2rem; margin-inline:1rem; }
       .hero { padding-top:1.8rem; grid-template-columns:1fr; }
       .tate { display:none; }
+      .legend { margin-inline:1rem; padding:1rem 1.1rem 0.8rem; }
+      .lg-group { flex-direction:column; gap:0.4rem; }
+      .lg-label { flex:none; padding-top:0; }
+      .lg-list { display:grid; grid-template-columns:1fr 1fr; width:100%; }
     }
   </style>
 </head>
@@ -79,11 +97,13 @@
     <div class="tate" aria-hidden="true">新しい<br>お品書き</div>
   </header>
 
+  <section class="legend" id="legend" hidden></section>
   <p class="state" id="state" data-t="loading">Chargement…</p>
   <main class="book" id="book" hidden></main>
 
   <p class="foot"><span data-t="foot">En attendant, notre menu actuel reste disponible :</span> <a href="/#menu">hoshimtl.ca</a></p>
 
+<script src="allergen-icons.js"></script>
 <script>
 // L'aperçu s'arrête au lancement : ensuite, retour au menu principal
 const LAUNCH = Date.parse("2026-10-19T00:00:00-04:00");
@@ -107,6 +127,38 @@ const T = {
         loading: "불러오는 중…", error: "메뉴를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.",
         foot: "그동안 현재 메뉴를 이용하실 수 있습니다:", isNew: "NEW", soon: "출시 예정", doc: "새 메뉴 — Hoshi" }
 };
+// Libellés de la légende allergènes
+const T_EXTRA = {
+  "fr": {
+    "lgTitle": "Allergènes et régimes",
+    "lgAlg": "Contient",
+    "lgDiet": "Convient aux régimes",
+    "algPrefix": "Allergènes :",
+    "lgNote": "Nos plats sont préparés dans une cuisine qui manipule gluten, soya, poisson, fruits de mer, œufs, lait et sésame. Les informations sur les allergènes sont en cours de vérification : en cas d’allergie, parlez-en à notre équipe avant de commander."
+  },
+  "en": {
+    "lgTitle": "Allergens & dietary",
+    "lgAlg": "Contains",
+    "lgDiet": "Suitable for",
+    "algPrefix": "Allergens:",
+    "lgNote": "Our dishes are prepared in a kitchen that handles gluten, soy, fish, shellfish, eggs, dairy and sesame. Allergen information is still being verified: if you have an allergy, please speak to our staff before ordering."
+  },
+  "ja": {
+    "lgTitle": "アレルゲン・食事制限",
+    "lgAlg": "含まれるもの",
+    "lgDiet": "対応",
+    "algPrefix": "アレルゲン：",
+    "lgNote": "当店の料理は小麦・大豆・魚・甲殻類・卵・乳・ごまを扱う厨房で調理しています。アレルゲン情報は現在確認中です。アレルギーのある方は、ご注文前に必ずスタッフにお申し付けください。"
+  },
+  "ko": {
+    "lgTitle": "알레르기 유발 성분 및 식단",
+    "lgAlg": "함유",
+    "lgDiet": "식단",
+    "algPrefix": "알레르기 유발 성분:",
+    "lgNote": "저희 요리는 밀, 대두, 생선, 갑각류, 달걀, 유제품, 참깨를 취급하는 주방에서 조리됩니다. 알레르기 정보는 현재 확인 중입니다. 알레르기가 있으시면 주문 전에 반드시 직원에게 말씀해 주세요."
+  }
+};
+Object.keys(T_EXTRA).forEach(l => Object.assign(T[l], T_EXTRA[l]));
 const LANGS = ["fr", "en", "ja", "ko"];
 let lang = "fr";
 try {
@@ -119,6 +171,27 @@ let DATA = null;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const tr = o => (o && (o[lang] || o.en || o.fr)) || "";
 
+const icoLabel = c => (ICON_LABELS[lang] || ICON_LABELS.fr)[c] || c;
+const ico = c => '<span class="ico ' + (DIET_ORDER.includes(c) ? "ico-diet" : "ico-alg") + '" title="' + icoLabel(c) + '" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + (ICON_SVG[c] || "") + '</svg></span>';
+// végane implique végétarien → une seule icône
+const itemDiets = it => (it.diets || []).filter(c => !(c === "vegetarian" && (it.diets || []).includes("vegan")));
+function iconsHtml(it) {
+  const alg = ALLERGEN_ORDER.filter(c => (it.allergens || []).includes(c));
+  const diets = DIET_ORDER.filter(c => itemDiets(it).includes(c));
+  if (!alg.length && !diets.length) return "";
+  const sr = [alg.length ? T[lang].algPrefix + " " + alg.map(icoLabel).join(", ") + "." : "", diets.map(icoLabel).join(", ")].filter(Boolean).join(" ");
+  return '<div class="it-icons"><span class="vh">' + esc(sr) + '</span>' + alg.map(ico).join("") + (alg.length && diets.length ? '<span class="ico-sep"></span>' : "") + diets.map(ico).join("") + '</div>';
+}
+function renderLegend() {
+  const box = document.getElementById("legend");
+  const usedA = new Set(), usedD = new Set();
+  DATA.sections.forEach(s => s.items.forEach(it => { (it.allergens || []).forEach(c => usedA.add(c)); itemDiets(it).forEach(c => usedD.add(c)); }));
+  const d = T[lang];
+  const grp = (label, codes) => codes.length ? '<div class="lg-group"><span class="lg-label">' + label + '</span><ul class="lg-list">' + codes.map(c => '<li>' + ico(c) + '<span>' + icoLabel(c) + '</span></li>').join("") + '</ul></div>' : "";
+  box.innerHTML = '<h2>' + d.lgTitle + '</h2>' + grp(d.lgAlg, ALLERGEN_ORDER.filter(c => usedA.has(c))) + grp(d.lgDiet, DIET_ORDER.filter(c => usedD.has(c))) + '<p class="lg-note">' + d.lgNote + '</p>';
+  box.hidden = false;
+}
+
 function render() {
   const d = T[lang];
   document.documentElement.lang = lang;
@@ -127,6 +200,7 @@ function render() {
   document.querySelectorAll("[data-setlang]").forEach(b => b.classList.toggle("active", b.dataset.setlang === lang));
   if (!DATA) return;
   document.getElementById("state").hidden = true;
+  renderLegend();
   const book = document.getElementById("book");
   book.hidden = false;
   book.innerHTML = DATA.sections.map(sec => `
@@ -138,6 +212,7 @@ function render() {
           <div class="it-name">${esc(tr(it.name))}${it.isNew ? `<span class="tag new">${d.isNew}</span>` : ""}${it.soon ? `<span class="tag soon">${d.soon}</span>` : ""}</div>
           ${it.desc ? `<p class="it-desc">${esc(tr(it.desc))}</p>` : ""}
           ${it.sizes ? `<div class="it-sizes">${it.sizes.map(s => `<span>${esc(tr(s))}</span>`).join("")}</div>` : ""}
+          ${iconsHtml(it)}
         </li>`).join("")}
       </ul>
     </section>`).join("");

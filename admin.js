@@ -156,6 +156,9 @@ function render() {
           () => { it.lactoseFree = !it.lactoseFree; if (!it.lactoseFree) delete it.lactoseFree; render(); }, it.lactoseFree ? "diet-on" : ""));
         tdD.appendChild(mk("☪️", it.halal ? "Halal — cliquer pour désactiver" : "Cliquer pour marquer halal",
           () => { it.halal = !it.halal; if (!it.halal) delete it.halal; render(); }, it.halal ? "diet-on" : ""));
+        const nAlg = Array.isArray(it.allergens) ? it.allergens.length : 0;
+        tdD.appendChild(mk(nAlg ? "⚠" + nAlg : "⚠", nAlg ? "Allergènes : " + it.allergens.map(a => ALLERGEN_LABELS[a] || a).join(", ") + " — cliquer pour modifier" : "Aucun allergène renseigné — cliquer pour renseigner",
+          () => openAllergenModal(it), nAlg ? "alg-on" : ""));
         tdD.appendChild(mk("📷", "Téléverser une photo pour ce plat", () => uploadPhoto(it)));
         const hasJaKo = !!(it.name.ja && it.name.ko);
         tdD.appendChild(mk("🌐", hasJaKo ? "Japonais/coréen déjà traduits — cliquer pour revoir" : "Traduire en japonais/coréen (à partir du FR/EN)",
@@ -308,6 +311,9 @@ function serialize() {
     if (!it.vegan) delete it.vegan;
     if (!it.lactoseFree) delete it.lactoseFree;
     if (!it.halal) delete it.halal;
+    if (!it.vegetarian) delete it.vegetarian;
+    if (!it.glutenFree) delete it.glutenFree;
+    if (!Array.isArray(it.allergens) || !it.allergens.length) delete it.allergens;
     if (it.promoPrice == null || !(it.promoPrice > 0) || !(it.promoPrice < it.price)) delete it.promoPrice;
   })));
   return "// ===== Hoshi — Données du menu / Menu data =====\n" +
@@ -640,3 +646,53 @@ $("translateSaveBtn").addEventListener("click", () => {
   render();
   $("savedMsg").textContent = "N'oubliez pas de cliquer « 🚀 Publier en ligne » pour appliquer.";
 });
+
+
+// ---- Allergènes & régimes ----
+// Codes stockés dans menu-data.js (it.allergens) ; libellés multilingues dans script.js.
+const ALLERGEN_LABELS = {
+  gluten: "Gluten / blé", soy: "Soya", fish: "Poisson", shellfish: "Fruits de mer (crustacés, mollusques)",
+  eggs: "Œufs", dairy: "Lait / produits laitiers", sesame: "Sésame", mustard: "Moutarde",
+  nuts: "Noix / arachides", sulphites: "Sulfites", alcohol: "Alcool"
+};
+let currentAllergenItem = null;
+
+function openAllergenModal(it) {
+  currentAllergenItem = it;
+  $("allergenItemLabel").textContent = it.name.fr || it.name.en || it.id;
+  const box = $("allergenChecks");
+  box.innerHTML = "";
+  const cur = new Set(Array.isArray(it.allergens) ? it.allergens : []);
+  Object.keys(ALLERGEN_LABELS).forEach(code => {
+    const lab = document.createElement("label");
+    lab.style.cssText = "display:flex; align-items:center; gap:0.5rem; padding:0.3rem 0; font-size:0.9rem; cursor:pointer; break-inside:avoid;";
+    const cb = document.createElement("input");
+    cb.type = "checkbox"; cb.value = code; cb.checked = cur.has(code);
+    lab.appendChild(cb); lab.appendChild(document.createTextNode(ALLERGEN_LABELS[code]));
+    box.appendChild(lab);
+  });
+  $("algVegetarian").checked = !!it.vegetarian;
+  $("algVegan").checked = !!it.vegan;
+  $("algGlutenFree").checked = !!it.glutenFree;
+  $("algLactoseFree").checked = !!it.lactoseFree;
+  $("allergenOverlay").classList.remove("hidden");
+}
+
+function saveAllergenModal() {
+  const it = currentAllergenItem; if (!it) return;
+  const codes = [...$("allergenChecks").querySelectorAll("input:checked")].map(cb => cb.value);
+  if (codes.length) it.allergens = codes; else delete it.allergens;
+  const setFlag = (k, v) => { if (v) it[k] = true; else delete it[k]; };
+  setFlag("vegetarian", $("algVegetarian").checked);
+  setFlag("vegan", $("algVegan").checked);
+  setFlag("glutenFree", $("algGlutenFree").checked);
+  setFlag("lactoseFree", $("algLactoseFree").checked);
+  // cohérence : végane ⇒ végétarien ; « sans gluten » incompatible avec gluten coché ; « sans lactose » avec lait coché
+  if (it.vegan) it.vegetarian = true;
+  if (it.glutenFree && codes.includes("gluten")) delete it.glutenFree;
+  if (it.lactoseFree && codes.includes("dairy")) delete it.lactoseFree;
+  $("allergenOverlay").classList.add("hidden");
+  render();
+}
+$("allergenSaveBtn").addEventListener("click", saveAllergenModal);
+$("allergenCancelBtn").addEventListener("click", () => $("allergenOverlay").classList.add("hidden"));

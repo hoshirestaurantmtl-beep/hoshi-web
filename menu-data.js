@@ -35,7 +35,11 @@ const MENU_DATA = {
                 "ko": "다진 돼지고기 커틀릿 — 3개: 13$"
               },
               "price": 10,
-              "photo": "img/e1-1788304341079.jpg"
+              "photo": "img/e1-1788304341079.jpg",
+              "allergens": [
+                "gluten",
+                "soy"
+              ]
             },
             {
               "id": "n5",
@@ -46,7 +50,13 @@ const MENU_DATA = {
                 "ko": "에다마메"
               },
               "price": 5.5,
-              "photo": "img/n5-1788796576682.jpg"
+              "photo": "img/n5-1788796576682.jpg",
+              "allergens": [
+                "soy"
+              ],
+              "vegetarian": true,
+              "glutenFree": true,
+              "vegan": true
             },
             {
               "id": "e2",
@@ -57,7 +67,13 @@ const MENU_DATA = {
                 "ko": "연어 타르타르"
               },
               "price": 11,
-              "photo": "img/e2-1788302067939.jpg"
+              "photo": "img/e2-1788302067939.jpg",
+              "allergens": [
+                "fish",
+                "sesame",
+                "soy",
+                "gluten"
+              ]
             },
             {
               "id": "e3",
@@ -68,7 +84,12 @@ const MENU_DATA = {
                 "ko": "타레 연어 아부리"
               },
               "price": 15,
-              "photo": "img/e3-1788458549114.jpg"
+              "photo": "img/e3-1788458549114.jpg",
+              "allergens": [
+                "fish",
+                "soy",
+                "gluten"
+              ]
             },
             {
               "id": "e4",
@@ -79,7 +100,13 @@ const MENU_DATA = {
                 "ko": "양배추 샐러드"
               },
               "price": 4,
-              "photo": "img/e4-1788458553972.jpg"
+              "photo": "img/e4-1788458553972.jpg",
+              "allergens": [
+                "soy",
+                "gluten"
+              ],
+              "vegetarian": true,
+              "vegan": true
             },
             {
               "id": "e5",
@@ -90,7 +117,11 @@ const MENU_DATA = {
                 "ko": "코울슬로"
               },
               "price": 4,
-              "photo": "img/e5-1788882356617.jpg"
+              "photo": "img/e5-1788882356617.jpg",
+              "allergens": [
+                "eggs"
+              ],
+              "glutenFree": true
             }
           ],
           "alwaysAvailable": true
@@ -119,7 +150,13 @@ const MENU_DATA = {
                 "ko": "양배추와 돼지 등심 — 미소국+밥 (우동국: 22$)"
               },
               "price": 21,
-              "photo": "img/k1-1788296217572.jpg"
+              "photo": "img/k1-1788296217572.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish"
+              ]
             },
             {
               "id": "k2",
@@ -136,7 +173,13 @@ const MENU_DATA = {
                 "ko": "양배추와 돼지 안심 — 미소국+밥 (우동국: 24$)"
               },
               "price": 23,
-              "photo": "img/k2-1788884605130.jpg"
+              "photo": "img/k2-1788884605130.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish"
+              ]
             },
             {
               "id": "k3",
@@ -153,7 +196,13 @@ const MENU_DATA = {
                 "ko": "양배추 포함 — 미소국+밥 (우동국: 25$)"
               },
               "price": 24,
-              "photo": "img/k3-1788902845746.jpg"
+              "photo": "img/k3-1788902845746.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish"
+              ]
             },
             {
               "id": "k4",
@@ -170,7 +219,13 @@ const MENU_DATA = {
                 "ko": "돼지 등심+계란 — 미소국 포함"
               },
               "price": 21,
-              "photo": "img/k4-1788296226268.jpg"
+              "photo": "img/k4-1788296226268.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish"
+              ]
             }
           ]
         },
@@ -192,7 +247,13 @@ const MENU_DATA = {
                 "ko": "카츠산도 (3조각)"
               },
               "price": 15,
-              "photo": "img/ks1-1788302047787.jpg"
+              "photo": "img/ks1-1788302047787.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish"
+              ]
             },
             {
               "id": "ks2",
@@ -203,7 +264,13 @@ const MENU_DATA = {
                 "ko": "카츠산도 + 코울슬로"
               },
               "price": 18,
-              "photo": "img/ks2-1788885377008.jpg"
+              "photo": "img/ks2-1788885377008.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish"
+              ]
             }
           ]
         },
@@ -231,7 +298,14 @@ const MENU_DATA = {
                 "ko": "로스카츠 카레동"
               },
               "price": 21,
-              "photo": "img/c1-1788448670670.jpg"
+              "photo": "img/c1-1788448670670.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish",
+                "dairy"
+              ]
             },
             {
               "id": "c2",
@@ -242,7 +316,14 @@ const MENU_DATA = {
                 "ko": "히레카츠 카레동 (3개)"
               },
               "price": 23,
-              "photo": "img/c2-1788448675377.jpg"
+              "photo": "img/c2-1788448675377.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish",
+                "dairy"
+              ]
             },
             {
               "id": "c3",
@@ -253,7 +334,14 @@ const MENU_DATA = {
                 "ko": "로스&히레카츠 카레동"
               },
               "price": 24,
-              "photo": "img/c3-1788448680922.jpg"
+              "photo": "img/c3-1788448680922.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish",
+                "dairy"
+              ]
             },
             {
               "id": "c4",
@@ -264,7 +352,14 @@ const MENU_DATA = {
                 "ko": "카레우동 + 로스카츠"
               },
               "price": 22,
-              "photo": "img/c4-1788296238814.jpg"
+              "photo": "img/c4-1788296238814.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish",
+                "dairy"
+              ]
             },
             {
               "id": "c5",
@@ -275,7 +370,14 @@ const MENU_DATA = {
                 "ko": "카레우동 + 히레카츠 (3개)"
               },
               "price": 24,
-              "photo": "img/c5-1788296256941.jpg"
+              "photo": "img/c5-1788296256941.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish",
+                "dairy"
+              ]
             },
             {
               "id": "c6",
@@ -286,7 +388,14 @@ const MENU_DATA = {
                 "ko": "카레우동 + 로스&히레"
               },
               "price": 25,
-              "photo": "img/c6-1788308188564.jpg"
+              "photo": "img/c6-1788308188564.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish",
+                "dairy"
+              ]
             }
           ]
         },
@@ -314,7 +423,11 @@ const MENU_DATA = {
                 "ko": "신선한 연어 덮밥 — 미소국 포함"
               },
               "price": 29,
-              "photo": "img/f1-1788302078398.jpg"
+              "photo": "img/f1-1788302078398.jpg",
+              "allergens": [
+                "fish",
+                "soy"
+              ]
             },
             {
               "id": "f2",
@@ -331,7 +444,13 @@ const MENU_DATA = {
                 "ko": "타르타르 소스와 양배추 — 미소국+밥 (우동국: 23$)"
               },
               "price": 22,
-              "soldout": true
+              "soldout": true,
+              "allergens": [
+                "fish",
+                "gluten",
+                "eggs",
+                "soy"
+              ]
             },
             {
               "id": "f3",
@@ -348,7 +467,14 @@ const MENU_DATA = {
                 "ko": "대구카츠, 관자카츠, 과카몰리, 이쿠라, 수비드 계란 — 미소국"
               },
               "price": 24,
-              "soldout": true
+              "soldout": true,
+              "allergens": [
+                "fish",
+                "shellfish",
+                "gluten",
+                "eggs",
+                "soy"
+              ]
             }
           ]
         },
@@ -383,7 +509,14 @@ const MENU_DATA = {
               },
               "price": 24,
               "photo": "img/h1-1788469747086.jpg",
-              "dineInOnly": true
+              "dineInOnly": true,
+              "allergens": [
+                "dairy",
+                "eggs",
+                "gluten",
+                "soy",
+                "fish"
+              ]
             },
             {
               "id": "h2",
@@ -401,7 +534,14 @@ const MENU_DATA = {
               },
               "price": 26,
               "photo": "img/h2-1788469751576.jpg",
-              "dineInOnly": true
+              "dineInOnly": true,
+              "allergens": [
+                "dairy",
+                "eggs",
+                "gluten",
+                "soy",
+                "fish"
+              ]
             },
             {
               "id": "h3",
@@ -419,7 +559,14 @@ const MENU_DATA = {
               },
               "price": 25,
               "photo": "img/h3-1788469815116.jpg",
-              "dineInOnly": true
+              "dineInOnly": true,
+              "allergens": [
+                "dairy",
+                "eggs",
+                "gluten",
+                "soy",
+                "fish"
+              ]
             }
           ]
         },
@@ -441,7 +588,12 @@ const MENU_DATA = {
                 "ja": "温泉卵ソース",
                 "ko": "온센타마고 소스"
               },
-              "price": 2.5
+              "price": 2.5,
+              "allergens": [
+                "eggs",
+                "fish",
+                "soy"
+              ]
             },
             {
               "id": "x2",
@@ -452,7 +604,12 @@ const MENU_DATA = {
                 "ko": "카레 소스"
               },
               "price": 4,
-              "photo": "img/x2-1789062960988.jpg"
+              "photo": "img/x2-1789062960988.jpg",
+              "allergens": [
+                "dairy",
+                "gluten",
+                "soy"
+              ]
             },
             {
               "id": "x3",
@@ -463,7 +620,10 @@ const MENU_DATA = {
                 "ko": "밥"
               },
               "price": 3,
-              "photo": "img/x3-1788484523357.jpg"
+              "photo": "img/x3-1788484523357.jpg",
+              "vegetarian": true,
+              "glutenFree": true,
+              "vegan": true
             },
             {
               "id": "x4",
@@ -474,7 +634,12 @@ const MENU_DATA = {
                 "ko": "우동면"
               },
               "price": 4,
-              "photo": "img/x4-1788484531724.jpg"
+              "photo": "img/x4-1788484531724.jpg",
+              "allergens": [
+                "gluten"
+              ],
+              "vegetarian": true,
+              "vegan": true
             },
             {
               "id": "x5",
@@ -485,7 +650,12 @@ const MENU_DATA = {
                 "ko": "우동국"
               },
               "price": 7,
-              "photo": "img/x5-1788484540505.jpg"
+              "photo": "img/x5-1788484540505.jpg",
+              "allergens": [
+                "fish",
+                "soy",
+                "gluten"
+              ]
             },
             {
               "id": "x6",
@@ -496,7 +666,13 @@ const MENU_DATA = {
                 "ko": "히레카츠 (1개)"
               },
               "price": 5,
-              "photo": "img/x6-1788484635964.jpg"
+              "photo": "img/x6-1788484635964.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish"
+              ]
             },
             {
               "id": "x7",
@@ -507,7 +683,13 @@ const MENU_DATA = {
                 "ko": "로스카츠 (1개)"
               },
               "price": 13,
-              "photo": "img/x7-1788882386318.jpg"
+              "photo": "img/x7-1788882386318.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish"
+              ]
             },
             {
               "id": "x8",
@@ -517,7 +699,11 @@ const MENU_DATA = {
                 "ja": "メンチカツ（1個）",
                 "ko": "멘치카츠 (1개)"
               },
-              "price": 4
+              "price": 4,
+              "allergens": [
+                "gluten",
+                "soy"
+              ]
             },
             {
               "id": "x9",
@@ -528,7 +714,12 @@ const MENU_DATA = {
                 "ko": "대구카츠 (1개)"
               },
               "price": 15,
-              "soldout": true
+              "soldout": true,
+              "allergens": [
+                "fish",
+                "gluten",
+                "eggs"
+              ]
             },
             {
               "id": "x10",
@@ -538,7 +729,12 @@ const MENU_DATA = {
                 "ja": "帆立カツ（1個）",
                 "ko": "관자카츠 (1개)"
               },
-              "price": 4
+              "price": 4,
+              "allergens": [
+                "shellfish",
+                "gluten",
+                "eggs"
+              ]
             },
             {
               "id": "x11",
@@ -548,7 +744,12 @@ const MENU_DATA = {
                 "ja": "低温調理卵（1個）",
                 "ko": "수비드 계란 (1개)"
               },
-              "price": 1.5
+              "price": 1.5,
+              "allergens": [
+                "eggs"
+              ],
+              "vegetarian": true,
+              "glutenFree": true
             }
           ]
         },
@@ -656,7 +857,10 @@ const MENU_DATA = {
               },
               "price": 12,
               "alcohol": true,
-              "photo": "img/v6-1788471684904.jpg"
+              "photo": "img/v6-1788471684904.jpg",
+              "allergens": [
+                "sulphites"
+              ]
             },
             {
               "id": "v7",
@@ -675,7 +879,10 @@ const MENU_DATA = {
               "price": 11,
               "alcohol": true,
               "photo": "img/v7-1788471691188.jpg",
-              "soldout": true
+              "soldout": true,
+              "allergens": [
+                "sulphites"
+              ]
             },
             {
               "id": "v8",
@@ -735,7 +942,10 @@ const MENU_DATA = {
               },
               "price": 9,
               "alcohol": true,
-              "photo": "img/v12-1788307470467.jpg"
+              "photo": "img/v12-1788307470467.jpg",
+              "allergens": [
+                "gluten"
+              ]
             },
             {
               "id": "v13",
@@ -747,7 +957,10 @@ const MENU_DATA = {
               },
               "price": 9,
               "alcohol": true,
-              "photo": "img/v13-1788307476531.jpg"
+              "photo": "img/v13-1788307476531.jpg",
+              "allergens": [
+                "gluten"
+              ]
             },
             {
               "id": "n2",
@@ -812,7 +1025,13 @@ const MENU_DATA = {
               },
               "promoPrice": 9.5,
               "dineInOnly": true,
-              "photo": "img/n6-1788882409148.jpg"
+              "photo": "img/n6-1788882409148.jpg",
+              "allergens": [
+                "dairy",
+                "eggs"
+              ],
+              "vegetarian": true,
+              "glutenFree": true
             },
             {
               "id": "n7",
@@ -830,7 +1049,13 @@ const MENU_DATA = {
                 "ko": "바닐라 젤라토, 집에서 만드는 레시피 — Gelatopia와의 협업."
               },
               "dineInOnly": true,
-              "photo": "img/n7-1788885627990.jpg"
+              "photo": "img/n7-1788885627990.jpg",
+              "allergens": [
+                "dairy",
+                "eggs"
+              ],
+              "vegetarian": true,
+              "glutenFree": true
             },
             {
               "id": "n8",
@@ -849,7 +1074,10 @@ const MENU_DATA = {
               },
               "dineInOnly": true,
               "lactoseFree": true,
-              "photo": "img/n8-1788882417081.jpg"
+              "photo": "img/n8-1788882417081.jpg",
+              "vegetarian": true,
+              "glutenFree": true,
+              "vegan": true
             },
             {
               "id": "n9",
@@ -861,7 +1089,10 @@ const MENU_DATA = {
               },
               "price": 0.5,
               "dineInOnly": true,
-              "photo": "img/n9-1788885473098.webp"
+              "photo": "img/n9-1788885473098.webp",
+              "vegetarian": true,
+              "glutenFree": true,
+              "vegan": true
             }
           ]
         }
@@ -912,7 +1143,13 @@ const MENU_DATA = {
                 "ko": "양배추 포함 — 미소국+밥 (G: 20$ · 우동국: M 18$/G 21$)"
               },
               "price": 17,
-              "photo": "img/l1-1788885078921.jpg"
+              "photo": "img/l1-1788885078921.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish"
+              ]
             },
             {
               "id": "l2",
@@ -929,7 +1166,13 @@ const MENU_DATA = {
                 "ko": "계란 — 미소국 (G: 19$)"
               },
               "price": 16,
-              "photo": "img/l2-1788302100263.jpg"
+              "photo": "img/l2-1788302100263.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish"
+              ]
             },
             {
               "id": "l3",
@@ -946,7 +1189,14 @@ const MENU_DATA = {
                 "ko": "수비드 계란 — 미소국 (G: 19$)"
               },
               "price": 16,
-              "photo": "img/l3-1788458576830.jpg"
+              "photo": "img/l3-1788458576830.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish",
+                "dairy"
+              ]
             },
             {
               "id": "l4",
@@ -963,7 +1213,14 @@ const MENU_DATA = {
                 "ko": "수비드 계란 — 미소국 (G: 20$)"
               },
               "price": 17,
-              "photo": "img/l4-1788459013376.jpg"
+              "photo": "img/l4-1788459013376.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish",
+                "dairy"
+              ]
             },
             {
               "id": "l5",
@@ -980,7 +1237,11 @@ const MENU_DATA = {
                 "ko": "연어 130g (G 180g: 27$)"
               },
               "price": 22,
-              "photo": "img/l5-1788302090284.jpg"
+              "photo": "img/l5-1788302090284.jpg",
+              "allergens": [
+                "fish",
+                "soy"
+              ]
             },
             {
               "id": "l6",
@@ -997,7 +1258,14 @@ const MENU_DATA = {
                 "ko": "새우2, 관자1, 야채2, 과카몰리, 이쿠라 (G: 24$)"
               },
               "price": 19,
-              "photo": "img/l6-1788296189044.jpg"
+              "photo": "img/l6-1788296189044.jpg",
+              "allergens": [
+                "shellfish",
+                "fish",
+                "gluten",
+                "eggs",
+                "soy"
+              ]
             },
             {
               "id": "l7",
@@ -1014,7 +1282,14 @@ const MENU_DATA = {
                 "ko": "새우3, 관자1, 야채2, 계란1 (G: 23$)"
               },
               "price": 18,
-              "photo": "img/l7-1788296179268.jpg"
+              "photo": "img/l7-1788296179268.jpg",
+              "allergens": [
+                "shellfish",
+                "fish",
+                "gluten",
+                "eggs",
+                "soy"
+              ]
             },
             {
               "id": "l8",
@@ -1031,7 +1306,13 @@ const MENU_DATA = {
                 "ko": "새우2, 관자1, 표고버섯1 (G: 21$)"
               },
               "price": 16,
-              "photo": "img/l8-1789404733688.jpg"
+              "photo": "img/l8-1789404733688.jpg",
+              "allergens": [
+                "shellfish",
+                "fish",
+                "gluten",
+                "soy"
+              ]
             },
             {
               "id": "l9",
@@ -1048,7 +1329,13 @@ const MENU_DATA = {
                 "ko": "돼지 등심 카츠 샌드위치 (+코울슬로: 18$)"
               },
               "price": 15,
-              "photo": "img/l9-1788302829722.jpg"
+              "photo": "img/l9-1788302829722.jpg",
+              "allergens": [
+                "gluten",
+                "eggs",
+                "soy",
+                "fish"
+              ]
             }
           ]
         }

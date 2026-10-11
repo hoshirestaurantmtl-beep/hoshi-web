@@ -60,6 +60,7 @@
     .act-btn:hover { background:#eee; }
     .act-btn.sold-on { background:#b32428; color:#fff; border-color:#b32428; }
     .act-btn.diet-on { background:#2e7d32; color:#fff; border-color:#2e7d32; }
+    .act-btn.alg-on { background:#c9a227; color:#141414; border-color:#c9a227; font-weight:700; }
     .cfg-block { background:#fff; border:1px solid #e5ddcc; border-radius:8px; padding:1rem 1.2rem; margin-bottom:1.2rem; }
     .cfg-block label { font-size:0.8rem; color:var(--gris); display:block; margin-bottom:2px; }
     .cfg-block input[type=text] { width:100%; border:1px solid #ddd2b8; border-radius:4px; padding:0.45rem 0.6rem; font-size:0.88rem; }
@@ -154,6 +155,28 @@
     <button class="btn btn-ghost" id="restoreBtn" style="color:#fff; border-color:#666;">↩ Restaurer version précédente</button>
     <button class="btn btn-ghost" id="downloadBtn" style="color:#fff; border-color:#666;">⬇ Télécharger</button>
     <button class="btn btn-gold" id="publishBtn">🚀 Publier en ligne</button>
+  </div>
+
+  <!-- Allergènes & régimes -->
+  <div id="allergenOverlay" class="hidden" style="position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:200; display:flex; align-items:center; justify-content:center;">
+    <div style="background:#fff; border-radius:8px; padding:1.4rem; width:min(92vw,520px); max-height:88vh; overflow:auto;">
+      <h3 style="font-family:'Noto Serif JP',serif; margin-bottom:0.3rem;">⚠ Allergènes &amp; régimes</h3>
+      <p id="allergenItemLabel" style="font-size:0.82rem; color:var(--gris); margin-bottom:0.9rem;"></p>
+      <p style="font-size:0.8rem; color:var(--gris); margin-bottom:0.4rem;">Ce plat <strong>contient</strong> :</p>
+      <div id="allergenChecks" style="columns:2; margin-bottom:1rem;"></div>
+      <p style="font-size:0.8rem; color:var(--gris); margin-bottom:0.4rem;">Convient aux régimes :</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.3rem 1rem; font-size:0.9rem; margin-bottom:0.6rem;">
+        <label><input type="checkbox" id="algVegetarian"> 🥬 Végétarien</label>
+        <label><input type="checkbox" id="algVegan"> 🌱 Végane</label>
+        <label><input type="checkbox" id="algGlutenFree"> 🌾 Sans gluten</label>
+        <label><input type="checkbox" id="algLactoseFree"> 🥛 Sans lactose</label>
+      </div>
+      <p style="font-size:0.75rem; color:var(--gris);">Les allergènes s'affichent sous le plat dans les 4 langues du site. En cas de doute, cochez l'allergène.</p>
+      <div style="display:flex; gap:0.6rem; justify-content:flex-end; margin-top:0.8rem;">
+        <button class="btn btn-ghost" id="allergenCancelBtn">Annuler</button>
+        <button class="btn btn-gold" id="allergenSaveBtn">Enregistrer</button>
+      </div>
+    </div>
   </div>
 
   <!-- Traduction JA/KO -->

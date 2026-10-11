@@ -1,6 +1,6 @@
 // ===== Hoshi — Aperçu public du nouveau menu (page /nouveau-menu) =====
 // Lit le menu de test (api/_menu-test-data.js) et n'en publie que les noms et descriptions :
-// pas de prix, pas de photos, pas d'allergènes (encore en brouillon), pas d'options internes.
+// pas de prix, pas de photos, pas d'options internes. Allergènes et régimes inclus (brouillon, avec avertissement).
 // L'aperçu s'arrête au lancement : ensuite le nouveau menu est le menu principal du site.
 
 const LAUNCH = Date.parse("2026-10-19T00:00:00-04:00"); // lundi 19 octobre, heure de Montréal
@@ -31,6 +31,17 @@ function sizeLabel(name, groupName) {
   return out;
 }
 
+const ALLERGENS = ["gluten", "soy", "fish", "shellfish", "eggs", "dairy", "sesame", "mustard", "nuts", "sulphites", "alcohol"];
+const DIETS = ["vegetarian", "vegan", "glutenFree", "lactoseFree", "halal"];
+function dietInfo(it) {
+  const out = {};
+  const alg = Array.isArray(it.allergens) ? it.allergens.filter(c => ALLERGENS.includes(c)) : [];
+  if (alg.length) out.allergens = alg;
+  const diets = DIETS.filter(d => it[d]);
+  if (diets.length) out.diets = diets;
+  return out;
+}
+
 module.exports = async (req, res) => {
   if (Date.now() >= LAUNCH) return res.status(410).json({ error: "launched" });
   try {
@@ -53,13 +64,13 @@ module.exports = async (req, res) => {
           // les tailles d'un même plat → une seule entrée
           let g = items.find(x => x.group === it.sizeOf);
           if (!g) {
-            g = { group: it.sizeOf, name: it.groupName || it.name, desc: stripObj(it.desc), sizes: [], isNew: !liveIds.has(it.sizeOf) };
+            g = Object.assign({ group: it.sizeOf, name: it.groupName || it.name, desc: stripObj(it.desc), sizes: [], isNew: !liveIds.has(it.sizeOf) }, dietInfo(it));
             items.push(g);
           }
           g.sizes.push(sizeLabel(it.name, it.groupName));
           return;
         }
-        items.push({ name: it.name, desc: stripObj(it.desc), soon: !!it.preparing, isNew: !liveIds.has(it.id) });
+        items.push(Object.assign({ name: it.name, desc: stripObj(it.desc), soon: !!it.preparing, isNew: !liveIds.has(it.id) }, dietInfo(it)));
       });
       items.forEach(x => { delete x.group; });
       sections.push({ kanji: sec.kanji || "", title: sec.title, note: stripObj(sec.note), items });

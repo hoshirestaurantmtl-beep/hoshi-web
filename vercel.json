@@ -10,7 +10,7 @@
   ],
   "headers": [
     {
-      "source": "/(menu-data|script|admin)\\.js",
+      "source": "/(menu-data|script|admin|allergen-icons)\\.js",
       "headers": [
         { "key": "Cache-Control", "value": "no-cache" }
       ]

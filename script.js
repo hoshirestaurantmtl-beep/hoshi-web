@@ -32,7 +32,7 @@ const i18n = {
     legend_title: "Allergènes et régimes",
     legend_allergens: "Contient",
     legend_diets: "Convient aux régimes",
-    allergens_note: "Nos plats sont préparés dans une cuisine qui manipule gluten, soya, poisson, fruits de mer, œufs, lait et sésame. Informez-nous de toute allergie avant de commander.",
+    allergens_note: "Nos plats sont préparés dans une cuisine qui manipule gluten, soya, poisson, fruits de mer, œufs, lait et sésame. Les informations sur les allergènes sont en cours de vérification : en cas d’allergie, parlez-en à notre équipe avant de commander.",
     allergen_names: { gluten: "gluten", soy: "soya", fish: "poisson", shellfish: "fruits de mer", eggs: "œufs", dairy: "lait", sesame: "sésame", mustard: "moutarde", nuts: "noix", sulphites: "sulfites", alcohol: "alcool" },
     today_word: "aujourd'hui",
     reopen_at: "Réouverture des commandes : {day} à {time}",
@@ -211,7 +211,7 @@ const i18n = {
     legend_title: "Allergens & dietary",
     legend_allergens: "Contains",
     legend_diets: "Suitable for",
-    allergens_note: "Our dishes are prepared in a kitchen that handles gluten, soy, fish, shellfish, eggs, dairy and sesame. Please tell us about any allergy before ordering.",
+    allergens_note: "Our dishes are prepared in a kitchen that handles gluten, soy, fish, shellfish, eggs, dairy and sesame. Allergen information is still being verified: if you have an allergy, please speak to our staff before ordering.",
     allergen_names: { gluten: "gluten", soy: "soy", fish: "fish", shellfish: "shellfish", eggs: "eggs", dairy: "dairy", sesame: "sesame", mustard: "mustard", nuts: "nuts", sulphites: "sulphites", alcohol: "alcohol" },
     today_word: "today",
     reopen_at: "Ordering reopens {day} at {time}",
@@ -390,7 +390,7 @@ const i18n = {
     legend_title: "アレルゲン・食事制限",
     legend_allergens: "含まれるもの",
     legend_diets: "対応",
-    allergens_note: "当店の料理は小麦・大豆・魚・甲殻類・卵・乳・ごまを扱う厨房で調理しています。アレルギーのある方はご注文前にお知らせください。",
+    allergens_note: "当店の料理は小麦・大豆・魚・甲殻類・卵・乳・ごまを扱う厨房で調理しています。アレルゲン情報は現在確認中です。アレルギーのある方は、ご注文前に必ずスタッフにお申し付けください。",
     allergen_names: { gluten: "小麦", soy: "大豆", fish: "魚", shellfish: "甲殻類・貝", eggs: "卵", dairy: "乳", sesame: "ごま", mustard: "マスタード", nuts: "ナッツ", sulphites: "亜硫酸塩", alcohol: "アルコール" },
     today_word: "本日",
     reopen_at: "注文再開：{day} {time}",
@@ -477,7 +477,7 @@ const i18n = {
     legend_title: "알레르기 유발 성분 및 식단",
     legend_allergens: "함유",
     legend_diets: "식단",
-    allergens_note: "저희 요리는 밀, 대두, 생선, 갑각류, 달걀, 유제품, 참깨를 취급하는 주방에서 조리됩니다. 알레르기가 있으시면 주문 전에 알려주세요.",
+    allergens_note: "저희 요리는 밀, 대두, 생선, 갑각류, 달걀, 유제품, 참깨를 취급하는 주방에서 조리됩니다. 알레르기 정보는 현재 확인 중입니다. 알레르기가 있으시면 주문 전에 반드시 직원에게 말씀해 주세요.",
     allergen_names: { gluten: "밀(글루텐)", soy: "대두", fish: "생선", shellfish: "갑각류·조개", eggs: "달걀", dairy: "유제품", sesame: "참깨", mustard: "겨자", nuts: "견과류", sulphites: "아황산염", alcohol: "알코올" },
     today_word: "오늘",
     reopen_at: "주문 재개: {day} {time}",
@@ -632,31 +632,7 @@ function effectivePrice(it) {
   return hasPromo(it) ? it.promoPrice : it.price;
 }
 
-// ===== Icônes allergènes / régimes (SVG provisoires, trait = currentColor) =====
-const WHEAT_SVG = '<path d="M12 22V8"/><path d="M12 8c-1.2-1.2-1.2-3.8 0-6 1.2 2.2 1.2 4.8 0 6z"/>' +
-  [11, 15, 19].map(y => `<path d="M12 ${y}c-2.5-.5-3.5-2.5-3.5-4.5 2.5.5 3.5 2.5 3.5 4.5z"/><path d="M12 ${y}c2.5-.5 3.5-2.5 3.5-4.5-2.5.5-3.5 2.5-3.5 4.5z"/>`).join("");
-const CARTON_SVG = '<path d="M7 9l2-5h6l2 5v12H7z"/><path d="M7 9h10"/><path d="M9 4l1.5 5"/>';
-const NO_SVG = inner => `<g transform="translate(12 12) scale(.7) translate(-12 -12)">${inner}</g><circle cx="12" cy="12" r="10.5"/><path d="M4.6 4.6l14.8 14.8"/>`;
-const ICON_SVG = {
-  gluten: WHEAT_SVG,
-  soy: '<g transform="rotate(-40 12 12)"><path d="M3 12c0-2.5 2-3.5 4.5-3.5h9c2.5 0 4.5 1 4.5 3.5s-2 3.5-4.5 3.5h-9C5 15.5 3 14.5 3 12z"/><circle cx="7.5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="16.5" cy="12" r="1.7"/></g>',
-  fish: '<path d="M3 12c3-5 9-6 13-2l5-3v10l-5-3c-4 4-10 3-13-2z"/><circle cx="7.5" cy="11" r=".9" fill="currentColor"/>',
-  shellfish: '<path d="M12 19L4 10a8 8 0 0 1 16 0z"/><path d="M12 19L7 3.8M12 19V2M12 19l5-15.2"/><path d="M10 19h4v2h-4z"/>',
-  eggs: '<path d="M12 3c-3.5 0-6.5 6-6.5 10a6.5 6.5 0 0 0 13 0c0-4-3-10-6.5-10z"/>',
-  dairy: CARTON_SVG,
-  sesame: [[8, 10, -25], [16, 9, 20], [12, 17, 0]].map(([x, y, r]) => `<g transform="translate(${x} ${y}) rotate(${r})"><path d="M0-4.5c1.8 1.5 2.6 4 0 7-2.6-3-1.8-5.5 0-7z"/></g>`).join(""),
-  mustard: '<path d="M11 2h2l1 4h-4z"/><path d="M8 6h8l1 3v11a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V9z"/><path d="M10 14h4"/>',
-  nuts: '<path d="M5 10c0-3.5 3-6 7-6s7 2.5 7 6z"/><path d="M12 4V2"/><path d="M6.5 10c0 6 3 10 5.5 11.5 2.5-1.5 5.5-5.5 5.5-11.5"/>',
-  sulphites: '<text x="12" y="15.5" text-anchor="middle" font-size="8.5" font-weight="700" font-family="sans-serif" fill="currentColor" stroke="none">SO₂</text>',
-  alcohol: '<path d="M7 3h10c0 5-2 8-5 8s-5-3-5-8z"/><path d="M12 11v9M8 21h8"/>',
-  vegetarian: '<path d="M5 19C5 10 11 4 20 4c0 9-6 15-15 15z"/><path d="M5 19l9-9"/>',
-  vegan: '<path d="M12 21v-9"/><path d="M12 12C12 7 9 4 4 4c0 5 3 8 8 8z"/><path d="M12 14c0-4 3-7 8-7 0 4-3 7-8 7z"/>',
-  glutenFree: NO_SVG(WHEAT_SVG),
-  lactoseFree: NO_SVG(CARTON_SVG),
-  halal: '<text x="12" y="15" text-anchor="middle" font-size="8" font-weight="700" fill="currentColor" stroke="none">حلال</text>'
-};
-const ALLERGEN_ORDER = ["gluten", "soy", "fish", "shellfish", "eggs", "dairy", "sesame", "mustard", "nuts", "sulphites", "alcohol"];
-const DIET_ORDER = ["vegetarian", "vegan", "glutenFree", "lactoseFree", "halal"];
+// Icônes : ICON_SVG, ALLERGEN_ORDER, DIET_ORDER → allergen-icons.js (chargé avant ce fichier)
 const DIET_LABEL_KEY = { vegetarian: "vegetarian_label", vegan: "vegan_label", glutenFree: "gluten_free_label", lactoseFree: "lactose_free_label", halal: "halal_label" };
 
 function iconLabel(code, lang) {
