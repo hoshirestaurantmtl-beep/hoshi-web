@@ -3,5 +3,7 @@ Allow: /
 Disallow: /admin.html
 Disallow: /commandes.html
 Disallow: /commandes
+Disallow: /recettes.html
+Disallow: /recettes
 
 Sitemap: https://hoshimtl.ca/sitemap.xml

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recettes — Hoshi</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Serif+JP:wght@600&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#111; color:#eee; min-height:100vh; }
+    header { background:#000; padding:0.8rem 1.2rem; display:flex; align-items:center; gap:0.8rem; position:sticky; top:0; z-index:10; flex-wrap:wrap; }
+    header img { width:44px; }
+    header h1 { font-family:'Noto Serif JP',serif; font-size:1.1rem; color:#c9a227; flex:1; }
+    header button, .btn { background:#333; color:#fff; border:none; border-radius:6px; padding:0.5rem 0.9rem; cursor:pointer; font-size:0.85rem; }
+    .btn-gold { background:#c9a227; color:#141414; }
+
+    /* Barre de recherche + catégories */
+    .tools { padding:1rem 1rem 0; display:flex; flex-direction:column; gap:0.7rem; }
+    #search { width:100%; padding:0.8rem 1rem; font-size:1.05rem; border-radius:8px; border:1px solid #444; background:#222; color:#fff; }
+    .chips { display:flex; gap:0.5rem; flex-wrap:wrap; }
+    .chip { background:#222; border:1px solid #3a332a; color:#ccc; border-radius:999px; padding:0.4rem 0.9rem; cursor:pointer; font-size:0.85rem; }
+    .chip.on { background:#c9a227; color:#141414; border-color:#c9a227; font-weight:700; }
+
+    /* Liste */
+    .wrap { padding:1rem; display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:1rem; }
+    .card { background:#1d1a1a; border:1px solid #3a332a; border-left:6px solid #c9a227; border-radius:8px; padding:1rem 1.1rem; cursor:pointer; transition:transform .08s; }
+    .card:hover { transform:translateY(-2px); background:#242020; }
+    .card .cat { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.5px; color:#c9a227; margin-bottom:0.3rem; }
+    .card h3 { font-size:1.1rem; font-weight:700; margin-bottom:0.4rem; }
+    .card .meta { font-size:0.82rem; color:#999; }
+    #empty { grid-column:1/-1; text-align:center; color:#666; padding:3rem 1rem; font-size:1.05rem; }
+
+    /* Fiche recette */
+    #detail { max-width:900px; margin:0 auto; padding:1rem 1.2rem 4rem; }
+    #detail .back { margin-bottom:1rem; }
+    #detail .cat { font-size:0.8rem; text-transform:uppercase; letter-spacing:0.5px; color:#c9a227; }
+    #detail h2 { font-family:'Noto Serif JP',serif; font-size:1.8rem; color:#fff; margin:0.2rem 0 0.6rem; }
+    #detail .meta { display:flex; gap:1.5rem; flex-wrap:wrap; color:#aaa; font-size:0.95rem; margin-bottom:1.2rem; }
+    .cols { display:grid; grid-template-columns:1fr 2fr; gap:1.5rem; }
+    @media (max-width:700px) { .cols { grid-template-columns:1fr; } }
+    .block { background:#1d1a1a; border:1px solid #3a332a; border-radius:8px; padding:1rem 1.1rem; }
+    .block h4 { color:#c9a227; font-size:0.9rem; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0.7rem; }
+    .block ul, .block ol { list-style:none; }
+    .block li { padding:0.55rem 0.3rem; border-bottom:1px dashed #3a332a; font-size:1.05rem; line-height:1.5; cursor:pointer; display:flex; gap:0.7rem; }
+    .block li:last-child { border-bottom:none; }
+    .block li .n { color:#c9a227; font-weight:700; min-width:1.6em; }
+    .block li.done { opacity:0.4; text-decoration:line-through; }
+    .block li.sub { cursor:default; color:#c9a227; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.5px; padding-top:1rem; border-bottom:none; }
+    .block .none { color:#888; font-size:0.95rem; font-style:italic; }
+    .notes { margin-top:1.5rem; background:#1a1f1a; border:1px solid #2f3a2a; border-left:6px solid #2e7d32; border-radius:8px; padding:1rem 1.1rem; font-size:0.95rem; line-height:1.6; color:#cde; white-space:pre-line; }
+    .hint { color:#777; font-size:0.78rem; margin-top:0.8rem; }
+
+    /* PIN */
+    #pinBox { max-width:320px; margin:20vh auto; text-align:center; }
+    #pinBox img { width:140px; margin-bottom:1rem; }
+    #pinBox input { width:100%; padding:0.8rem; font-size:1.2rem; text-align:center; border-radius:8px; border:1px solid #444; background:#222; color:#fff; margin-bottom:0.8rem; }
+    #pinBox button { width:100%; padding:0.8rem; font-size:1rem; background:#b32428; color:#fff; border:none; border-radius:8px; cursor:pointer; }
+    #pinErr { color:#e77; font-size:0.85rem; margin-top:0.5rem; min-height:1.2em; }
+    .hidden { display:none !important; }
+
+    /* Impression */
+    @media print {
+      body { background:#fff; color:#000; }
+      header, .tools, .back, .hint, #printBtn { display:none !important; }
+      .block, .notes { background:#fff; border-color:#999; color:#000; }
+      #detail h2, .block h4, #detail .cat, .block li .n { color:#000; }
+      .block li.done { opacity:1; text-decoration:none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="pinBox">
+    <img src="img/logo.png" alt="Hoshi">
+    <h2 style="font-family:'Noto Serif JP',serif; color:#c9a227; margin-bottom:1rem;">Recettes</h2>
+    <input type="password" id="pin" placeholder="PIN" inputmode="numeric">
+    <button id="pinGo">Entrer</button>
+    <p id="pinErr"></p>
+  </div>
+
+  <div id="app" class="hidden">
+    <header>
+      <img src="img/logo.png" alt="Hoshi">
+      <h1>Recettes</h1>
+      <a class="btn" href="commandes" style="text-decoration:none;">🍱 Commandes</a>
+      <button id="logoutBtn">🔒 Quitter</button>
+    </header>
+
+    <div id="listView">
+      <div class="tools">
+        <input type="search" id="search" placeholder="Rechercher une recette, un ingrédient…">
+        <div class="chips" id="chips"></div>
+      </div>
+      <div class="wrap" id="list"><p id="empty">Chargement…</p></div>
+    </div>
+
+    <div id="detail" class="hidden"></div>
+  </div>
+
+<script>
+// Même clé que commandes.html : si la tablette est déjà connectée à l'écran cuisine,
+// la page des recettes s'ouvre sans redemander le PIN (et inversement).
+let PIN = localStorage.getItem("hoshi_orders_pin") || "";
+let DATA = { categories: [], recettes: [] };
+let currentCat = "";
+let currentId = null;
+
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, c =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+function pinFeedback(msg) {
+  const el = document.getElementById("pinErr");
+  if (el && !document.getElementById("pinBox").classList.contains("hidden")) el.textContent = msg;
+}
+
+async function load() {
+  if (!PIN) return;
+  try {
+    const resp = await fetch("/api/recettes?k=" + encodeURIComponent(PIN));
+    if (resp.status === 401) { logout("PIN invalide."); return; }
+    let data;
+    try { data = await resp.json(); } catch (e) { throw new Error("Réponse invalide du serveur (" + resp.status + ")"); }
+    if (!resp.ok) throw new Error(data.error || resp.status);
+    DATA = data;
+    document.getElementById("pinBox").classList.add("hidden");
+    document.getElementById("app").classList.remove("hidden");
+    renderChips();
+    renderList();
+    // ouvre directement une recette si l'URL contient #id
+    const h = location.hash.replace("#", "");
+    if (h && DATA.recettes.some(r => r.id === h)) openRecipe(h);
+  } catch (e) {
+    pinFeedback("Erreur : " + e.message);
+  }
+}
+
+function renderChips() {
+  const box = document.getElementById("chips");
+  const cats = [""].concat(DATA.categories || []);
+  box.innerHTML = "";
+  cats.forEach(c => {
+    const b = document.createElement("button");
+    b.className = "chip" + (c === currentCat ? " on" : "");
+    b.textContent = c || "Toutes";
+    b.addEventListener("click", () => { currentCat = c; renderChips(); renderList(); });
+    box.appendChild(b);
+  });
+}
+
+function matches(r, q) {
+  if (!q) return true;
+  const hay = [r.nom, r.categorie, r.notes, ...(r.tags || []), ...(r.ingredients || [])].join(" ").toLowerCase();
+  return hay.includes(q);
+}
+
+function renderList() {
+  const box = document.getElementById("list");
+  const q = document.getElementById("search").value.trim().toLowerCase();
+  const items = (DATA.recettes || [])
+    .filter(r => !currentCat || r.categorie === currentCat)
+    .filter(r => matches(r, q))
+    .sort((a, b) => String(a.nom).localeCompare(String(b.nom), "fr"));
+  if (!items.length) { box.innerHTML = "<p id='empty'>Aucune recette 🍳</p>"; return; }
+  box.innerHTML = "";
+  items.forEach(r => {
+    const d = document.createElement("div");
+    d.className = "card";
+    d.innerHTML = `
+      <div class="cat">${esc(r.categorie)}</div>
+      <h3>${esc(r.nom)}</h3>
+      <div class="meta">${[r.portions && "🍽 " + esc(r.portions), r.temps && "⏱ " + esc(r.temps)].filter(Boolean).join(" · ")}</div>`;
+    d.addEventListener("click", () => openRecipe(r.id));
+    box.appendChild(d);
+  });
+}
+
+function openRecipe(id) {
+  const r = (DATA.recettes || []).find(x => x.id === id);
+  if (!r) return;
+  currentId = id;
+  history.replaceState(null, "", "#" + id);
+  const det = document.getElementById("detail");
+  det.innerHTML = `
+    <button class="btn back" id="backBtn">← Toutes les recettes</button>
+    <button class="btn btn-gold" id="printBtn" style="float:right;">🖨️ Imprimer</button>
+    <div class="cat">${esc(r.categorie)}</div>
+    <h2>${esc(r.nom)}</h2>
+    <div class="meta">
+      ${r.portions ? `<span>🍽 ${esc(r.portions)}</span>` : ""}
+      ${r.temps ? `<span>⏱ ${esc(r.temps)}</span>` : ""}
+    </div>
+    <div class="cols">
+      <div class="block">
+        <h4>Ingrédients</h4>
+        <ul>${(r.ingredients || []).map(i => String(i).startsWith("▸")
+          ? `<li class="sub">${esc(String(i).slice(1).trim())}</li>`
+          : `<li><span class="n">☐</span><span>${esc(i)}</span></li>`).join("")}</ul>
+      </div>
+      <div class="block">
+        <h4>Préparation</h4>
+        ${(r.etapes || []).length
+          ? `<ol>${r.etapes.map((s, i) => `<li><span class="n">${i + 1}.</span><span>${esc(s)}</span></li>`).join("")}</ol>`
+          : `<p class="none">Aucune étape notée — mélanger les ingrédients.</p>`}
+      </div>
+    </div>
+    ${r.notes ? `<div class="notes">${esc(r.notes)}</div>` : ""}
+    <p class="hint">Astuce : touchez une ligne pour la cocher pendant la préparation.</p>`;
+  det.querySelectorAll(".block li:not(.sub)").forEach(li => li.addEventListener("click", () => {
+    li.classList.toggle("done");
+    const box = li.querySelector(".n");
+    if (box && (box.textContent === "☐" || box.textContent === "☑")) box.textContent = li.classList.contains("done") ? "☑" : "☐";
+  }));
+  det.querySelector("#backBtn").addEventListener("click", closeRecipe);
+  det.querySelector("#printBtn").addEventListener("click", () => window.print());
+  document.getElementById("listView").classList.add("hidden");
+  det.classList.remove("hidden");
+  window.scrollTo(0, 0);
+}
+
+function closeRecipe() {
+  currentId = null;
+  history.replaceState(null, "", location.pathname);
+  document.getElementById("detail").classList.add("hidden");
+  document.getElementById("listView").classList.remove("hidden");
+}
+
+function logout(msg) {
+  PIN = ""; localStorage.removeItem("hoshi_orders_pin");
+  document.getElementById("app").classList.add("hidden");
+  document.getElementById("pinBox").classList.remove("hidden");
+  document.getElementById("pinErr").textContent = msg || "";
+}
+
+document.getElementById("search").addEventListener("input", renderList);
+document.getElementById("logoutBtn").addEventListener("click", () => logout(""));
+document.getElementById("pinGo").addEventListener("click", () => {
+  PIN = document.getElementById("pin").value.trim();
+  localStorage.setItem("hoshi_orders_pin", PIN);
+  load();
+});
+document.getElementById("pin").addEventListener("keydown", e => { if (e.key === "Enter") document.getElementById("pinGo").click(); });
+
+if (PIN) load();
+</script>
+</body>
+</html>
