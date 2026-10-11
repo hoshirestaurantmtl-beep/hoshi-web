@@ -25,6 +25,14 @@ const i18n = {
     vegan_label: "végane",
     lactose_free_label: "sans lactose",
     halal_label: "halal",
+    vegetarian_label: "végétarien",
+    gluten_free_label: "sans gluten",
+    allergens_prefix: "Allergènes :",
+    legend_title: "Allergènes et régimes",
+    legend_allergens: "Contient",
+    legend_diets: "Convient aux régimes",
+    allergens_note: "Nos plats sont préparés dans une cuisine qui manipule gluten, soya, poisson, fruits de mer, œufs, lait et sésame. Informez-nous de toute allergie avant de commander.",
+    allergen_names: { gluten: "gluten", soy: "soya", fish: "poisson", shellfish: "fruits de mer", eggs: "œufs", dairy: "lait", sesame: "sésame", mustard: "moutarde", nuts: "noix", sulphites: "sulfites", alcohol: "alcool" },
     today_word: "aujourd'hui",
     reopen_at: "Réouverture des commandes : {day} à {time}",
     hero_btn_menu: "Voir le menu",
@@ -195,6 +203,14 @@ const i18n = {
     vegan_label: "vegan",
     lactose_free_label: "dairy-free",
     halal_label: "halal",
+    vegetarian_label: "vegetarian",
+    gluten_free_label: "gluten-free",
+    allergens_prefix: "Allergens:",
+    legend_title: "Allergens & dietary",
+    legend_allergens: "Contains",
+    legend_diets: "Suitable for",
+    allergens_note: "Our dishes are prepared in a kitchen that handles gluten, soy, fish, shellfish, eggs, dairy and sesame. Please tell us about any allergy before ordering.",
+    allergen_names: { gluten: "gluten", soy: "soy", fish: "fish", shellfish: "shellfish", eggs: "eggs", dairy: "dairy", sesame: "sesame", mustard: "mustard", nuts: "nuts", sulphites: "sulphites", alcohol: "alcohol" },
     today_word: "today",
     reopen_at: "Ordering reopens {day} at {time}",
     hero_btn_menu: "View menu",
@@ -365,6 +381,14 @@ const i18n = {
     vegan_label: "ヴィーガン",
     lactose_free_label: "乳製品不使用",
     halal_label: "ハラール",
+    vegetarian_label: "ベジタリアン",
+    gluten_free_label: "グルテンフリー",
+    allergens_prefix: "アレルゲン：",
+    legend_title: "アレルゲン・食事制限",
+    legend_allergens: "含まれるもの",
+    legend_diets: "対応",
+    allergens_note: "当店の料理は小麦・大豆・魚・甲殻類・卵・乳・ごまを扱う厨房で調理しています。アレルギーのある方はご注文前にお知らせください。",
+    allergen_names: { gluten: "小麦", soy: "大豆", fish: "魚", shellfish: "甲殻類・貝", eggs: "卵", dairy: "乳", sesame: "ごま", mustard: "マスタード", nuts: "ナッツ", sulphites: "亜硫酸塩", alcohol: "アルコール" },
     today_word: "本日",
     reopen_at: "注文再開：{day} {time}",
     hero_btn_menu: "メニューを見る",
@@ -443,6 +467,14 @@ const i18n = {
     vegan_label: "비건",
     lactose_free_label: "유제품 무첨가",
     halal_label: "할랄",
+    vegetarian_label: "채식",
+    gluten_free_label: "글루텐 프리",
+    allergens_prefix: "알레르기 유발 성분:",
+    legend_title: "알레르기 유발 성분 및 식단",
+    legend_allergens: "함유",
+    legend_diets: "식단",
+    allergens_note: "저희 요리는 밀, 대두, 생선, 갑각류, 달걀, 유제품, 참깨를 취급하는 주방에서 조리됩니다. 알레르기가 있으시면 주문 전에 알려주세요.",
+    allergen_names: { gluten: "밀(글루텐)", soy: "대두", fish: "생선", shellfish: "갑각류·조개", eggs: "달걀", dairy: "유제품", sesame: "참깨", mustard: "겨자", nuts: "견과류", sulphites: "아황산염", alcohol: "알코올" },
     today_word: "오늘",
     reopen_at: "주문 재개: {day} {time}",
     hero_btn_menu: "메뉴 보기",
@@ -596,6 +628,68 @@ function effectivePrice(it) {
   return hasPromo(it) ? it.promoPrice : it.price;
 }
 
+// ===== Icônes allergènes / régimes (SVG provisoires, trait = currentColor) =====
+const WHEAT_SVG = '<path d="M12 22V8"/><path d="M12 8c-1.2-1.2-1.2-3.8 0-6 1.2 2.2 1.2 4.8 0 6z"/>' +
+  [11, 15, 19].map(y => `<path d="M12 ${y}c-2.5-.5-3.5-2.5-3.5-4.5 2.5.5 3.5 2.5 3.5 4.5z"/><path d="M12 ${y}c2.5-.5 3.5-2.5 3.5-4.5-2.5.5-3.5 2.5-3.5 4.5z"/>`).join("");
+const CARTON_SVG = '<path d="M7 9l2-5h6l2 5v12H7z"/><path d="M7 9h10"/><path d="M9 4l1.5 5"/>';
+const NO_SVG = inner => `<g transform="translate(12 12) scale(.7) translate(-12 -12)">${inner}</g><circle cx="12" cy="12" r="10.5"/><path d="M4.6 4.6l14.8 14.8"/>`;
+const ICON_SVG = {
+  gluten: WHEAT_SVG,
+  soy: '<g transform="rotate(-40 12 12)"><path d="M3 12c0-2.5 2-3.5 4.5-3.5h9c2.5 0 4.5 1 4.5 3.5s-2 3.5-4.5 3.5h-9C5 15.5 3 14.5 3 12z"/><circle cx="7.5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="16.5" cy="12" r="1.7"/></g>',
+  fish: '<path d="M3 12c3-5 9-6 13-2l5-3v10l-5-3c-4 4-10 3-13-2z"/><circle cx="7.5" cy="11" r=".9" fill="currentColor"/>',
+  shellfish: '<path d="M12 19L4 10a8 8 0 0 1 16 0z"/><path d="M12 19L7 3.8M12 19V2M12 19l5-15.2"/><path d="M10 19h4v2h-4z"/>',
+  eggs: '<path d="M12 3c-3.5 0-6.5 6-6.5 10a6.5 6.5 0 0 0 13 0c0-4-3-10-6.5-10z"/>',
+  dairy: CARTON_SVG,
+  sesame: [[8, 10, -25], [16, 9, 20], [12, 17, 0]].map(([x, y, r]) => `<g transform="translate(${x} ${y}) rotate(${r})"><path d="M0-4.5c1.8 1.5 2.6 4 0 7-2.6-3-1.8-5.5 0-7z"/></g>`).join(""),
+  mustard: '<path d="M11 2h2l1 4h-4z"/><path d="M8 6h8l1 3v11a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V9z"/><path d="M10 14h4"/>',
+  nuts: '<path d="M5 10c0-3.5 3-6 7-6s7 2.5 7 6z"/><path d="M12 4V2"/><path d="M6.5 10c0 6 3 10 5.5 11.5 2.5-1.5 5.5-5.5 5.5-11.5"/>',
+  sulphites: '<text x="12" y="15.5" text-anchor="middle" font-size="8.5" font-weight="700" font-family="sans-serif" fill="currentColor" stroke="none">SO₂</text>',
+  alcohol: '<path d="M7 3h10c0 5-2 8-5 8s-5-3-5-8z"/><path d="M12 11v9M8 21h8"/>',
+  vegetarian: '<path d="M5 19C5 10 11 4 20 4c0 9-6 15-15 15z"/><path d="M5 19l9-9"/>',
+  vegan: '<path d="M12 21v-9"/><path d="M12 12C12 7 9 4 4 4c0 5 3 8 8 8z"/><path d="M12 14c0-4 3-7 8-7 0 4-3 7-8 7z"/>',
+  glutenFree: NO_SVG(WHEAT_SVG),
+  lactoseFree: NO_SVG(CARTON_SVG),
+  halal: '<text x="12" y="15" text-anchor="middle" font-size="8" font-weight="700" fill="currentColor" stroke="none">حلال</text>'
+};
+const ALLERGEN_ORDER = ["gluten", "soy", "fish", "shellfish", "eggs", "dairy", "sesame", "mustard", "nuts", "sulphites", "alcohol"];
+const DIET_ORDER = ["vegetarian", "vegan", "glutenFree", "lactoseFree", "halal"];
+const DIET_LABEL_KEY = { vegetarian: "vegetarian_label", vegan: "vegan_label", glutenFree: "gluten_free_label", lactoseFree: "lactose_free_label", halal: "halal_label" };
+
+function iconLabel(code, lang) {
+  const d = dictFor(lang);
+  return DIET_LABEL_KEY[code] ? d[DIET_LABEL_KEY[code]] : ((d.allergen_names || {})[code] || code);
+}
+function iconHtml(code, lang) {
+  const kind = DIET_LABEL_KEY[code] ? "diet" : "alg";
+  return `<span class="ico ico-${kind}" title="${iconLabel(code, lang)}" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICON_SVG[code] || ""}</svg></span>`;
+}
+// Régimes affichés pour un plat (végane implique végétarien → une seule icône)
+function itemDiets(it) {
+  return DIET_ORDER.filter(c => it[c] && !(c === "vegetarian" && it.vegan));
+}
+
+// Légende en tête du menu : seulement les codes réellement utilisés dans MENU_DATA
+function renderAllergenLegend(lang) {
+  const box = document.getElementById("allergenLegend");
+  if (!box) return;
+  const usedAlg = new Set(), usedDiet = new Set();
+  MENU_DATA.menus.forEach(m => m.sections.forEach(s => s.items.forEach(it => {
+    (Array.isArray(it.allergens) ? it.allergens : []).forEach(a => usedAlg.add(a));
+    itemDiets(it).forEach(c => usedDiet.add(c));
+  })));
+  const d = dictFor(lang);
+  const group = (label, codes) => codes.length
+    ? `<div class="legend-group"><span class="legend-label">${label}</span><ul class="legend-list">${codes.map(c => `<li>${iconHtml(c, lang)}<span>${iconLabel(c, lang)}</span></li>`).join("")}</ul></div>`
+    : "";
+  const algCodes = ALLERGEN_ORDER.filter(c => usedAlg.has(c));
+  const dietCodes = DIET_ORDER.filter(c => usedDiet.has(c));
+  if (!algCodes.length && !dietCodes.length) { box.innerHTML = ""; box.hidden = true; return; }
+  box.hidden = false;
+  box.innerHTML = `<h3 class="legend-title">${d.legend_title}</h3>` +
+    group(d.legend_allergens, algCodes) + group(d.legend_diets, dietCodes) +
+    `<p class="legend-note">${d.allergens_note}</p>`;
+}
+
 function buildSection(sec, lang, lunchRestrictable) {
   const div = document.createElement("div");
   div.className = "menu-section";
@@ -611,16 +705,22 @@ function buildSection(sec, lang, lunchRestrictable) {
     const dineInOnly = it.alcohol || it.dineInOnly;
     const dineInChip = (dineInOnly && TAKEOUT_ENABLED) ? `<span class="dinein-chip">${dictFor(lang).dinein_label}</span>` : "";
     const lunchChip = lunchRestrictable ? `<span class="lunch-chip">${dictFor(lang).lunch_unavailable_label}</span>` : "";
-    const dietChips = [
-      it.vegan ? `<span class="diet-chip">${dictFor(lang).vegan_label}</span>` : "",
-      it.lactoseFree ? `<span class="diet-chip">${dictFor(lang).lactose_free_label}</span>` : "",
-      it.halal ? `<span class="diet-chip">${dictFor(lang).halal_label}</span>` : ""
-    ].join("");
+    // Allergènes (codes : gluten, soy, fish, shellfish, eggs, dairy, sesame, mustard, nuts, sulphites, alcohol)
+    // + régimes → rangée d'icônes, expliquée par la légende en tête du menu
+    const alg = ALLERGEN_ORDER.filter(c => Array.isArray(it.allergens) && it.allergens.includes(c));
+    const diets = itemDiets(it);
+    const srText = [
+      alg.length ? `${dictFor(lang).allergens_prefix} ${alg.map(c => iconLabel(c, lang)).join(", ")}.` : "",
+      diets.map(c => iconLabel(c, lang)).join(", ")
+    ].filter(Boolean).join(" ");
+    const allergenHtml = (alg.length || diets.length)
+      ? `<p class="mi-icons"><span class="visually-hidden">${srText}</span>${alg.map(c => iconHtml(c, lang)).join("")}${alg.length && diets.length ? '<span class="ico-sep"></span>' : ""}${diets.map(c => iconHtml(c, lang)).join("")}</p>`
+      : "";
     const priceHtml = hasPromo(it)
       ? `<span class="price-old">${fmtPrice(it.price)}</span><span class="price-promo">${fmtPrice(it.promoPrice)}</span>`
       : fmtPrice(it.price);
-    li.innerHTML = `<div class="mi-head"><span>${it.name[lang] || it.name.en || it.name.fr}${soldChip}${dineInChip}${lunchChip}${dietChips}</span><span class="dots"></span><span class="price">${priceHtml}</span></div>` +
-      (it.desc ? `<p class="mi-desc">${it.desc[lang] || it.desc.en || it.desc.fr || ""}</p>` : "");
+    li.innerHTML = `<div class="mi-head"><span>${it.name[lang] || it.name.en || it.name.fr}${soldChip}${dineInChip}${lunchChip}</span><span class="dots"></span><span class="price">${priceHtml}</span></div>` +
+      (it.desc ? `<p class="mi-desc">${it.desc[lang] || it.desc.en || it.desc.fr || ""}</p>` : "") + allergenHtml;
     if (it.soldout) li.classList.add("soldout");
     const actions = document.createElement("span");
     actions.className = "item-actions";
@@ -661,6 +761,7 @@ function renderMenus(lang) {
   const lunchBook = document.getElementById("lunchBook");
   const extra = document.getElementById("extraMenus");
   menuBook.innerHTML = ""; lunchBook.innerHTML = ""; extra.innerHTML = "";
+  renderAllergenLegend(lang);
 
   MENU_DATA.menus.forEach((m, i) => {
     if (m.id === "principal") {
@@ -1086,3 +1187,59 @@ window.__renderGoogleReviews = renderGoogleReviews;
 
 setLang(currentLang);
 if (TAKEOUT_ENABLED) setInterval(updateTakeoutAvailability, 60000);
+
+// ===== Mode TEST (hoshimtl.ca/test → /?test=1) =====
+// Après le PIN commandes, applique api/_menu-test-data.js par-dessus MENU_DATA.
+// Rien n'est visible des clients ; le paiement est désactivé dans ce mode.
+const IS_TEST_MODE = new URLSearchParams(location.search).get("test") === "1";
+if (IS_TEST_MODE) (function () {
+  const bar = document.createElement("div");
+  bar.className = "test-bar";
+  bar.innerHTML = '<strong>MODE TEST</strong> — invisible pour les clients · paiement désactivé ' +
+    '<span class="test-pin"><input type="password" id="testPin" placeholder="PIN" inputmode="numeric"><button id="testPinGo">OK</button></span>' +
+    '<span id="testMsg"></span>';
+  document.body.prepend(bar);
+  document.body.classList.add("test-mode");
+  const msg = t => { document.getElementById("testMsg").textContent = t; };
+
+  // Bloque Stripe : le panier reste testable, mais rien n'est payé
+  const send = document.getElementById("sendOrder");
+  if (send) send.addEventListener("click", e => {
+    e.stopImmediatePropagation(); e.preventDefault();
+    document.getElementById("formMsg").textContent = "Mode test : paiement désactivé.";
+  }, true);
+  // Ceinture + bretelles : aucune session Stripe ne peut partir de cette page
+  const realFetch = window.fetch.bind(window);
+  window.fetch = (url, opts) => String(url).includes("/api/create-checkout")
+    ? Promise.reject(new Error("Mode test : paiement désactivé"))
+    : realFetch(url, opts);
+
+  async function load(pin) {
+    msg("Chargement…");
+    try {
+      const resp = await fetch("/api/menu-test?k=" + encodeURIComponent(pin));
+      if (resp.status === 401) { try { localStorage.removeItem("hoshi_orders_pin"); } catch (e) {} msg("PIN invalide."); return; }
+      if (!resp.ok) throw new Error("HTTP " + resp.status);
+      const { items } = await resp.json();
+      try { localStorage.setItem("hoshi_orders_pin", pin); } catch (e) {}
+      let n = 0;
+      MENU_DATA.menus.forEach(m => m.sections.forEach(s => s.items.forEach(it => {
+        const patch = items[it.id];
+        if (!patch) return;
+        n++;
+        Object.keys(patch).forEach(k => { if (patch[k] === null) delete it[k]; else it[k] = patch[k]; });
+      })));
+      document.querySelector(".test-pin").remove();
+      msg(`· ${n} plat(s) modifié(s) en test`);
+      setLang(currentLang);
+    } catch (e) { msg("Erreur : " + e.message); }
+  }
+  document.getElementById("testPinGo").addEventListener("click", () => {
+    const pin = document.getElementById("testPin").value.trim();
+    if (pin) load(pin);
+  });
+  document.getElementById("testPin").addEventListener("keydown", e => { if (e.key === "Enter") document.getElementById("testPinGo").click(); });
+  let saved = "";
+  try { saved = localStorage.getItem("hoshi_orders_pin") || ""; } catch (e) {}
+  if (saved) load(saved);
+})();
