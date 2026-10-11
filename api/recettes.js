@@ -1,17 +1,17 @@
-// ===== Hoshi — Recettes (accès protégé par le PIN cuisine) =====
-// Utilise le même ORDERS_PIN que api/orders.js : un seul code à retenir en cuisine.
-// Les recettes elles-mêmes vivent dans api/_recettes-data.js (jamais servi publiquement).
+// ===== Hoshi — Recipes (protected by the kitchen PIN) =====
+// Uses the same ORDERS_PIN as api/orders.js: one single code to remember in the kitchen.
+// The recipes themselves live in api/_recettes-data.js (never served publicly).
 
 module.exports = async (req, res) => {
   const pin = process.env.ORDERS_PIN;
-  if (!pin) return res.status(500).json({ error: "Configuration manquante" });
+  if (!pin) return res.status(500).json({ error: "Missing configuration" });
 
   const given = String((req.query && req.query.k) || "");
-  // comparaison à temps constant, identique à api/orders.js
+  // constant-time comparison, same as api/orders.js
   const crypto = require("crypto");
   const a = crypto.createHash("sha256").update(given).digest();
   const b = crypto.createHash("sha256").update(String(pin)).digest();
-  if (!crypto.timingSafeEqual(a, b)) return res.status(401).json({ error: "PIN invalide" });
+  if (!crypto.timingSafeEqual(a, b)) return res.status(401).json({ error: "Invalid PIN" });
 
   try {
     const data = require("./_recettes-data.js");
@@ -22,6 +22,6 @@ module.exports = async (req, res) => {
     });
   } catch (e) {
     console.error(e);
-    return res.status(500).json({ error: "Erreur serveur" });
+    return res.status(500).json({ error: "Server error" });
   }
 };

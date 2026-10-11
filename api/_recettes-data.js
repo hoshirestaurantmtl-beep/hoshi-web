@@ -1,33 +1,32 @@
-// ===== Hoshi — Recettes de la cuisine =====
-// Ce fichier commence par « _ » : Vercel ne le publie PAS comme fonction ni comme
-// fichier public. Il n'est lu que par api/recettes.js, après vérification du PIN
-// (le même ORDERS_PIN que l'écran cuisine / commandes.html).
+// ===== Hoshi — Kitchen recipe book =====
+// This file starts with "_": Vercel does NOT publish it as a function or as a
+// public file. It is only read by api/recettes.js after the PIN check
+// (the same ORDERS_PIN as the kitchen screen / commandes.html).
 //
-// Source : première version du livre de recettes rédigée par le chef (octobre 2026).
-// Texte conservé tel quel (en anglais).
+// Source: first draft of the recipe book written by the chef (October 2026).
 //
-// Pour ajouter une recette : copiez un bloc { ... } ci-dessous, changez l'« id »
-// (unique, sans espaces) et le contenu, puis publiez le site (git push).
+// To add a recipe: copy a { ... } block below, change the "id" (unique, no spaces)
+// and the content, then publish the site (git push).
 //
-// Champs :
-//   id          identifiant unique (ex. "sauce-tonkatsu")
-//   nom         nom affiché
-//   categorie   une des catégories listées dans « categories » ci-dessous
-//   portions    texte libre (ex. "1 L", "10 portions")
-//   temps       texte libre (ex. "20 min", "2 h + repos 1 nuit")
-//   ingredients liste de lignes (une ligne commençant par « ▸ » sert de sous-titre)
-//   etapes      liste de lignes, dans l'ordre
-//   notes       (optionnel) astuces, conservation, allergènes…
-//   tags        (optionnel) mots-clés pour la recherche
+// Fields:
+//   id          unique identifier (e.g. "tonkatsu-sauce")
+//   nom         displayed name
+//   categorie   one of the "categories" listed below
+//   portions    free text (e.g. "1 L", "10 portions")
+//   temps       free text (e.g. "20 min", "2 h + overnight rest")
+//   ingredients list of lines (a line starting with "▸" is shown as a sub-heading)
+//   etapes      list of steps, in order
+//   notes       (optional) tips, storage, allergens…
+//   tags        (optional) search keywords
 
 module.exports = {
-  categories: ["Sauces & bases", "Soupes", "Entrées", "Plats", "Préparations"],
+  categories: ["Sauces & Bases", "Soups", "Starters", "Mains", "Prep"],
 
   recettes: [
     {
       id: "butadon-gyudon-sauce",
       nom: "Buta Don / Gyudon Sauce",
-      categorie: "Sauces & bases",
+      categorie: "Sauces & Bases",
       portions: "",
       temps: "",
       ingredients: [
@@ -46,12 +45,12 @@ module.exports = {
         "Combine all ingredients in a pot.",
         "Bring to a gentle simmer."
       ],
-      tags: ["butadon", "gyudon", "boeuf", "porc", "donburi"]
+      tags: ["butadon", "gyudon", "beef", "pork", "donburi"]
     },
     {
       id: "cabbage-dressing",
       nom: "Cabbage Dressing",
-      categorie: "Sauces & bases",
+      categorie: "Sauces & Bases",
       ingredients: [
         "Soy Sauce: 1,000 g",
         "Vinegar: 1,000 g",
@@ -63,12 +62,12 @@ module.exports = {
         "Combine all ingredients in a pot.",
         "Bring to a gentle simmer, stirring continuously until the sugar is fully dissolved."
       ],
-      tags: ["chou", "vinaigrette", "salade"]
+      tags: ["cabbage", "dressing", "salad"]
     },
     {
       id: "coleslaw-sauce",
       nom: "Coleslaw Sauce",
-      categorie: "Sauces & bases",
+      categorie: "Sauces & Bases",
       ingredients: [
         "Mayonnaise: 1,700 g (2 bottles × 850 g)",
         "Yuzu Vinegar Sauce: 30 g",
@@ -79,12 +78,12 @@ module.exports = {
         "Yuzu Juice: 5 g"
       ],
       etapes: [],
-      tags: ["salade de chou", "mayo"]
+      tags: ["coleslaw", "mayo"]
     },
     {
       id: "curry",
       nom: "Curry",
-      categorie: "Plats",
+      categorie: "Mains",
       ingredients: [
         "Onion: 5,000 g",
         "Water: 6,000 ml",
@@ -99,12 +98,12 @@ module.exports = {
         "Bring to a gentle simmer, stirring continuously until the roux is completely melted and incorporated.",
         "Blend with an immersion (hand) blender until the curry sauce is perfectly smooth."
       ],
-      tags: ["katsu curry", "cari"]
+      tags: ["katsu curry"]
     },
     {
       id: "hamburger-steak",
       nom: "Hamburger Steak (Hamburg)",
-      categorie: "Préparations",
+      categorie: "Prep",
       portions: "130 g patties",
       ingredients: [
         "Ground Beef: 1,000 g",
@@ -118,12 +117,12 @@ module.exports = {
         "Thoroughly mix all ingredients until the meat mixture becomes cohesive and tacky.",
         "Portion and shape the mixture into exact 130-gram patties."
       ],
-      tags: ["hambagu", "boeuf", "boulette"]
+      tags: ["hambagu", "beef", "patty"]
     },
     {
       id: "menchi-katsu",
       nom: "Menchi-katsu (Minced Meat Cutlet)",
-      categorie: "Préparations",
+      categorie: "Prep",
       portions: "105 g balls",
       ingredients: [
         "Ground Pork: 1,000 g",
@@ -135,12 +134,12 @@ module.exports = {
         "Thoroughly mix all ingredients until the meat mixture becomes cohesive and tacky.",
         "Portion and shape the mixture into exact 105-gram balls."
       ],
-      tags: ["porc", "boulette", "panée"]
+      tags: ["pork", "cutlet", "breaded"]
     },
     {
       id: "miso-soup",
       nom: "Miso Soup",
-      categorie: "Soupes",
+      categorie: "Soups",
       portions: "6 L",
       ingredients: [
         "Water: 6,000 ml",
@@ -150,12 +149,12 @@ module.exports = {
         "Miso: 450 g"
       ],
       etapes: [],
-      tags: ["soupe", "dashi"]
+      tags: ["soup", "dashi"]
     },
     {
       id: "roux",
       nom: "Roux",
-      categorie: "Sauces & bases",
+      categorie: "Sauces & Bases",
       ingredients: [
         "Butter: 4 sticks (or units)",
         "Flour: Equal weight to the butter used"
@@ -164,12 +163,12 @@ module.exports = {
         "Melt the butter completely over low heat.",
         "Add the flour and whisk thoroughly. Continue cooking and adjusting with flour until the texture resembles wet sand."
       ],
-      tags: ["beurre", "farine", "curry"]
+      tags: ["butter", "flour", "curry"]
     },
     {
       id: "salmon-tare",
       nom: "Salmon Tare (Base Marinating Sauce)",
-      categorie: "Sauces & bases",
+      categorie: "Sauces & Bases",
       ingredients: [
         "Somi Sobatsyu: 3,000 g",
         "Mirin: 1,500 g",
@@ -181,12 +180,12 @@ module.exports = {
         "Combine all ingredients in a pot.",
         "Bring to a gentle simmer."
       ],
-      tags: ["saumon", "marinade"]
+      tags: ["salmon", "marinade"]
     },
     {
       id: "salmon-tartare",
       nom: "Salmon Tartare",
-      categorie: "Entrées",
+      categorie: "Starters",
       temps: "30 min rest",
       ingredients: [
         "Gochujang (Korean Chilli Paste): 100 g",
@@ -208,12 +207,12 @@ module.exports = {
         "Dice the salmon, then toss well with the prepared sauce.",
         "Top with the fried onion chips, green onions, and nori right before serving to maintain maximum crisp texture."
       ],
-      tags: ["saumon", "tartare", "gochujang"]
+      tags: ["salmon", "tartare", "gochujang"]
     },
     {
       id: "spicy-mayo",
       nom: "Spicy Mayo",
-      categorie: "Sauces & bases",
+      categorie: "Sauces & Bases",
       ingredients: [
         "Mayonnaise: 850 g",
         "Sriracha: 100 g",
@@ -221,12 +220,12 @@ module.exports = {
         "Lemon Juice: 10 g"
       ],
       etapes: [],
-      tags: ["mayo épicée", "sriracha"]
+      tags: ["spicy mayo", "sriracha"]
     },
     {
       id: "spicy-sauce",
       nom: "Spicy Sauce",
-      categorie: "Sauces & bases",
+      categorie: "Sauces & Bases",
       ingredients: [
         "Gochujang: 180 g",
         "Ultra Spicy Paste: 100 g",
@@ -235,12 +234,12 @@ module.exports = {
         "Garlic: 10 g"
       ],
       etapes: [],
-      tags: ["piquant", "gochujang"]
+      tags: ["spicy", "gochujang"]
     },
     {
       id: "tare-sauce",
       nom: "Tare Sauce",
-      categorie: "Sauces & bases",
+      categorie: "Sauces & Bases",
       temps: "45 min simmer",
       ingredients: [
         "Soy Sauce: 2,000 g",
@@ -266,7 +265,7 @@ module.exports = {
     {
       id: "tonkatsu-sauce",
       nom: "Tonkatsu Sauce",
-      categorie: "Sauces & bases",
+      categorie: "Sauces & Bases",
       temps: "30–40 min + overnight rest",
       ingredients: [
         "Tonkatsu Sauce: 3,000 g",
@@ -291,7 +290,7 @@ module.exports = {
     {
       id: "udon-soup",
       nom: "Udon Soup",
-      categorie: "Soupes",
+      categorie: "Soups",
       portions: "6 L",
       ingredients: [
         "Water: 6,000 ml",
@@ -304,12 +303,12 @@ module.exports = {
         "Combine all ingredients in a pot.",
         "Bring to a gentle simmer."
       ],
-      tags: ["udon", "bouillon", "dashi"]
+      tags: ["udon", "broth", "dashi"]
     },
     {
       id: "vegan-tempura-sauce",
       nom: "Vegan Tempura Sauce",
-      categorie: "Sauces & bases",
+      categorie: "Sauces & Bases",
       temps: "overnight soak",
       ingredients: [
         "Water: 1,000 ml",
@@ -327,12 +326,12 @@ module.exports = {
         "Stir in the liquid kombu dashi, soy sauce, mirin, sake, and sugar.",
         "Bring to a boil once to burn off the raw alcohol content, then adjust the final flavor balance."
       ],
-      tags: ["tempura", "tentsuyu", "végane", "vegan"]
+      tags: ["tempura", "tentsuyu", "vegan"]
     },
     {
       id: "yuzu-vinegar",
       nom: "Yuzu Vinegar",
-      categorie: "Sauces & bases",
+      categorie: "Sauces & Bases",
       ingredients: [
         "Rice Vinegar: 100 g",
         "Sugar: 50 g",
@@ -340,7 +339,7 @@ module.exports = {
         "MSG: 5 g"
       ],
       etapes: [],
-      tags: ["yuzu", "vinaigre", "coleslaw"]
+      tags: ["yuzu", "vinegar", "coleslaw"]
     }
   ]
 };
