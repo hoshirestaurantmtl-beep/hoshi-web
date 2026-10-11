@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
     const data = require("./_menu-test-data.js");
     res.setHeader("Cache-Control", "no-store");
     res.setHeader("X-Robots-Tag", "noindex");
-    return res.status(200).json({ items: data.items || {} });
+    return res.status(200).json({ menu: data.menu || null, items: data.items || {} });
   } catch (e) {
     console.error(e);
     return res.status(500).json({ error: "Server error" });

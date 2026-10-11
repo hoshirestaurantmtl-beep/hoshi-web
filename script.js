@@ -756,6 +756,11 @@ function buildSection(sec, lang, lunchRestrictable) {
   return div;
 }
 
+// Sans menu « midi » (menu unique midi + soir), pas de section Midi ni de restriction d’horaire
+function hasMidiMenu() {
+  return MENU_DATA.menus.some(m => m.id === "midi");
+}
+
 function renderMenus(lang) {
   const menuBook = document.getElementById("menuBook");
   const lunchBook = document.getElementById("lunchBook");
@@ -765,7 +770,7 @@ function renderMenus(lang) {
 
   MENU_DATA.menus.forEach((m, i) => {
     if (m.id === "principal") {
-      m.sections.forEach(sec => menuBook.appendChild(buildSection(sec, lang, !sec.alwaysAvailable)));
+      m.sections.forEach(sec => menuBook.appendChild(buildSection(sec, lang, hasMidiMenu() && !sec.alwaysAvailable)));
     } else if (m.id === "midi") {
       document.getElementById("lunchNote").textContent = m.note ? (m.note[lang] || m.note.en) : "";
       document.getElementById("lunchFootnote").textContent = m.footnote ? (m.footnote[lang] || m.footnote.en) : "";
@@ -1108,7 +1113,7 @@ const MIDI_CUTOFF_MIN = 15 * 60; // 15:00
 function updateMidiVisibility() {
   const now = montrealNow();
   const isWeekend = now.day === 0 || now.day === 6;
-  const hide = isWeekend || now.min >= MIDI_CUTOFF_MIN;
+  const hide = !hasMidiMenu() || isWeekend || now.min >= MIDI_CUTOFF_MIN;
   const sec = document.getElementById("midi");
   if (sec) sec.style.display = hide ? "none" : "";
   const navLink = document.querySelector('a[href="#midi"]');
@@ -1121,7 +1126,7 @@ setInterval(updateMidiVisibility, 60000);
 // (les sections marquées settings.alwaysAvailable — Extras, Boissons, Desserts — ne sont pas concernées)
 function updatePrincipalOrderability() {
   const now = montrealNow();
-  const restricted = now.day >= 1 && now.day <= 5 && now.min < MIDI_CUTOFF_MIN;
+  const restricted = hasMidiMenu() && now.day >= 1 && now.day <= 5 && now.min < MIDI_CUTOFF_MIN;
   document.body.classList.toggle("lunch-menu-restricted", restricted);
 }
 updatePrincipalOrderability();
@@ -1220,7 +1225,9 @@ if (IS_TEST_MODE) (function () {
       const resp = await fetch("/api/menu-test?k=" + encodeURIComponent(pin));
       if (resp.status === 401) { try { localStorage.removeItem("hoshi_orders_pin"); } catch (e) {} msg("PIN invalide."); return; }
       if (!resp.ok) throw new Error("HTTP " + resp.status);
-      const { items } = await resp.json();
+      const { menu, items } = await resp.json();
+      // Menu complet de test (sections, plats, prix) : remplace les menus, garde les réglages (horaires…) du site
+      if (menu && Array.isArray(menu.menus)) MENU_DATA.menus = menu.menus;
       try { localStorage.setItem("hoshi_orders_pin", pin); } catch (e) {}
       let n = 0;
       MENU_DATA.menus.forEach(m => m.sections.forEach(s => s.items.forEach(it => {
@@ -1230,8 +1237,10 @@ if (IS_TEST_MODE) (function () {
         Object.keys(patch).forEach(k => { if (patch[k] === null) delete it[k]; else it[k] = patch[k]; });
       })));
       document.querySelector(".test-pin").remove();
-      msg(`· ${n} plat(s) modifié(s) en test`);
+      msg(menu && menu.menus ? "· menu complet de test" : `· ${n} plat(s) modifié(s) en test`);
       setLang(currentLang);
+      updateMidiVisibility();
+      updatePrincipalOrderability();
     } catch (e) { msg("Erreur : " + e.message); }
   }
   document.getElementById("testPinGo").addEventListener("click", () => {
