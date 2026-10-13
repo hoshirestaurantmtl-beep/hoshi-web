@@ -37,6 +37,8 @@ function dietInfo(it) {
   const out = {};
   const alg = Array.isArray(it.allergens) ? it.allergens.filter(c => ALLERGENS.includes(c)) : [];
   if (alg.length) out.allergens = alg;
+  const traces = Array.isArray(it.traces) ? it.traces.filter(c => ALLERGENS.includes(c) && !alg.includes(c)) : [];
+  if (traces.length) out.traces = traces;
   const diets = DIETS.filter(d => it[d]);
   if (diets.length) out.diets = diets;
   return out;

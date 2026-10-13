@@ -710,6 +710,7 @@ body.test-mode { padding-bottom: 3.5rem; }
 .ico svg { width: 15px; height: 15px; }
 .ico-alg { color: #d47a22; background: #fdf1e4; }
 .ico-diet { color: #2e7d32; background: #eef6ee; }
+.ico-trace { color: #d9a066; background: transparent; border-style: dashed; }
 .mi-icons {
   display: flex;
   flex-wrap: wrap;

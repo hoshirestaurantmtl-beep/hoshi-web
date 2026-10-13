@@ -51,6 +51,7 @@
     .ico svg { width:15px; height:15px; }
     .ico-alg { color:#d47a22; background:#fdf1e4; }
     .ico-diet { color:#2e7d32; background:#eef6ee; }
+    .ico-trace { color:#d9a066; background:transparent; border-style:dashed; }
     .it-icons { display:flex; flex-wrap:wrap; align-items:center; gap:4px; margin-top:0.35rem; }
     .ico-sep { width:1px; height:16px; background:#d8cfbf; margin:0 3px; }
     .vh { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
@@ -134,28 +135,36 @@ const T_EXTRA = {
     "lgAlg": "Contient",
     "lgDiet": "Convient aux régimes",
     "algPrefix": "Allergènes :",
-    "lgNote": "Nos plats sont préparés dans une cuisine qui manipule gluten, soya, poisson, fruits de mer, œufs, lait et sésame. Les informations sur les allergènes sont en cours de vérification : en cas d’allergie, parlez-en à notre équipe avant de commander."
+    "trPrefix": "Traces possibles :",
+    "lgTr": "Traces possibles (friture partagée)",
+    "lgNote": "Nos plats sont préparés dans une cuisine qui manipule gluten, soya, poisson, fruits de mer, œufs, lait et sésame. Informez-nous de toute allergie avant de commander."
   },
   "en": {
     "lgTitle": "Allergens & dietary",
     "lgAlg": "Contains",
     "lgDiet": "Suitable for",
     "algPrefix": "Allergens:",
-    "lgNote": "Our dishes are prepared in a kitchen that handles gluten, soy, fish, shellfish, eggs, dairy and sesame. Allergen information is still being verified: if you have an allergy, please speak to our staff before ordering."
+    "trPrefix": "May contain:",
+    "lgTr": "May contain (shared fryer)",
+    "lgNote": "Our dishes are prepared in a kitchen that handles gluten, soy, fish, shellfish, eggs, dairy and sesame. Please tell us about any allergy before ordering."
   },
   "ja": {
     "lgTitle": "アレルゲン・食事制限",
     "lgAlg": "含まれるもの",
     "lgDiet": "対応",
     "algPrefix": "アレルゲン：",
-    "lgNote": "当店の料理は小麦・大豆・魚・甲殻類・卵・乳・ごまを扱う厨房で調理しています。アレルゲン情報は現在確認中です。アレルギーのある方は、ご注文前に必ずスタッフにお申し付けください。"
+    "trPrefix": "混入の可能性：",
+    "lgTr": "混入の可能性（共用フライヤー）",
+    "lgNote": "当店の料理は小麦・大豆・魚・甲殻類・卵・乳・ごまを扱う厨房で調理しています。アレルギーのある方はご注文前にお知らせください。"
   },
   "ko": {
     "lgTitle": "알레르기 유발 성분 및 식단",
     "lgAlg": "함유",
     "lgDiet": "식단",
     "algPrefix": "알레르기 유발 성분:",
-    "lgNote": "저희 요리는 밀, 대두, 생선, 갑각류, 달걀, 유제품, 참깨를 취급하는 주방에서 조리됩니다. 알레르기 정보는 현재 확인 중입니다. 알레르기가 있으시면 주문 전에 반드시 직원에게 말씀해 주세요."
+    "trPrefix": "교차 오염 가능:",
+    "lgTr": "교차 오염 가능 (공용 튀김기)",
+    "lgNote": "저희 요리는 밀, 대두, 생선, 갑각류, 달걀, 유제품, 참깨를 취급하는 주방에서 조리됩니다. 알레르기가 있으시면 주문 전에 알려주세요."
   }
 };
 Object.keys(T_EXTRA).forEach(l => Object.assign(T[l], T_EXTRA[l]));
@@ -172,23 +181,25 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;",
 const tr = o => (o && (o[lang] || o.en || o.fr)) || "";
 
 const icoLabel = c => (ICON_LABELS[lang] || ICON_LABELS.fr)[c] || c;
-const ico = c => '<span class="ico ' + (DIET_ORDER.includes(c) ? "ico-diet" : "ico-alg") + '" title="' + icoLabel(c) + '" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + (ICON_SVG[c] || "") + '</svg></span>';
+const ico = (c, trace) => '<span class="ico ' + (trace ? "ico-trace" : DIET_ORDER.includes(c) ? "ico-diet" : "ico-alg") + '" title="' + (trace ? T[lang].trPrefix + " " : "") + icoLabel(c) + '" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + (ICON_SVG[c] || "") + '</svg></span>';
 // végane implique végétarien → une seule icône
 const itemDiets = it => (it.diets || []).filter(c => !(c === "vegetarian" && (it.diets || []).includes("vegan")));
 function iconsHtml(it) {
   const alg = ALLERGEN_ORDER.filter(c => (it.allergens || []).includes(c));
+  const tr = ALLERGEN_ORDER.filter(c => (it.traces || []).includes(c));
   const diets = DIET_ORDER.filter(c => itemDiets(it).includes(c));
-  if (!alg.length && !diets.length) return "";
-  const sr = [alg.length ? T[lang].algPrefix + " " + alg.map(icoLabel).join(", ") + "." : "", diets.map(icoLabel).join(", ")].filter(Boolean).join(" ");
-  return '<div class="it-icons"><span class="vh">' + esc(sr) + '</span>' + alg.map(ico).join("") + (alg.length && diets.length ? '<span class="ico-sep"></span>' : "") + diets.map(ico).join("") + '</div>';
+  if (!alg.length && !tr.length && !diets.length) return "";
+  const sr = [alg.length ? T[lang].algPrefix + " " + alg.map(icoLabel).join(", ") + "." : "", tr.length ? T[lang].trPrefix + " " + tr.map(icoLabel).join(", ") + "." : "", diets.map(icoLabel).join(", ")].filter(Boolean).join(" ");
+  const a = alg.map(c => ico(c)).join("") + tr.map(c => ico(c, true)).join("");
+  return '<div class="it-icons"><span class="vh">' + esc(sr) + '</span>' + a + (a && diets.length ? '<span class="ico-sep"></span>' : "") + diets.map(c => ico(c)).join("") + '</div>';
 }
 function renderLegend() {
   const box = document.getElementById("legend");
-  const usedA = new Set(), usedD = new Set();
-  DATA.sections.forEach(s => s.items.forEach(it => { (it.allergens || []).forEach(c => usedA.add(c)); itemDiets(it).forEach(c => usedD.add(c)); }));
+  const usedA = new Set(), usedD = new Set(), usedT = new Set();
+  DATA.sections.forEach(s => s.items.forEach(it => { (it.allergens || []).forEach(c => usedA.add(c)); (it.traces || []).forEach(c => usedT.add(c)); itemDiets(it).forEach(c => usedD.add(c)); }));
   const d = T[lang];
-  const grp = (label, codes) => codes.length ? '<div class="lg-group"><span class="lg-label">' + label + '</span><ul class="lg-list">' + codes.map(c => '<li>' + ico(c) + '<span>' + icoLabel(c) + '</span></li>').join("") + '</ul></div>' : "";
-  box.innerHTML = '<h2>' + d.lgTitle + '</h2>' + grp(d.lgAlg, ALLERGEN_ORDER.filter(c => usedA.has(c))) + grp(d.lgDiet, DIET_ORDER.filter(c => usedD.has(c))) + '<p class="lg-note">' + d.lgNote + '</p>';
+  const grp = (label, codes, trace) => codes.length ? '<div class="lg-group"><span class="lg-label">' + label + '</span><ul class="lg-list">' + codes.map(c => '<li>' + ico(c, trace) + '<span>' + icoLabel(c) + '</span></li>').join("") + '</ul></div>' : "";
+  box.innerHTML = '<h2>' + d.lgTitle + '</h2>' + grp(d.lgAlg, ALLERGEN_ORDER.filter(c => usedA.has(c))) + grp(d.lgTr, ALLERGEN_ORDER.filter(c => usedT.has(c)), true) + grp(d.lgDiet, DIET_ORDER.filter(c => usedD.has(c))) + '<p class="lg-note">' + d.lgNote + '</p>';
   box.hidden = false;
 }
 

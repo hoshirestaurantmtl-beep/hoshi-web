@@ -28,11 +28,13 @@ const i18n = {
     vegetarian_label: "végétarien",
     gluten_free_label: "sans gluten",
     allergens_prefix: "Allergènes :",
+    traces_prefix: "Traces possibles :",
+    legend_traces: "Traces possibles (friture partagée)",
     next_menu_banner: "<strong>Nouveau menu dès le lundi 19 octobre</strong> — tempura, un seul menu midi et soir. <u>Voir l’aperçu →</u>",
     legend_title: "Allergènes et régimes",
     legend_allergens: "Contient",
     legend_diets: "Convient aux régimes",
-    allergens_note: "Nos plats sont préparés dans une cuisine qui manipule gluten, soya, poisson, fruits de mer, œufs, lait et sésame. Les informations sur les allergènes sont en cours de vérification : en cas d’allergie, parlez-en à notre équipe avant de commander.",
+    allergens_note: "Nos plats sont préparés dans une cuisine qui manipule gluten, soya, poisson, fruits de mer, œufs, lait et sésame. Informez-nous de toute allergie avant de commander.",
     allergen_names: { gluten: "gluten", soy: "soya", fish: "poisson", shellfish: "fruits de mer", eggs: "œufs", dairy: "lait", sesame: "sésame", mustard: "moutarde", nuts: "noix", sulphites: "sulfites", alcohol: "alcool" },
     today_word: "aujourd'hui",
     reopen_at: "Réouverture des commandes : {day} à {time}",
@@ -207,11 +209,13 @@ const i18n = {
     vegetarian_label: "vegetarian",
     gluten_free_label: "gluten-free",
     allergens_prefix: "Allergens:",
+    traces_prefix: "May contain:",
+    legend_traces: "May contain (shared fryer)",
     next_menu_banner: "<strong>New menu starting Monday, October 19</strong> — tempura, one menu for lunch and dinner. <u>See the preview →</u>",
     legend_title: "Allergens & dietary",
     legend_allergens: "Contains",
     legend_diets: "Suitable for",
-    allergens_note: "Our dishes are prepared in a kitchen that handles gluten, soy, fish, shellfish, eggs, dairy and sesame. Allergen information is still being verified: if you have an allergy, please speak to our staff before ordering.",
+    allergens_note: "Our dishes are prepared in a kitchen that handles gluten, soy, fish, shellfish, eggs, dairy and sesame. Please tell us about any allergy before ordering.",
     allergen_names: { gluten: "gluten", soy: "soy", fish: "fish", shellfish: "shellfish", eggs: "eggs", dairy: "dairy", sesame: "sesame", mustard: "mustard", nuts: "nuts", sulphites: "sulphites", alcohol: "alcohol" },
     today_word: "today",
     reopen_at: "Ordering reopens {day} at {time}",
@@ -386,11 +390,13 @@ const i18n = {
     vegetarian_label: "ベジタリアン",
     gluten_free_label: "グルテンフリー",
     allergens_prefix: "アレルゲン：",
+    traces_prefix: "混入の可能性：",
+    legend_traces: "混入の可能性（共用フライヤー）",
     next_menu_banner: "<strong>10月19日（月）から新メニュー</strong> — 天ぷら登場、ランチとディナーが同じメニューに。<u>プレビューを見る →</u>",
     legend_title: "アレルゲン・食事制限",
     legend_allergens: "含まれるもの",
     legend_diets: "対応",
-    allergens_note: "当店の料理は小麦・大豆・魚・甲殻類・卵・乳・ごまを扱う厨房で調理しています。アレルゲン情報は現在確認中です。アレルギーのある方は、ご注文前に必ずスタッフにお申し付けください。",
+    allergens_note: "当店の料理は小麦・大豆・魚・甲殻類・卵・乳・ごまを扱う厨房で調理しています。アレルギーのある方はご注文前にお知らせください。",
     allergen_names: { gluten: "小麦", soy: "大豆", fish: "魚", shellfish: "甲殻類・貝", eggs: "卵", dairy: "乳", sesame: "ごま", mustard: "マスタード", nuts: "ナッツ", sulphites: "亜硫酸塩", alcohol: "アルコール" },
     today_word: "本日",
     reopen_at: "注文再開：{day} {time}",
@@ -473,11 +479,13 @@ const i18n = {
     vegetarian_label: "채식",
     gluten_free_label: "글루텐 프리",
     allergens_prefix: "알레르기 유발 성분:",
+    traces_prefix: "교차 오염 가능:",
+    legend_traces: "교차 오염 가능 (공용 튀김기)",
     next_menu_banner: "<strong>10월 19일(월)부터 새 메뉴</strong> — 덴푸라 추가, 점심·저녁 동일 메뉴. <u>미리보기 →</u>",
     legend_title: "알레르기 유발 성분 및 식단",
     legend_allergens: "함유",
     legend_diets: "식단",
-    allergens_note: "저희 요리는 밀, 대두, 생선, 갑각류, 달걀, 유제품, 참깨를 취급하는 주방에서 조리됩니다. 알레르기 정보는 현재 확인 중입니다. 알레르기가 있으시면 주문 전에 반드시 직원에게 말씀해 주세요.",
+    allergens_note: "저희 요리는 밀, 대두, 생선, 갑각류, 달걀, 유제품, 참깨를 취급하는 주방에서 조리됩니다. 알레르기가 있으시면 주문 전에 알려주세요.",
     allergen_names: { gluten: "밀(글루텐)", soy: "대두", fish: "생선", shellfish: "갑각류·조개", eggs: "달걀", dairy: "유제품", sesame: "참깨", mustard: "겨자", nuts: "견과류", sulphites: "아황산염", alcohol: "알코올" },
     today_word: "오늘",
     reopen_at: "주문 재개: {day} {time}",
@@ -639,9 +647,14 @@ function iconLabel(code, lang) {
   const d = dictFor(lang);
   return DIET_LABEL_KEY[code] ? d[DIET_LABEL_KEY[code]] : ((d.allergen_names || {})[code] || code);
 }
-function iconHtml(code, lang) {
-  const kind = DIET_LABEL_KEY[code] ? "diet" : "alg";
-  return `<span class="ico ico-${kind}" title="${iconLabel(code, lang)}" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICON_SVG[code] || ""}</svg></span>`;
+function iconHtml(code, lang, trace) {
+  const kind = trace ? "trace" : DIET_LABEL_KEY[code] ? "diet" : "alg";
+  const title = trace ? `${dictFor(lang).traces_prefix} ${iconLabel(code, lang)}` : iconLabel(code, lang);
+  return `<span class="ico ico-${kind}" title="${title}" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICON_SVG[code] || ""}</svg></span>`;
+}
+function itemTraces(it) {
+  const contains = Array.isArray(it.allergens) ? it.allergens : [];
+  return ALLERGEN_ORDER.filter(c => Array.isArray(it.traces) && it.traces.includes(c) && !contains.includes(c));
 }
 // Régimes affichés pour un plat (végane implique végétarien → une seule icône)
 function itemDiets(it) {
@@ -652,34 +665,39 @@ function itemDiets(it) {
 function renderAllergenLegend(lang) {
   const box = document.getElementById("allergenLegend");
   if (!box) return;
-  const usedAlg = new Set(), usedDiet = new Set();
+  const usedAlg = new Set(), usedDiet = new Set(), usedTrace = new Set();
   MENU_DATA.menus.forEach(m => m.sections.forEach(s => s.items.forEach(it => {
     (Array.isArray(it.allergens) ? it.allergens : []).forEach(a => usedAlg.add(a));
+    itemTraces(it).forEach(c => usedTrace.add(c));
     itemDiets(it).forEach(c => usedDiet.add(c));
   })));
   const d = dictFor(lang);
-  const group = (label, codes) => codes.length
-    ? `<div class="legend-group"><span class="legend-label">${label}</span><ul class="legend-list">${codes.map(c => `<li>${iconHtml(c, lang)}<span>${iconLabel(c, lang)}</span></li>`).join("")}</ul></div>`
+  const group = (label, codes, trace) => codes.length
+    ? `<div class="legend-group"><span class="legend-label">${label}</span><ul class="legend-list">${codes.map(c => `<li>${iconHtml(c, lang, trace)}<span>${iconLabel(c, lang)}</span></li>`).join("")}</ul></div>`
     : "";
+  const traceCodes = ALLERGEN_ORDER.filter(c => usedTrace.has(c));
   const algCodes = ALLERGEN_ORDER.filter(c => usedAlg.has(c));
   const dietCodes = DIET_ORDER.filter(c => usedDiet.has(c));
   if (!algCodes.length && !dietCodes.length) { box.innerHTML = ""; box.hidden = true; return; }
   box.hidden = false;
   box.innerHTML = `<h3 class="legend-title">${d.legend_title}</h3>` +
-    group(d.legend_allergens, algCodes) + group(d.legend_diets, dietCodes) +
+    group(d.legend_allergens, algCodes) + group(d.legend_traces, traceCodes, true) + group(d.legend_diets, dietCodes) +
     `<p class="legend-note">${d.allergens_note}</p>`;
 }
 
 // Rangée d'icônes allergènes / régimes d'un plat
 function itemIconsHtml(it, lang) {
   const alg = ALLERGEN_ORDER.filter(c => Array.isArray(it.allergens) && it.allergens.includes(c));
+  const traces = itemTraces(it);
   const diets = itemDiets(it);
-  if (!alg.length && !diets.length) return "";
+  if (!alg.length && !traces.length && !diets.length) return "";
   const srText = [
     alg.length ? `${dictFor(lang).allergens_prefix} ${alg.map(c => iconLabel(c, lang)).join(", ")}.` : "",
+    traces.length ? `${dictFor(lang).traces_prefix} ${traces.map(c => iconLabel(c, lang)).join(", ")}.` : "",
     diets.map(c => iconLabel(c, lang)).join(", ")
   ].filter(Boolean).join(" ");
-  return `<p class="mi-icons"><span class="visually-hidden">${srText}</span>${alg.map(c => iconHtml(c, lang)).join("")}${alg.length && diets.length ? '<span class="ico-sep"></span>' : ""}${diets.map(c => iconHtml(c, lang)).join("")}</p>`;
+  const algHtml = alg.map(c => iconHtml(c, lang)).join("") + traces.map(c => iconHtml(c, lang, true)).join("");
+  return `<p class="mi-icons"><span class="visually-hidden">${srText}</span>${algHtml}${algHtml && diets.length ? '<span class="ico-sep"></span>' : ""}${diets.map(c => iconHtml(c, lang)).join("")}</p>`;
 }
 
 function photoButton(it, caption) {

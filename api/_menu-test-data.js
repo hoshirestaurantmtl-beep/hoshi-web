@@ -49,9 +49,12 @@ module.exports = {
                 "photo": "img/e1-1788304341079.jpg",
                 "allergens": [
                   "gluten",
-                  "soy",
                   "fish",
-                  "eggs"
+                  "eggs",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ]
               },
               {
@@ -82,6 +85,7 @@ module.exports = {
                 "price": 4.5,
                 "photo": "img/e5-1788882356617.jpg",
                 "allergens": [
+                  "gluten",
                   "eggs",
                   "dairy"
                 ],
@@ -105,10 +109,14 @@ module.exports = {
                 "photo": "img/ks1-1788302047787.jpg",
                 "allergens": [
                   "gluten",
-                  "eggs",
-                  "soy",
                   "fish",
+                  "eggs",
+                  "dairy",
+                  "soy",
                   "mustard"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "dineInOnly": true
               },
@@ -123,9 +131,9 @@ module.exports = {
                 "price": 7,
                 "photo": "img/x5-1788484540505.jpg",
                 "allergens": [
+                  "gluten",
                   "fish",
-                  "soy",
-                  "gluten"
+                  "soy"
                 ]
               },
               {
@@ -137,6 +145,11 @@ module.exports = {
                   "ko": "미니 부타동"
                 },
                 "price": 8,
+                "allergens": [
+                  "gluten",
+                  "fish",
+                  "soy"
+                ],
                 "soldout": true,
                 "preparing": true
               },
@@ -149,6 +162,12 @@ module.exports = {
                   "ko": "감자 샐러드"
                 },
                 "price": 5.5,
+                "allergens": [
+                  "gluten",
+                  "eggs",
+                  "dairy"
+                ],
+                "vegetarian": true,
                 "soldout": true,
                 "preparing": true
               },
@@ -165,7 +184,13 @@ module.exports = {
                 "preparing": true
               }
             ],
-            "alwaysAvailable": true
+            "alwaysAvailable": true,
+            "staffNote": {
+              "fr": "Coleslaw et salade de pommes de terre : sans oignons frits = sans gluten. Ne peuvent pas être véganes (mayonnaise aux œufs).",
+              "en": "Coleslaw and potato salad: without fried onions = gluten-free. Cannot be made vegan (egg mayonnaise).",
+              "ja": "コールスロー・ポテトサラダ：フライドオニオン抜きでグルテンフリー。卵入りマヨネーズのためヴィーガン不可。",
+              "ko": "코울슬로·감자 샐러드: 튀긴 양파 제외 시 글루텐 프리. 달걀 마요네즈로 비건 불가."
+            }
           },
           {
             "kanji": "豚カツ",
@@ -182,10 +207,10 @@ module.exports = {
               "ko": "정식에는 일본식 절임(다쿠앙, 시바즈케)이 함께 나옵니다."
             },
             "staffNote": {
-              "fr": "Tailles — Moyen : 2 morceaux (80–100 g chacun) · Régulier : 1 pièce (200–205 g) · Grand : 3 morceaux (80–100 g chacun).",
-              "en": "Sizes — Medium: 2 pieces (80–100 g each) · Regular: 1 piece (200–205 g) · Large: 3 pieces (80–100 g each).",
-              "ja": "サイズ — ミディアム：2枚（各80〜100g）・レギュラー：1枚（200〜205g）・ラージ：3枚（各80〜100g）。",
-              "ko": "사이즈 — 미디엄: 2조각(각 80~100g) · 레귤러: 1조각(200~205g) · 라지: 3조각(각 80~100g)."
+              "fr": "Tailles — Moyen : 2 morceaux (80–100 g chacun) · Régulier : 1 pièce (200–205 g) · Grand : 3 morceaux (80–100 g chacun). Allergie au poisson : le katsu peut être servi SANS sauce tonkatsu (dashi de poisson). Le chou peut être resservi 1 fois gratuitement (sur place seulement, à dire oralement).",
+              "en": "Sizes — Medium: 2 pieces (80–100 g each) · Regular: 1 piece (200–205 g) · Large: 3 pieces (80–100 g each). Fish allergy: katsu can be served WITHOUT tonkatsu sauce (fish dashi). Cabbage: one free refill (dine-in only, tell guests verbally).",
+              "ja": "サイズ — ミディアム：2枚（各80〜100g）・レギュラー：1枚（200〜205g）・ラージ：3枚（各80〜100g）。魚アレルギー：とんかつはソースなし（魚だし入り）で提供可能。キャベツはおかわり1回無料（店内のみ・口頭でご案内）。",
+              "ko": "사이즈 — 미디엄: 2조각(각 80~100g) · 레귤러: 1조각(200~205g) · 라지: 3조각(각 80~100g). 생선 알레르기: 돈카츠는 소스 없이(생선 육수 포함) 제공 가능. 양배추 1회 무료 리필(매장 식사만, 구두 안내)."
             },
             "alwaysAvailable": true,
             "items": [
@@ -207,9 +232,13 @@ module.exports = {
                 "photo": "img/k1-1788296217572.jpg",
                 "allergens": [
                   "gluten",
+                  "fish",
                   "eggs",
-                  "soy",
-                  "fish"
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "sizeOf": "k1",
                 "size": {
@@ -243,9 +272,13 @@ module.exports = {
                 "photo": "img/k1-1788296217572.jpg",
                 "allergens": [
                   "gluten",
+                  "fish",
                   "eggs",
-                  "soy",
-                  "fish"
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "dineInOnly": true,
                 "sizeOf": "k1",
@@ -280,9 +313,13 @@ module.exports = {
                 "photo": "img/k1-1788296217572.jpg",
                 "allergens": [
                   "gluten",
+                  "fish",
                   "eggs",
-                  "soy",
-                  "fish"
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "sizeOf": "k1",
                 "size": {
@@ -316,9 +353,13 @@ module.exports = {
                 "photo": "img/k2-1788884605130.jpg",
                 "allergens": [
                   "gluten",
+                  "fish",
                   "eggs",
-                  "soy",
-                  "fish"
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "dineInOnly": true
               },
@@ -340,9 +381,13 @@ module.exports = {
                 "photo": "img/k4-1788296226268.jpg",
                 "allergens": [
                   "gluten",
+                  "fish",
                   "eggs",
-                  "soy",
-                  "fish"
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "sizeOf": "k4",
                 "size": {
@@ -376,9 +421,13 @@ module.exports = {
                 "photo": "img/k4-1788296226268.jpg",
                 "allergens": [
                   "gluten",
+                  "fish",
                   "eggs",
-                  "soy",
-                  "fish"
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "dineInOnly": true,
                 "sizeOf": "k4",
@@ -413,9 +462,13 @@ module.exports = {
                 "photo": "img/k4-1788296226268.jpg",
                 "allergens": [
                   "gluten",
+                  "fish",
                   "eggs",
-                  "soy",
-                  "fish"
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "sizeOf": "k4",
                 "size": {
@@ -443,9 +496,13 @@ module.exports = {
                 "photo": "img/x7-1788882386318.jpg",
                 "allergens": [
                   "gluten",
+                  "fish",
                   "eggs",
-                  "soy",
-                  "fish"
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ]
               },
               {
@@ -460,9 +517,13 @@ module.exports = {
                 "photo": "img/x6-1788484635964.jpg",
                 "allergens": [
                   "gluten",
+                  "fish",
                   "eggs",
-                  "soy",
-                  "fish"
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "dineInOnly": true
               }
@@ -502,10 +563,13 @@ module.exports = {
                 "photo": "img/c1-1788448670670.jpg",
                 "allergens": [
                   "gluten",
-                  "eggs",
-                  "soy",
                   "fish",
-                  "dairy"
+                  "eggs",
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "sizeOf": "c1",
                 "size": {
@@ -533,10 +597,13 @@ module.exports = {
                 "photo": "img/c1-1788448670670.jpg",
                 "allergens": [
                   "gluten",
-                  "eggs",
-                  "soy",
                   "fish",
-                  "dairy"
+                  "eggs",
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "dineInOnly": true,
                 "sizeOf": "c1",
@@ -565,10 +632,13 @@ module.exports = {
                 "photo": "img/c1-1788448670670.jpg",
                 "allergens": [
                   "gluten",
-                  "eggs",
-                  "soy",
                   "fish",
-                  "dairy"
+                  "eggs",
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "sizeOf": "c1",
                 "size": {
@@ -596,10 +666,13 @@ module.exports = {
                 "photo": "img/c2-1788448675377.jpg",
                 "allergens": [
                   "gluten",
-                  "eggs",
-                  "soy",
                   "fish",
-                  "dairy"
+                  "eggs",
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "dineInOnly": true
               },
@@ -615,10 +688,13 @@ module.exports = {
                 "photo": "img/c4-1788296238814.jpg",
                 "allergens": [
                   "gluten",
-                  "eggs",
-                  "soy",
                   "fish",
-                  "dairy"
+                  "eggs",
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "sizeOf": "c4",
                 "size": {
@@ -646,10 +722,13 @@ module.exports = {
                 "photo": "img/c4-1788296238814.jpg",
                 "allergens": [
                   "gluten",
-                  "eggs",
-                  "soy",
                   "fish",
-                  "dairy"
+                  "eggs",
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "dineInOnly": true,
                 "sizeOf": "c4",
@@ -678,10 +757,13 @@ module.exports = {
                 "photo": "img/c4-1788296238814.jpg",
                 "allergens": [
                   "gluten",
-                  "eggs",
-                  "soy",
                   "fish",
-                  "dairy"
+                  "eggs",
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "sizeOf": "c4",
                 "size": {
@@ -709,10 +791,13 @@ module.exports = {
                 "photo": "img/c5-1788296256941.jpg",
                 "allergens": [
                   "gluten",
-                  "eggs",
-                  "soy",
                   "fish",
-                  "dairy"
+                  "eggs",
+                  "dairy",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ],
                 "dineInOnly": true
               },
@@ -742,6 +827,12 @@ module.exports = {
               "ja": "天ぷら",
               "ko": "덴푸라"
             },
+            "staffNote": {
+              "fr": "Légumes et tofu frits dans une friteuse réservée aux légumes : 100 % végétarien et végane. Ebi : traces possibles de poisson et d’œuf ; chikuwa : traces de fruits de mer (huile partagée).",
+              "en": "Vegetables and tofu are fried in a vegetable-only fryer: 100% vegetarian and vegan. Ebi: may contain fish and egg; chikuwa: may contain shellfish (shared oil).",
+              "ja": "野菜と豆腐は野菜専用フライヤーで調理：ベジタリアン・ヴィーガン対応。海老天は魚・卵、ちくわ天は甲殻類の混入の可能性あり（共用油）。",
+              "ko": "야채와 두부는 야채 전용 튀김기 사용: 채식·비건 가능. 새우는 생선·달걀, 치쿠와는 갑각류 교차 오염 가능(공용 기름)."
+            },
             "alwaysAvailable": true,
             "items": [
               {
@@ -753,6 +844,13 @@ module.exports = {
                   "ko": "덴푸라 정식"
                 },
                 "price": 26,
+                "allergens": [
+                  "gluten",
+                  "fish",
+                  "shellfish",
+                  "eggs",
+                  "soy"
+                ],
                 "desc": {
                   "fr": "2 crevettes, citrouille, racine de lotus, chikuwa, kakiage — riz, tentsuyu, soupe miso, pickles (soupe udon simple au lieu du riz : +3 $)",
                   "en": "2 shrimp, pumpkin, lotus root, chikuwa, kakiage — rice, tentsuyu, miso soup, pickles (plain udon soup instead of rice: +$3)",
@@ -770,6 +868,11 @@ module.exports = {
                 },
                 "price": 21,
                 "vegetarian": true,
+                "vegan": true,
+                "allergens": [
+                  "gluten",
+                  "soy"
+                ],
                 "desc": {
                   "fr": "2 tofu, citrouille, racine de lotus, kakiage, aubergine, shiitake — tentsuyu végétarien. Sans riz ni soupe : riz ou udon en extra.",
                   "en": "2 tofu, pumpkin, lotus root, kakiage, eggplant, shiitake — vegetarian tentsuyu. No rice or soup: add rice or udon as an extra.",
@@ -785,7 +888,16 @@ module.exports = {
                   "ja": "海老天（1本）",
                   "ko": "새우 덴푸라 (1개)"
                 },
-                "price": 4
+                "price": 4,
+                "allergens": [
+                  "gluten",
+                  "shellfish",
+                  "soy"
+                ],
+                "traces": [
+                  "fish",
+                  "eggs"
+                ]
               },
               {
                 "id": "t5",
@@ -795,7 +907,16 @@ module.exports = {
                   "ja": "ちくわ天（1本）",
                   "ko": "치쿠와 덴푸라 (1개)"
                 },
-                "price": 3.5
+                "price": 3.5,
+                "allergens": [
+                  "gluten",
+                  "fish",
+                  "eggs",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
+                ]
               },
               {
                 "id": "t6",
@@ -805,7 +926,13 @@ module.exports = {
                   "ja": "野菜天（1個）",
                   "ko": "야채 덴푸라 (1개)"
                 },
-                "price": 3
+                "price": 3,
+                "allergens": [
+                  "gluten",
+                  "soy"
+                ],
+                "vegetarian": true,
+                "vegan": true
               }
             ]
           },
@@ -854,6 +981,7 @@ module.exports = {
                 "price": 29,
                 "photo": "img/f1-1788302078398.jpg",
                 "allergens": [
+                  "gluten",
                   "fish",
                   "soy"
                 ]
@@ -869,9 +997,9 @@ module.exports = {
                 "price": 16,
                 "photo": "img/e3-1788458549114.jpg",
                 "allergens": [
+                  "gluten",
                   "fish",
-                  "soy",
-                  "gluten"
+                  "soy"
                 ]
               },
               {
@@ -885,11 +1013,11 @@ module.exports = {
                 "price": 12,
                 "photo": "img/e2-1788302067939.jpg",
                 "allergens": [
-                  "fish",
-                  "sesame",
-                  "soy",
                   "gluten",
+                  "fish",
                   "eggs",
+                  "soy",
+                  "sesame",
                   "mustard"
                 ]
               },
@@ -940,11 +1068,11 @@ module.exports = {
                 "photo": "img/h1-1788469747086.jpg",
                 "dineInOnly": true,
                 "allergens": [
-                  "dairy",
-                  "eggs",
                   "gluten",
-                  "soy",
-                  "fish"
+                  "fish",
+                  "eggs",
+                  "dairy",
+                  "soy"
                 ]
               },
               {
@@ -965,11 +1093,11 @@ module.exports = {
                 "photo": "img/h2-1788469751576.jpg",
                 "dineInOnly": true,
                 "allergens": [
-                  "dairy",
-                  "eggs",
                   "gluten",
-                  "soy",
-                  "fish"
+                  "fish",
+                  "eggs",
+                  "dairy",
+                  "soy"
                 ]
               },
               {
@@ -990,11 +1118,11 @@ module.exports = {
                 "photo": "img/h3-1788469815116.jpg",
                 "dineInOnly": true,
                 "allergens": [
-                  "dairy",
-                  "eggs",
                   "gluten",
-                  "soy",
-                  "fish"
+                  "fish",
+                  "eggs",
+                  "dairy",
+                  "soy"
                 ]
               }
             ],
@@ -1048,7 +1176,11 @@ module.exports = {
                   "ja": "味噌汁",
                   "ko": "미소국"
                 },
-                "price": 3
+                "price": 3,
+                "allergens": [
+                  "fish",
+                  "soy"
+                ]
               },
               {
                 "id": "x15",
@@ -1071,7 +1203,8 @@ module.exports = {
                 "price": 2,
                 "allergens": [
                   "eggs"
-                ]
+                ],
+                "vegetarian": true
               },
               {
                 "id": "x12",
@@ -1083,8 +1216,11 @@ module.exports = {
                 },
                 "price": 2,
                 "allergens": [
-                  "gluten"
-                ]
+                  "gluten",
+                  "soy"
+                ],
+                "vegetarian": true,
+                "vegan": true
               },
               {
                 "id": "x13",
@@ -1127,9 +1263,12 @@ module.exports = {
                 "price": 4,
                 "allergens": [
                   "gluten",
-                  "soy",
                   "fish",
-                  "eggs"
+                  "eggs",
+                  "soy"
+                ],
+                "traces": [
+                  "shellfish"
                 ]
               }
             ]

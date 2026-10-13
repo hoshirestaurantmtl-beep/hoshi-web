@@ -38,9 +38,12 @@ const MENU_DATA = {
               "photo": "img/e1-1788304341079.jpg",
               "allergens": [
                 "gluten",
-                "soy",
                 "fish",
-                "eggs"
+                "eggs",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -71,11 +74,11 @@ const MENU_DATA = {
               "price": 11,
               "photo": "img/e2-1788302067939.jpg",
               "allergens": [
-                "fish",
-                "sesame",
-                "soy",
                 "gluten",
+                "fish",
                 "eggs",
+                "soy",
+                "sesame",
                 "mustard"
               ]
             },
@@ -90,9 +93,9 @@ const MENU_DATA = {
               "price": 15,
               "photo": "img/e3-1788458549114.jpg",
               "allergens": [
+                "gluten",
                 "fish",
-                "soy",
-                "gluten"
+                "soy"
               ]
             },
             {
@@ -106,8 +109,8 @@ const MENU_DATA = {
               "price": 4,
               "photo": "img/e4-1788458553972.jpg",
               "allergens": [
-                "soy",
-                "gluten"
+                "gluten",
+                "soy"
               ],
               "vegetarian": true,
               "vegan": true
@@ -123,9 +126,10 @@ const MENU_DATA = {
               "price": 4,
               "photo": "img/e5-1788882356617.jpg",
               "allergens": [
-                "eggs"
+                "gluten",
+                "eggs",
+                "dairy"
               ],
-              "glutenFree": true,
               "vegetarian": true
             }
           ],
@@ -158,9 +162,13 @@ const MENU_DATA = {
               "photo": "img/k1-1788296217572.jpg",
               "allergens": [
                 "gluten",
+                "fish",
                 "eggs",
-                "soy",
-                "fish"
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -181,9 +189,13 @@ const MENU_DATA = {
               "photo": "img/k2-1788884605130.jpg",
               "allergens": [
                 "gluten",
+                "fish",
                 "eggs",
-                "soy",
-                "fish"
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -204,9 +216,13 @@ const MENU_DATA = {
               "photo": "img/k3-1788902845746.jpg",
               "allergens": [
                 "gluten",
+                "fish",
                 "eggs",
-                "soy",
-                "fish"
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -227,9 +243,13 @@ const MENU_DATA = {
               "photo": "img/k4-1788296226268.jpg",
               "allergens": [
                 "gluten",
+                "fish",
                 "eggs",
-                "soy",
-                "fish"
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             }
           ]
@@ -255,10 +275,14 @@ const MENU_DATA = {
               "photo": "img/ks1-1788302047787.jpg",
               "allergens": [
                 "gluten",
-                "eggs",
-                "soy",
                 "fish",
+                "eggs",
+                "dairy",
+                "soy",
                 "mustard"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -273,10 +297,14 @@ const MENU_DATA = {
               "photo": "img/ks2-1788885377008.jpg",
               "allergens": [
                 "gluten",
-                "eggs",
-                "soy",
                 "fish",
+                "eggs",
+                "dairy",
+                "soy",
                 "mustard"
+              ],
+              "traces": [
+                "shellfish"
               ]
             }
           ]
@@ -308,10 +336,13 @@ const MENU_DATA = {
               "photo": "img/c1-1788448670670.jpg",
               "allergens": [
                 "gluten",
-                "eggs",
-                "soy",
                 "fish",
-                "dairy"
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -326,10 +357,13 @@ const MENU_DATA = {
               "photo": "img/c2-1788448675377.jpg",
               "allergens": [
                 "gluten",
-                "eggs",
-                "soy",
                 "fish",
-                "dairy"
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -344,10 +378,13 @@ const MENU_DATA = {
               "photo": "img/c3-1788448680922.jpg",
               "allergens": [
                 "gluten",
-                "eggs",
-                "soy",
                 "fish",
-                "dairy"
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -362,10 +399,13 @@ const MENU_DATA = {
               "photo": "img/c4-1788296238814.jpg",
               "allergens": [
                 "gluten",
-                "eggs",
-                "soy",
                 "fish",
-                "dairy"
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -380,10 +420,13 @@ const MENU_DATA = {
               "photo": "img/c5-1788296256941.jpg",
               "allergens": [
                 "gluten",
-                "eggs",
-                "soy",
                 "fish",
-                "dairy"
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -398,10 +441,13 @@ const MENU_DATA = {
               "photo": "img/c6-1788308188564.jpg",
               "allergens": [
                 "gluten",
-                "eggs",
-                "soy",
                 "fish",
-                "dairy"
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             }
           ]
@@ -432,6 +478,7 @@ const MENU_DATA = {
               "price": 29,
               "photo": "img/f1-1788302078398.jpg",
               "allergens": [
+                "gluten",
                 "fish",
                 "soy"
               ]
@@ -518,11 +565,11 @@ const MENU_DATA = {
               "photo": "img/h1-1788469747086.jpg",
               "dineInOnly": true,
               "allergens": [
-                "dairy",
-                "eggs",
                 "gluten",
-                "soy",
-                "fish"
+                "fish",
+                "eggs",
+                "dairy",
+                "soy"
               ]
             },
             {
@@ -543,11 +590,11 @@ const MENU_DATA = {
               "photo": "img/h2-1788469751576.jpg",
               "dineInOnly": true,
               "allergens": [
-                "dairy",
-                "eggs",
                 "gluten",
-                "soy",
-                "fish"
+                "fish",
+                "eggs",
+                "dairy",
+                "soy"
               ]
             },
             {
@@ -568,11 +615,11 @@ const MENU_DATA = {
               "photo": "img/h3-1788469815116.jpg",
               "dineInOnly": true,
               "allergens": [
-                "dairy",
-                "eggs",
                 "gluten",
-                "soy",
-                "fish"
+                "fish",
+                "eggs",
+                "dairy",
+                "soy"
               ]
             }
           ]
@@ -628,8 +675,11 @@ const MENU_DATA = {
               },
               "price": 2,
               "allergens": [
-                "gluten"
-              ]
+                "gluten",
+                "soy"
+              ],
+              "vegetarian": true,
+              "vegan": true
             },
             {
               "id": "x3",
@@ -672,9 +722,9 @@ const MENU_DATA = {
               "price": 7,
               "photo": "img/x5-1788484540505.jpg",
               "allergens": [
+                "gluten",
                 "fish",
-                "soy",
-                "gluten"
+                "soy"
               ]
             },
             {
@@ -689,9 +739,13 @@ const MENU_DATA = {
               "photo": "img/x6-1788484635964.jpg",
               "allergens": [
                 "gluten",
+                "fish",
                 "eggs",
-                "soy",
-                "fish"
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -706,9 +760,13 @@ const MENU_DATA = {
               "photo": "img/x7-1788882386318.jpg",
               "allergens": [
                 "gluten",
+                "fish",
                 "eggs",
-                "soy",
-                "fish"
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -722,9 +780,12 @@ const MENU_DATA = {
               "price": 4,
               "allergens": [
                 "gluten",
-                "soy",
                 "fish",
-                "eggs"
+                "eggs",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -1168,9 +1229,13 @@ const MENU_DATA = {
               "photo": "img/l1-1788885078921.jpg",
               "allergens": [
                 "gluten",
+                "fish",
                 "eggs",
-                "soy",
-                "fish"
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -1191,9 +1256,13 @@ const MENU_DATA = {
               "photo": "img/l2-1788302100263.jpg",
               "allergens": [
                 "gluten",
+                "fish",
                 "eggs",
-                "soy",
-                "fish"
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -1214,10 +1283,13 @@ const MENU_DATA = {
               "photo": "img/l3-1788458576830.jpg",
               "allergens": [
                 "gluten",
-                "eggs",
-                "soy",
                 "fish",
-                "dairy"
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -1238,10 +1310,13 @@ const MENU_DATA = {
               "photo": "img/l4-1788459013376.jpg",
               "allergens": [
                 "gluten",
-                "eggs",
-                "soy",
                 "fish",
-                "dairy"
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             },
             {
@@ -1261,6 +1336,7 @@ const MENU_DATA = {
               "price": 22,
               "photo": "img/l5-1788302090284.jpg",
               "allergens": [
+                "gluten",
                 "fish",
                 "soy"
               ]
@@ -1282,9 +1358,9 @@ const MENU_DATA = {
               "price": 19,
               "photo": "img/l6-1788296189044.jpg",
               "allergens": [
-                "shellfish",
-                "fish",
                 "gluten",
+                "fish",
+                "shellfish",
                 "eggs",
                 "soy"
               ]
@@ -1306,9 +1382,9 @@ const MENU_DATA = {
               "price": 18,
               "photo": "img/l7-1788296179268.jpg",
               "allergens": [
-                "shellfish",
-                "fish",
                 "gluten",
+                "fish",
+                "shellfish",
                 "eggs",
                 "soy"
               ]
@@ -1330,9 +1406,9 @@ const MENU_DATA = {
               "price": 16,
               "photo": "img/l8-1789404733688.jpg",
               "allergens": [
-                "shellfish",
-                "fish",
                 "gluten",
+                "fish",
+                "shellfish",
                 "soy"
               ]
             },
@@ -1354,9 +1430,13 @@ const MENU_DATA = {
               "photo": "img/l9-1788302829722.jpg",
               "allergens": [
                 "gluten",
+                "fish",
                 "eggs",
-                "soy",
-                "fish"
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
               ]
             }
           ]
