@@ -665,6 +665,14 @@ body.lunch-menu-restricted li.lunch-restrict button.size-btn { pointer-events: n
 .menu-list li.size-group.soldout .size-row { opacity: 0.45; }
 
 /* ===== Mode TEST (/test) ===== */
+.staff-note {
+  margin: 0.3rem 0 0.4rem;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.75rem;
+  color: #1b62a0;
+  background: #eef4fa;
+  border-left: 3px solid #1f6fb2;
+}
 .test-bar {
   position: fixed;
   left: 0;

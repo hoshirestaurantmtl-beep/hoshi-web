@@ -3,6 +3,7 @@
 //
 // « menu »  : menu complet de test (remplace les menus de menu-data.js ; les réglages / horaires restent ceux du site).
 //             null = utiliser le menu public.
+// « staffNote » (section) : note interne pour l équipe, affichée seulement dans /test.
 // « items » : petites modifications par plat { "<id>": { champs } } appliquées par-dessus (null supprime un champ).
 //
 // État : NOUVEAU MENU du 19 octobre (2 courriels du chef Shozo) — midi et soir unifiés, tempura, nouveaux prix.
@@ -175,10 +176,16 @@ module.exports = {
               "ko": "돈카츠"
             },
             "note": {
-              "fr": "Plats servis avec pickles japonais (takuan et shibazuke). Tailles — Moyen : 2 morceaux (80–100 g chacun) · Régulier : 1 pièce (200–205 g) · Grand : 3 morceaux (80–100 g chacun).",
-              "en": "Plates served with Japanese pickles (takuan and shibazuke). Sizes — Medium: 2 pieces (80–100 g each) · Regular: 1 piece (200–205 g) · Large: 3 pieces (80–100 g each).",
-              "ja": "定食には漬物（たくあん・しば漬け）が付きます。サイズ — ミディアム：2枚（各80〜100g）・レギュラー：1枚（200〜205g）・ラージ：3枚（各80〜100g）。",
-              "ko": "정식에는 일본식 절임(다쿠앙, 시바즈케)이 함께 나옵니다. 사이즈 — 미디엄: 2조각(각 80~100g) · 레귤러: 1조각(200~205g) · 라지: 3조각(각 80~100g)."
+              "fr": "Plats servis avec pickles japonais (takuan et shibazuke).",
+              "en": "Plates served with Japanese pickles (takuan and shibazuke).",
+              "ja": "定食には漬物（たくあん・しば漬け）が付きます。",
+              "ko": "정식에는 일본식 절임(다쿠앙, 시바즈케)이 함께 나옵니다."
+            },
+            "staffNote": {
+              "fr": "Tailles — Moyen : 2 morceaux (80–100 g chacun) · Régulier : 1 pièce (200–205 g) · Grand : 3 morceaux (80–100 g chacun).",
+              "en": "Sizes — Medium: 2 pieces (80–100 g each) · Regular: 1 piece (200–205 g) · Large: 3 pieces (80–100 g each).",
+              "ja": "サイズ — ミディアム：2枚（各80〜100g）・レギュラー：1枚（200〜205g）・ラージ：3枚（各80〜100g）。",
+              "ko": "사이즈 — 미디엄: 2조각(각 80~100g) · 레귤러: 1조각(200~205g) · 라지: 3조각(각 80~100g)."
             },
             "alwaysAvailable": true,
             "items": [
@@ -470,10 +477,16 @@ module.exports = {
               "ko": "카레 돈카츠"
             },
             "note": {
-              "fr": "Avec œuf onsen — soupe miso incluse. Tailles — Moyen : 2 morceaux (80–100 g chacun) · Régulier : 1 pièce (200–205 g) · Grand : 3 morceaux (80–100 g chacun).",
-              "en": "With onsen egg — miso soup included. Sizes — Medium: 2 pieces (80–100 g each) · Regular: 1 piece (200–205 g) · Large: 3 pieces (80–100 g each).",
-              "ja": "温泉卵付き — 味噌汁付き。サイズ — ミディアム：2枚（各80〜100g）・レギュラー：1枚（200〜205g）・ラージ：3枚（各80〜100g）。",
-              "ko": "온센 계란 포함 — 미소국 포함. 사이즈 — 미디엄: 2조각(각 80~100g) · 레귤러: 1조각(200~205g) · 라지: 3조각(각 80~100g)."
+              "fr": "Avec œuf onsen — soupe miso incluse.",
+              "en": "With onsen egg — miso soup included.",
+              "ja": "温泉卵付き — 味噌汁付き。",
+              "ko": "온센 계란 포함 — 미소국 포함."
+            },
+            "staffNote": {
+              "fr": "Tailles — Moyen : 2 morceaux (80–100 g chacun) · Régulier : 1 pièce (200–205 g) · Grand : 3 morceaux (80–100 g chacun).",
+              "en": "Sizes — Medium: 2 pieces (80–100 g each) · Regular: 1 piece (200–205 g) · Large: 3 pieces (80–100 g each).",
+              "ja": "サイズ — ミディアム：2枚（各80〜100g）・レギュラー：1枚（200〜205g）・ラージ：3枚（各80〜100g）。",
+              "ko": "사이즈 — 미디엄: 2조각(각 80~100g) · 레귤러: 1조각(200~205g) · 라지: 3조각(각 80~100g)."
             },
             "alwaysAvailable": true,
             "items": [

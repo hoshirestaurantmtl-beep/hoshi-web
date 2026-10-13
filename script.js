@@ -751,6 +751,9 @@ function buildSection(sec, lang, lunchRestrictable) {
   div.className = "menu-section";
   let inner = `<h3 class="menu-cat"><span class="cat-kanji">${sec.kanji || ""}</span> <span>${sec.title[lang] || sec.title.en}</span></h3>`;
   if (sec.note) inner += `<p class="mi-desc">${sec.note[lang] || sec.note.en}</p>`;
+  // Note interne (ex. grammages des tailles) : seulement dans /test, jamais pour les clients
+  if (sec.staffNote && new URLSearchParams(location.search).get("test") === "1")
+    inner += `<p class="staff-note">🔒 ${sec.staffNote[lang] || sec.staffNote.en}</p>`;
   inner += '<ul class="menu-list"></ul>';
   div.innerHTML = inner;
   const ul = div.querySelector("ul");
