@@ -903,8 +903,8 @@ function renderMenus(lang) {
 
 // ===== Filtre « allergies » =====
 // Icônes allergènes masquées par défaut ; on coche ce qu'on ne peut pas manger et les plats concernés sont signalés.
-// Pour l'instant seulement dans /serveurs (validation) ; passer à true pour le site public.
-const ALLERGY_FILTER_ENABLED = isStaffView();
+// Actif pour tout le monde (site public et /serveurs) depuis le 2026-10-12.
+const ALLERGY_FILTER_ENABLED = true;
 let allergySel = [];
 let showAllAllergens = false;
 try {
