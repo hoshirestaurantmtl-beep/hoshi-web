@@ -38,7 +38,9 @@ const MENU_DATA = {
               "photo": "img/e1-1788304341079.jpg",
               "allergens": [
                 "gluten",
-                "soy"
+                "soy",
+                "fish",
+                "eggs"
               ]
             },
             {
@@ -72,7 +74,9 @@ const MENU_DATA = {
                 "fish",
                 "sesame",
                 "soy",
-                "gluten"
+                "gluten",
+                "eggs",
+                "mustard"
               ]
             },
             {
@@ -121,7 +125,8 @@ const MENU_DATA = {
               "allergens": [
                 "eggs"
               ],
-              "glutenFree": true
+              "glutenFree": true,
+              "vegetarian": true
             }
           ],
           "alwaysAvailable": true
@@ -252,7 +257,8 @@ const MENU_DATA = {
                 "gluten",
                 "eggs",
                 "soy",
-                "fish"
+                "fish",
+                "mustard"
               ]
             },
             {
@@ -269,7 +275,8 @@ const MENU_DATA = {
                 "gluten",
                 "eggs",
                 "soy",
-                "fish"
+                "fish",
+                "mustard"
               ]
             }
           ]
@@ -612,6 +619,19 @@ const MENU_DATA = {
               ]
             },
             {
+              "id": "x12",
+              "name": {
+                "fr": "Sauce ultra piquante",
+                "en": "Ultra spicy sauce",
+                "ja": "激辛ソース",
+                "ko": "초매운 소스"
+              },
+              "price": 2,
+              "allergens": [
+                "gluten"
+              ]
+            },
+            {
               "id": "x3",
               "name": {
                 "fr": "Riz",
@@ -702,7 +722,9 @@ const MENU_DATA = {
               "price": 4,
               "allergens": [
                 "gluten",
-                "soy"
+                "soy",
+                "fish",
+                "eggs"
               ]
             },
             {

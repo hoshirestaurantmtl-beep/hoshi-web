@@ -5,10 +5,10 @@
 //             null = utiliser le menu public.
 // « items » : petites modifications par plat { "<id>": { champs } } appliquées par-dessus (null supprime un champ).
 //
-// État : NOUVEAU MENU du chef (courriel de Shozo) — midi et soir unifiés, tempura, nouveaux prix.
-// Plats « en préparation » (Aji Fry, Mini Butadon, salade de pommes de terre, choux de Bruxelles) : soldout.
-// Allergènes : brouillon, EN ATTENTE de validation du chef ; nouveaux plats sans allergènes pour l'instant.
-// Généré le 2026-10-11 à partir de menu-data.js.
+// État : NOUVEAU MENU du 19 octobre (2 courriels du chef Shozo) — midi et soir unifiés, tempura, nouveaux prix.
+// Plats « en préparation » (Aji Fry, Mini Butadon, salade de pommes de terre, choux de Bruxelles) : soldout + preparing.
+// Allergènes : ceux du menu actuel (corrigés selon le chef) ; nouveaux plats (tempura, Aji Fry…) encore sans allergènes.
+// Généré le 2026-10-13 à partir de menu-data.js.
 module.exports = {
   menu: {
     "menus": [
@@ -31,6 +31,29 @@ module.exports = {
             },
             "items": [
               {
+                "id": "e1",
+                "name": {
+                  "fr": "Menchi Katsu (2 mcx)",
+                  "en": "Menchi Katsu (2 pcs)",
+                  "ja": "メンチカツ（2個）",
+                  "ko": "멘치카츠 (2개)"
+                },
+                "desc": {
+                  "fr": "Boulette de porc haché panée — 3 mcx : 13 $",
+                  "en": "Breaded pork meatball cutlet — 3 pcs: $13",
+                  "ja": "揚げ豚ひき肉カツ — 3個: 13$",
+                  "ko": "다진 돼지고기 커틀릿 — 3개: 13$"
+                },
+                "price": 10,
+                "photo": "img/e1-1788304341079.jpg",
+                "allergens": [
+                  "gluten",
+                  "soy",
+                  "fish",
+                  "eggs"
+                ]
+              },
+              {
                 "id": "n5",
                 "name": {
                   "fr": "Edamame",
@@ -43,26 +66,9 @@ module.exports = {
                 "allergens": [
                   "soy"
                 ],
-                "vegan": true,
                 "vegetarian": true,
-                "glutenFree": true
-              },
-              {
-                "id": "e4",
-                "name": {
-                  "fr": "Salade de chou",
-                  "en": "Cabbage salad",
-                  "ja": "キャベツサラダ",
-                  "ko": "양배추 샐러드"
-                },
-                "price": 4,
-                "photo": "img/e4-1788458553972.jpg",
-                "allergens": [
-                  "soy",
-                  "gluten"
-                ],
-                "vegan": true,
-                "vegetarian": true
+                "glutenFree": true,
+                "vegan": true
               },
               {
                 "id": "e5",
@@ -72,12 +78,90 @@ module.exports = {
                   "ja": "コールスロー",
                   "ko": "코울슬로"
                 },
-                "price": 4,
+                "price": 4.5,
                 "photo": "img/e5-1788882356617.jpg",
                 "allergens": [
-                  "eggs"
+                  "eggs",
+                  "dairy"
                 ],
-                "glutenFree": true
+                "vegetarian": true,
+                "desc": {
+                  "fr": "Avec parmesan et oignons frits",
+                  "en": "With parmesan and fried onions",
+                  "ja": "パルメザンチーズとフライドオニオン入り",
+                  "ko": "파르메산 치즈와 튀긴 양파"
+                }
+              },
+              {
+                "id": "ks1",
+                "name": {
+                  "fr": "Katsu Sando (3 pièces)",
+                  "en": "Katsu Sando (3 pieces)",
+                  "ja": "カツサンド（3切れ）",
+                  "ko": "카츠산도 (3조각)"
+                },
+                "price": 16,
+                "photo": "img/ks1-1788302047787.jpg",
+                "allergens": [
+                  "gluten",
+                  "eggs",
+                  "soy",
+                  "fish",
+                  "mustard"
+                ],
+                "dineInOnly": true
+              },
+              {
+                "id": "x5",
+                "name": {
+                  "fr": "Soupe udon simple",
+                  "en": "Plain udon soup",
+                  "ja": "かけうどん",
+                  "ko": "우동국"
+                },
+                "price": 7,
+                "photo": "img/x5-1788484540505.jpg",
+                "allergens": [
+                  "fish",
+                  "soy",
+                  "gluten"
+                ]
+              },
+              {
+                "id": "x18",
+                "name": {
+                  "fr": "Mini Butadon",
+                  "en": "Mini Butadon (pork don)",
+                  "ja": "ミニ豚丼",
+                  "ko": "미니 부타동"
+                },
+                "price": 8,
+                "soldout": true,
+                "preparing": true
+              },
+              {
+                "id": "x19",
+                "name": {
+                  "fr": "Salade de pommes de terre",
+                  "en": "Potato salad",
+                  "ja": "ポテトサラダ",
+                  "ko": "감자 샐러드"
+                },
+                "price": 5.5,
+                "soldout": true,
+                "preparing": true
+              },
+              {
+                "id": "x20",
+                "name": {
+                  "fr": "Choux de Bruxelles",
+                  "en": "Brussels sprouts",
+                  "ja": "芽キャベツ",
+                  "ko": "방울양배추"
+                },
+                "price": 6.5,
+                "soldout": true,
+                "preparing": true
               }
             ],
             "alwaysAvailable": true
@@ -91,10 +175,10 @@ module.exports = {
               "ko": "돈카츠"
             },
             "note": {
-              "fr": "Plats servis avec pickles japonais (takuan et shibazuke).",
-              "en": "Plates served with Japanese pickles (takuan and shibazuke).",
-              "ja": "定食には漬物（たくあん・しば漬け）が付きます。",
-              "ko": "정식에는 일본식 절임(다쿠앙, 시바즈케)이 함께 나옵니다."
+              "fr": "Plats servis avec pickles japonais (takuan et shibazuke). Tailles — Moyen : 2 morceaux (80–100 g chacun) · Régulier : 1 pièce (200–205 g) · Grand : 3 morceaux (80–100 g chacun).",
+              "en": "Plates served with Japanese pickles (takuan and shibazuke). Sizes — Medium: 2 pieces (80–100 g each) · Regular: 1 piece (200–205 g) · Large: 3 pieces (80–100 g each).",
+              "ja": "定食には漬物（たくあん・しば漬け）が付きます。サイズ — ミディアム：2枚（各80〜100g）・レギュラー：1枚（200〜205g）・ラージ：3枚（各80〜100g）。",
+              "ko": "정식에는 일본식 절임(다쿠앙, 시바즈케)이 함께 나옵니다. 사이즈 — 미디엄: 2조각(각 80~100g) · 레귤러: 1조각(200~205g) · 라지: 3조각(각 80~100g)."
             },
             "alwaysAvailable": true,
             "items": [
@@ -107,10 +191,10 @@ module.exports = {
                   "ko": "로스카츠 정식 (미디엄)"
                 },
                 "desc": {
-                  "fr": "Longe de porc avec chou — soupe miso + riz (udon au lieu du riz : +3 $)",
-                  "en": "Pork loin katsu with cabbage — miso soup + rice (udon instead of rice: +$3)",
-                  "ja": "キャベツ付き豚ロース — 味噌汁+ご飯（ご飯→うどん +3$）",
-                  "ko": "양배추와 돼지 등심 — 미소국+밥 (밥→우동 +3$)"
+                  "fr": "Longe de porc avec chou — soupe miso + riz (soupe udon simple au lieu du riz : +3 $)",
+                  "en": "Pork loin katsu with cabbage — miso soup + rice (plain udon soup instead of rice: +$3)",
+                  "ja": "キャベツ付き豚ロース — 味噌汁+ご飯（ご飯→かけうどん +3$）",
+                  "ko": "양배추와 돼지 등심 — 미소국+밥 (밥→우동국 +3$)"
                 },
                 "price": 21,
                 "photo": "img/k1-1788296217572.jpg",
@@ -143,10 +227,10 @@ module.exports = {
                   "ko": "로스카츠 정식 (레귤러)"
                 },
                 "desc": {
-                  "fr": "Longe de porc avec chou — soupe miso + riz (udon au lieu du riz : +3 $)",
-                  "en": "Pork loin katsu with cabbage — miso soup + rice (udon instead of rice: +$3)",
-                  "ja": "キャベツ付き豚ロース — 味噌汁+ご飯（ご飯→うどん +3$）",
-                  "ko": "양배추와 돼지 등심 — 미소국+밥 (밥→우동 +3$)"
+                  "fr": "Longe de porc avec chou — soupe miso + riz (soupe udon simple au lieu du riz : +3 $)",
+                  "en": "Pork loin katsu with cabbage — miso soup + rice (plain udon soup instead of rice: +$3)",
+                  "ja": "キャベツ付き豚ロース — 味噌汁+ご飯（ご飯→かけうどん +3$）",
+                  "ko": "양배추와 돼지 등심 — 미소국+밥 (밥→우동국 +3$)"
                 },
                 "price": 22,
                 "photo": "img/k1-1788296217572.jpg",
@@ -180,10 +264,10 @@ module.exports = {
                   "ko": "로스카츠 정식 (라지)"
                 },
                 "desc": {
-                  "fr": "Longe de porc avec chou — soupe miso + riz (udon au lieu du riz : +3 $)",
-                  "en": "Pork loin katsu with cabbage — miso soup + rice (udon instead of rice: +$3)",
-                  "ja": "キャベツ付き豚ロース — 味噌汁+ご飯（ご飯→うどん +3$）",
-                  "ko": "양배추와 돼지 등심 — 미소국+밥 (밥→우동 +3$)"
+                  "fr": "Longe de porc avec chou — soupe miso + riz (soupe udon simple au lieu du riz : +3 $)",
+                  "en": "Pork loin katsu with cabbage — miso soup + rice (plain udon soup instead of rice: +$3)",
+                  "ja": "キャベツ付き豚ロース — 味噌汁+ご飯（ご飯→かけうどん +3$）",
+                  "ko": "양배추와 돼지 등심 — 미소국+밥 (밥→우동국 +3$)"
                 },
                 "price": 23,
                 "photo": "img/k1-1788296217572.jpg",
@@ -216,10 +300,10 @@ module.exports = {
                   "ko": "히레카츠 정식"
                 },
                 "desc": {
-                  "fr": "Filet de porc avec chou — soupe miso + riz (udon au lieu du riz : +3 $)",
-                  "en": "Pork fillet katsu with cabbage — miso soup + rice (udon instead of rice: +$3)",
-                  "ja": "キャベツ付き豚ヒレ — 味噌汁+ご飯（ご飯→うどん +3$）",
-                  "ko": "양배추와 돼지 안심 — 미소국+밥 (밥→우동 +3$)"
+                  "fr": "Filet de porc avec chou — soupe miso + riz (soupe udon simple au lieu du riz : +3 $)",
+                  "en": "Pork fillet katsu with cabbage — miso soup + rice (plain udon soup instead of rice: +$3)",
+                  "ja": "キャベツ付き豚ヒレ — 味噌汁+ご飯（ご飯→かけうどん +3$）",
+                  "ko": "양배추와 돼지 안심 — 미소국+밥 (밥→우동국 +3$)"
                 },
                 "price": 24,
                 "photo": "img/k2-1788884605130.jpg",
@@ -378,54 +462,6 @@ module.exports = {
             ]
           },
           {
-            "kanji": "サンド",
-            "title": {
-              "fr": "Katsu Sando",
-              "en": "Katsu Sando",
-              "ja": "カツサンド",
-              "ko": "카츠산도"
-            },
-            "alwaysAvailable": true,
-            "items": [
-              {
-                "id": "ks1",
-                "name": {
-                  "fr": "Katsu Sando (3 pièces)",
-                  "en": "Katsu Sando (3 pieces)",
-                  "ja": "カツサンド（3切れ）",
-                  "ko": "카츠산도 (3조각)"
-                },
-                "price": 16,
-                "photo": "img/ks1-1788302047787.jpg",
-                "allergens": [
-                  "gluten",
-                  "eggs",
-                  "soy",
-                  "fish"
-                ],
-                "dineInOnly": true
-              },
-              {
-                "id": "ks2",
-                "name": {
-                  "fr": "Katsu Sando avec coleslaw",
-                  "en": "Katsu Sando with coleslaw",
-                  "ja": "カツサンド コールスロー付き",
-                  "ko": "카츠산도 + 코울슬로"
-                },
-                "price": 20,
-                "photo": "img/ks2-1788885377008.jpg",
-                "allergens": [
-                  "gluten",
-                  "eggs",
-                  "soy",
-                  "fish"
-                ],
-                "dineInOnly": true
-              }
-            ]
-          },
-          {
             "kanji": "カレー",
             "title": {
               "fr": "Curry Tonkatsu",
@@ -434,10 +470,10 @@ module.exports = {
               "ko": "카레 돈카츠"
             },
             "note": {
-              "fr": "Avec œuf sous-vide — soupe miso incluse",
-              "en": "With sous-vide egg — miso soup included",
-              "ja": "低温調理卵付き — 味噌汁付き",
-              "ko": "수비드 계란 포함 — 미소국 포함"
+              "fr": "Avec œuf onsen — soupe miso incluse. Tailles — Moyen : 2 morceaux (80–100 g chacun) · Régulier : 1 pièce (200–205 g) · Grand : 3 morceaux (80–100 g chacun).",
+              "en": "With onsen egg — miso soup included. Sizes — Medium: 2 pieces (80–100 g each) · Regular: 1 piece (200–205 g) · Large: 3 pieces (80–100 g each).",
+              "ja": "温泉卵付き — 味噌汁付き。サイズ — ミディアム：2枚（各80〜100g）・レギュラー：1枚（200〜205g）・ラージ：3枚（各80〜100g）。",
+              "ko": "온센 계란 포함 — 미소국 포함. 사이즈 — 미디엄: 2조각(각 80~100g) · 레귤러: 1조각(200~205g) · 라지: 3조각(각 80~100g)."
             },
             "alwaysAvailable": true,
             "items": [
@@ -543,7 +579,7 @@ module.exports = {
                   "ja": "ヒレカツカレー丼（3個）",
                   "ko": "히레카츠 카레동 (3개)"
                 },
-                "price": 24,
+                "price": 25,
                 "photo": "img/c2-1788448675377.jpg",
                 "allergens": [
                   "gluten",
@@ -562,7 +598,7 @@ module.exports = {
                   "ja": "カレーうどん（ロースカツ）（ミディアム）",
                   "ko": "카레우동 + 로스카츠 (미디엄)"
                 },
-                "price": 25,
+                "price": 23,
                 "photo": "img/c4-1788296238814.jpg",
                 "allergens": [
                   "gluten",
@@ -593,7 +629,7 @@ module.exports = {
                   "ja": "カレーうどん（ロースカツ）（レギュラー）",
                   "ko": "카레우동 + 로스카츠 (레귤러)"
                 },
-                "price": 26,
+                "price": 24,
                 "photo": "img/c4-1788296238814.jpg",
                 "allergens": [
                   "gluten",
@@ -625,7 +661,7 @@ module.exports = {
                   "ja": "カレーうどん（ロースカツ）（ラージ）",
                   "ko": "카레우동 + 로스카츠 (라지)"
                 },
-                "price": 27,
+                "price": 25,
                 "photo": "img/c4-1788296238814.jpg",
                 "allergens": [
                   "gluten",
@@ -656,7 +692,7 @@ module.exports = {
                   "ja": "カレーうどん（ヒレカツ3個）",
                   "ko": "카레우동 + 히레카츠 (3개)"
                 },
-                "price": 27,
+                "price": 26,
                 "photo": "img/c5-1788296256941.jpg",
                 "allergens": [
                   "gluten",
@@ -705,10 +741,10 @@ module.exports = {
                 },
                 "price": 26,
                 "desc": {
-                  "fr": "2 crevettes, citrouille, racine de lotus, chikuwa, kakiage — riz, tentsuyu, soupe miso, pickles (udon au lieu du riz : +3 $)",
-                  "en": "2 shrimp, pumpkin, lotus root, chikuwa, kakiage — rice, tentsuyu, miso soup, pickles (udon instead of rice: +$3)",
-                  "ja": "海老2本・かぼちゃ・れんこん・ちくわ・かき揚げ — ご飯・天つゆ・味噌汁・漬物（ご飯→うどん +3$）",
-                  "ko": "새우 2, 단호박, 연근, 치쿠와, 가키아게 — 밥, 텐츠유, 미소국, 절임 (밥→우동 +3$)"
+                  "fr": "2 crevettes, citrouille, racine de lotus, chikuwa, kakiage — riz, tentsuyu, soupe miso, pickles (soupe udon simple au lieu du riz : +3 $)",
+                  "en": "2 shrimp, pumpkin, lotus root, chikuwa, kakiage — rice, tentsuyu, miso soup, pickles (plain udon soup instead of rice: +$3)",
+                  "ja": "海老2本・かぼちゃ・れんこん・ちくわ・かき揚げ — ご飯・天つゆ・味噌汁・漬物（ご飯→かけうどん +3$）",
+                  "ko": "새우 2, 단호박, 연근, 치쿠와, 가키아게 — 밥, 텐츠유, 미소국, 절임 (밥→우동국 +3$)"
                 }
               },
               {
@@ -720,7 +756,6 @@ module.exports = {
                   "ko": "채식 덴푸라 모둠"
                 },
                 "price": 21,
-                "dineInOnly": true,
                 "vegetarian": true,
                 "desc": {
                   "fr": "2 tofu, citrouille, racine de lotus, kakiage, aubergine, shiitake — tentsuyu végétarien. Sans riz ni soupe : riz ou udon en extra.",
@@ -728,30 +763,6 @@ module.exports = {
                   "ja": "豆腐2・かぼちゃ・れんこん・かき揚げ・なす・椎茸 — ベジ天つゆ。ご飯・汁物なし（ご飯・うどんは追加で）。",
                   "ko": "두부 2, 단호박, 연근, 가키아게, 가지, 표고버섯 — 채식 텐츠유. 밥·국 미포함 (밥 또는 우동 추가 가능)."
                 }
-              },
-              {
-                "id": "t3",
-                "name": {
-                  "fr": "Ten Don",
-                  "en": "Ten Don",
-                  "ja": "天丼",
-                  "ko": "텐동"
-                },
-                "desc": {
-                  "fr": "3 crevettes, citrouille, racine de lotus, chikuwa, œuf frit — soupe miso, pickles",
-                  "en": "3 shrimp, pumpkin, lotus root, chikuwa, fried egg — miso soup, pickles",
-                  "ja": "海老3本・かぼちゃ・れんこん・ちくわ・揚げ卵 — 味噌汁・漬物",
-                  "ko": "새우 3, 단호박, 연근, 치쿠와, 튀긴 계란 — 미소국, 절임"
-                },
-                "price": 25,
-                "photo": "img/l7-1788296179268.jpg",
-                "allergens": [
-                  "shellfish",
-                  "fish",
-                  "gluten",
-                  "eggs",
-                  "soy"
-                ]
               },
               {
                 "id": "t4",
@@ -816,10 +827,10 @@ module.exports = {
               {
                 "id": "f1",
                 "name": {
-                  "fr": "Sake Don — Grand",
-                  "en": "Sake Don — Large",
-                  "ja": "サーモン丼（ラージ）",
-                  "ko": "사케동 (라지)"
+                  "fr": "Sake Don",
+                  "en": "Sake Don",
+                  "ja": "サーモン丼",
+                  "ko": "사케동 (연어덮밥)"
                 },
                 "desc": {
                   "fr": "Bol de riz garni de saumon cru — soupe miso incluse",
@@ -864,7 +875,9 @@ module.exports = {
                   "fish",
                   "sesame",
                   "soy",
-                  "gluten"
+                  "gluten",
+                  "eggs",
+                  "mustard"
                 ]
               },
               {
@@ -905,10 +918,10 @@ module.exports = {
                   "ko": "철판 함바그 (하야시 소스)"
                 },
                 "desc": {
-                  "fr": "Sauce maison, œuf sous-vide et coleslaw — soupe miso + riz (udon : 25 $)",
-                  "en": "Homemade sauce, sous-vide egg and coleslaw — miso soup + rice (udon: $25)",
-                  "ja": "自家製ソース・低温卵・コールスロー — 味噌汁+ご飯（うどん: 25$）",
-                  "ko": "수제 소스, 수비드 계란, 코울슬로 — 미소국+밥 (우동: 25$)"
+                  "fr": "Sauce maison, œuf onsen et coleslaw — soupe miso + riz (soupe udon simple au lieu du riz : +3 $)",
+                  "en": "Homemade sauce, onsen egg and coleslaw — miso soup + rice (plain udon soup instead of rice: +$3)",
+                  "ja": "自家製ソース・温泉卵・コールスロー — 味噌汁+ご飯（ご飯→かけうどん +3$）",
+                  "ko": "수제 소스, 온센 계란, 코울슬로 — 미소국+밥 (밥→우동국 +3$)"
                 },
                 "price": 24,
                 "photo": "img/h1-1788469747086.jpg",
@@ -930,10 +943,10 @@ module.exports = {
                   "ko": "철판 함바그 (하야시+치즈)"
                 },
                 "desc": {
-                  "fr": "Garni de fromage — soupe miso + riz (udon : 27 $)",
-                  "en": "Topped with cheese — miso soup + rice (udon: $27)",
-                  "ja": "チーズのせ — 味噌汁+ご飯（うどん: 27$）",
-                  "ko": "치즈 토핑 — 미소국+밥 (우동: 27$)"
+                  "fr": "Garni de fromage — soupe miso + riz (soupe udon simple au lieu du riz : +3 $)",
+                  "en": "Topped with cheese — miso soup + rice (plain udon soup instead of rice: +$3)",
+                  "ja": "チーズのせ — 味噌汁+ご飯（ご飯→かけうどん +3$）",
+                  "ko": "치즈 토핑 — 미소국+밥 (밥→우동국 +3$)"
                 },
                 "price": 26,
                 "photo": "img/h2-1788469751576.jpg",
@@ -955,10 +968,10 @@ module.exports = {
                   "ko": "철판 함바그 (카레)"
                 },
                 "desc": {
-                  "fr": "Sauce curry ajoutée — soupe miso + riz (udon : 26 $)",
-                  "en": "Added curry sauce — miso soup + rice (udon: $26)",
-                  "ja": "カレーソース添え — 味噌汁+ご飯（うどん: 26$）",
-                  "ko": "카레 소스 추가 — 미소국+밥 (우동: 26$)"
+                  "fr": "Sauce curry ajoutée — soupe miso + riz (soupe udon simple au lieu du riz : +3 $)",
+                  "en": "Added curry sauce — miso soup + rice (plain udon soup instead of rice: +$3)",
+                  "ja": "カレーソース添え — 味噌汁+ご飯（ご飯→かけうどん +3$）",
+                  "ko": "카레 소스 추가 — 미소국+밥 (밥→우동국 +3$)"
                 },
                 "price": 25,
                 "photo": "img/h3-1788469815116.jpg",
@@ -994,9 +1007,9 @@ module.exports = {
                 },
                 "price": 3,
                 "photo": "img/x3-1788484523357.jpg",
-                "vegan": true,
                 "vegetarian": true,
-                "glutenFree": true
+                "glutenFree": true,
+                "vegan": true
               },
               {
                 "id": "x4",
@@ -1011,24 +1024,8 @@ module.exports = {
                 "allergens": [
                   "gluten"
                 ],
-                "vegan": true,
-                "vegetarian": true
-              },
-              {
-                "id": "x5",
-                "name": {
-                  "fr": "Soupe udon simple",
-                  "en": "Plain udon soup",
-                  "ja": "かけうどん",
-                  "ko": "우동국"
-                },
-                "price": 7,
-                "photo": "img/x5-1788484540505.jpg",
-                "allergens": [
-                  "fish",
-                  "soy",
-                  "gluten"
-                ]
+                "vegetarian": true,
+                "vegan": true
               },
               {
                 "id": "x14",
@@ -1071,7 +1068,10 @@ module.exports = {
                   "ja": "激辛ソース",
                   "ko": "초매운 소스"
                 },
-                "price": 2
+                "price": 2,
+                "allergens": [
+                  "gluten"
+                ]
               },
               {
                 "id": "x13",
@@ -1104,40 +1104,20 @@ module.exports = {
                 "price": 1
               },
               {
-                "id": "x18",
+                "id": "x8",
                 "name": {
-                  "fr": "Mini Butadon",
-                  "en": "Mini Butadon (pork don)",
-                  "ja": "ミニ豚丼",
-                  "ko": "미니 부타동"
+                  "fr": "Menchi katsu (1 pc)",
+                  "en": "Menchi katsu (1 pc)",
+                  "ja": "メンチカツ（1個）",
+                  "ko": "멘치카츠 (1개)"
                 },
-                "price": 8,
-                "soldout": true,
-                "preparing": true
-              },
-              {
-                "id": "x19",
-                "name": {
-                  "fr": "Salade de pommes de terre",
-                  "en": "Potato salad",
-                  "ja": "ポテトサラダ",
-                  "ko": "감자 샐러드"
-                },
-                "price": 6.5,
-                "soldout": true,
-                "preparing": true
-              },
-              {
-                "id": "x20",
-                "name": {
-                  "fr": "Choux de Bruxelles",
-                  "en": "Brussels sprouts",
-                  "ja": "芽キャベツ",
-                  "ko": "방울양배추"
-                },
-                "price": 6.5,
-                "soldout": true,
-                "preparing": true
+                "price": 4,
+                "allergens": [
+                  "gluten",
+                  "soy",
+                  "fish",
+                  "eggs"
+                ]
               }
             ]
           },
@@ -1463,9 +1443,9 @@ module.exports = {
                 "dineInOnly": true,
                 "lactoseFree": true,
                 "photo": "img/n8-1788882417081.jpg",
-                "vegan": true,
                 "vegetarian": true,
-                "glutenFree": true
+                "glutenFree": true,
+                "vegan": true
               },
               {
                 "id": "n9",
@@ -1478,9 +1458,9 @@ module.exports = {
                 "price": 0.5,
                 "dineInOnly": true,
                 "photo": "img/n9-1788885473098.webp",
-                "vegan": true,
                 "vegetarian": true,
-                "glutenFree": true
+                "glutenFree": true,
+                "vegan": true
               }
             ]
           }
