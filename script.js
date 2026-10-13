@@ -30,13 +30,13 @@ const i18n = {
     allergens_prefix: "Allergènes :",
     traces_prefix: "Traces possibles :",
     legend_traces: "Traces possibles (friture partagée)",
-    filter_btn: "Allergies ? Filtrer le menu",
-    filter_title: "Je ne peux pas manger :",
+    filter_heading: "Allergies alimentaires ?",
+    filter_sub: "Sélectionnez vos allergènes : nous signalons les plats qui en contiennent.",
+    filter_none: "Aucun plat ne contient les allergènes sélectionnés.",
     show_all: "Afficher tous les allergènes",
     filter_clear: "Effacer",
     contains_prefix: "Contient :",
-    filter_summary: "{n} plat(s) à éviter · {t} avec traces possibles",
-    filter_hint: "Touchez un allergène : les plats qui en contiennent sont signalés.",
+    filter_summary: "{n} plat(s) contiennent vos allergènes · {t} avec traces possibles",
     next_menu_banner: "<strong>Nouveau menu dès le lundi 19 octobre</strong> — tempura, un seul menu midi et soir. <u>Voir l’aperçu →</u>",
     legend_title: "Allergènes et régimes",
     legend_allergens: "Contient",
@@ -218,13 +218,13 @@ const i18n = {
     allergens_prefix: "Allergens:",
     traces_prefix: "May contain:",
     legend_traces: "May contain (shared fryer)",
-    filter_btn: "Allergies? Filter the menu",
-    filter_title: "I can’t eat:",
+    filter_heading: "Food allergies?",
+    filter_sub: "Select your allergens and we’ll flag the dishes that contain them.",
+    filter_none: "No dish contains the selected allergens.",
     show_all: "Show all allergens",
     filter_clear: "Clear",
     contains_prefix: "Contains:",
-    filter_summary: "{n} dish(es) to avoid · {t} may contain traces",
-    filter_hint: "Tap an allergen: dishes that contain it are flagged.",
+    filter_summary: "{n} dish(es) contain your allergens · {t} may contain traces",
     next_menu_banner: "<strong>New menu starting Monday, October 19</strong> — tempura, one menu for lunch and dinner. <u>See the preview →</u>",
     legend_title: "Allergens & dietary",
     legend_allergens: "Contains",
@@ -406,13 +406,13 @@ const i18n = {
     allergens_prefix: "アレルゲン：",
     traces_prefix: "混入の可能性：",
     legend_traces: "混入の可能性（共用フライヤー）",
-    filter_btn: "アレルギーで絞り込む",
-    filter_title: "食べられないもの：",
+    filter_heading: "食物アレルギーをお持ちですか？",
+    filter_sub: "アレルゲンを選択すると、該当する料理に印が付きます。",
+    filter_none: "選択したアレルゲンを含む料理はありません。",
     show_all: "すべてのアレルゲンを表示",
     filter_clear: "クリア",
     contains_prefix: "含む：",
-    filter_summary: "避けるべき料理 {n} 件・混入の可能性 {t} 件",
-    filter_hint: "アレルゲンを選ぶと、含まれる料理に印が付きます。",
+    filter_summary: "該当する料理 {n} 件・混入の可能性 {t} 件",
     next_menu_banner: "<strong>10月19日（月）から新メニュー</strong> — 天ぷら登場、ランチとディナーが同じメニューに。<u>プレビューを見る →</u>",
     legend_title: "アレルゲン・食事制限",
     legend_allergens: "含まれるもの",
@@ -502,13 +502,13 @@ const i18n = {
     allergens_prefix: "알레르기 유발 성분:",
     traces_prefix: "교차 오염 가능:",
     legend_traces: "교차 오염 가능 (공용 튀김기)",
-    filter_btn: "알레르기 필터",
-    filter_title: "먹을 수 없는 것:",
+    filter_heading: "음식 알레르기가 있으신가요?",
+    filter_sub: "알레르기 항목을 선택하면 해당 성분이 포함된 메뉴가 표시됩니다.",
+    filter_none: "선택한 알레르기 성분이 포함된 메뉴가 없습니다.",
     show_all: "모든 알레르기 정보 보기",
     filter_clear: "지우기",
     contains_prefix: "함유:",
-    filter_summary: "피해야 할 메뉴 {n}개 · 교차 오염 가능 {t}개",
-    filter_hint: "알레르기 항목을 누르면 해당 메뉴가 표시됩니다.",
+    filter_summary: "해당 성분 포함 메뉴 {n}개 · 교차 오염 가능 {t}개",
     next_menu_banner: "<strong>10월 19일(월)부터 새 메뉴</strong> — 덴푸라 추가, 점심·저녁 동일 메뉴. <u>미리보기 →</u>",
     legend_title: "알레르기 유발 성분 및 식단",
     legend_allergens: "함유",
@@ -678,7 +678,7 @@ function iconLabel(code, lang) {
 function iconHtml(code, lang, trace) {
   const kind = trace ? "trace" : DIET_LABEL_KEY[code] ? "diet" : "alg";
   const title = trace ? `${dictFor(lang).traces_prefix} ${iconLabel(code, lang)}` : iconLabel(code, lang);
-  return `<span class="ico ico-${kind}" title="${title}" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICON_SVG[code] || ""}</svg></span>`;
+  return `<span class="ico ico-${kind}" data-code="${code}" title="${title}" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICON_SVG[code] || ""}</svg></span>`;
 }
 function itemTraces(it) {
   const contains = Array.isArray(it.allergens) ? it.allergens : [];
@@ -936,32 +936,37 @@ function renderAllergyFilter(lang) {
     (Array.isArray(it.traces) ? it.traces : []).forEach(c => used.add(c));
   })));
   const codes = ALLERGEN_ORDER.filter(c => used.has(c));
-  const open = allergySel.length > 0 || box.classList.contains("open");
   box.hidden = false;
-  box.classList.toggle("open", open);
   box.innerHTML = `
-    <div class="af-bar">
-      <button type="button" class="af-toggle" aria-expanded="${open}" aria-controls="afPanel">⚠ ${d.filter_btn}${allergySel.length ? ` <span class="af-count">${allergySel.length}</span>` : ""}</button>
-      <label class="af-showall"><input type="checkbox" id="afShowAll" ${showAllAllergens ? "checked" : ""}> ${d.show_all}</label>
+    <div class="af-head">
+      <span class="af-mark" aria-hidden="true">⚠</span>
+      <div>
+        <h3 class="af-heading">${d.filter_heading}</h3>
+        <p class="af-sub">${d.filter_sub}</p>
+      </div>
     </div>
-    <div class="af-panel" id="afPanel" ${open ? "" : "hidden"}>
-      <p class="af-title">${d.filter_title}</p>
-      <div class="af-chips">${codes.map(c => `<button type="button" class="af-chip" data-code="${c}" aria-pressed="${allergySel.includes(c)}">${iconHtml(c, lang)}<span>${iconLabel(c, lang)}</span></button>`).join("")}</div>
-      <p class="af-summary" id="afSummary">${d.filter_hint}</p>
-      <p class="af-note">${d.allergens_note}</p>
-    </div>`;
-  box.querySelector(".af-toggle").addEventListener("click", () => {
-    const isOpen = !box.classList.contains("open");
-    box.classList.toggle("open", isOpen);
-    box.querySelector(".af-toggle").setAttribute("aria-expanded", isOpen);
-    document.getElementById("afPanel").hidden = !isOpen;
-  });
+    <div class="af-chips" role="group" aria-label="${d.filter_heading}">${codes.map(c => `<button type="button" class="af-chip" data-code="${c}" aria-pressed="${allergySel.includes(c)}">${iconHtml(c, lang)}<span>${iconLabel(c, lang)}</span></button>`).join("")}</div>
+    <div class="af-foot">
+      <p class="af-summary" id="afSummary" aria-live="polite"></p>
+      <div class="af-actions">
+        <button type="button" class="af-clear" id="afClear" ${allergySel.length ? "" : "hidden"}>${d.filter_clear}</button>
+        <label class="af-showall"><input type="checkbox" id="afShowAll" ${showAllAllergens ? "checked" : ""}> ${d.show_all}</label>
+      </div>
+    </div>
+    <p class="af-note">${d.allergens_note}</p>`;
   box.querySelectorAll(".af-chip").forEach(b => b.addEventListener("click", () => {
     const c = b.dataset.code;
     allergySel = allergySel.includes(c) ? allergySel.filter(x => x !== c) : allergySel.concat(c);
+    b.setAttribute("aria-pressed", allergySel.includes(c));
+    document.getElementById("afClear").hidden = !allergySel.length;
+    saveAllergyPrefs();
+    applyAllergyFilter(currentLang);
+  }));
+  document.getElementById("afClear").addEventListener("click", () => {
+    allergySel = [];
     saveAllergyPrefs();
     renderAllergyFilter(currentLang);
-  }));
+  });
   document.getElementById("afShowAll").addEventListener("change", e => {
     showAllAllergens = e.target.checked;
     saveAllergyPrefs();
@@ -981,6 +986,7 @@ function applyAllergyFilter(lang) {
     const maybe = ALLERGY_FILTER_ENABLED ? allergySel.filter(c => tr.includes(c) && !alg.includes(c)) : [];
     li.classList.toggle("alg-hit", bad.length > 0);
     li.classList.toggle("alg-maybe", !bad.length && maybe.length > 0);
+    li.querySelectorAll(".ico-group.alg .ico").forEach(i => i.classList.toggle("sel", allergySel.includes(i.dataset.code)));
     const warn = li.querySelector(".alg-warn");
     if (!warn) return;
     if (bad.length) {
@@ -997,7 +1003,10 @@ function applyAllergyFilter(lang) {
     }
   });
   const sum = document.getElementById("afSummary");
-  if (sum) sum.textContent = allergySel.length ? d.filter_summary.replace("{n}", hit).replace("{t}", trace) : d.filter_hint;
+  if (sum) {
+    sum.textContent = !allergySel.length ? "" : (hit || trace) ? d.filter_summary.replace("{n}", hit).replace("{t}", trace) : d.filter_none;
+    sum.hidden = !allergySel.length;
+  }
 }
 
 function itemName(key) {
