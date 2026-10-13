@@ -692,9 +692,57 @@ body.lunch-menu-restricted li.lunch-restrict button.size-btn { pointer-events: n
   text-align: center;
 }
 body.test-mode { padding-bottom: 3.5rem; }
+@media (max-width: 600px) {
+  .test-bar .tb-long { display: none; }
+  .test-bar { font-size: 0.78rem; padding: 0.4rem 0.8rem; }
+}
 .test-pin { display: inline-flex; gap: 0.3rem; }
 .test-pin input { width: 6rem; padding: 0.2rem 0.4rem; border: none; border-radius: 3px; text-align: center; }
 .test-pin button { padding: 0.2rem 0.7rem; border: 1px solid #fff; border-radius: 3px; background: transparent; color: #fff; cursor: pointer; }
+
+/* ===== Filtre « allergies » ===== */
+body.alg-filter-mode:not(.show-allergens) .ico-group.alg,
+body.alg-filter-mode:not(.show-allergens) .ico-sep,
+body.alg-filter-mode:not(.show-allergens) #allergenLegend { display: none; }
+.ico-group { display: contents; }
+.alg-filter {
+  max-width: 950px;
+  margin: 2rem auto 0;
+  background: #fff;
+  border: 1px solid #e8e0d2;
+  border-top: 3px solid var(--dorado);
+  padding: 0.8rem 1.3rem;
+}
+.af-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem 1.2rem; }
+.af-toggle {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: none; border: 1px solid #d47a22; color: #a85c14;
+  border-radius: 999px; padding: 0.4rem 0.9rem;
+  font: inherit; font-size: 0.88rem; font-weight: 600; cursor: pointer;
+}
+.af-toggle:hover, .alg-filter.open .af-toggle { background: #fdf1e4; }
+.af-count { background: #d47a22; color: #fff; border-radius: 999px; min-width: 1.3em; padding: 0 0.35em; font-size: 0.75rem; text-align: center; }
+.af-showall { font-size: 0.82rem; color: var(--gris); display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer; }
+.af-panel { margin-top: 0.9rem; }
+.af-title { font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--gris); margin-bottom: 0.5rem; }
+.af-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.af-chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: #fff; border: 1px solid #e3d9c6; border-radius: 999px;
+  padding: 0.2rem 0.75rem 0.2rem 0.25rem;
+  font: inherit; font-size: 0.85rem; color: var(--negro); cursor: pointer;
+}
+.af-chip[aria-pressed="true"] { background: #b32428; border-color: #b32428; color: #fff; }
+.af-chip[aria-pressed="true"] .ico { background: #fff; }
+.af-chip:focus-visible, .af-toggle:focus-visible { outline: 2px solid var(--rojo); outline-offset: 2px; }
+.af-summary { margin-top: 0.7rem; font-size: 0.85rem; font-weight: 600; color: var(--negro); }
+.af-note { margin-top: 0.4rem; font-size: 0.75rem; color: var(--gris); }
+.menu-list li.alg-hit .mi-head,
+.menu-list li.alg-hit .mi-desc,
+.menu-list li.alg-hit .size-row,
+.menu-list li.alg-hit .mi-icons { opacity: 0.35; }
+.alg-warn { margin-top: 0.3rem; font-size: 0.78rem; font-weight: 600; color: #b32428; }
+.alg-warn.maybe { color: #a85c14; font-weight: 500; }
 
 /* ===== Allergènes / régimes : icônes + légende ===== */
 .ico {

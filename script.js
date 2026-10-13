@@ -30,6 +30,13 @@ const i18n = {
     allergens_prefix: "Allergènes :",
     traces_prefix: "Traces possibles :",
     legend_traces: "Traces possibles (friture partagée)",
+    filter_btn: "Allergies ? Filtrer le menu",
+    filter_title: "Je ne peux pas manger :",
+    show_all: "Afficher tous les allergènes",
+    filter_clear: "Effacer",
+    contains_prefix: "Contient :",
+    filter_summary: "{n} plat(s) à éviter · {t} avec traces possibles",
+    filter_hint: "Touchez un allergène : les plats qui en contiennent sont signalés.",
     next_menu_banner: "<strong>Nouveau menu dès le lundi 19 octobre</strong> — tempura, un seul menu midi et soir. <u>Voir l’aperçu →</u>",
     legend_title: "Allergènes et régimes",
     legend_allergens: "Contient",
@@ -211,6 +218,13 @@ const i18n = {
     allergens_prefix: "Allergens:",
     traces_prefix: "May contain:",
     legend_traces: "May contain (shared fryer)",
+    filter_btn: "Allergies? Filter the menu",
+    filter_title: "I can’t eat:",
+    show_all: "Show all allergens",
+    filter_clear: "Clear",
+    contains_prefix: "Contains:",
+    filter_summary: "{n} dish(es) to avoid · {t} may contain traces",
+    filter_hint: "Tap an allergen: dishes that contain it are flagged.",
     next_menu_banner: "<strong>New menu starting Monday, October 19</strong> — tempura, one menu for lunch and dinner. <u>See the preview →</u>",
     legend_title: "Allergens & dietary",
     legend_allergens: "Contains",
@@ -392,6 +406,13 @@ const i18n = {
     allergens_prefix: "アレルゲン：",
     traces_prefix: "混入の可能性：",
     legend_traces: "混入の可能性（共用フライヤー）",
+    filter_btn: "アレルギーで絞り込む",
+    filter_title: "食べられないもの：",
+    show_all: "すべてのアレルゲンを表示",
+    filter_clear: "クリア",
+    contains_prefix: "含む：",
+    filter_summary: "避けるべき料理 {n} 件・混入の可能性 {t} 件",
+    filter_hint: "アレルゲンを選ぶと、含まれる料理に印が付きます。",
     next_menu_banner: "<strong>10月19日（月）から新メニュー</strong> — 天ぷら登場、ランチとディナーが同じメニューに。<u>プレビューを見る →</u>",
     legend_title: "アレルゲン・食事制限",
     legend_allergens: "含まれるもの",
@@ -481,6 +502,13 @@ const i18n = {
     allergens_prefix: "알레르기 유발 성분:",
     traces_prefix: "교차 오염 가능:",
     legend_traces: "교차 오염 가능 (공용 튀김기)",
+    filter_btn: "알레르기 필터",
+    filter_title: "먹을 수 없는 것:",
+    show_all: "모든 알레르기 정보 보기",
+    filter_clear: "지우기",
+    contains_prefix: "함유:",
+    filter_summary: "피해야 할 메뉴 {n}개 · 교차 오염 가능 {t}개",
+    filter_hint: "알레르기 항목을 누르면 해당 메뉴가 표시됩니다.",
     next_menu_banner: "<strong>10월 19일(월)부터 새 메뉴</strong> — 덴푸라 추가, 점심·저녁 동일 메뉴. <u>미리보기 →</u>",
     legend_title: "알레르기 유발 성분 및 식단",
     legend_allergens: "함유",
@@ -707,7 +735,7 @@ function itemIconsHtml(it, lang) {
     diets.map(c => iconLabel(c, lang)).join(", ")
   ].filter(Boolean).join(" ");
   const algHtml = alg.map(c => iconHtml(c, lang)).join("") + traces.map(c => iconHtml(c, lang, true)).join("");
-  return `<p class="mi-icons"><span class="visually-hidden">${srText}</span>${algHtml}${algHtml && diets.length ? '<span class="ico-sep"></span>' : ""}${diets.map(c => iconHtml(c, lang)).join("")}</p>`;
+  return `<p class="mi-icons"><span class="visually-hidden">${srText}</span>${algHtml ? `<span class="ico-group alg">${algHtml}</span>` : ""}${algHtml && diets.length ? '<span class="ico-sep"></span>' : ""}${diets.length ? `<span class="ico-group diet">${diets.map(c => iconHtml(c, lang)).join("")}</span>` : ""}</p>`;
 }
 
 function photoButton(it, caption) {
@@ -739,6 +767,7 @@ function buildSizeGroup(sizes, lang, lunchRestrictable) {
   const name = first.groupName || first.name;
   const li = document.createElement("li");
   li.className = "size-group";
+  tagAllergens(li, first);
   if (lunchRestrictable) li.classList.add("lunch-restrict");
   const allSold = sizes.every(s => s.soldout);
   if (allSold) li.classList.add("soldout");
@@ -759,7 +788,7 @@ function buildSizeGroup(sizes, lang, lunchRestrictable) {
     ? `<p class="size-note">${dineSizes.join(", ")} : ${d.dinein_label}</p>` : "";
   li.innerHTML = `<div class="mi-head"><span>${tr(name)}${soldChip}${lunchChip}</span><span class="dots"></span><span class="price">${range}</span></div>` +
     (first.desc ? `<p class="mi-desc">${tr(first.desc)}</p>` : "") +
-    `<div class="size-row">${btns}</div>` + dineNote + itemIconsHtml(first, lang) + staffNoteHtml(first.staffNote, lang, "item");
+    `<div class="size-row">${btns}</div>` + dineNote + itemIconsHtml(first, lang) + '<p class="alg-warn" hidden></p>' + staffNoteHtml(first.staffNote, lang, "item");
   li.querySelectorAll("button.size-btn").forEach(b => b.addEventListener("click", () => {
     if (lunchRestrictable && document.body.classList.contains("lunch-menu-restricted")) return;
     addToCart(sizes.find(s => s.id === b.dataset.id));
@@ -795,6 +824,7 @@ function buildSection(sec, lang, lunchRestrictable) {
     if (Array.isArray(unit)) { ul.appendChild(buildSizeGroup(unit, lang, lunchRestrictable)); return; }
     const it = unit;
     const li = document.createElement("li");
+    tagAllergens(li, it);
     if (lunchRestrictable) li.classList.add("lunch-restrict");
     const soldChip = it.soldout ? `<span class="soldout-chip">${dictFor(lang).soldout_label}</span>` : "";
     const dineInOnly = it.alcohol || it.dineInOnly;
@@ -807,7 +837,7 @@ function buildSection(sec, lang, lunchRestrictable) {
       ? `<span class="price-old">${fmtPrice(it.price)}</span><span class="price-promo">${fmtPrice(it.promoPrice)}</span>`
       : fmtPrice(it.price);
     li.innerHTML = `<div class="mi-head"><span>${it.name[lang] || it.name.en || it.name.fr}${soldChip}${dineInChip}${lunchChip}</span><span class="dots"></span><span class="price">${priceHtml}</span></div>` +
-      (it.desc ? `<p class="mi-desc">${it.desc[lang] || it.desc.en || it.desc.fr || ""}</p>` : "") + allergenHtml + staffNoteHtml(it.staffNote, lang, "item");
+      (it.desc ? `<p class="mi-desc">${it.desc[lang] || it.desc.en || it.desc.fr || ""}</p>` : "") + allergenHtml + '<p class="alg-warn" hidden></p>' + staffNoteHtml(it.staffNote, lang, "item");
     if (it.soldout) li.classList.add("soldout");
     const actions = document.createElement("span");
     actions.className = "item-actions";
@@ -868,6 +898,106 @@ function renderMenus(lang) {
       extra.appendChild(section);
     }
   });
+  renderAllergyFilter(lang);
+}
+
+// ===== Filtre « allergies » =====
+// Icônes allergènes masquées par défaut ; on coche ce qu'on ne peut pas manger et les plats concernés sont signalés.
+// Pour l'instant seulement dans /serveurs (validation) ; passer à true pour le site public.
+const ALLERGY_FILTER_ENABLED = isStaffView();
+let allergySel = [];
+let showAllAllergens = false;
+try {
+  allergySel = JSON.parse(localStorage.getItem("hoshi_allergy_filter") || "[]").filter(c => ALLERGEN_ORDER.includes(c));
+  showAllAllergens = localStorage.getItem("hoshi_show_allergens") === "1";
+} catch (e) {}
+
+function tagAllergens(li, it) {
+  li.dataset.alg = (Array.isArray(it.allergens) ? it.allergens : []).join(",");
+  li.dataset.tr = itemTraces(it).join(",");
+}
+
+function saveAllergyPrefs() {
+  try {
+    localStorage.setItem("hoshi_allergy_filter", JSON.stringify(allergySel));
+    localStorage.setItem("hoshi_show_allergens", showAllAllergens ? "1" : "0");
+  } catch (e) {}
+}
+
+function renderAllergyFilter(lang) {
+  const box = document.getElementById("allergenFilter");
+  document.body.classList.toggle("alg-filter-mode", ALLERGY_FILTER_ENABLED);
+  if (!box) return;
+  if (!ALLERGY_FILTER_ENABLED) { box.hidden = true; return; }
+  const d = dictFor(lang);
+  const used = new Set();
+  MENU_DATA.menus.forEach(m => m.sections.forEach(s => s.items.forEach(it => {
+    (Array.isArray(it.allergens) ? it.allergens : []).forEach(c => used.add(c));
+    (Array.isArray(it.traces) ? it.traces : []).forEach(c => used.add(c));
+  })));
+  const codes = ALLERGEN_ORDER.filter(c => used.has(c));
+  const open = allergySel.length > 0 || box.classList.contains("open");
+  box.hidden = false;
+  box.classList.toggle("open", open);
+  box.innerHTML = `
+    <div class="af-bar">
+      <button type="button" class="af-toggle" aria-expanded="${open}" aria-controls="afPanel">⚠ ${d.filter_btn}${allergySel.length ? ` <span class="af-count">${allergySel.length}</span>` : ""}</button>
+      <label class="af-showall"><input type="checkbox" id="afShowAll" ${showAllAllergens ? "checked" : ""}> ${d.show_all}</label>
+    </div>
+    <div class="af-panel" id="afPanel" ${open ? "" : "hidden"}>
+      <p class="af-title">${d.filter_title}</p>
+      <div class="af-chips">${codes.map(c => `<button type="button" class="af-chip" data-code="${c}" aria-pressed="${allergySel.includes(c)}">${iconHtml(c, lang)}<span>${iconLabel(c, lang)}</span></button>`).join("")}</div>
+      <p class="af-summary" id="afSummary">${d.filter_hint}</p>
+      <p class="af-note">${d.allergens_note}</p>
+    </div>`;
+  box.querySelector(".af-toggle").addEventListener("click", () => {
+    const isOpen = !box.classList.contains("open");
+    box.classList.toggle("open", isOpen);
+    box.querySelector(".af-toggle").setAttribute("aria-expanded", isOpen);
+    document.getElementById("afPanel").hidden = !isOpen;
+  });
+  box.querySelectorAll(".af-chip").forEach(b => b.addEventListener("click", () => {
+    const c = b.dataset.code;
+    allergySel = allergySel.includes(c) ? allergySel.filter(x => x !== c) : allergySel.concat(c);
+    saveAllergyPrefs();
+    renderAllergyFilter(currentLang);
+  }));
+  document.getElementById("afShowAll").addEventListener("change", e => {
+    showAllAllergens = e.target.checked;
+    saveAllergyPrefs();
+    applyAllergyFilter(currentLang);
+  });
+  applyAllergyFilter(lang);
+}
+
+function applyAllergyFilter(lang) {
+  const d = dictFor(lang);
+  document.body.classList.toggle("show-allergens", !ALLERGY_FILTER_ENABLED || showAllAllergens);
+  let hit = 0, trace = 0;
+  document.querySelectorAll(".menu-list li[data-alg]").forEach(li => {
+    const alg = li.dataset.alg ? li.dataset.alg.split(",") : [];
+    const tr = li.dataset.tr ? li.dataset.tr.split(",") : [];
+    const bad = ALLERGY_FILTER_ENABLED ? allergySel.filter(c => alg.includes(c)) : [];
+    const maybe = ALLERGY_FILTER_ENABLED ? allergySel.filter(c => tr.includes(c) && !alg.includes(c)) : [];
+    li.classList.toggle("alg-hit", bad.length > 0);
+    li.classList.toggle("alg-maybe", !bad.length && maybe.length > 0);
+    const warn = li.querySelector(".alg-warn");
+    if (!warn) return;
+    if (bad.length) {
+      hit++;
+      warn.textContent = `⚠ ${d.contains_prefix} ${bad.map(c => iconLabel(c, lang)).join(", ")}` +
+        (maybe.length ? ` · ${d.traces_prefix} ${maybe.map(c => iconLabel(c, lang)).join(", ")}` : "");
+      warn.className = "alg-warn"; warn.hidden = false;
+    } else if (maybe.length) {
+      trace++;
+      warn.textContent = `${d.traces_prefix} ${maybe.map(c => iconLabel(c, lang)).join(", ")}`;
+      warn.className = "alg-warn maybe"; warn.hidden = false;
+    } else {
+      warn.hidden = true; warn.textContent = "";
+    }
+  });
+  const sum = document.getElementById("afSummary");
+  if (sum) sum.textContent = allergySel.length ? d.filter_summary.replace("{n}", hit).replace("{t}", trace) : d.filter_hint;
 }
 
 function itemName(key) {
@@ -1280,7 +1410,7 @@ const IS_TEST_MODE = isStaffView();
 if (IS_TEST_MODE) (function () {
   const bar = document.createElement("div");
   bar.className = "test-bar";
-  bar.innerHTML = '<strong>MENU SERVEURS</strong> — usage interne · invisible pour les clients · paiement désactivé ' +
+  bar.innerHTML = '<strong>MENU SERVEURS</strong> <span class="tb-long">— usage interne · invisible pour les clients · paiement désactivé</span> ' +
     '<span class="test-pin"><input type="password" id="testPin" placeholder="PIN" inputmode="numeric"><button id="testPinGo">OK</button></span>' +
     '<span id="testMsg"></span>';
   document.body.prepend(bar);
