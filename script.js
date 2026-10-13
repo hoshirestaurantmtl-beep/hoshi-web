@@ -685,6 +685,16 @@ function renderAllergenLegend(lang) {
     `<p class="legend-note">${d.allergens_note}</p>`;
 }
 
+// Vue serveurs (/serveurs → ?staff=1, ancien /test → ?test=1) : notes internes visibles
+function isStaffView() {
+  const q = new URLSearchParams(location.search);
+  return q.get("staff") === "1" || q.get("test") === "1";
+}
+function staffNoteHtml(note, lang, cls) {
+  if (!note || !isStaffView()) return "";
+  return `<p class="staff-note${cls ? " " + cls : ""}">🔒 ${note[lang] || note.en || note.fr}</p>`;
+}
+
 // Rangée d'icônes allergènes / régimes d'un plat
 function itemIconsHtml(it, lang) {
   const alg = ALLERGEN_ORDER.filter(c => Array.isArray(it.allergens) && it.allergens.includes(c));
@@ -749,7 +759,7 @@ function buildSizeGroup(sizes, lang, lunchRestrictable) {
     ? `<p class="size-note">${dineSizes.join(", ")} : ${d.dinein_label}</p>` : "";
   li.innerHTML = `<div class="mi-head"><span>${tr(name)}${soldChip}${lunchChip}</span><span class="dots"></span><span class="price">${range}</span></div>` +
     (first.desc ? `<p class="mi-desc">${tr(first.desc)}</p>` : "") +
-    `<div class="size-row">${btns}</div>` + dineNote + itemIconsHtml(first, lang);
+    `<div class="size-row">${btns}</div>` + dineNote + itemIconsHtml(first, lang) + staffNoteHtml(first.staffNote, lang, "item");
   li.querySelectorAll("button.size-btn").forEach(b => b.addEventListener("click", () => {
     if (lunchRestrictable && document.body.classList.contains("lunch-menu-restricted")) return;
     addToCart(sizes.find(s => s.id === b.dataset.id));
@@ -770,8 +780,7 @@ function buildSection(sec, lang, lunchRestrictable) {
   let inner = `<h3 class="menu-cat"><span class="cat-kanji">${sec.kanji || ""}</span> <span>${sec.title[lang] || sec.title.en}</span></h3>`;
   if (sec.note) inner += `<p class="mi-desc">${sec.note[lang] || sec.note.en}</p>`;
   // Note interne (ex. grammages des tailles) : seulement dans /test, jamais pour les clients
-  if (sec.staffNote && new URLSearchParams(location.search).get("test") === "1")
-    inner += `<p class="staff-note">🔒 ${sec.staffNote[lang] || sec.staffNote.en}</p>`;
+  inner += staffNoteHtml(sec.staffNote, lang);
   inner += '<ul class="menu-list"></ul>';
   div.innerHTML = inner;
   const ul = div.querySelector("ul");
@@ -798,7 +807,7 @@ function buildSection(sec, lang, lunchRestrictable) {
       ? `<span class="price-old">${fmtPrice(it.price)}</span><span class="price-promo">${fmtPrice(it.promoPrice)}</span>`
       : fmtPrice(it.price);
     li.innerHTML = `<div class="mi-head"><span>${it.name[lang] || it.name.en || it.name.fr}${soldChip}${dineInChip}${lunchChip}</span><span class="dots"></span><span class="price">${priceHtml}</span></div>` +
-      (it.desc ? `<p class="mi-desc">${it.desc[lang] || it.desc.en || it.desc.fr || ""}</p>` : "") + allergenHtml;
+      (it.desc ? `<p class="mi-desc">${it.desc[lang] || it.desc.en || it.desc.fr || ""}</p>` : "") + allergenHtml + staffNoteHtml(it.staffNote, lang, "item");
     if (it.soldout) li.classList.add("soldout");
     const actions = document.createElement("span");
     actions.className = "item-actions";
@@ -1267,11 +1276,11 @@ const NEXT_MENU_LAUNCH = Date.parse("2026-10-19T00:00:00-04:00");
 // ===== Mode TEST (hoshimtl.ca/test → /?test=1) =====
 // Après le PIN commandes, applique api/_menu-test-data.js par-dessus MENU_DATA.
 // Rien n'est visible des clients ; le paiement est désactivé dans ce mode.
-const IS_TEST_MODE = new URLSearchParams(location.search).get("test") === "1";
+const IS_TEST_MODE = isStaffView();
 if (IS_TEST_MODE) (function () {
   const bar = document.createElement("div");
   bar.className = "test-bar";
-  bar.innerHTML = '<strong>MODE TEST</strong> — invisible pour les clients · paiement désactivé ' +
+  bar.innerHTML = '<strong>MENU SERVEURS</strong> — usage interne · invisible pour les clients · paiement désactivé ' +
     '<span class="test-pin"><input type="password" id="testPin" placeholder="PIN" inputmode="numeric"><button id="testPinGo">OK</button></span>' +
     '<span id="testMsg"></span>';
   document.body.prepend(bar);
@@ -1313,7 +1322,7 @@ if (IS_TEST_MODE) (function () {
         Object.keys(patch).forEach(k => { if (patch[k] === null) delete it[k]; else it[k] = patch[k]; });
       })));
       document.querySelector(".test-pin").remove();
-      msg(menu && menu.menus ? "· menu complet de test" : `· ${n} plat(s) modifié(s) en test`);
+      msg(menu && menu.menus ? "· nouveau menu (en préparation)" : n ? `· ${n} plat(s) modifié(s)` : "· menu actuel");
       setLang(currentLang);
       updateMidiVisibility();
       updatePrincipalOrderability();

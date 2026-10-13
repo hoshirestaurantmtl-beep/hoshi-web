@@ -6,5 +6,6 @@ Disallow: /commandes
 Disallow: /recettes.html
 Disallow: /recettes
 Disallow: /test
+Disallow: /serveurs
 
 Sitemap: https://hoshimtl.ca/sitemap.xml

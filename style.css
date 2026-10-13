@@ -665,6 +665,7 @@ body.lunch-menu-restricted li.lunch-restrict button.size-btn { pointer-events: n
 .menu-list li.size-group.soldout .size-row { opacity: 0.45; }
 
 /* ===== Mode TEST (/test) ===== */
+.staff-note.item { margin: 0.35rem 0 0; font-size: 0.72rem; }
 .staff-note {
   margin: 0.3rem 0 0.4rem;
   padding: 0.35rem 0.6rem;

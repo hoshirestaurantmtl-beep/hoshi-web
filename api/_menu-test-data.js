@@ -55,7 +55,11 @@ module.exports = {
                 ],
                 "traces": [
                   "shellfish"
-                ]
+                ],
+                "staffNote": {
+                  "fr": "Gardé temporairement : retrait prévu environ 2 semaines après le lancement du nouveau menu. Contient des anchois (Worcestershire).",
+                  "en": "Kept temporarily: to be removed about 2 weeks after the new menu launch. Contains anchovies (Worcestershire)."
+                }
               },
               {
                 "id": "n5",
@@ -95,6 +99,10 @@ module.exports = {
                   "en": "With parmesan and fried onions",
                   "ja": "パルメザンチーズとフライドオニオン入り",
                   "ko": "파르메산 치즈와 튀긴 양파"
+                },
+                "staffNote": {
+                  "fr": "Parmesan + oignons frits. Sans oignons frits = sans gluten. Jamais végane (mayonnaise aux œufs).",
+                  "en": "Parmesan + fried onions. Without fried onions = gluten-free. Never vegan (egg mayo)."
                 }
               },
               {
@@ -118,7 +126,11 @@ module.exports = {
                 "traces": [
                   "shellfish"
                 ],
-                "dineInOnly": true
+                "dineInOnly": true,
+                "staffNote": {
+                  "fr": "Décoré de spicy mayo (œuf, moutarde). Plus d’option coleslaw : le coleslaw se commande à part. Sur place seulement.",
+                  "en": "Decorated with spicy mayo (egg, mustard). No more coleslaw option: order coleslaw separately. Dine-in only."
+                }
               },
               {
                 "id": "x5",
@@ -151,7 +163,11 @@ module.exports = {
                   "soy"
                 ],
                 "soldout": true,
-                "preparing": true
+                "preparing": true,
+                "staffNote": {
+                  "fr": "Bientôt. Promo prévue : 2 pour 1 sur les commandes livraison de 25 $ et plus.",
+                  "en": "Coming soon. Planned promo: 2-for-1 on delivery orders of $25 or more."
+                }
               },
               {
                 "id": "x19",
@@ -169,7 +185,11 @@ module.exports = {
                 ],
                 "vegetarian": true,
                 "soldout": true,
-                "preparing": true
+                "preparing": true,
+                "staffNote": {
+                  "fr": "Bientôt. Fromage + oignons frits : sans oignons frits = sans gluten.",
+                  "en": "Coming soon. Cheese + fried onions: without fried onions = gluten-free."
+                }
               },
               {
                 "id": "x20",
@@ -252,6 +272,10 @@ module.exports = {
                   "en": "Rosu katsu plate",
                   "ja": "ロースカツ定食",
                   "ko": "로스카츠 정식"
+                },
+                "staffNote": {
+                  "fr": "Pour emporter : Moyen et Grand seulement. Régulier = 1 grosse pièce (plus longue à frire) → sur place seulement.",
+                  "en": "Takeout: Medium and Large only. Regular = 1 large piece (longer to fry) → dine-in only."
                 }
               },
               {
@@ -361,7 +385,11 @@ module.exports = {
                 "traces": [
                   "shellfish"
                 ],
-                "dineInOnly": true
+                "dineInOnly": true,
+                "staffNote": {
+                  "fr": "Hire = filet. Sur place seulement.",
+                  "en": "Hire = fillet. Dine-in only."
+                }
               },
               {
                 "id": "k4",
@@ -401,6 +429,10 @@ module.exports = {
                   "en": "Katsu Don",
                   "ja": "カツ丼",
                   "ko": "카츠동"
+                },
+                "staffNote": {
+                  "fr": "Katsu don : Rosu seulement (pas de Hire). Pour emporter : Moyen et Grand.",
+                  "en": "Katsu don: Rosu only (no Hire). Takeout: Medium and Large."
                 }
               },
               {
@@ -503,7 +535,11 @@ module.exports = {
                 ],
                 "traces": [
                   "shellfish"
-                ]
+                ],
+                "staffNote": {
+                  "fr": "Rosu supplémentaire, à ajouter à n’importe quel plat (remplace l’ancienne option Rosu & Hire).",
+                  "en": "Extra Rosu, add to any dish (replaces the old Rosu & Hire option)."
+                }
               },
               {
                 "id": "x6",
@@ -525,7 +561,11 @@ module.exports = {
                 "traces": [
                   "shellfish"
                 ],
-                "dineInOnly": true
+                "dineInOnly": true,
+                "staffNote": {
+                  "fr": "Hire supplémentaire, à ajouter à n’importe quel plat. Sur place seulement.",
+                  "en": "Extra Hire, add to any dish. Dine-in only."
+                }
               }
             ]
           },
@@ -583,6 +623,10 @@ module.exports = {
                   "en": "Rosu Katsu Curry Don",
                   "ja": "ロースカツカレー丼",
                   "ko": "로스카츠 카레동"
+                },
+                "staffNote": {
+                  "fr": "Pour emporter : Moyen et Grand seulement.",
+                  "en": "Takeout: Medium and Large only."
                 }
               },
               {
@@ -674,7 +718,11 @@ module.exports = {
                 "traces": [
                   "shellfish"
                 ],
-                "dineInOnly": true
+                "dineInOnly": true,
+                "staffNote": {
+                  "fr": "Hire curry : une seule taille (Régulier). Sur place seulement.",
+                  "en": "Hire curry: one size only (Regular). Dine-in only."
+                }
               },
               {
                 "id": "c4",
@@ -708,6 +756,10 @@ module.exports = {
                   "en": "Curry udon with Rosu Katsu",
                   "ja": "カレーうどん（ロースカツ）",
                   "ko": "카레우동 + 로스카츠"
+                },
+                "staffNote": {
+                  "fr": "Curry udon : prix propres (la règle +3 $ ne s’applique pas). Pour emporter : Moyen et Grand.",
+                  "en": "Curry udon has its own prices (the +$3 rule does not apply). Takeout: Medium and Large."
                 }
               },
               {
@@ -799,7 +851,11 @@ module.exports = {
                 "traces": [
                   "shellfish"
                 ],
-                "dineInOnly": true
+                "dineInOnly": true,
+                "staffNote": {
+                  "fr": "Hire curry udon : une seule taille (Régulier). Sur place seulement.",
+                  "en": "Hire curry udon: one size only (Regular). Dine-in only."
+                }
               },
               {
                 "id": "x2",
@@ -856,6 +912,10 @@ module.exports = {
                   "en": "2 shrimp, pumpkin, lotus root, chikuwa, kakiage — rice, tentsuyu, miso soup, pickles (plain udon soup instead of rice: +$3)",
                   "ja": "海老2本・かぼちゃ・れんこん・ちくわ・かき揚げ — ご飯・天つゆ・味噌汁・漬物（ご飯→かけうどん +3$）",
                   "ko": "새우 2, 단호박, 연근, 치쿠와, 가키아게 — 밥, 텐츠유, 미소국, 절임 (밥→우동국 +3$)"
+                },
+                "staffNote": {
+                  "fr": "5 pièces : 2 crevettes, citrouille, lotus, chikuwa, kakiage. Riz → udon (soupe simple) : +3 $. OK pour emporter.",
+                  "en": "5 pieces: 2 shrimp, pumpkin, lotus, chikuwa, kakiage. Rice → plain udon soup: +$3. Takeout OK."
                 }
               },
               {
@@ -878,6 +938,10 @@ module.exports = {
                   "en": "2 tofu, pumpkin, lotus root, kakiage, eggplant, shiitake — vegetarian tentsuyu. No rice or soup: add rice or udon as an extra.",
                   "ja": "豆腐2・かぼちゃ・れんこん・かき揚げ・なす・椎茸 — ベジ天つゆ。ご飯・汁物なし（ご飯・うどんは追加で）。",
                   "ko": "두부 2, 단호박, 연근, 가키아게, 가지, 표고버섯 — 채식 텐츠유. 밥·국 미포함 (밥 또는 우동 추가 가능)."
+                },
+                "staffNote": {
+                  "fr": "100 % végétarien et végane (friteuse végétale, tentsuyu sans poisson). Ni riz ni soupe inclus : proposer riz ou udon en extra.",
+                  "en": "100% vegetarian and vegan (vegetable fryer, fish-free tentsuyu). No rice or soup included: offer rice or udon as an extra."
                 }
               },
               {
@@ -897,7 +961,11 @@ module.exports = {
                 "traces": [
                   "fish",
                   "eggs"
-                ]
+                ],
+                "staffNote": {
+                  "fr": "Traces possibles de poisson et d’œuf (huile partagée).",
+                  "en": "May contain fish and egg (shared oil)."
+                }
               },
               {
                 "id": "t5",
@@ -916,7 +984,11 @@ module.exports = {
                 ],
                 "traces": [
                   "shellfish"
-                ]
+                ],
+                "staffNote": {
+                  "fr": "Traces possibles de fruits de mer (huile partagée).",
+                  "en": "May contain shellfish (shared oil)."
+                }
               },
               {
                 "id": "t6",
@@ -984,7 +1056,11 @@ module.exports = {
                   "gluten",
                   "fish",
                   "soy"
-                ]
+                ],
+                "staffNote": {
+                  "fr": "Une seule taille (l’ancienne « Grand »).",
+                  "en": "One size only (the former Large)."
+                }
               },
               {
                 "id": "e3",
@@ -1019,7 +1095,11 @@ module.exports = {
                   "soy",
                   "sesame",
                   "mustard"
-                ]
+                ],
+                "staffNote": {
+                  "fr": "Décoré de spicy mayo (œuf, moutarde).",
+                  "en": "Decorated with spicy mayo (egg, mustard)."
+                }
               },
               {
                 "id": "a2",
@@ -1073,7 +1153,11 @@ module.exports = {
                   "eggs",
                   "dairy",
                   "soy"
-                ]
+                ],
+                "staffNote": {
+                  "fr": "Sur place seulement. Contient des anchois (Worcestershire).",
+                  "en": "Dine-in only. Contains anchovies (Worcestershire)."
+                }
               },
               {
                 "id": "h2",
@@ -1190,7 +1274,11 @@ module.exports = {
                   "ja": "クリームスープ",
                   "ko": "크림 수프"
                 },
-                "price": 5.5
+                "price": 5.5,
+                "staffNote": {
+                  "fr": "N’est plus offerte gratuitement : 5,50 $ (portions congelées, réchauffées au micro-ondes).",
+                  "en": "No longer free: $5.50 (frozen portions, microwaved to order)."
+                }
               },
               {
                 "id": "x1",
@@ -1204,7 +1292,11 @@ module.exports = {
                 "allergens": [
                   "eggs"
                 ],
-                "vegetarian": true
+                "vegetarian": true,
+                "staffNote": {
+                  "fr": "Même œuf que l’ancien œuf sous-vide ; servi sans sauce.",
+                  "en": "Same egg as the former sous-vide egg; served without sauce."
+                }
               },
               {
                 "id": "x12",
@@ -1220,7 +1312,11 @@ module.exports = {
                   "soy"
                 ],
                 "vegetarian": true,
-                "vegan": true
+                "vegan": true,
+                "staffNote": {
+                  "fr": "Spicy Sauce maison : végane, contient gluten et soya.",
+                  "en": "House Spicy Sauce: vegan, contains gluten and soy."
+                }
               },
               {
                 "id": "x13",
@@ -1240,7 +1336,11 @@ module.exports = {
                   "ja": "ガリ",
                   "ko": "생강"
                 },
-                "price": 1
+                "price": 1,
+                "staffNote": {
+                  "fr": "Les assiettes sont servies avec takuan et shibazuke ; gingembre seulement sur demande (1 $).",
+                  "en": "Plates now come with takuan and shibazuke; ginger on request only ($1)."
+                }
               },
               {
                 "id": "x17",
@@ -1250,7 +1350,11 @@ module.exports = {
                   "ja": "わさび",
                   "ko": "와사비"
                 },
-                "price": 1
+                "price": 1,
+                "staffNote": {
+                  "fr": "Wasabi seulement sur demande (1 $).",
+                  "en": "Wasabi on request only ($1)."
+                }
               },
               {
                 "id": "x8",
@@ -1269,7 +1373,11 @@ module.exports = {
                 ],
                 "traces": [
                   "shellfish"
-                ]
+                ],
+                "staffNote": {
+                  "fr": "Gardé temporairement. Contient des anchois (Worcestershire).",
+                  "en": "Kept temporarily. Contains anchovies (Worcestershire)."
+                }
               }
             ]
           },
