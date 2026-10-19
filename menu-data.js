@@ -44,7 +44,11 @@ const MENU_DATA = {
               ],
               "traces": [
                 "shellfish"
-              ]
+              ],
+              "staffNote": {
+                "fr": "Gardé temporairement : retrait prévu environ 2 semaines après le lancement du nouveau menu. Contient des anchois (Worcestershire).",
+                "en": "Kept temporarily: to be removed about 2 weeks after the new menu launch. Contains anchovies (Worcestershire)."
+              }
             },
             {
               "id": "n5",
@@ -64,58 +68,6 @@ const MENU_DATA = {
               "vegan": true
             },
             {
-              "id": "e2",
-              "name": {
-                "fr": "Tartare de saumon",
-                "en": "Salmon tartare",
-                "ja": "サーモンタルタル",
-                "ko": "연어 타르타르"
-              },
-              "price": 11,
-              "photo": "img/e2-1788302067939.jpg",
-              "allergens": [
-                "gluten",
-                "fish",
-                "eggs",
-                "soy",
-                "sesame",
-                "mustard"
-              ]
-            },
-            {
-              "id": "e3",
-              "name": {
-                "fr": "Saumon flambé au tare",
-                "en": "Salmon flambé with tare",
-                "ja": "炙りサーモン タレがけ",
-                "ko": "타레 연어 아부리"
-              },
-              "price": 15,
-              "photo": "img/e3-1788458549114.jpg",
-              "allergens": [
-                "gluten",
-                "fish",
-                "soy"
-              ]
-            },
-            {
-              "id": "e4",
-              "name": {
-                "fr": "Salade de chou",
-                "en": "Cabbage salad",
-                "ja": "キャベツサラダ",
-                "ko": "양배추 샐러드"
-              },
-              "price": 4,
-              "photo": "img/e4-1788458553972.jpg",
-              "allergens": [
-                "gluten",
-                "soy"
-              ],
-              "vegetarian": true,
-              "vegan": true
-            },
-            {
               "id": "e5",
               "name": {
                 "fr": "Coleslaw",
@@ -123,40 +75,167 @@ const MENU_DATA = {
                 "ja": "コールスロー",
                 "ko": "코울슬로"
               },
-              "price": 4,
+              "price": 4.5,
               "photo": "img/e5-1788882356617.jpg",
               "allergens": [
                 "gluten",
                 "eggs",
                 "dairy"
               ],
-              "vegetarian": true
+              "vegetarian": true,
+              "desc": {
+                "fr": "Avec parmesan et oignons frits",
+                "en": "With parmesan and fried onions",
+                "ja": "パルメザンチーズとフライドオニオン入り",
+                "ko": "파르메산 치즈와 튀긴 양파"
+              },
+              "staffNote": {
+                "fr": "Parmesan + oignons frits. Sans oignons frits = sans gluten. Jamais végane (mayonnaise aux œufs).",
+                "en": "Parmesan + fried onions. Without fried onions = gluten-free. Never vegan (egg mayo)."
+              }
+            },
+            {
+              "id": "ks1",
+              "name": {
+                "fr": "Katsu Sando (3 pièces)",
+                "en": "Katsu Sando (3 pieces)",
+                "ja": "カツサンド（3切れ）",
+                "ko": "카츠산도 (3조각)"
+              },
+              "price": 16,
+              "photo": "img/ks1-1788302047787.jpg",
+              "allergens": [
+                "gluten",
+                "fish",
+                "eggs",
+                "dairy",
+                "soy",
+                "mustard"
+              ],
+              "traces": [
+                "shellfish"
+              ],
+              "dineInOnly": true,
+              "staffNote": {
+                "fr": "Décoré de spicy mayo (œuf, moutarde). Plus d’option coleslaw : le coleslaw se commande à part. Sur place seulement.",
+                "en": "Decorated with spicy mayo (egg, mustard). No more coleslaw option: order coleslaw separately. Dine-in only."
+              }
+            },
+            {
+              "id": "x5",
+              "name": {
+                "fr": "Soupe udon simple",
+                "en": "Plain udon soup",
+                "ja": "かけうどん",
+                "ko": "우동국"
+              },
+              "price": 7,
+              "photo": "img/x5-1788484540505.jpg",
+              "allergens": [
+                "gluten",
+                "fish",
+                "soy"
+              ]
+            },
+            {
+              "id": "x18",
+              "name": {
+                "fr": "Mini Butadon",
+                "en": "Mini Butadon (pork don)",
+                "ja": "ミニ豚丼",
+                "ko": "미니 부타동"
+              },
+              "price": 8,
+              "allergens": [
+                "gluten",
+                "fish",
+                "soy"
+              ],
+              "soldout": true,
+              "preparing": true,
+              "staffNote": {
+                "fr": "Bientôt. Promo prévue : 2 pour 1 sur les commandes livraison de 25 $ et plus.",
+                "en": "Coming soon. Planned promo: 2-for-1 on delivery orders of $25 or more."
+              }
+            },
+            {
+              "id": "x19",
+              "name": {
+                "fr": "Salade de pommes de terre",
+                "en": "Potato salad",
+                "ja": "ポテトサラダ",
+                "ko": "감자 샐러드"
+              },
+              "price": 5.5,
+              "allergens": [
+                "gluten",
+                "eggs",
+                "dairy"
+              ],
+              "vegetarian": true,
+              "soldout": true,
+              "preparing": true,
+              "staffNote": {
+                "fr": "Bientôt. Fromage + oignons frits : sans oignons frits = sans gluten.",
+                "en": "Coming soon. Cheese + fried onions: without fried onions = gluten-free."
+              }
+            },
+            {
+              "id": "x20",
+              "name": {
+                "fr": "Choux de Bruxelles",
+                "en": "Brussels sprouts",
+                "ja": "芽キャベツ",
+                "ko": "방울양배추"
+              },
+              "price": 6.5,
+              "soldout": true,
+              "preparing": true
             }
           ],
-          "alwaysAvailable": true
+          "alwaysAvailable": true,
+          "staffNote": {
+            "fr": "Coleslaw et salade de pommes de terre : sans oignons frits = sans gluten. Ne peuvent pas être véganes (mayonnaise aux œufs).",
+            "en": "Coleslaw and potato salad: without fried onions = gluten-free. Cannot be made vegan (egg mayonnaise).",
+            "ja": "コールスロー・ポテトサラダ：フライドオニオン抜きでグルテンフリー。卵入りマヨネーズのためヴィーガン不可。",
+            "ko": "코울슬로·감자 샐러드: 튀긴 양파 제외 시 글루텐 프리. 달걀 마요네즈로 비건 불가."
+          }
         },
         {
           "kanji": "豚カツ",
           "title": {
-            "fr": "Menu Principal — Tonkatsu",
-            "en": "Mains — Tonkatsu",
-            "ja": "メイン — とんかつ",
-            "ko": "메인 — 돈카츠"
+            "fr": "Tonkatsu",
+            "en": "Tonkatsu",
+            "ja": "とんかつ",
+            "ko": "돈카츠"
           },
+          "note": {
+            "fr": "Plats servis avec pickles japonais (takuan et shibazuke).",
+            "en": "Plates served with Japanese pickles (takuan and shibazuke).",
+            "ja": "定食には漬物（たくあん・しば漬け）が付きます。",
+            "ko": "정식에는 일본식 절임(다쿠앙, 시바즈케)이 함께 나옵니다."
+          },
+          "staffNote": {
+            "fr": "Tailles — Moyen : 2 morceaux (80–100 g chacun) · Régulier : 1 pièce (200–205 g) · Grand : 3 morceaux (80–100 g chacun). Allergie au poisson : le katsu peut être servi SANS sauce tonkatsu (dashi de poisson). Le chou peut être resservi 1 fois gratuitement (sur place seulement, à dire oralement).",
+            "en": "Sizes — Medium: 2 pieces (80–100 g each) · Regular: 1 piece (200–205 g) · Large: 3 pieces (80–100 g each). Fish allergy: katsu can be served WITHOUT tonkatsu sauce (fish dashi). Cabbage: one free refill (dine-in only, tell guests verbally).",
+            "ja": "サイズ — ミディアム：2枚（各80〜100g）・レギュラー：1枚（200〜205g）・ラージ：3枚（各80〜100g）。魚アレルギー：とんかつはソースなし（魚だし入り）で提供可能。キャベツはおかわり1回無料（店内のみ・口頭でご案内）。",
+            "ko": "사이즈 — 미디엄: 2조각(각 80~100g) · 레귤러: 1조각(200~205g) · 라지: 3조각(각 80~100g). 생선 알레르기: 돈카츠는 소스 없이(생선 육수 포함) 제공 가능. 양배추 1회 무료 리필(매장 식사만, 구두 안내)."
+          },
+          "alwaysAvailable": true,
           "items": [
             {
               "id": "k1",
               "name": {
-                "fr": "Rosu katsu plate",
-                "en": "Rosu katsu plate",
-                "ja": "ロースカツ定食",
-                "ko": "로스카츠 정식"
+                "fr": "Rosu katsu plate — Moyen",
+                "en": "Rosu katsu plate — Medium",
+                "ja": "ロースカツ定食（ミディアム）",
+                "ko": "로스카츠 정식 (미디엄)"
               },
               "desc": {
-                "fr": "Longe de porc avec chou — soupe miso + riz (soupe udon : 22 $)",
-                "en": "Pork loin katsu with cabbage — miso soup + rice (udon soup: $22)",
-                "ja": "キャベツ付き豚ロース — 味噌汁+ご飯（うどん汁: 22$）",
-                "ko": "양배추와 돼지 등심 — 미소국+밥 (우동국: 22$)"
+                "fr": "Longe de porc avec chou — soupe miso + riz (soupe udon simple au lieu du riz : +3 $)",
+                "en": "Pork loin katsu with cabbage — miso soup + rice (plain udon soup instead of rice: +$3)",
+                "ja": "キャベツ付き豚ロース — 味噌汁+ご飯（ご飯→かけうどん +3$）",
+                "ko": "양배추와 돼지 등심 — 미소국+밥 (밥→우동국 +3$)"
               },
               "price": 21,
               "photo": "img/k1-1788296217572.jpg",
@@ -169,7 +248,105 @@ const MENU_DATA = {
               ],
               "traces": [
                 "shellfish"
-              ]
+              ],
+              "sizeOf": "k1",
+              "size": {
+                "fr": "M",
+                "en": "M",
+                "ja": "M",
+                "ko": "M"
+              },
+              "groupName": {
+                "fr": "Rosu katsu plate",
+                "en": "Rosu katsu plate",
+                "ja": "ロースカツ定食",
+                "ko": "로스카츠 정식"
+              },
+              "staffNote": {
+                "fr": "Pour emporter : Moyen et Grand seulement. Régulier = 1 grosse pièce (plus longue à frire) → sur place seulement.",
+                "en": "Takeout: Medium and Large only. Regular = 1 large piece (longer to fry) → dine-in only."
+              }
+            },
+            {
+              "id": "k1r",
+              "name": {
+                "fr": "Rosu katsu plate — Régulier",
+                "en": "Rosu katsu plate — Regular",
+                "ja": "ロースカツ定食（レギュラー）",
+                "ko": "로스카츠 정식 (레귤러)"
+              },
+              "desc": {
+                "fr": "Longe de porc avec chou — soupe miso + riz (soupe udon simple au lieu du riz : +3 $)",
+                "en": "Pork loin katsu with cabbage — miso soup + rice (plain udon soup instead of rice: +$3)",
+                "ja": "キャベツ付き豚ロース — 味噌汁+ご飯（ご飯→かけうどん +3$）",
+                "ko": "양배추와 돼지 등심 — 미소국+밥 (밥→우동국 +3$)"
+              },
+              "price": 22,
+              "photo": "img/k1-1788296217572.jpg",
+              "allergens": [
+                "gluten",
+                "fish",
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
+              ],
+              "dineInOnly": true,
+              "sizeOf": "k1",
+              "size": {
+                "fr": "R",
+                "en": "R",
+                "ja": "R",
+                "ko": "R"
+              },
+              "groupName": {
+                "fr": "Rosu katsu plate",
+                "en": "Rosu katsu plate",
+                "ja": "ロースカツ定食",
+                "ko": "로스카츠 정식"
+              }
+            },
+            {
+              "id": "k1l",
+              "name": {
+                "fr": "Rosu katsu plate — Grand",
+                "en": "Rosu katsu plate — Large",
+                "ja": "ロースカツ定食（ラージ）",
+                "ko": "로스카츠 정식 (라지)"
+              },
+              "desc": {
+                "fr": "Longe de porc avec chou — soupe miso + riz (soupe udon simple au lieu du riz : +3 $)",
+                "en": "Pork loin katsu with cabbage — miso soup + rice (plain udon soup instead of rice: +$3)",
+                "ja": "キャベツ付き豚ロース — 味噌汁+ご飯（ご飯→かけうどん +3$）",
+                "ko": "양배추와 돼지 등심 — 미소국+밥 (밥→우동국 +3$)"
+              },
+              "price": 23,
+              "photo": "img/k1-1788296217572.jpg",
+              "allergens": [
+                "gluten",
+                "fish",
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
+              ],
+              "sizeOf": "k1",
+              "size": {
+                "fr": "G",
+                "en": "L",
+                "ja": "L",
+                "ko": "L"
+              },
+              "groupName": {
+                "fr": "Rosu katsu plate",
+                "en": "Rosu katsu plate",
+                "ja": "ロースカツ定食",
+                "ko": "로스카츠 정식"
+              }
             },
             {
               "id": "k2",
@@ -180,12 +357,12 @@ const MENU_DATA = {
                 "ko": "히레카츠 정식"
               },
               "desc": {
-                "fr": "Filet de porc avec chou — soupe miso + riz (soupe udon : 24 $)",
-                "en": "Pork fillet katsu with cabbage — miso soup + rice (udon soup: $24)",
-                "ja": "キャベツ付き豚ヒレ — 味噌汁+ご飯（うどん汁: 24$）",
-                "ko": "양배추와 돼지 안심 — 미소국+밥 (우동국: 24$)"
+                "fr": "Filet de porc avec chou — soupe miso + riz (soupe udon simple au lieu du riz : +3 $)",
+                "en": "Pork fillet katsu with cabbage — miso soup + rice (plain udon soup instead of rice: +$3)",
+                "ja": "キャベツ付き豚ヒレ — 味噌汁+ご飯（ご飯→かけうどん +3$）",
+                "ko": "양배추와 돼지 안심 — 미소국+밥 (밥→우동국 +3$)"
               },
-              "price": 23,
+              "price": 24,
               "photo": "img/k2-1788884605130.jpg",
               "allergens": [
                 "gluten",
@@ -196,42 +373,20 @@ const MENU_DATA = {
               ],
               "traces": [
                 "shellfish"
-              ]
-            },
-            {
-              "id": "k3",
-              "name": {
-                "fr": "Rosu & Hire katsu plate",
-                "en": "Rosu & Hire katsu plate",
-                "ja": "ロース＆ヒレカツ定食",
-                "ko": "로스&히레카츠 정식"
-              },
-              "desc": {
-                "fr": "Avec chou — soupe miso + riz (soupe udon : 25 $)",
-                "en": "With cabbage — miso soup + rice (udon soup: $25)",
-                "ja": "キャベツ付き — 味噌汁+ご飯（うどん汁: 25$）",
-                "ko": "양배추 포함 — 미소국+밥 (우동국: 25$)"
-              },
-              "price": 24,
-              "photo": "img/k3-1788902845746.jpg",
-              "allergens": [
-                "gluten",
-                "fish",
-                "eggs",
-                "dairy",
-                "soy"
               ],
-              "traces": [
-                "shellfish"
-              ]
+              "dineInOnly": true,
+              "staffNote": {
+                "fr": "Hire = filet. Sur place seulement.",
+                "en": "Hire = fillet. Dine-in only."
+              }
             },
             {
               "id": "k4",
               "name": {
-                "fr": "Katsu Don",
-                "en": "Katsu Don",
-                "ja": "カツ丼",
-                "ko": "카츠동"
+                "fr": "Katsu Don — Moyen",
+                "en": "Katsu Don — Medium",
+                "ja": "カツ丼（ミディアム）",
+                "ko": "카츠동 (미디엄)"
               },
               "desc": {
                 "fr": "Longe de porc + omelette — soupe miso incluse",
@@ -250,62 +405,156 @@ const MENU_DATA = {
               ],
               "traces": [
                 "shellfish"
-              ]
-            }
-          ]
-        },
-        {
-          "kanji": "サンド",
-          "title": {
-            "fr": "Katsu Sando",
-            "en": "Katsu Sando",
-            "ja": "カツサンド",
-            "ko": "카츠산도"
-          },
-          "items": [
-            {
-              "id": "ks1",
-              "name": {
-                "fr": "Katsu Sando (3 pièces)",
-                "en": "Katsu Sando (3 pieces)",
-                "ja": "カツサンド（3切れ）",
-                "ko": "카츠산도 (3조각)"
-              },
-              "price": 15,
-              "photo": "img/ks1-1788302047787.jpg",
-              "allergens": [
-                "gluten",
-                "fish",
-                "eggs",
-                "dairy",
-                "soy",
-                "mustard"
               ],
-              "traces": [
-                "shellfish"
-              ]
+              "sizeOf": "k4",
+              "size": {
+                "fr": "M",
+                "en": "M",
+                "ja": "M",
+                "ko": "M"
+              },
+              "groupName": {
+                "fr": "Katsu Don",
+                "en": "Katsu Don",
+                "ja": "カツ丼",
+                "ko": "카츠동"
+              },
+              "staffNote": {
+                "fr": "Katsu don : Rosu seulement (pas de Hire). Pour emporter : Moyen et Grand.",
+                "en": "Katsu don: Rosu only (no Hire). Takeout: Medium and Large."
+              }
             },
             {
-              "id": "ks2",
+              "id": "k4r",
               "name": {
-                "fr": "Katsu Sando avec coleslaw",
-                "en": "Katsu Sando with coleslaw",
-                "ja": "カツサンド コールスロー付き",
-                "ko": "카츠산도 + 코울슬로"
+                "fr": "Katsu Don — Régulier",
+                "en": "Katsu Don — Regular",
+                "ja": "カツ丼（レギュラー）",
+                "ko": "카츠동 (레귤러)"
               },
-              "price": 18,
-              "photo": "img/ks2-1788885377008.jpg",
+              "desc": {
+                "fr": "Longe de porc + omelette — soupe miso incluse",
+                "en": "Pork loin + omelette — miso soup included",
+                "ja": "豚ロース+卵とじ — 味噌汁付き",
+                "ko": "돼지 등심+계란 — 미소국 포함"
+              },
+              "price": 22,
+              "photo": "img/k4-1788296226268.jpg",
               "allergens": [
                 "gluten",
                 "fish",
                 "eggs",
                 "dairy",
-                "soy",
-                "mustard"
+                "soy"
               ],
               "traces": [
                 "shellfish"
-              ]
+              ],
+              "dineInOnly": true,
+              "sizeOf": "k4",
+              "size": {
+                "fr": "R",
+                "en": "R",
+                "ja": "R",
+                "ko": "R"
+              },
+              "groupName": {
+                "fr": "Katsu Don",
+                "en": "Katsu Don",
+                "ja": "カツ丼",
+                "ko": "카츠동"
+              }
+            },
+            {
+              "id": "k4l",
+              "name": {
+                "fr": "Katsu Don — Grand",
+                "en": "Katsu Don — Large",
+                "ja": "カツ丼（ラージ）",
+                "ko": "카츠동 (라지)"
+              },
+              "desc": {
+                "fr": "Longe de porc + omelette — soupe miso incluse",
+                "en": "Pork loin + omelette — miso soup included",
+                "ja": "豚ロース+卵とじ — 味噌汁付き",
+                "ko": "돼지 등심+계란 — 미소국 포함"
+              },
+              "price": 23,
+              "photo": "img/k4-1788296226268.jpg",
+              "allergens": [
+                "gluten",
+                "fish",
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
+              ],
+              "sizeOf": "k4",
+              "size": {
+                "fr": "G",
+                "en": "L",
+                "ja": "L",
+                "ko": "L"
+              },
+              "groupName": {
+                "fr": "Katsu Don",
+                "en": "Katsu Don",
+                "ja": "カツ丼",
+                "ko": "카츠동"
+              }
+            },
+            {
+              "id": "x7",
+              "name": {
+                "fr": "Rosu katsu (1 pc)",
+                "en": "Rosu katsu (1 pc)",
+                "ja": "ロースカツ（1枚）",
+                "ko": "로스카츠 (1개)"
+              },
+              "price": 13,
+              "photo": "img/x7-1788882386318.jpg",
+              "allergens": [
+                "gluten",
+                "fish",
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
+              ],
+              "staffNote": {
+                "fr": "Rosu supplémentaire, à ajouter à n’importe quel plat (remplace l’ancienne option Rosu & Hire).",
+                "en": "Extra Rosu, add to any dish (replaces the old Rosu & Hire option)."
+              }
+            },
+            {
+              "id": "x6",
+              "name": {
+                "fr": "Hire katsu (1 pc)",
+                "en": "Hire katsu (1 pc)",
+                "ja": "ヒレカツ（1個）",
+                "ko": "히레카츠 (1개)"
+              },
+              "price": 5,
+              "photo": "img/x6-1788484635964.jpg",
+              "allergens": [
+                "gluten",
+                "fish",
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
+              ],
+              "dineInOnly": true,
+              "staffNote": {
+                "fr": "Hire supplémentaire, à ajouter à n’importe quel plat. Sur place seulement.",
+                "en": "Extra Hire, add to any dish. Dine-in only."
+              }
             }
           ]
         },
@@ -318,21 +567,28 @@ const MENU_DATA = {
             "ko": "카레 돈카츠"
           },
           "note": {
-            "fr": "Avec œuf sous-vide — soupe miso incluse",
-            "en": "With sous-vide egg — miso soup included",
-            "ja": "低温調理卵付き — 味噌汁付き",
-            "ko": "수비드 계란 포함 — 미소국 포함"
+            "fr": "Avec œuf onsen — soupe miso incluse.",
+            "en": "With onsen egg — miso soup included.",
+            "ja": "温泉卵付き — 味噌汁付き。",
+            "ko": "온센 계란 포함 — 미소국 포함."
           },
+          "staffNote": {
+            "fr": "Tailles — Moyen : 2 morceaux (80–100 g chacun) · Régulier : 1 pièce (200–205 g) · Grand : 3 morceaux (80–100 g chacun).",
+            "en": "Sizes — Medium: 2 pieces (80–100 g each) · Regular: 1 piece (200–205 g) · Large: 3 pieces (80–100 g each).",
+            "ja": "サイズ — ミディアム：2枚（各80〜100g）・レギュラー：1枚（200〜205g）・ラージ：3枚（各80〜100g）。",
+            "ko": "사이즈 — 미디엄: 2조각(각 80~100g) · 레귤러: 1조각(200~205g) · 라지: 3조각(각 80~100g)."
+          },
+          "alwaysAvailable": true,
           "items": [
             {
               "id": "c1",
               "name": {
-                "fr": "Rosu Katsu Curry Don",
-                "en": "Rosu Katsu Curry Don",
-                "ja": "ロースカツカレー丼",
-                "ko": "로스카츠 카레동"
+                "fr": "Rosu Katsu Curry Don — Moyen",
+                "en": "Rosu Katsu Curry Don — Medium",
+                "ja": "ロースカツカレー丼（ミディアム）",
+                "ko": "로스카츠 카레동 (미디엄)"
               },
-              "price": 21,
+              "price": 22,
               "photo": "img/c1-1788448670670.jpg",
               "allergens": [
                 "gluten",
@@ -343,7 +599,93 @@ const MENU_DATA = {
               ],
               "traces": [
                 "shellfish"
-              ]
+              ],
+              "sizeOf": "c1",
+              "size": {
+                "fr": "M",
+                "en": "M",
+                "ja": "M",
+                "ko": "M"
+              },
+              "groupName": {
+                "fr": "Rosu Katsu Curry Don",
+                "en": "Rosu Katsu Curry Don",
+                "ja": "ロースカツカレー丼",
+                "ko": "로스카츠 카레동"
+              },
+              "staffNote": {
+                "fr": "Pour emporter : Moyen et Grand seulement.",
+                "en": "Takeout: Medium and Large only."
+              }
+            },
+            {
+              "id": "c1r",
+              "name": {
+                "fr": "Rosu Katsu Curry Don — Régulier",
+                "en": "Rosu Katsu Curry Don — Regular",
+                "ja": "ロースカツカレー丼（レギュラー）",
+                "ko": "로스카츠 카레동 (레귤러)"
+              },
+              "price": 23,
+              "photo": "img/c1-1788448670670.jpg",
+              "allergens": [
+                "gluten",
+                "fish",
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
+              ],
+              "dineInOnly": true,
+              "sizeOf": "c1",
+              "size": {
+                "fr": "R",
+                "en": "R",
+                "ja": "R",
+                "ko": "R"
+              },
+              "groupName": {
+                "fr": "Rosu Katsu Curry Don",
+                "en": "Rosu Katsu Curry Don",
+                "ja": "ロースカツカレー丼",
+                "ko": "로스카츠 카레동"
+              }
+            },
+            {
+              "id": "c1l",
+              "name": {
+                "fr": "Rosu Katsu Curry Don — Grand",
+                "en": "Rosu Katsu Curry Don — Large",
+                "ja": "ロースカツカレー丼（ラージ）",
+                "ko": "로스카츠 카레동 (라지)"
+              },
+              "price": 24,
+              "photo": "img/c1-1788448670670.jpg",
+              "allergens": [
+                "gluten",
+                "fish",
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
+              ],
+              "sizeOf": "c1",
+              "size": {
+                "fr": "G",
+                "en": "L",
+                "ja": "L",
+                "ko": "L"
+              },
+              "groupName": {
+                "fr": "Rosu Katsu Curry Don",
+                "en": "Rosu Katsu Curry Don",
+                "ja": "ロースカツカレー丼",
+                "ko": "로스카츠 카레동"
+              }
             },
             {
               "id": "c2",
@@ -353,7 +695,7 @@ const MENU_DATA = {
                 "ja": "ヒレカツカレー丼（3個）",
                 "ko": "히레카츠 카레동 (3개)"
               },
-              "price": 23,
+              "price": 25,
               "photo": "img/c2-1788448675377.jpg",
               "allergens": [
                 "gluten",
@@ -364,38 +706,22 @@ const MENU_DATA = {
               ],
               "traces": [
                 "shellfish"
-              ]
-            },
-            {
-              "id": "c3",
-              "name": {
-                "fr": "Rosu & Hire Katsu Curry Don",
-                "en": "Rosu & Hire Katsu Curry Don",
-                "ja": "ロース＆ヒレカツカレー丼",
-                "ko": "로스&히레카츠 카레동"
-              },
-              "price": 24,
-              "photo": "img/c3-1788448680922.jpg",
-              "allergens": [
-                "gluten",
-                "fish",
-                "eggs",
-                "dairy",
-                "soy"
               ],
-              "traces": [
-                "shellfish"
-              ]
+              "dineInOnly": true,
+              "staffNote": {
+                "fr": "Hire curry : une seule taille (Régulier). Sur place seulement.",
+                "en": "Hire curry: one size only (Regular). Dine-in only."
+              }
             },
             {
               "id": "c4",
               "name": {
-                "fr": "Udon au curry avec Rosu Katsu",
-                "en": "Curry udon with Rosu Katsu",
-                "ja": "カレーうどん（ロースカツ）",
-                "ko": "카레우동 + 로스카츠"
+                "fr": "Udon au curry avec Rosu Katsu — Moyen",
+                "en": "Curry udon with Rosu Katsu — Medium",
+                "ja": "カレーうどん（ロースカツ）（ミディアム）",
+                "ko": "카레우동 + 로스카츠 (미디엄)"
               },
-              "price": 22,
+              "price": 23,
               "photo": "img/c4-1788296238814.jpg",
               "allergens": [
                 "gluten",
@@ -406,7 +732,93 @@ const MENU_DATA = {
               ],
               "traces": [
                 "shellfish"
-              ]
+              ],
+              "sizeOf": "c4",
+              "size": {
+                "fr": "M",
+                "en": "M",
+                "ja": "M",
+                "ko": "M"
+              },
+              "groupName": {
+                "fr": "Udon au curry avec Rosu Katsu",
+                "en": "Curry udon with Rosu Katsu",
+                "ja": "カレーうどん（ロースカツ）",
+                "ko": "카레우동 + 로스카츠"
+              },
+              "staffNote": {
+                "fr": "Curry udon : prix propres (la règle +3 $ ne s’applique pas). Pour emporter : Moyen et Grand.",
+                "en": "Curry udon has its own prices (the +$3 rule does not apply). Takeout: Medium and Large."
+              }
+            },
+            {
+              "id": "c4r",
+              "name": {
+                "fr": "Udon au curry avec Rosu Katsu — Régulier",
+                "en": "Curry udon with Rosu Katsu — Regular",
+                "ja": "カレーうどん（ロースカツ）（レギュラー）",
+                "ko": "카레우동 + 로스카츠 (레귤러)"
+              },
+              "price": 24,
+              "photo": "img/c4-1788296238814.jpg",
+              "allergens": [
+                "gluten",
+                "fish",
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
+              ],
+              "dineInOnly": true,
+              "sizeOf": "c4",
+              "size": {
+                "fr": "R",
+                "en": "R",
+                "ja": "R",
+                "ko": "R"
+              },
+              "groupName": {
+                "fr": "Udon au curry avec Rosu Katsu",
+                "en": "Curry udon with Rosu Katsu",
+                "ja": "カレーうどん（ロースカツ）",
+                "ko": "카레우동 + 로스카츠"
+              }
+            },
+            {
+              "id": "c4l",
+              "name": {
+                "fr": "Udon au curry avec Rosu Katsu — Grand",
+                "en": "Curry udon with Rosu Katsu — Large",
+                "ja": "カレーうどん（ロースカツ）（ラージ）",
+                "ko": "카레우동 + 로스카츠 (라지)"
+              },
+              "price": 25,
+              "photo": "img/c4-1788296238814.jpg",
+              "allergens": [
+                "gluten",
+                "fish",
+                "eggs",
+                "dairy",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
+              ],
+              "sizeOf": "c4",
+              "size": {
+                "fr": "G",
+                "en": "L",
+                "ja": "L",
+                "ko": "L"
+              },
+              "groupName": {
+                "fr": "Udon au curry avec Rosu Katsu",
+                "en": "Curry udon with Rosu Katsu",
+                "ja": "カレーうどん（ロースカツ）",
+                "ko": "카레우동 + 로스카츠"
+              }
             },
             {
               "id": "c5",
@@ -416,7 +828,7 @@ const MENU_DATA = {
                 "ja": "カレーうどん（ヒレカツ3個）",
                 "ko": "카레우동 + 히레카츠 (3개)"
               },
-              "price": 24,
+              "price": 26,
               "photo": "img/c5-1788296256941.jpg",
               "allergens": [
                 "gluten",
@@ -427,40 +839,192 @@ const MENU_DATA = {
               ],
               "traces": [
                 "shellfish"
-              ]
+              ],
+              "dineInOnly": true,
+              "staffNote": {
+                "fr": "Hire curry udon : une seule taille (Régulier). Sur place seulement.",
+                "en": "Hire curry udon: one size only (Regular). Dine-in only."
+              }
             },
             {
-              "id": "c6",
+              "id": "x2",
               "name": {
-                "fr": "Udon au curry avec Rosu & Hire Katsu",
-                "en": "Curry udon with Rosu & Hire Katsu",
-                "ja": "カレーうどん（ロース＆ヒレ）",
-                "ko": "카레우동 + 로스&히레"
+                "fr": "Sauce curry",
+                "en": "Curry sauce",
+                "ja": "カレーソース",
+                "ko": "카레 소스"
               },
-              "price": 25,
-              "photo": "img/c6-1788308188564.jpg",
+              "price": 5,
+              "photo": "img/x2-1789062960988.jpg",
               "allergens": [
-                "gluten",
-                "fish",
-                "eggs",
                 "dairy",
+                "gluten",
                 "soy"
-              ],
-              "traces": [
-                "shellfish"
               ]
             }
           ]
         },
         {
-          "kanji": "海鮮",
+          "kanji": "天ぷら",
           "title": {
-            "fr": "Fruits de mer",
+            "fr": "Tempura",
+            "en": "Tempura",
+            "ja": "天ぷら",
+            "ko": "덴푸라"
+          },
+          "staffNote": {
+            "fr": "Légumes et tofu frits dans une friteuse réservée aux légumes : 100 % végétarien et végane. Ebi : traces possibles de poisson et d’œuf ; chikuwa : traces de fruits de mer (huile partagée).",
+            "en": "Vegetables and tofu are fried in a vegetable-only fryer: 100% vegetarian and vegan. Ebi: may contain fish and egg; chikuwa: may contain shellfish (shared oil).",
+            "ja": "野菜と豆腐は野菜専用フライヤーで調理：ベジタリアン・ヴィーガン対応。海老天は魚・卵、ちくわ天は甲殻類の混入の可能性あり（共用油）。",
+            "ko": "야채와 두부는 야채 전용 튀김기 사용: 채식·비건 가능. 새우는 생선·달걀, 치쿠와는 갑각류 교차 오염 가능(공용 기름)."
+          },
+          "alwaysAvailable": true,
+          "items": [
+            {
+              "id": "t1",
+              "name": {
+                "fr": "Assiette tempura",
+                "en": "Tempura Plate",
+                "ja": "天ぷら定食",
+                "ko": "덴푸라 정식"
+              },
+              "price": 26,
+              "allergens": [
+                "gluten",
+                "fish",
+                "shellfish",
+                "eggs",
+                "soy"
+              ],
+              "desc": {
+                "fr": "2 crevettes, citrouille, racine de lotus, chikuwa, kakiage — riz, tentsuyu, soupe miso, pickles (soupe udon simple au lieu du riz : +3 $)",
+                "en": "2 shrimp, pumpkin, lotus root, chikuwa, kakiage — rice, tentsuyu, miso soup, pickles (plain udon soup instead of rice: +$3)",
+                "ja": "海老2本・かぼちゃ・れんこん・ちくわ・かき揚げ — ご飯・天つゆ・味噌汁・漬物（ご飯→かけうどん +3$）",
+                "ko": "새우 2, 단호박, 연근, 치쿠와, 가키아게 — 밥, 텐츠유, 미소국, 절임 (밥→우동국 +3$)"
+              },
+              "staffNote": {
+                "fr": "5 pièces : 2 crevettes, citrouille, lotus, chikuwa, kakiage. Riz → udon (soupe simple) : +3 $. OK pour emporter.",
+                "en": "5 pieces: 2 shrimp, pumpkin, lotus, chikuwa, kakiage. Rice → plain udon soup: +$3. Takeout OK."
+              }
+            },
+            {
+              "id": "t2",
+              "name": {
+                "fr": "Assortiment tempura végétarien",
+                "en": "Vegetarian Tempura Assortment",
+                "ja": "野菜天ぷら盛り合わせ",
+                "ko": "채식 덴푸라 모둠"
+              },
+              "price": 21,
+              "vegetarian": true,
+              "vegan": true,
+              "allergens": [
+                "gluten",
+                "soy"
+              ],
+              "desc": {
+                "fr": "2 tofu, citrouille, racine de lotus, kakiage, aubergine, shiitake — tentsuyu végétarien. Sans riz ni soupe : riz ou udon en extra.",
+                "en": "2 tofu, pumpkin, lotus root, kakiage, eggplant, shiitake — vegetarian tentsuyu. No rice or soup: add rice or udon as an extra.",
+                "ja": "豆腐2・かぼちゃ・れんこん・かき揚げ・なす・椎茸 — ベジ天つゆ。ご飯・汁物なし（ご飯・うどんは追加で）。",
+                "ko": "두부 2, 단호박, 연근, 가키아게, 가지, 표고버섯 — 채식 텐츠유. 밥·국 미포함 (밥 또는 우동 추가 가능)."
+              },
+              "staffNote": {
+                "fr": "100 % végétarien et végane (friteuse végétale, tentsuyu sans poisson). Ni riz ni soupe inclus : proposer riz ou udon en extra.",
+                "en": "100% vegetarian and vegan (vegetable fryer, fish-free tentsuyu). No rice or soup included: offer rice or udon as an extra."
+              }
+            },
+            {
+              "id": "t4",
+              "name": {
+                "fr": "Crevette tempura (1 pc)",
+                "en": "Tempura shrimp (1 pc)",
+                "ja": "海老天（1本）",
+                "ko": "새우 덴푸라 (1개)"
+              },
+              "price": 4,
+              "allergens": [
+                "gluten",
+                "shellfish",
+                "soy"
+              ],
+              "traces": [
+                "fish",
+                "eggs"
+              ],
+              "staffNote": {
+                "fr": "Traces possibles de poisson et d’œuf (huile partagée).",
+                "en": "May contain fish and egg (shared oil)."
+              }
+            },
+            {
+              "id": "t5",
+              "name": {
+                "fr": "Chikuwa tempura (1 pc)",
+                "en": "Tempura chikuwa (1 pc)",
+                "ja": "ちくわ天（1本）",
+                "ko": "치쿠와 덴푸라 (1개)"
+              },
+              "price": 3.5,
+              "allergens": [
+                "gluten",
+                "fish",
+                "eggs",
+                "soy"
+              ],
+              "traces": [
+                "shellfish"
+              ],
+              "staffNote": {
+                "fr": "Traces possibles de fruits de mer (huile partagée).",
+                "en": "May contain shellfish (shared oil)."
+              }
+            },
+            {
+              "id": "t6",
+              "name": {
+                "fr": "Légume tempura (1 pc)",
+                "en": "Tempura vegetable (1 pc)",
+                "ja": "野菜天（1個）",
+                "ko": "야채 덴푸라 (1개)"
+              },
+              "price": 3,
+              "allergens": [
+                "gluten",
+                "soy"
+              ],
+              "vegetarian": true,
+              "vegan": true
+            }
+          ]
+        },
+        {
+          "kanji": "魚介類",
+          "title": {
+            "fr": "Poissons et fruits de mer",
             "en": "Seafood",
-            "ja": "海鮮",
+            "ja": "魚介類",
             "ko": "해산물"
           },
+          "alwaysAvailable": true,
           "items": [
+            {
+              "id": "a1",
+              "name": {
+                "fr": "Assiette Aji Fry",
+                "en": "Aji Fry Plate",
+                "ja": "アジフライ定食",
+                "ko": "아지후라이 정식"
+              },
+              "price": 22,
+              "desc": {
+                "fr": "2 chinchards panés et frits, chou, sauce tonkatsu, sauce tartare — riz, soupe miso, pickles",
+                "en": "2 deep-fried breaded horse mackerel, cabbage, tonkatsu sauce, tartar sauce — rice, miso soup, pickles",
+                "ja": "アジフライ2枚・キャベツ・とんかつソース・タルタルソース — ご飯・味噌汁・漬物",
+                "ko": "전갱이 튀김 2, 양배추, 돈카츠 소스, 타르타르 소스 — 밥, 미소국, 절임"
+              },
+              "soldout": true,
+              "preparing": true
+            },
             {
               "id": "f1",
               "name": {
@@ -481,54 +1045,62 @@ const MENU_DATA = {
                 "gluten",
                 "fish",
                 "soy"
-              ]
+              ],
+              "staffNote": {
+                "fr": "Une seule taille (l’ancienne « Grand »).",
+                "en": "One size only (the former Large)."
+              }
             },
             {
-              "id": "f2",
+              "id": "e3",
               "name": {
-                "fr": "Morue Katsu",
-                "en": "Cod Katsu",
-                "ja": "タラカツ",
-                "ko": "대구카츠"
+                "fr": "Saumon flambé au tare",
+                "en": "Salmon flambé with tare",
+                "ja": "炙りサーモン タレがけ",
+                "ko": "타레 연어 아부리"
               },
-              "desc": {
-                "fr": "Avec sauce tartare et chou — soupe miso + riz (soupe udon : 23 $)",
-                "en": "With tartar sauce and cabbage — miso soup + rice (udon soup: $23)",
-                "ja": "タルタルソースとキャベツ — 味噌汁+ご飯（うどん汁: 23$）",
-                "ko": "타르타르 소스와 양배추 — 미소국+밥 (우동국: 23$)"
-              },
-              "price": 22,
-              "soldout": true,
+              "price": 16,
+              "photo": "img/e3-1788458549114.jpg",
               "allergens": [
-                "fish",
                 "gluten",
-                "eggs",
+                "fish",
                 "soy"
               ]
             },
             {
-              "id": "f3",
+              "id": "e2",
               "name": {
-                "fr": "Udon Hoshi Katsu",
-                "en": "Udon Hoshi Katsu",
-                "ja": "うどん星カツ",
-                "ko": "우동 호시 카츠"
+                "fr": "Tartare de saumon",
+                "en": "Salmon tartare",
+                "ja": "サーモンタルタル",
+                "ko": "연어 타르타르"
               },
-              "desc": {
-                "fr": "Morue katsu, pétoncle katsu, guacamole, ikura, œuf sous-vide — soupe miso",
-                "en": "Cod katsu, scallop katsu, guacamole, ikura, sous-vide egg — miso soup",
-                "ja": "タラカツ・帆立カツ・ワカモレ・いくら・低温卵 — 味噌汁",
-                "ko": "대구카츠, 관자카츠, 과카몰리, 이쿠라, 수비드 계란 — 미소국"
-              },
-              "price": 24,
-              "soldout": true,
+              "price": 12,
+              "photo": "img/e2-1788302067939.jpg",
               "allergens": [
-                "fish",
-                "shellfish",
                 "gluten",
+                "fish",
                 "eggs",
-                "soy"
-              ]
+                "soy",
+                "sesame",
+                "mustard"
+              ],
+              "staffNote": {
+                "fr": "Décoré de spicy mayo (œuf, moutarde).",
+                "en": "Decorated with spicy mayo (egg, mustard)."
+              }
+            },
+            {
+              "id": "a2",
+              "name": {
+                "fr": "Aji Fry (1 pc)",
+                "en": "Aji Fry (1 pc)",
+                "ja": "アジフライ（1枚）",
+                "ko": "아지후라이 (1개)"
+              },
+              "price": 6,
+              "soldout": true,
+              "preparing": true
             }
           ]
         },
@@ -556,10 +1128,10 @@ const MENU_DATA = {
                 "ko": "철판 함바그 (하야시 소스)"
               },
               "desc": {
-                "fr": "Sauce maison, œuf sous-vide et coleslaw — soupe miso + riz (udon : 25 $)",
-                "en": "Homemade sauce, sous-vide egg and coleslaw — miso soup + rice (udon: $25)",
-                "ja": "自家製ソース・低温卵・コールスロー — 味噌汁+ご飯（うどん: 25$）",
-                "ko": "수제 소스, 수비드 계란, 코울슬로 — 미소국+밥 (우동: 25$)"
+                "fr": "Sauce maison, œuf onsen et coleslaw — soupe miso + riz (soupe udon simple au lieu du riz : +3 $)",
+                "en": "Homemade sauce, onsen egg and coleslaw — miso soup + rice (plain udon soup instead of rice: +$3)",
+                "ja": "自家製ソース・温泉卵・コールスロー — 味噌汁+ご飯（ご飯→かけうどん +3$）",
+                "ko": "수제 소스, 온센 계란, 코울슬로 — 미소국+밥 (밥→우동국 +3$)"
               },
               "price": 24,
               "photo": "img/h1-1788469747086.jpg",
@@ -570,7 +1142,11 @@ const MENU_DATA = {
                 "eggs",
                 "dairy",
                 "soy"
-              ]
+              ],
+              "staffNote": {
+                "fr": "Sur place seulement. Contient des anchois (Worcestershire).",
+                "en": "Dine-in only. Contains anchovies (Worcestershire)."
+              }
             },
             {
               "id": "h2",
@@ -581,10 +1157,10 @@ const MENU_DATA = {
                 "ko": "철판 함바그 (하야시+치즈)"
               },
               "desc": {
-                "fr": "Garni de fromage — soupe miso + riz (udon : 27 $)",
-                "en": "Topped with cheese — miso soup + rice (udon: $27)",
-                "ja": "チーズのせ — 味噌汁+ご飯（うどん: 27$）",
-                "ko": "치즈 토핑 — 미소국+밥 (우동: 27$)"
+                "fr": "Garni de fromage — soupe miso + riz (soupe udon simple au lieu du riz : +3 $)",
+                "en": "Topped with cheese — miso soup + rice (plain udon soup instead of rice: +$3)",
+                "ja": "チーズのせ — 味噌汁+ご飯（ご飯→かけうどん +3$）",
+                "ko": "치즈 토핑 — 미소국+밥 (밥→우동국 +3$)"
               },
               "price": 26,
               "photo": "img/h2-1788469751576.jpg",
@@ -606,10 +1182,10 @@ const MENU_DATA = {
                 "ko": "철판 함바그 (카레)"
               },
               "desc": {
-                "fr": "Sauce curry ajoutée — soupe miso + riz (udon : 26 $)",
-                "en": "Added curry sauce — miso soup + rice (udon: $26)",
-                "ja": "カレーソース添え — 味噌汁+ご飯（うどん: 26$）",
-                "ko": "카레 소스 추가 — 미소국+밥 (우동: 26$)"
+                "fr": "Sauce curry ajoutée — soupe miso + riz (soupe udon simple au lieu du riz : +3 $)",
+                "en": "Added curry sauce — miso soup + rice (plain udon soup instead of rice: +$3)",
+                "ja": "カレーソース添え — 味噌汁+ご飯（ご飯→かけうどん +3$）",
+                "ko": "카레 소스 추가 — 미소국+밥 (밥→우동국 +3$)"
               },
               "price": 25,
               "photo": "img/h3-1788469815116.jpg",
@@ -622,7 +1198,8 @@ const MENU_DATA = {
                 "soy"
               ]
             }
-          ]
+          ],
+          "alwaysAvailable": true
         },
         {
           "kanji": "追加",
@@ -634,53 +1211,6 @@ const MENU_DATA = {
           },
           "alwaysAvailable": true,
           "items": [
-            {
-              "id": "x1",
-              "name": {
-                "fr": "Sauce onsen tamago",
-                "en": "Onsen tamago sauce",
-                "ja": "温泉卵ソース",
-                "ko": "온센타마고 소스"
-              },
-              "price": 2.5,
-              "allergens": [
-                "eggs",
-                "fish",
-                "soy"
-              ]
-            },
-            {
-              "id": "x2",
-              "name": {
-                "fr": "Sauce curry",
-                "en": "Curry sauce",
-                "ja": "カレーソース",
-                "ko": "카레 소스"
-              },
-              "price": 4,
-              "photo": "img/x2-1789062960988.jpg",
-              "allergens": [
-                "dairy",
-                "gluten",
-                "soy"
-              ]
-            },
-            {
-              "id": "x12",
-              "name": {
-                "fr": "Sauce ultra piquante",
-                "en": "Ultra spicy sauce",
-                "ja": "激辛ソース",
-                "ko": "초매운 소스"
-              },
-              "price": 2,
-              "allergens": [
-                "gluten",
-                "soy"
-              ],
-              "vegetarian": true,
-              "vegan": true
-            },
             {
               "id": "x3",
               "name": {
@@ -712,62 +1242,108 @@ const MENU_DATA = {
               "vegan": true
             },
             {
-              "id": "x5",
+              "id": "x14",
               "name": {
-                "fr": "Soupe udon simple",
-                "en": "Plain udon soup",
-                "ja": "かけうどん",
-                "ko": "우동국"
+                "fr": "Soupe miso",
+                "en": "Miso soup",
+                "ja": "味噌汁",
+                "ko": "미소국"
               },
-              "price": 7,
-              "photo": "img/x5-1788484540505.jpg",
+              "price": 3,
               "allergens": [
-                "gluten",
                 "fish",
                 "soy"
               ]
             },
             {
-              "id": "x6",
+              "id": "x15",
               "name": {
-                "fr": "Hire katsu (1 pc)",
-                "en": "Hire katsu (1 pc)",
-                "ja": "ヒレカツ（1個）",
-                "ko": "히레카츠 (1개)"
+                "fr": "Soupe crème",
+                "en": "Cream soup",
+                "ja": "クリームスープ",
+                "ko": "크림 수프"
               },
-              "price": 5,
-              "photo": "img/x6-1788484635964.jpg",
-              "allergens": [
-                "gluten",
-                "fish",
-                "eggs",
-                "dairy",
-                "soy"
-              ],
-              "traces": [
-                "shellfish"
-              ]
+              "price": 5.5,
+              "staffNote": {
+                "fr": "N’est plus offerte gratuitement : 5,50 $ (portions congelées, réchauffées au micro-ondes).",
+                "en": "No longer free: $5.50 (frozen portions, microwaved to order)."
+              }
             },
             {
-              "id": "x7",
+              "id": "x1",
               "name": {
-                "fr": "Rosu katsu (1 pc)",
-                "en": "Rosu katsu (1 pc)",
-                "ja": "ロースカツ（1枚）",
-                "ko": "로스카츠 (1개)"
+                "fr": "Œuf onsen (1 pc)",
+                "en": "Onsen egg (1 pc)",
+                "ja": "温泉卵（1個）",
+                "ko": "온센 계란 (1개)"
               },
-              "price": 13,
-              "photo": "img/x7-1788882386318.jpg",
+              "price": 2,
+              "allergens": [
+                "eggs"
+              ],
+              "vegetarian": true,
+              "staffNote": {
+                "fr": "Même œuf que l’ancien œuf sous-vide ; servi sans sauce.",
+                "en": "Same egg as the former sous-vide egg; served without sauce."
+              }
+            },
+            {
+              "id": "x12",
+              "name": {
+                "fr": "Sauce ultra piquante",
+                "en": "Ultra spicy sauce",
+                "ja": "激辛ソース",
+                "ko": "초매운 소스"
+              },
+              "price": 2,
               "allergens": [
                 "gluten",
-                "fish",
-                "eggs",
-                "dairy",
                 "soy"
               ],
-              "traces": [
-                "shellfish"
-              ]
+              "vegetarian": true,
+              "vegan": true,
+              "staffNote": {
+                "fr": "Spicy Sauce maison : végane, contient gluten et soya.",
+                "en": "House Spicy Sauce: vegan, contains gluten and soy."
+              }
+            },
+            {
+              "id": "x13",
+              "name": {
+                "fr": "Sauce supplémentaire (au choix)",
+                "en": "Extra sauce (any)",
+                "ja": "追加ソース（お好みで）",
+                "ko": "소스 추가 (선택)"
+              },
+              "price": 2
+            },
+            {
+              "id": "x16",
+              "name": {
+                "fr": "Gingembre",
+                "en": "Ginger",
+                "ja": "ガリ",
+                "ko": "생강"
+              },
+              "price": 1,
+              "staffNote": {
+                "fr": "Les assiettes sont servies avec takuan et shibazuke ; gingembre seulement sur demande (1 $).",
+                "en": "Plates now come with takuan and shibazuke; ginger on request only ($1)."
+              }
+            },
+            {
+              "id": "x17",
+              "name": {
+                "fr": "Wasabi",
+                "en": "Wasabi",
+                "ja": "わさび",
+                "ko": "와사비"
+              },
+              "price": 1,
+              "staffNote": {
+                "fr": "Wasabi seulement sur demande (1 $).",
+                "en": "Wasabi on request only ($1)."
+              }
             },
             {
               "id": "x8",
@@ -786,53 +1362,11 @@ const MENU_DATA = {
               ],
               "traces": [
                 "shellfish"
-              ]
-            },
-            {
-              "id": "x9",
-              "name": {
-                "fr": "Morue katsu (1 pc)",
-                "en": "Cod katsu (1 pc)",
-                "ja": "タラカツ（1個）",
-                "ko": "대구카츠 (1개)"
-              },
-              "price": 15,
-              "soldout": true,
-              "allergens": [
-                "fish",
-                "gluten",
-                "eggs"
-              ]
-            },
-            {
-              "id": "x10",
-              "name": {
-                "fr": "Pétoncle katsu (1 pc)",
-                "en": "Scallop katsu (1 pc)",
-                "ja": "帆立カツ（1個）",
-                "ko": "관자카츠 (1개)"
-              },
-              "price": 4,
-              "allergens": [
-                "shellfish",
-                "gluten",
-                "eggs"
-              ]
-            },
-            {
-              "id": "x11",
-              "name": {
-                "fr": "Œuf sous-vide (1 pc)",
-                "en": "Sous-vide egg (1 pc)",
-                "ja": "低温調理卵（1個）",
-                "ko": "수비드 계란 (1개)"
-              },
-              "price": 1.5,
-              "allergens": [
-                "eggs"
               ],
-              "vegetarian": true,
-              "glutenFree": true
+              "staffNote": {
+                "fr": "Gardé temporairement. Contient des anchois (Worcestershire).",
+                "en": "Kept temporarily. Contains anchovies (Worcestershire)."
+              }
             }
           ]
         },
@@ -860,7 +1394,7 @@ const MENU_DATA = {
                 "ja": "コーラ、コーラゼロ、スプライト、ブリスク",
                 "ko": "콜라, 콜라 제로, 스프라이트, 브리스크"
               },
-              "price": 2.5,
+              "price": 3,
               "photo": "img/v1-1788304230140.jpg"
             },
             {
@@ -921,7 +1455,7 @@ const MENU_DATA = {
                 "ja": "ESKA 水 500ml",
                 "ko": "ESKA 생수 500ml"
               },
-              "price": 2,
+              "price": 3,
               "photo": "img/v5-1788471314926.jpg"
             },
             {
@@ -1176,268 +1710,6 @@ const MENU_DATA = {
               "vegetarian": true,
               "glutenFree": true,
               "vegan": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "midi",
-      "title": {
-        "fr": "Menu du Midi — Lunch",
-        "en": "Lunch Menu",
-        "ja": "ランチメニュー",
-        "ko": "런치 메뉴"
-      },
-      "note": {
-        "fr": "Servi de 12 h à 14 h — Prix M (moyen) / G (grand) entre parenthèses",
-        "en": "Served 12:00–2:00 pm — M (medium) / L (large) prices in brackets",
-        "ja": "12時〜14時提供 — M（中）/ G（大）の価格は括弧内",
-        "ko": "12시–14시 제공 — M(중)/G(대) 가격은 괄호 안"
-      },
-      "footnote": {
-        "fr": "Les plats du midi sont servis rapidement ; les autres plats nécessitent plus de 15 minutes de préparation.",
-        "en": "Lunch items are served quickly; other dishes take more than 15 minutes to prepare.",
-        "ja": "ランチは素早く提供されます。その他の料理は15分以上かかります。",
-        "ko": "런치 메뉴는 빠르게 제공됩니다. 다른 요리는 15분 이상 소요됩니다."
-      },
-      "sections": [
-        {
-          "kanji": "昼",
-          "title": {
-            "fr": "Menu du Midi",
-            "en": "Lunch",
-            "ja": "ランチ",
-            "ko": "런치"
-          },
-          "items": [
-            {
-              "id": "l1",
-              "name": {
-                "fr": "Lunch rosu katsu plate",
-                "en": "Lunch rosu katsu plate",
-                "ja": "ランチ ロースカツ定食",
-                "ko": "런치 로스카츠 정식"
-              },
-              "desc": {
-                "fr": "Avec chou — soupe miso + riz (G : 20 $ · soupe udon : M 18 $ / G 21 $)",
-                "en": "With cabbage — miso soup + rice (L: $20 · udon soup: M $18 / L $21)",
-                "ja": "キャベツ付き — 味噌汁+ご飯（G: 20$ ・うどん汁: M 18$/G 21$）",
-                "ko": "양배추 포함 — 미소국+밥 (G: 20$ · 우동국: M 18$/G 21$)"
-              },
-              "price": 17,
-              "photo": "img/l1-1788885078921.jpg",
-              "allergens": [
-                "gluten",
-                "fish",
-                "eggs",
-                "dairy",
-                "soy"
-              ],
-              "traces": [
-                "shellfish"
-              ]
-            },
-            {
-              "id": "l2",
-              "name": {
-                "fr": "Lunch rosu katsu don",
-                "en": "Lunch rosu katsu don",
-                "ja": "ランチ ロースカツ丼",
-                "ko": "런치 로스카츠동"
-              },
-              "desc": {
-                "fr": "Avec omelette — soupe miso (G : 19 $)",
-                "en": "With omelette — miso soup (L: $19)",
-                "ja": "卵とじ — 味噌汁（G: 19$）",
-                "ko": "계란 — 미소국 (G: 19$)"
-              },
-              "price": 16,
-              "photo": "img/l2-1788302100263.jpg",
-              "allergens": [
-                "gluten",
-                "fish",
-                "eggs",
-                "dairy",
-                "soy"
-              ],
-              "traces": [
-                "shellfish"
-              ]
-            },
-            {
-              "id": "l3",
-              "name": {
-                "fr": "Lunch rosu curry don",
-                "en": "Lunch rosu curry don",
-                "ja": "ランチ ロースカレー丼",
-                "ko": "런치 로스 카레동"
-              },
-              "desc": {
-                "fr": "Avec œuf sous-vide — soupe miso (G : 19 $)",
-                "en": "With sous-vide egg — miso soup (L: $19)",
-                "ja": "低温卵付き — 味噌汁（G: 19$）",
-                "ko": "수비드 계란 — 미소국 (G: 19$)"
-              },
-              "price": 16,
-              "photo": "img/l3-1788458576830.jpg",
-              "allergens": [
-                "gluten",
-                "fish",
-                "eggs",
-                "dairy",
-                "soy"
-              ],
-              "traces": [
-                "shellfish"
-              ]
-            },
-            {
-              "id": "l4",
-              "name": {
-                "fr": "Lunch rosu curry udon",
-                "en": "Lunch rosu curry udon",
-                "ja": "ランチ ロースカレーうどん",
-                "ko": "런치 로스 카레우동"
-              },
-              "desc": {
-                "fr": "Avec œuf sous-vide — soupe miso (G : 20 $)",
-                "en": "With sous-vide egg — miso soup (L: $20)",
-                "ja": "低温卵付き — 味噌汁（G: 20$）",
-                "ko": "수비드 계란 — 미소국 (G: 20$)"
-              },
-              "price": 17,
-              "photo": "img/l4-1788459013376.jpg",
-              "allergens": [
-                "gluten",
-                "fish",
-                "eggs",
-                "dairy",
-                "soy"
-              ],
-              "traces": [
-                "shellfish"
-              ]
-            },
-            {
-              "id": "l5",
-              "name": {
-                "fr": "Lunch Sake don",
-                "en": "Lunch Sake don",
-                "ja": "ランチ サーモン丼",
-                "ko": "런치 사케동"
-              },
-              "desc": {
-                "fr": "Saumon 130 g (G 180 g : 27 $)",
-                "en": "Salmon 130 g (L 180 g: $27)",
-                "ja": "サーモン130g（G 180g: 27$）",
-                "ko": "연어 130g (G 180g: 27$)"
-              },
-              "price": 22,
-              "photo": "img/l5-1788302090284.jpg",
-              "allergens": [
-                "gluten",
-                "fish",
-                "soy"
-              ]
-            },
-            {
-              "id": "l6",
-              "name": {
-                "fr": "Lunch hoshi tempura udon",
-                "en": "Lunch hoshi tempura udon",
-                "ja": "ランチ 星天ぷらうどん",
-                "ko": "런치 호시 텐푸라 우동"
-              },
-              "desc": {
-                "fr": "2 crevettes, 1 pétoncle, 2 légumes, guacamole, ikura (G : 24 $, +1 crevette +1 pétoncle)",
-                "en": "2 shrimps, 1 scallop, 2 veggies, guacamole, ikura (L: $24, +1 shrimp +1 scallop)",
-                "ja": "海老2・帆立1・野菜2・ワカモレ・いくら（G: 24$）",
-                "ko": "새우2, 관자1, 야채2, 과카몰리, 이쿠라 (G: 24$)"
-              },
-              "price": 19,
-              "photo": "img/l6-1788296189044.jpg",
-              "allergens": [
-                "gluten",
-                "fish",
-                "shellfish",
-                "eggs",
-                "soy"
-              ]
-            },
-            {
-              "id": "l7",
-              "name": {
-                "fr": "Lunch Ten don",
-                "en": "Lunch Ten don",
-                "ja": "ランチ 天丼",
-                "ko": "런치 텐동"
-              },
-              "desc": {
-                "fr": "3 crevettes, 1 pétoncle, 2 légumes, 1 œuf (G : 23 $, +1 crevette +1 pétoncle)",
-                "en": "3 shrimps, 1 scallop, 2 veggies, 1 egg (L: $23, +1 shrimp +1 scallop)",
-                "ja": "海老3・帆立1・野菜2・卵1（G: 23$）",
-                "ko": "새우3, 관자1, 야채2, 계란1 (G: 23$)"
-              },
-              "price": 18,
-              "photo": "img/l7-1788296179268.jpg",
-              "allergens": [
-                "gluten",
-                "fish",
-                "shellfish",
-                "eggs",
-                "soy"
-              ]
-            },
-            {
-              "id": "l8",
-              "name": {
-                "fr": "Ebi Soup Udon",
-                "en": "Ebi Soup Udon",
-                "ja": "海老スープうどん",
-                "ko": "에비 수프 우동"
-              },
-              "desc": {
-                "fr": "2 crevettes, 1 pétoncle, 1 champignon shiitake (G : 21 $, +1 crevette +1 pétoncle)",
-                "en": "2 shrimps, 1 scallop, 1 shiitake mushroom (L: $21, +1 shrimp +1 scallop)",
-                "ja": "海老2・帆立1・椎茸1（G: 21$）",
-                "ko": "새우2, 관자1, 표고버섯1 (G: 21$)"
-              },
-              "price": 16,
-              "photo": "img/l8-1789404733688.jpg",
-              "allergens": [
-                "gluten",
-                "fish",
-                "shellfish",
-                "soy"
-              ]
-            },
-            {
-              "id": "l9",
-              "name": {
-                "fr": "Rosu katsu sando",
-                "en": "Rosu katsu sando",
-                "ja": "ロースカツサンド",
-                "ko": "로스카츠 산도"
-              },
-              "desc": {
-                "fr": "Sandwich katsu de longe de porc (+ coleslaw : 18 $)",
-                "en": "Pork loin katsu sandwich (+ coleslaw: $18)",
-                "ja": "豚ロースのカツサンド（+コールスロー: 18$）",
-                "ko": "돼지 등심 카츠 샌드위치 (+코울슬로: 18$)"
-              },
-              "price": 15,
-              "photo": "img/l9-1788302829722.jpg",
-              "allergens": [
-                "gluten",
-                "fish",
-                "eggs",
-                "dairy",
-                "soy"
-              ],
-              "traces": [
-                "shellfish"
-              ]
             }
           ]
         }
