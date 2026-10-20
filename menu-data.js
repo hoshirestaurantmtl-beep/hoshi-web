@@ -1019,7 +1019,8 @@ const MENU_DATA = {
                 "ja": "アジフライ2枚・キャベツ・とんかつソース・タルタルソース — ご飯・味噌汁・漬物",
                 "ko": "전갱이 튀김 2, 양배추, 돈카츠 소스, 타르타르 소스 — 밥, 미소국, 절임"
               },
-              "preparing": true
+              "preparing": true,
+              "soldout": true
             },
             {
               "id": "f1",
@@ -1095,7 +1096,8 @@ const MENU_DATA = {
                 "ko": "아지후라이 (1개)"
               },
               "price": 6,
-              "preparing": true
+              "preparing": true,
+              "soldout": true
             }
           ]
         },
