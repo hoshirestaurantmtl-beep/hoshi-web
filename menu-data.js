@@ -155,7 +155,8 @@ const MENU_DATA = {
               "staffNote": {
                 "fr": "Bientôt. Promo prévue : 2 pour 1 sur les commandes livraison de 25 $ et plus.",
                 "en": "Coming soon. Planned promo: 2-for-1 on delivery orders of $25 or more."
-              }
+              },
+              "soldout": true
             },
             {
               "id": "x19",
@@ -176,7 +177,8 @@ const MENU_DATA = {
               "staffNote": {
                 "fr": "Bientôt. Fromage + oignons frits : sans oignons frits = sans gluten.",
                 "en": "Coming soon. Cheese + fried onions: without fried onions = gluten-free."
-              }
+              },
+              "soldout": true
             },
             {
               "id": "x20",
@@ -187,7 +189,8 @@ const MENU_DATA = {
                 "ko": "방울양배추"
               },
               "price": 6.5,
-              "preparing": true
+              "preparing": true,
+              "soldout": true
             }
           ],
           "alwaysAvailable": true,
