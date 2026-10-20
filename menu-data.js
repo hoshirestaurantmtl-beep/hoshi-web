@@ -151,7 +151,6 @@ const MENU_DATA = {
                 "fish",
                 "soy"
               ],
-              "soldout": true,
               "preparing": true,
               "staffNote": {
                 "fr": "Bientôt. Promo prévue : 2 pour 1 sur les commandes livraison de 25 $ et plus.",
@@ -173,7 +172,6 @@ const MENU_DATA = {
                 "dairy"
               ],
               "vegetarian": true,
-              "soldout": true,
               "preparing": true,
               "staffNote": {
                 "fr": "Bientôt. Fromage + oignons frits : sans oignons frits = sans gluten.",
@@ -189,7 +187,6 @@ const MENU_DATA = {
                 "ko": "방울양배추"
               },
               "price": 6.5,
-              "soldout": true,
               "preparing": true
             }
           ],
@@ -1022,7 +1019,6 @@ const MENU_DATA = {
                 "ja": "アジフライ2枚・キャベツ・とんかつソース・タルタルソース — ご飯・味噌汁・漬物",
                 "ko": "전갱이 튀김 2, 양배추, 돈카츠 소스, 타르타르 소스 — 밥, 미소국, 절임"
               },
-              "soldout": true,
               "preparing": true
             },
             {
@@ -1099,7 +1095,6 @@ const MENU_DATA = {
                 "ko": "아지후라이 (1개)"
               },
               "price": 6,
-              "soldout": true,
               "preparing": true
             }
           ]
