@@ -797,6 +797,23 @@ body.alg-filter-mode:not(.show-allergens) #allergenLegend { display: none; }
   .legend-label { flex: none; padding-top: 0; }
   .legend-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem 0.8rem; width: 100%; }
 }
+.soon-chip {
+  display: inline-block;
+  margin-left: 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #8a6d12;
+  border: 1px solid var(--dorado);
+  background: #fbf5e3;
+  border-radius: 3px;
+  padding: 0.05rem 0.4rem;
+  vertical-align: middle;
+}
+.menu-list li.coming-soon .mi-head > span:first-child > :not(.soon-chip),
+.menu-list li.coming-soon .price,
+.menu-list li.coming-soon .mi-desc { opacity: 0.6; }
 .soldout-chip {
   display: inline-block;
   background: #8a8a8a;

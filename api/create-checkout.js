@@ -137,6 +137,7 @@ module.exports = async (req, res) => {
       const q = Math.max(1, Math.min(20, parseInt(qty, 10) || 0));
       if (!it || !q) continue;
       if (it.soldout) return res.status(400).json({ error: "Un article du panier est épuisé" });
+      if (it.preparing) return res.status(400).json({ error: "Un article du panier n'est pas encore disponible" });
       if (it.__lunchRestricted && lunchWindow) return res.status(400).json({ error: "Un article du panier n'est disponible qu'après 15 h" });
       if (it.alcohol) return res.status(400).json({ error: "Les boissons alcoolisées sont disponibles sur place seulement" });
       if (it.dineInOnly && diningMode === "takeout") return res.status(400).json({ error: "Un article du panier n'est disponible que si vous mangez sur place" });

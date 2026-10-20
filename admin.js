@@ -146,6 +146,8 @@ function render() {
         tdD.appendChild(mk("↓", "Descendre", () => { if (ii < sec.items.length-1) { [sec.items[ii+1], sec.items[ii]] = [sec.items[ii], sec.items[ii+1]]; render(); } }));
         tdD.appendChild(mk(it.soldout ? "🚫" : "✅", it.soldout ? "Épuisé — cliquer pour remettre en vente" : "En vente — cliquer pour marquer épuisé",
           () => { it.soldout = !it.soldout; if (!it.soldout) delete it.soldout; render(); }, it.soldout ? "sold-on" : ""));
+        tdD.appendChild(mk("🔜", it.preparing ? "« Bientôt » affiché, non commandable — cliquer quand le plat est prêt (le remet aussi en vente)" : "Cliquer pour afficher « Bientôt » (plat pas encore disponible)",
+          () => { if (it.preparing) { delete it.preparing; delete it.soldout; } else { it.preparing = true; } render(); }, it.preparing ? "sold-on" : ""));
         tdD.appendChild(mk("🍺", it.alcohol ? "Alcool : sur place seulement — cliquer pour autoriser au take-out" : "Take-out autorisé — cliquer pour marquer « alcool, sur place seulement »",
           () => { it.alcohol = !it.alcohol; if (!it.alcohol) delete it.alcohol; render(); }, it.alcohol ? "sold-on" : ""));
         tdD.appendChild(mk("🍽️", it.dineInOnly ? "Sur place seulement (fond, doit sortir chaud, etc.) — cliquer pour autoriser au take-out" : "Take-out autorisé — cliquer pour marquer « sur place seulement »",
@@ -165,7 +167,7 @@ function render() {
           () => openTranslateModal(it), hasJaKo ? "sold-on" : ""));
         tdD.appendChild(mk("✕", "Supprimer ce plat", () => { if (confirm("Supprimer ce plat ?")) { sec.items.splice(ii, 1); render(); } }));
         tr.appendChild(tdD);
-        if (it.soldout) tr.style.opacity = "0.55";
+        if (it.soldout || it.preparing) tr.style.opacity = "0.55";
         tbody.appendChild(tr);
       });
       table.appendChild(tbody);
@@ -306,6 +308,7 @@ function serialize() {
     if (it.desc && !it.desc.fr && !it.desc.en) delete it.desc;
     if (!it.photo) delete it.photo;
     if (!it.soldout) delete it.soldout;
+    if (!it.preparing) delete it.preparing;
     if (!it.alcohol) delete it.alcohol;
     if (!it.dineInOnly) delete it.dineInOnly;
     if (!it.vegan) delete it.vegan;

@@ -19,6 +19,7 @@ const i18n = {
     hero_sub: "Restaurant japonais au cœur du Quartier chinois de Montréal.",
     hero_takeout_msg: "Commandez à emporter directement sur notre site web",
     soldout_label: "Épuisé",
+    soon_label: "Bientôt",
     closed_title: "Commandes en ligne fermées pour le moment",
     dinein_label: "sur place seulement",
     lunch_unavailable_label: "disponible après 15 h",
@@ -206,6 +207,7 @@ const i18n = {
     hero_sub: "Japanese restaurant in the heart of Montreal's Chinatown.",
     hero_takeout_msg: "Order takeout directly on our website",
     soldout_label: "Sold out",
+    soon_label: "Coming soon",
     closed_title: "Online ordering is currently closed",
     dinein_label: "dine-in only",
     lunch_unavailable_label: "available after 3pm",
@@ -393,6 +395,7 @@ const i18n = {
     hero_sub: "モントリオール・チャイナタウンの中心にある日本食レストラン。",
     hero_takeout_msg: "テイクアウトは公式サイトから直接ご注文いただけます",
     soldout_label: "売り切れ",
+    soon_label: "近日登場",
     closed_title: "オンライン注文は現在受付時間外です",
     dinein_label: "店内のみ",
     lunch_unavailable_label: "15時以降にご利用可能",
@@ -488,6 +491,7 @@ const i18n = {
     hero_sub: "몬트리올 차이나타운 중심에 있는 일식 레스토랑.",
     hero_takeout_msg: "테이크아웃은 저희 웹사이트에서 직접 주문하실 수 있습니다",
     soldout_label: "품절",
+    soon_label: "출시 예정",
     closed_title: "온라인 주문이 현재 마감되었습니다",
     dinein_label: "매장 전용",
     lunch_unavailable_label: "15시 이후 이용 가능",
@@ -822,7 +826,8 @@ function buildSection(sec, lang, lunchRestrictable) {
     const li = document.createElement("li");
     tagAllergens(li, it);
     if (lunchRestrictable) li.classList.add("lunch-restrict");
-    const soldChip = it.soldout ? `<span class="soldout-chip">${dictFor(lang).soldout_label}</span>` : "";
+    const soldChip = it.preparing ? `<span class="soon-chip">${dictFor(lang).soon_label}</span>`
+      : it.soldout ? `<span class="soldout-chip">${dictFor(lang).soldout_label}</span>` : "";
     const dineInOnly = it.alcohol || it.dineInOnly;
     const dineInChip = (dineInOnly && TAKEOUT_ENABLED) ? `<span class="dinein-chip">${dictFor(lang).dinein_label}</span>` : "";
     const lunchChip = lunchRestrictable ? `<span class="lunch-chip">${dictFor(lang).lunch_unavailable_label}</span>` : "";
@@ -834,11 +839,12 @@ function buildSection(sec, lang, lunchRestrictable) {
       : fmtPrice(it.price);
     li.innerHTML = `<div class="mi-head"><span>${it.name[lang] || it.name.en || it.name.fr}${soldChip}${dineInChip}${lunchChip}</span><span class="dots"></span><span class="price">${priceHtml}</span></div>` +
       (it.desc ? `<p class="mi-desc">${it.desc[lang] || it.desc.en || it.desc.fr || ""}</p>` : "") + allergenHtml + '<p class="alg-warn" hidden></p>' + staffNoteHtml(it.staffNote, lang, "item");
-    if (it.soldout) li.classList.add("soldout");
+    if (it.preparing) li.classList.add("coming-soon");
+    else if (it.soldout) li.classList.add("soldout");
     const actions = document.createElement("span");
     actions.className = "item-actions";
     if (PHOTOS_ENABLED && it.photo) actions.appendChild(photoButton(it, it.name));
-    if (TAKEOUT_ENABLED && !it.soldout && !it.alcohol) {
+    if (TAKEOUT_ENABLED && !it.soldout && !it.preparing && !it.alcohol) {
     const btn = document.createElement("button");
     btn.className = "add-btn" + (lunchRestrictable ? " lunch-restrict-btn" : "");
     btn.type = "button"; btn.textContent = "+";
