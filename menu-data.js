@@ -1496,7 +1496,6 @@ const MENU_DATA = {
               "price": 11,
               "alcohol": true,
               "photo": "img/v7-1788471691188.jpg",
-              "soldout": true,
               "allergens": [
                 "sulphites"
               ]
