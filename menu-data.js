@@ -996,7 +996,9 @@ const MENU_DATA = {
               "vegan": true,
               "desc": {
                 "fr": "Choix : tofu, citrouille, racine de lotus, kakiage, aubergine, champignon shiitaké",
-                "en": "Choices: tofu, pumpkin, lotus root, kakiage, eggplant, shiitake"
+                "en": "Choices: tofu, pumpkin, lotus root, kakiage, eggplant, shiitake",
+                "ja": "選択肢：豆腐、カボチャ、レンコン、キアゲ、ナス、シイタケ",
+                "ko": "선택: 두부, 호박, 연근, 카키아게, 가지, 표고버섯"
               }
             }
           ]
