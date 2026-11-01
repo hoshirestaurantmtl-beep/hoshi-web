@@ -993,7 +993,11 @@ const MENU_DATA = {
                 "soy"
               ],
               "vegetarian": true,
-              "vegan": true
+              "vegan": true,
+              "desc": {
+                "fr": "Choix : tofu, citrouille, racine de lotus, kakiage, aubergine, champignon shiitaké",
+                "en": "Choices: tofu, pumpkin, lotus root, kakiage, eggplant, shiitake"
+              }
             }
           ]
         },
