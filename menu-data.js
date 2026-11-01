@@ -1657,7 +1657,7 @@ const MENU_DATA = {
                 "ja": "バニラジェラート",
                 "ko": "바닐라 젤라토"
               },
-              "price": 6,
+              "price": 6.5,
               "desc": {
                 "fr": "Gelato à la vanille, recette maison — une collaboration avec Gelatopia.",
                 "en": "Vanilla gelato, house recipe — a collaboration with Gelatopia.",
@@ -1708,7 +1708,8 @@ const MENU_DATA = {
               "photo": "img/n9-1788885473098.webp",
               "vegetarian": true,
               "glutenFree": true,
-              "vegan": true
+              "vegan": true,
+              "soldout": true
             }
           ]
         }
