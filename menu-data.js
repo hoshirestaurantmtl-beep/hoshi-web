@@ -1072,8 +1072,8 @@ const MENU_DATA = {
             {
               "id": "e2",
               "name": {
-                "fr": "Tartare de saumon",
-                "en": "Salmon tartare",
+                "fr": "Tartare de saumon épicé",
+                "en": "Spicy salmon tartare",
                 "ja": "サーモンタルタル",
                 "ko": "연어 타르타르"
               },
