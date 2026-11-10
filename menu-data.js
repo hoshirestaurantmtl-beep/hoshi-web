@@ -207,12 +207,6 @@ const MENU_DATA = {
             "ja": "とんかつ",
             "ko": "돈카츠"
           },
-          "note": {
-            "fr": "Plats servis avec pickles japonais (takuan et shibazuke).",
-            "en": "Plates served with Japanese pickles (takuan and shibazuke).",
-            "ja": "定食には漬物（たくあん・しば漬け）が付きます。",
-            "ko": "정식에는 일본식 절임(다쿠앙, 시바즈케)이 함께 나옵니다."
-          },
           "staffNote": {
             "fr": "Tailles — Moyen : 2 morceaux (80–100 g chacun) · Régulier : 1 pièce (200–205 g) · Grand : 3 morceaux (80–100 g chacun). Allergie au poisson : le katsu peut être servi SANS sauce tonkatsu (dashi de poisson). Le chou peut être resservi 1 fois gratuitement (sur place seulement, à dire oralement).",
             "en": "Sizes — Medium: 2 pieces (80–100 g each) · Regular: 1 piece (200–205 g) · Large: 3 pieces (80–100 g each). Fish allergy: katsu can be served WITHOUT tonkatsu sauce (fish dashi). Cabbage: one free refill (dine-in only, tell guests verbally).",
@@ -1111,12 +1105,6 @@ const MENU_DATA = {
             "en": "Hambāgu — Japanese Hamburger Steak",
             "ja": "ハンバーグ",
             "ko": "함바그 — 일본식 햄버그 스테이크"
-          },
-          "note": {
-            "fr": "Préparé avec du bœuf canadien AAA — 130 g / 2 pcs. Steak hamburg supplémentaire (1 mcx) : +7 $",
-            "en": "Made with AAA Canadian beef — 130 g / 2 pcs. Extra hamburg steak (1 pc): +$7",
-            "ja": "カナダ産AAA牛使用 — 130g/2個。ハンバーグ追加（1個）: +7$",
-            "ko": "캐나다산 AAA 소고기 — 130g/2개. 햄버그 추가(1개): +7$"
           },
           "items": [
             {

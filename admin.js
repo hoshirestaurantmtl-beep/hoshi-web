@@ -100,6 +100,31 @@ function render() {
       }
       sdiv.appendChild(shead);
 
+      // Note de section (texte affiché sous le titre de la catégorie, ex. « Plats servis avec… »)
+      const noteRow = document.createElement("div");
+      noteRow.className = "sec-head sec-note-row";
+      const noteLbl = document.createElement("span");
+      noteLbl.textContent = "Note :"; noteLbl.style.cssText = "font-size:0.8rem; color:var(--gris);";
+      noteLbl.title = "Phrase affichée sous le titre de la section, dans toutes les langues. Laisser vide pour ne rien afficher.";
+      noteRow.appendChild(noteLbl);
+      sec.note = sec.note || { fr: "", en: "" };
+      const nf = txt(sec.note, "fr", "Note FR (optionnelle)"); nf.style.flex = "1"; nf.style.minWidth = "220px";
+      const ne = txt(sec.note, "en", "Note EN (optionnelle)"); ne.style.flex = "1"; ne.style.minWidth = "220px";
+      noteRow.appendChild(nf); noteRow.appendChild(ne);
+      const hasJaKoNote = !!(sec.note.ja || sec.note.ko);
+      const clearNote = document.createElement("button");
+      clearNote.className = "btn btn-ghost btn-sm"; clearNote.textContent = "✕ note"; clearNote.title = "Supprimer la note (toutes langues)";
+      clearNote.addEventListener("click", () => { delete sec.note; render(); });
+      noteRow.appendChild(clearNote);
+      if (hasJaKoNote) {
+        const jk = document.createElement("span");
+        jk.style.cssText = "font-size:0.72rem; color:var(--gris);";
+        jk.textContent = "JA/KO présents";
+        jk.title = "Si vous modifiez le FR/EN, pensez à mettre à jour (ou supprimer) la note — le JA/KO ne se traduit pas automatiquement.";
+        noteRow.appendChild(jk);
+      }
+      sdiv.appendChild(noteRow);
+
       const table = document.createElement("table");
       table.innerHTML = `<thead><tr>
         <th>Nom (FR)</th><th>Nom (EN)</th>
@@ -303,6 +328,7 @@ function serialize() {
   const clean = JSON.parse(JSON.stringify(data));
   clean.menus.forEach(m => m.sections.forEach(s => {
     if (!s.alwaysAvailable) delete s.alwaysAvailable;
+    if (s.note && !s.note.fr && !s.note.en) delete s.note; // note vide → rien n'est affiché
   }));
   clean.menus.forEach(m => m.sections.forEach(s => s.items.forEach(it => {
     if (it.desc && !it.desc.fr && !it.desc.en) delete it.desc;

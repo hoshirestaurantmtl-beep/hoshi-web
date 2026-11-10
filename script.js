@@ -807,7 +807,8 @@ function buildSection(sec, lang, lunchRestrictable) {
   const div = document.createElement("div");
   div.className = "menu-section";
   let inner = `<h3 class="menu-cat"><span class="cat-kanji">${sec.kanji || ""}</span> <span>${sec.title[lang] || sec.title.en}</span></h3>`;
-  if (sec.note) inner += `<p class="mi-desc">${sec.note[lang] || sec.note.en}</p>`;
+  const secNote = sec.note && (sec.note[lang] || sec.note.en || sec.note.fr);
+  if (secNote) inner += `<p class="mi-desc">${secNote}</p>`;
   // Note interne (ex. grammages des tailles) : seulement dans /test, jamais pour les clients
   inner += staffNoteHtml(sec.staffNote, lang);
   inner += '<ul class="menu-list"></ul>';
