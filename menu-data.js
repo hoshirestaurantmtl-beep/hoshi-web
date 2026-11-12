@@ -1072,6 +1072,7 @@ const MENU_DATA = {
                 "ko": "연어 타르타르"
               },
               "price": 12,
+              "photo": "img/e2-1794512027200.jpg",
               "allergens": [
                 "gluten",
                 "fish",
@@ -1185,8 +1186,7 @@ const MENU_DATA = {
                 "soy"
               ]
             }
-          ],
-          "alwaysAvailable": true
+          ]
         },
         {
           "kanji": "追加",
