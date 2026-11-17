@@ -186,7 +186,8 @@ const MENU_DATA = {
                 "ja": "芽キャベツ",
                 "ko": "방울양배추"
               },
-              "price": 6.5
+              "price": 6.5,
+              "photo": "img/x20-1794943292108.jpg"
             }
           ],
           "alwaysAvailable": true,
