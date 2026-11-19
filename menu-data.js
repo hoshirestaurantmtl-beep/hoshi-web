@@ -174,7 +174,8 @@ const MENU_DATA = {
               "staffNote": {
                 "fr": "Bientôt. Fromage + oignons frits : sans oignons frits = sans gluten.",
                 "en": "Coming soon. Cheese + fried onions: without fried onions = gluten-free."
-              }
+              },
+              "photo": "img/x19-1795106353173.jpg"
             },
             {
               "id": "x20",
