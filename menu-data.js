@@ -1017,7 +1017,8 @@ const MENU_DATA = {
                 "en": "3 deep-fried breaded horse mackerel, cabbage, tonkatsu sauce, tartar sauce — rice, miso soup, pickles",
                 "ja": "アジフライ3枚・キャベツ・とんかつソース・タルタルソース — ご飯・味噌汁・漬物",
                 "ko": "전갱이 튀김 3, 양배추, 돈카츠 소스, 타르타르 소스 — 밥, 미소국, 절임"
-              }
+              },
+              "photo": "img/a1-1795124800511.jpg"
             },
             {
               "id": "f1",
