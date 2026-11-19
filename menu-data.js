@@ -171,12 +171,10 @@ const MENU_DATA = {
                 "dairy"
               ],
               "vegetarian": true,
-              "preparing": true,
               "staffNote": {
                 "fr": "Bientôt. Fromage + oignons frits : sans oignons frits = sans gluten.",
                 "en": "Coming soon. Cheese + fried onions: without fried onions = gluten-free."
-              },
-              "soldout": true
+              }
             },
             {
               "id": "x20",
