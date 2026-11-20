@@ -48,7 +48,8 @@ const MENU_DATA = {
               "staffNote": {
                 "fr": "Gardé temporairement : retrait prévu environ 2 semaines après le lancement du nouveau menu. Contient des anchois (Worcestershire).",
                 "en": "Kept temporarily: to be removed about 2 weeks after the new menu launch. Contains anchovies (Worcestershire)."
-              }
+              },
+              "soldout": true
             },
             {
               "id": "n5",
