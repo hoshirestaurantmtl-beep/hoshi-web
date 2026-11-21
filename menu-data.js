@@ -1633,7 +1633,8 @@ const MENU_DATA = {
                 "eggs"
               ],
               "vegetarian": true,
-              "glutenFree": true
+              "glutenFree": true,
+              "soldout": true
             },
             {
               "id": "n7",
