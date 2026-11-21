@@ -1133,7 +1133,8 @@ const MENU_DATA = {
               "staffNote": {
                 "fr": "Sur place seulement. Contient des anchois (Worcestershire).",
                 "en": "Dine-in only. Contains anchovies (Worcestershire)."
-              }
+              },
+              "soldout": true
             },
             {
               "id": "h2",
@@ -1158,7 +1159,8 @@ const MENU_DATA = {
                 "eggs",
                 "dairy",
                 "soy"
-              ]
+              ],
+              "soldout": true
             },
             {
               "id": "h3",
@@ -1183,7 +1185,8 @@ const MENU_DATA = {
                 "eggs",
                 "dairy",
                 "soy"
-              ]
+              ],
+              "soldout": true
             }
           ]
         },
