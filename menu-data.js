@@ -155,7 +155,7 @@ const MENU_DATA = {
                 "fr": "Bientôt. Promo prévue : 2 pour 1 sur les commandes livraison de 25 $ et plus.",
                 "en": "Coming soon. Planned promo: 2-for-1 on delivery orders of $25 or more."
               },
-              "photo": "img/x18-1795377590549.jpg"
+              "photo": "img/x18-1795377777013.jpg"
             },
             {
               "id": "x19",
