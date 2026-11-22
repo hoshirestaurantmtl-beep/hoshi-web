@@ -1490,8 +1490,8 @@ const MENU_DATA = {
             {
               "id": "v8",
               "name": {
-                "fr": "Jameson Triple Triple Highball",
-                "en": "Jameson Triple Triple Highball",
+                "fr": "Jameson Stout Edition Highball",
+                "en": "Jameson Stout Edition Highball",
                 "ja": "ジェムソン・トリプル ハイボール",
                 "ko": "제임슨 트리플 하이볼"
               },
