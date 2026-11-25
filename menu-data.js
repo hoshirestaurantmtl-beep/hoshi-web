@@ -75,7 +75,7 @@ const MENU_DATA = {
                 "ja": "コールスロー",
                 "ko": "코울슬로"
               },
-              "price": 4.5,
+              "price": 5.5,
               "photo": "img/e5-1788882356617.jpg",
               "allergens": [
                 "gluten",
