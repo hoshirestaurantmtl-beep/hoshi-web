@@ -1707,9 +1707,9 @@ const MENU_DATA = {
   "settings": {
     "takeout": true,
     "notice": {
-      "on": false,
-      "fr": "📢Avis à notre clientèle📢\n\nEn raison du remplacement de notre vitrine avant, Hoshi sera exceptionnellement fermé pendant environ 3 à 4 heures.\n\nNous rouvrirons dès que les travaux seront terminés. Merci de votre compréhension! \n\nL’équipe Hoshi",
-      "en": "📢Notice to our customers📢\n\nDue to the replacement of our front window, Hoshi will be temporarily closed for approximately 3 to 4 hours.\n\nWe will reopen as soon as the work is completed. Thank you for your understanding! \n\nThe Hoshi Team"
+      "on": true,
+      "fr": "📢Avis à notre clientèle📢\n\nEn raison d’un problème de disjoncteur, nous serons temporairement fermés pendant deux jours à compter du samedi 28 novembre. \n\nNous rouvrirons dès que les travaux seront terminés. Merci de votre compréhension! \n\nL’équipe Hoshi",
+      "en": "📢Notice to our customers📢\n\nDue to a circuit breaker issue, we will be temporarily closed for two days, starting Saturday, November 28.\n\nWe will reopen as soon as the work is completed. Thank you for your understanding! \n\nThe Hoshi Team"
     },
     "hours": [
       {
